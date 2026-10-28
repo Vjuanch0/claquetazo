@@ -147,12 +147,13 @@ textarea.in{resize:vertical;min-height:84px;line-height:1.5}
 .card{display:block;min-width:0}
 .poster{position:relative;aspect-ratio:2/3;max-width:100%;background:var(--surface-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
 .poster img{display:block;width:100%;height:100%;object-fit:cover}
-.ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:12px;
+.ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:12px 12px 46px;
   background:linear-gradient(165deg,hsl(var(--h) 55% 24%),hsl(calc(var(--h) + 24) 60% 9%))}
 .ph-cat{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);font-weight:600}
 .ph-t{font-family:var(--display);font-size:1.6rem;line-height:1;text-transform:uppercase;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow-wrap:anywhere}
 .nota-b{position:absolute;left:8px;bottom:8px;padding:1px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--line);color:var(--vc);font-family:var(--display);font-size:1.3rem;line-height:1.3;letter-spacing:.04em}
-.tag-ej{position:absolute;top:8px;right:8px;padding:2px 6px;border-radius:3px;background:var(--bg);color:var(--ink-dim);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.tag-ej,.tag-priv{position:absolute;top:8px;right:8px;padding:2px 6px;border-radius:3px;background:var(--bg);color:var(--ink-dim);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.tag-priv{right:auto;left:8px;color:var(--lilac)}
 .card-b{padding-top:10px;display:grid;gap:3px}
 .card-cat{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
 .card h3{margin:0;font-size:1rem;font-weight:600;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:anywhere}
@@ -257,6 +258,9 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .ajuste h2{margin:0;font-size:1.1rem}
 .ajuste p{margin:0;color:var(--ink-dim);font-size:15px}
 
+body:not(.con-sesion) .nav-i.mas{display:none}
+.sub-l{text-decoration:underline;color:var(--lilac)}
+
 @media(prefers-reduced-motion:reduce){.arm{animation:none}#toast{transition:none}}
 </style>
 </head>
@@ -273,6 +277,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 </nav>
 <div id="toast" role="status" aria-live="polite"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 (function () {
 'use strict';
@@ -282,6 +287,11 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
    ===================================================================== */
 const MIN_COMENTARIO = 150;   // caracteres mínimos para comentar
 const TOPE_TOP = 50;          // tamaño máximo de los rankings
+
+// La nube (Supabase). La clave "publishable" está hecha para verse en el código; no es secreta.
+const SUPABASE_URL = 'https://kmrmhktllsjsqfpbmjka.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_uAnYR3p8A7l4hOxKq6Li_A_Wls99dM_';
+const BUCKET = 'fotos';
 
 const CATEGORIAS = [
   { id: 'cine',   nombre: 'Cine' },
@@ -314,7 +324,8 @@ const NIVELES = [null,
 const $ = (s, el) => (el || document).querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-const nuevoId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const nuevoId = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+  : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16); });
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 const catNombre = id => (CATEGORIAS.find(c => c.id === id) || { nombre: 'Otros' }).nombre;
 const redondear = n => Math.round(n * 10) / 10;
@@ -374,59 +385,69 @@ function limpiar(html) {
 function textoPlano(html) { const d = document.createElement('div'); d.innerHTML = limpiar(html); return d.textContent || ''; }
 
 /* =====================================================================
-   3. DATOS: guardado en el navegador (IndexedDB). Si falla, queda en memoria.
-      Más adelante este bloque se cambia por Supabase (la nube).
+   3. DATOS: la nube (Supabase) y una copia en este aparato
+      Todo vive en Supabase. La copia local sirve para abrir rápido y sin internet.
    ===================================================================== */
-const DB = (function () {
-  let db = null;
-  const mem = new Map();
-  const meta = new Map();
-  function abrir() {
-    return new Promise(function (ok) {
-      try {
-        const rq = indexedDB.open('claquetazo', 1);
-        rq.onupgradeneeded = function () {
-          rq.result.createObjectStore('items', { keyPath: 'id' });
-          rq.result.createObjectStore('meta', { keyPath: 'k' });
+function abrirIDB(nombre, almacen, clave) {
+  return new Promise(function (ok) {
+    try {
+      const rq = indexedDB.open(nombre, 1);
+      rq.onupgradeneeded = function () { rq.result.createObjectStore(almacen, { keyPath: clave }); };
+      rq.onerror = rq.onblocked = function () { ok(null); };
+      rq.onsuccess = function () {
+        const db = rq.result;
+        const tx = function (modo) { return db.transaction(almacen, modo).objectStore(almacen); };
+        const pedir = function (f) {
+          return new Promise(function (r) {
+            try { const q = f(); q.onsuccess = function () { r(q.result); }; q.onerror = function () { r(null); }; } catch (e) { r(null); }
+          });
         };
-        rq.onsuccess = function () { db = rq.result; ok(); };
-        rq.onerror = function () { ok(); };
-        rq.onblocked = function () { ok(); };
-      } catch (e) { ok(); }
-    });
-  }
-  function pedir(almacen, metodo, arg) {
-    return new Promise(function (ok) {
-      if (!db) return ok(null);
-      try {
-        const r = db.transaction(almacen).objectStore(almacen)[metodo](arg);
-        r.onsuccess = function () { ok(r.result); };
-        r.onerror = function () { ok(null); };
-      } catch (e) { ok(null); }
-    });
-  }
-  function escribir(almacen, accion, valor) {
-    if (!db) return;
-    try { db.transaction(almacen, 'readwrite').objectStore(almacen)[accion](valor); } catch (e) { /* sin guardado */ }
-  }
-  return {
-    abrir: abrir,
-    todos: function () { return db ? pedir('items', 'getAll').then(r => r || []) : Promise.resolve(Array.from(mem.values())); },
-    guardar: function (it) { mem.set(it.id, it); escribir('items', 'put', it); },
-    borrar: function (id) { mem.delete(id); escribir('items', 'delete', id); },
-    leerMeta: function (k) { return db ? pedir('meta', 'get', k).then(r => r ? r.v : null) : Promise.resolve(meta.get(k) || null); },
-    ponerMeta: function (k, v) { meta.set(k, v); escribir('meta', 'put', { k: k, v: v }); }
-  };
-})();
+        ok({
+          todos: function () { return pedir(function () { return tx('readonly').getAll(); }).then(function (x) { return x || []; }); },
+          leer: function (k) { return pedir(function () { return tx('readonly').get(k); }); },
+          poner: function (v) { try { tx('readwrite').put(v); } catch (e) { /* sin copia */ } },
+          borrar: function (k) { try { tx('readwrite').delete(k); } catch (e) { /* nada */ } }
+        });
+      };
+    } catch (e) { ok(null); }
+  });
+}
 
-// Asegura que cada reseña tenga todos sus campos bien (también protege al importar respaldos).
+const Copia = {
+  db: null,
+  async abrir() { this.db = await abrirIDB('claquetazo-nube', 'copia', 'k'); },
+  async leer(k) { if (!this.db) return null; const r = await this.db.leer(k); return r ? r.v : null; },
+  escribir(k, v) { if (this.db) this.db.poner({ k: k, v: v }); }
+};
+
+// Lo que guardaba la primera versión de la app en este aparato (sirve para pasarlo a la nube).
+const Local = {
+  db: null,
+  async abrir() { if (!this.db) this.db = await abrirIDB('claquetazo', 'items', 'id'); return this.db; },
+  async todos() { const d = await this.abrir(); return d ? d.todos() : []; },
+  async borrar(id) { const d = await this.abrir(); if (d) d.borrar(id); }
+};
+
+let sb = null;   // el cliente de Supabase
+function iniciarCliente() {
+  try { if (window.supabase && window.supabase.createClient) sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch (e) { sb = null; }
+  return !!sb;
+}
+function urlFoto(path) {
+  if (!path || !sb) return null;
+  try { return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl; } catch (e) { return null; }
+}
+
+// Asegura que cada reseña tenga todos sus campos bien.
 function normalizar(r) {
   r = r || {};
   const cat = CATEGORIAS.some(c => c.id === r.categoria) ? r.categoria : 'otros';
   let nota = Number(r.nota); if (!isFinite(nota)) nota = 3;
   nota = redondear(Math.max(1, Math.min(5, nota)));
+  const https = s => (typeof s === 'string' && /^https:\/\//.test(s)) ? s : null;
+  const ruta = s => (typeof s === 'string' && s) ? s : null;
   return {
-    id: (typeof r.id === 'string' && /^[a-z0-9]+$/i.test(r.id)) ? r.id : nuevoId(),
+    id: (typeof r.id === 'string' && /^[a-z0-9-]+$/i.test(r.id)) ? r.id : nuevoId(),
     titulo: String(r.titulo || 'Sin título').slice(0, 200),
     categoria: cat,
     generos: Array.isArray(r.generos) ? r.generos.map(g => String(g).slice(0, 30)).slice(0, 12) : [],
@@ -435,51 +456,70 @@ function normalizar(r) {
     nota: nota,
     veredicto: String(r.veredicto || '').slice(0, 120),
     resenia: typeof r.resenia === 'string' ? r.resenia : '',
-    foto: (typeof r.foto === 'string' && r.foto.indexOf('data:image/') === 0) ? r.foto : null,
+    foto: https(r.foto), thumb: https(r.thumb), fotoPath: ruta(r.fotoPath), thumbPath: ruta(r.thumbPath),
+    publica: !!r.publica,
     creado: Number(r.creado) || Date.now(),
     fav: Number.isInteger(r.fav) ? r.fav : null,
     comentarios: Array.isArray(r.comentarios) ? r.comentarios.filter(c => c && typeof c.texto === 'string').map(c => ({
-      id: String(c.id || nuevoId()).replace(/[^a-z0-9]/gi, '') || nuevoId(),
+      id: String(c.id || nuevoId()).replace(/[^a-z0-9-]/gi, '') || nuevoId(),
       texto: c.texto.slice(0, 5000),
       fecha: Number(c.fecha) || Date.now()
-    })) : [],
-    ejemplo: !!r.ejemplo
+    })) : []
   };
 }
 
-// Reseñas de ejemplo para que la app no arranque vacía. Se borran con un botón.
-const EJEMPLOS = [
-  { titulo: 'Scream', categoria: 'cine', generos: ['Slasher', 'Horror'], fecha: '1996-12-20', descripcion: 'Dirigida por Wes Craven.', nota: 4.6, fav: 3,
-    veredicto: 'Se burla del género mientras lo hace mejor que nadie.',
-    resenia: '<h2>El susto que se ríe de sí mismo</h2><p>Lo que más me gusta de <i>Scream</i> es que conoce todas las reglas del slasher y las usa en contra del espectador. Uno cree que sabe qué viene y justo ahí le cambian el juego.</p><blockquote>La mejor escena es la primera. Con eso ya te tienen.</blockquote><p>Se le notan los años en algunos diálogos, pero la tensión sigue intacta. Verla de noche y con las luces apagadas es obligatorio.</p>' },
-  { titulo: 'Cats', categoria: 'cine', generos: ['Musical', 'Fantasía'], fecha: '2019-12-20', descripcion: 'Dirigida por Tom Hooper. Basada en el musical de Andrew Lloyd Webber.', nota: 1.3,
-    veredicto: 'Dos horas preguntándose quién aprobó esto.',
-    resenia: '<h2>Un error carísimo</h2><p>No sé por dónde empezar. Los efectos visuales dan más incomodidad que ternura y la historia casi no existe.</p><p>Lo único rescatable es la ambición, porque se nota que alguien creyó que esto iba a funcionar. Se la recomiendo solo a quien quiera reírse de verdad.</p>' },
-  { titulo: 'Abbey Road', categoria: 'musica', generos: ['Rock'], fecha: '1969-09-26', descripcion: 'The Beatles. Álbum de estudio.', nota: 5, fav: 1,
-    veredicto: 'Un álbum que se escucha entero o no se escucha.',
-    resenia: '<h2>El lado B que no envejece</h2><p>La segunda mitad funciona como una sola canción larga, y ahí es donde el álbum se vuelve inmortal. No hay relleno y cada transición está pensada.</p><p>Se escucha de principio a fin, sin saltar nada, y todavía suena fresco.</p>' },
-  { titulo: 'Cien años de soledad', categoria: 'libros', generos: ['Novela', 'Ficción'], fecha: '1967-05-30', descripcion: 'Gabriel García Márquez.', nota: 4.8, fav: 2,
-    veredicto: 'Macondo se queda en la cabeza mucho después del último capítulo.',
-    resenia: '<h2>Macondo no se olvida</h2><p>La primera vez cuesta entrar por tantos nombres repetidos. Después uno entiende que esa repetición es parte del hechizo.</p><blockquote>Lo mágico se cuenta como si fuera normal, y por eso funciona.</blockquote><p>Es una novela para leer despacio, con lápiz y con paciencia.</p>' },
-  { titulo: 'Brasil 2 - 1 Colombia', categoria: 'futbol', generos: ['Mundial'], fecha: '2014-07-04', descripcion: 'Cuartos de final del Mundial 2014, en Fortaleza.', nota: 4.2,
-    veredicto: 'Se perdió, pero se jugó con el alma.',
-    resenia: '<h2>Perder con la cabeza en alto</h2><p>Fue un partido de mucha entrega y un final amargo. Colombia compitió de tú a tú contra el anfitrión y dejó una imagen que todavía se recuerda.</p><p>Duele, pero es un partido para volver a ver.</p>' },
-  { titulo: 'Cuando Harry conoció a Sally', categoria: 'cine', generos: ['Comedia romántica'], fecha: '1989-07-12', descripcion: 'Dirigida por Rob Reiner.', nota: 3.9,
-    veredicto: 'Charla bonita que envejeció mejor que muchas de su época.',
-    resenia: '<h2>Hablar es la mitad de la historia</h2><p>Casi toda la película son dos personas conversando, y aun así no aburre. Los diálogos están afilados y la química se siente real.</p><p>Algunos chistes ya no aterrizan igual, pero el corazón de la historia sigue en pie.</p>' }
-].map(function (e, i) { e.ejemplo = true; e.creado = Date.now() - i * 1000; return e; });
+// Una fila de la tabla "reviews" -> una reseña de la app
+function desdeFila(f) {
+  return normalizar({
+    id: f.id, titulo: f.titulo, categoria: f.categoria, generos: f.generos, fecha: f.fecha, descripcion: f.descripcion,
+    nota: f.nota, veredicto: f.veredicto, resenia: f.resenia, fotoPath: f.foto_path, thumbPath: f.thumb_path,
+    foto: urlFoto(f.foto_path), thumb: urlFoto(f.thumb_path), fav: f.fav, publica: f.publica, creado: Date.parse(f.created_at)
+  });
+}
 
 /* =====================================================================
    4. ESTADO
    ===================================================================== */
-const estado = { items: [], cat: 'todo', q: '', orden: 'recientes', topTab: 'favoritas', topCat: 'todo', topGen: 'todos', ed: null };
+const estado = {
+  items: [], sesion: null, cargando: true, sinConexion: false, iniciado: false, guardando: false, locales: 0,
+  cat: 'todo', q: '', orden: 'recientes', topTab: 'favoritas', topCat: 'todo', topGen: 'todos', ed: null
+};
 const porId = id => estado.items.find(x => x.id === id);
+const claveCopia = () => 'items-' + (estado.sesion ? estado.sesion.id : 'anon');
+
+async function cargarItems() {
+  if (!sb) throw new Error('sin cliente');
+  const r = await sb.from('reviews').select('*').order('created_at', { ascending: false });
+  if (r.error) throw r.error;
+  estado.items = r.data.map(desdeFila);
+  estado.sinConexion = false;
+  Copia.escribir(claveCopia(), estado.items);
+}
+
+async function refrescar() {
+  estado.cargando = true;
+  try { await cargarItems(); }
+  catch (e) {
+    console.error(e);
+    estado.sinConexion = true;
+    if (!estado.items.length) { const c = await Copia.leer(claveCopia()); if (c) estado.items = c.map(normalizar); }
+  }
+  estado.cargando = false;
+}
+
+async function cargarComentarios(id) {
+  const it = porId(id); if (!it || !sb) return;
+  const r = await sb.from('comments').select('*').eq('review_id', id).order('created_at', { ascending: true });
+  if (r.error) throw r.error;
+  it.comentarios = r.data.map(c => ({ id: c.id, texto: c.texto, fecha: Date.parse(c.created_at) }));
+}
 
 /* =====================================================================
    5. PIEZAS DE PANTALLA
    ===================================================================== */
-function portada(it) {
-  if (it.foto) return '<img src="' + esc(it.foto) + '" alt="" loading="lazy">';
+function portada(it, grande) {
+  const src = grande ? (it.foto || it.thumb) : (it.thumb || it.foto);
+  if (src) return '<img src="' + esc(src) + '" alt="" loading="lazy">';
   const h = 250 + (hash(it.titulo) % 80);
   return '<div class="ph" style="--h:' + h + '"><span class="ph-cat">' + esc(catNombre(it.categoria)) + '</span><span class="ph-t">' + esc(it.titulo) + '</span></div>';
 }
@@ -488,7 +528,7 @@ function tarjeta(it) {
   const nv = nivel(it.nota);
   const anio = it.fecha ? it.fecha.slice(0, 4) : '';
   return '<a class="card" href="#r-' + it.id + '" style="--vc:' + nv.color + '">' +
-    '<div class="poster">' + portada(it) + '<span class="nota-b">' + it.nota.toFixed(1) + '</span>' + (it.ejemplo ? '<span class="tag-ej">Ejemplo</span>' : '') + '</div>' +
+    '<div class="poster">' + portada(it) + '<span class="nota-b">' + it.nota.toFixed(1) + '</span>' + (!it.publica ? '<span class="tag-priv">Privada</span>' : '') + '</div>' +
     '<div class="card-b"><span class="card-cat">' + esc(catNombre(it.categoria)) + (anio ? ' · ' + esc(anio) : '') + '</span>' +
     '<h3>' + esc(it.titulo) + '</h3>' +
     '<div class="card-s">' + plones(it.nota, 'chico') + '<span class="palabra">' + nv.nombre + '</span></div></div></a>';
@@ -514,8 +554,12 @@ function filtrados() {
 function gridHTML() {
   const l = filtrados();
   if (l.length) return l.map(tarjeta).join('');
+  if (estado.cargando && !estado.items.length) return '<div class="vacio-box"><strong>Cargando reseñas…</strong></div>';
   if (!estado.items.length) {
-    return '<div class="vacio-box"><strong>Aquí van a vivir tus reseñas.</strong><span>Agrega la primera: una peli, un álbum, un libro o un partido.</span><a class="btn prim" href="#agregar">Agregar reseña</a></div>';
+    if (estado.sinConexion) return '<div class="vacio-box"><strong>Sin conexión.</strong><span>Todavía no hay una copia guardada en este aparato. Conéctate a internet para ver las reseñas.</span><button class="btn prim" data-action="reintentar">Reintentar</button></div>';
+    return estado.sesion
+      ? '<div class="vacio-box"><strong>Aquí van a vivir tus reseñas.</strong><span>Agrega la primera: una peli, un álbum, un libro o un partido.</span><a class="btn prim" href="#agregar">Agregar reseña</a></div>'
+      : '<div class="vacio-box"><strong>Todavía no hay reseñas públicas.</strong><span>Vuelve pronto.</span></div>';
   }
   return '<div class="vacio-box"><strong>No hay nada por aquí.</strong><span>' + (estado.q ? 'Ninguna reseña coincide con «' + esc(estado.q) + '».' : 'Todavía no hay reseñas en esta categoría.') + '</span></div>';
 }
@@ -537,21 +581,21 @@ function vistaBienvenida() {
     '<h1 class="marca">Claquetazo</h1>' +
     '<p class="lema">Luces, cámara y sin palabras</p>' +
     '<ol class="escala" aria-label="Escala de notas">' + escala + '</ol>' +
-    '<button class="btn prim grande" data-action="entrar">Entrar</button>' +
+    '<button class="btn prim grande" data-action="empezar">Empezar</button>' +
   '</section>';
 }
 
 /* ---------- Home ---------- */
 function vistaInicio() {
   const n = estado.items.length;
-  const hayEj = estado.items.some(i => i.ejemplo);
   const conteo = id => estado.items.filter(i => i.categoria === id).length;
   const tabs = [{ id: 'todo', nombre: 'Todo', n: n }].concat(CATEGORIAS.map(c => ({ id: c.id, nombre: c.nombre, n: conteo(c.id) })))
     .map(t => '<button class="tab" role="tab" aria-selected="' + (estado.cat === t.id) + '" data-action="filtro" data-cat="' + t.id + '">' + t.nombre + '<small>' + t.n + '</small></button>').join('');
   const op = (v, t) => '<option value="' + v + '"' + (estado.orden === v ? ' selected' : '') + '>' + t + '</option>';
   return '<h1 class="vh">Inicio</h1>' +
-    '<header class="cab"><a class="logo" href="#inicio" aria-label="Claquetazo, inicio"><i class="rayitas"></i>Claquetazo</a><span class="cuenta">' + n + ' reseña' + (n === 1 ? '' : 's') + '</span></header>' +
-    (hayEj ? '<div class="aviso"><span>Las tarjetas con la etiqueta «Ejemplo» son de muestra. Puedes editarlas o borrarlas.</span><button class="btn" data-action="borrar-ejemplos">Borrar ejemplos</button></div>' : '') +
+    '<header class="cab"><a class="logo" href="#inicio" aria-label="Claquetazo, inicio"><i class="rayitas"></i>Claquetazo</a>' +
+    '<span class="cuenta">' + n + ' reseña' + (n === 1 ? '' : 's') + (estado.sesion ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</span></header>' +
+    (estado.sinConexion && estado.items.length ? '<div class="aviso"><span>Sin conexión. Estás viendo la última copia guardada en este aparato.</span><button class="btn" data-action="reintentar">Reintentar</button></div>' : '') +
     '<div class="buscar"><label class="vh" for="q">Buscar</label><input id="q" class="in" type="search" placeholder="Buscar por título, género o categoría" value="' + esc(estado.q) + '" autocomplete="off">' +
     '<label class="vh" for="orden">Ordenar</label><select id="orden" class="in">' + op('recientes', 'Recientes') + op('mejor', 'Mejor nota') + op('peor', 'Peor nota') + op('az', 'A – Z') + '</select></div>' +
     '<div class="tabs" role="tablist" aria-label="Categorías">' + tabs + '</div>' +
@@ -562,17 +606,19 @@ function vistaInicio() {
 function vistaDetalle(id) {
   const it = porId(id);
   if (!it) {
+    if (estado.cargando) return '<a class="volver" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a><p class="ayuda">Cargando…</p>';
     return '<a class="volver" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
-      '<div class="vacio-box"><strong>No encontré esa reseña.</strong><span>Puede que la hayas borrado.</span><a class="btn prim" href="#inicio">Ir al inicio</a></div>';
+      '<div class="vacio-box"><strong>No encontré esa reseña.</strong><span>Puede que la hayan borrado o que ahora sea privada.</span><a class="btn prim" href="#inicio">Ir al inicio</a></div>';
   }
   const nv = nivel(it.nota);
   const palabras = textoPlano(it.resenia).trim().split(/\s+/).filter(Boolean).length;
   const min = Math.max(1, Math.ceil(palabras / 200));
   const cuerpo = limpiar(it.resenia);
   const generos = it.generos.map(g => '<span>' + esc(g) + '</span>').join('');
+  const dueno = !!estado.sesion;
   return '<a class="volver" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
     '<article style="--vc:' + nv.color + '">' +
-    '<header class="d-cab"><div class="poster">' + portada(it) + (it.ejemplo ? '<span class="tag-ej">Ejemplo</span>' : '') + '</div>' +
+    '<header class="d-cab"><div class="poster">' + portada(it, true) + (!it.publica ? '<span class="tag-priv">Privada</span>' : '') + '</div>' +
       '<div class="d-info"><p class="meta">' + esc(catNombre(it.categoria)) + (it.fecha ? ' · ' + esc(fmtFecha(it.fecha)) : '') + '</p>' +
       '<h1>' + esc(it.titulo) + '</h1>' +
       (generos ? '<div class="chips-ro">' + generos + '</div>' : '') +
@@ -583,28 +629,37 @@ function vistaDetalle(id) {
     (it.veredicto ? '<p class="titular">' + esc(it.veredicto) + '</p>' : '') +
     '<div class="prosa">' + (cuerpo || '<p class="vacio">Esta reseña todavía no tiene texto.</p>') + '</div>' +
     (cuerpo ? '<p class="lectura-t">' + min + ' min de lectura</p>' : '') +
-    '<div class="acciones">' +
+    (dueno ? '<div class="acciones">' +
       '<a class="btn" href="#editar-' + it.id + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Editar</a>' +
       '<button class="btn fav-b' + (it.fav != null ? ' on' : '') + '" data-action="fav-toggle" data-id="' + it.id + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z"/></svg>' + (it.fav != null ? 'Quitar de favoritas' : 'Agregar a favoritas') + '</button>' +
-      '<button class="btn peligro" data-action="borrar" data-id="' + it.id + '">Borrar</button>' +
-    '</div></article>' +
-    '<section class="coms" aria-labelledby="coms-t"><h2 class="sec" id="coms-t" style="margin-top:34px">Comentarios (' + it.comentarios.length + ')</h2>' +
+      '<button class="btn peligro" data-action="borrar" data-id="' + it.id + '">Borrar</button></div>' : '') +
+    '</article>' +
+    '<section class="coms" aria-labelledby="coms-t"><h2 class="sec" id="coms-t" style="margin-top:34px">Comentarios (<span id="coms-n">' + it.comentarios.length + '</span>)</h2>' +
       '<div id="lista-coms">' + comentariosHTML(it) + '</div>' +
-      '<form id="fcom" class="campo" data-id="' + it.id + '"><label for="com-texto">Agrega un comentario</label>' +
-      '<textarea id="com-texto" class="in" rows="5" placeholder="Escribe con calma. Mínimo ' + MIN_COMENTARIO + ' caracteres para que valga la pena."></textarea>' +
-      '<div class="barra-g"><button class="btn prim" id="com-btn" type="submit" disabled>Publicar comentario</button><span class="contador" id="com-cont">0 / ' + MIN_COMENTARIO + '</span></div></form></section>';
+      (dueno
+        ? '<form id="fcom" class="campo" data-id="' + it.id + '"><label for="com-texto">Agrega un comentario</label>' +
+          '<textarea id="com-texto" class="in" rows="5" placeholder="Escribe con calma. Mínimo ' + MIN_COMENTARIO + ' caracteres para que valga la pena."></textarea>' +
+          '<div class="barra-g"><button class="btn prim" id="com-btn" type="submit" disabled>Publicar comentario</button><span class="contador" id="com-cont">0 / ' + MIN_COMENTARIO + '</span></div></form>'
+        : '<p class="ayuda">Los comentarios de los visitantes abrirán pronto.</p>') +
+    '</section>';
 }
 function comentariosHTML(it) {
   if (!it.comentarios.length) return '<p class="ayuda" style="margin-bottom:16px">Todavía no hay comentarios.</p>';
-  return '<ul>' + it.comentarios.map(c => '<li><p>' + esc(c.texto) + '</p><footer><span>' + fmtFechaMs(c.fecha) + '</span><button class="link-b" data-action="borrar-com" data-id="' + it.id + '" data-cid="' + c.id + '">Borrar</button></footer></li>').join('') + '</ul>';
+  return '<ul>' + it.comentarios.map(c => '<li><p>' + esc(c.texto) + '</p><footer><span>' + fmtFechaMs(c.fecha) + '</span>' +
+    (estado.sesion ? '<button class="link-b" data-action="borrar-com" data-id="' + it.id + '" data-cid="' + c.id + '">Borrar</button>' : '') + '</footer></li>').join('') + '</ul>';
+}
+function pintarComentarios(it) {
+  const l = $('#lista-coms'); if (!l || !it) return;
+  l.innerHTML = comentariosHTML(it);
+  const n = $('#coms-n'); if (n) n.textContent = it.comentarios.length;
 }
 
 /* ---------- Editor (agregar / editar) ---------- */
 function iniciarEditor(id) {
   const it = id ? porId(id) : null;
   estado.ed = it
-    ? { id: it.id, foto: it.foto, categoria: it.categoria, generos: it.generos.slice(), nota: it.nota, base: it }
-    : { id: null, foto: null, categoria: 'cine', generos: [], nota: 3, base: null };
+    ? { id: it.id, foto: it.foto, nuevaFoto: null, categoria: it.categoria, generos: it.generos.slice(), nota: it.nota, publica: it.publica, base: it }
+    : { id: null, foto: null, nuevaFoto: null, categoria: 'cine', generos: [], nota: 3, publica: false, base: null };
 }
 function chipsCategoria() {
   return CATEGORIAS.map(c => '<button type="button" class="chip" aria-pressed="' + (estado.ed.categoria === c.id) + '" data-action="ed-cat" data-cat="' + c.id + '">' + c.nombre + '</button>').join('');
@@ -617,6 +672,13 @@ function chipsGeneros() {
 function notaPrevHTML() {
   const n = estado.ed.nota, nv = nivel(n);
   return '<div class="nota-prev" style="--vc:' + nv.color + '"><span class="vb-num">' + n.toFixed(1) + '</span>' + plones(n, 'grande') + '<span class="vb-pal">' + nv.nombre + '</span></div>';
+}
+function visHTML() {
+  const p = estado.ed.publica;
+  return '<div class="chips" role="group" aria-label="Quién la puede ver">' +
+    '<button type="button" class="chip" aria-pressed="' + (!p) + '" data-action="ed-vis" data-v="0">Privada</button>' +
+    '<button type="button" class="chip" aria-pressed="' + p + '" data-action="ed-vis" data-v="1">Pública</button></div>' +
+    '<p class="ayuda">' + (p ? 'Cualquiera con el link de Claquetazo la puede leer.' : 'Solo tú la ves, cuando inicias sesión.') + '</p>';
 }
 function fotoEdHTML() {
   const f = estado.ed.foto;
@@ -646,8 +708,9 @@ function vistaEditor() {
         '<div class="tbar" role="toolbar" aria-label="Formato"><button type="button" class="tb" data-action="ed-fmt" data-cmd="bold" aria-label="Negrilla"><b>B</b></button><button type="button" class="tb" data-action="ed-fmt" data-cmd="italic" aria-label="Cursiva"><i>I</i></button>' +
         '<button type="button" class="tb" data-action="ed-fmt" data-cmd="h2" aria-label="Título">Título</button><button type="button" class="tb" data-action="ed-fmt" data-cmd="quote" aria-label="Cita">Cita</button><button type="button" class="tb" data-action="ed-fmt" data-cmd="list" aria-label="Lista">Lista</button></div>' +
         '<div id="f-resenia" class="rte" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="lbl-res" data-ph="Escribe aquí, sin filtro...">' + limpiar(v.resenia) + '</div></div>' +
+      '<div class="campo"><span class="lbl">Quién la puede ver</span><div id="vis">' + visHTML() + '</div></div>' +
       '<p class="error" id="f-error" role="alert" hidden></p>' +
-      '<div class="barra-g"><button type="submit" class="btn prim grande">Guardar</button><a class="btn" href="' + (nuevo ? '#inicio' : '#r-' + b.id) + '">Cancelar</a></div>' +
+      '<div class="barra-g"><button type="submit" id="f-guardar" class="btn prim grande">Guardar</button><a class="btn" href="' + (nuevo ? '#inicio' : '#r-' + b.id) + '">Cancelar</a></div>' +
     '</form>';
 }
 
@@ -671,22 +734,23 @@ const EQUIS = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M
 const MAS = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
 
 function vistaTop() {
-  const t = estado.topTab;
+  const t = estado.topTab, dueno = !!estado.sesion;
   const sub = [['favoritas', 'Favoritas'], ['mejores', 'Mejores'], ['peores', 'Peores']]
     .map(x => '<button class="chip" aria-pressed="' + (t === x[0]) + '" data-action="top-tab" data-tab="' + x[0] + '">' + x[1] + '</button>').join('');
   let cuerpo = '';
   if (t === 'favoritas') {
     const f = listaFavs();
-    cuerpo = '<p class="ayuda" style="margin-bottom:14px">Tu orden manual, hasta ' + TOPE_TOP + ' puestos. Ahora tienes ' + f.length + '.</p>';
+    cuerpo = '<p class="ayuda" style="margin-bottom:14px">' + (dueno ? 'Tu orden manual, hasta ' + TOPE_TOP + ' puestos. Ahora tienes ' + f.length + '.' : 'Las favoritas de Juancho, en su orden.') + '</p>';
     if (!f.length) {
-      cuerpo += '<div class="vacio-box"><strong>Todavía no hay favoritas.</strong><span>Abre una reseña y toca «Agregar a favoritas», o elige una de las candidatas de abajo.</span></div>';
+      cuerpo += '<div class="vacio-box"><strong>Todavía no hay favoritas.</strong><span>' + (dueno ? 'Abre una reseña y toca «Agregar a favoritas», o elige una de las candidatas de abajo.' : 'Vuelve pronto.') + '</span></div>';
     } else {
-      cuerpo += '<ol class="rk">' + f.map((it, i) => filaRank(it, i + 1,
-        '<div class="rk-ctrl"><button class="ib" data-action="fav-up" data-id="' + it.id + '" aria-label="Subir un puesto"' + (i === 0 ? ' disabled' : '') + '>' + FLECHA_ARRIBA + '</button>' +
-        '<button class="ib" data-action="fav-down" data-id="' + it.id + '" aria-label="Bajar un puesto"' + (i === f.length - 1 ? ' disabled' : '') + '>' + FLECHA_ABAJO + '</button>' +
-        '<button class="ib" data-action="fav-quitar" data-id="' + it.id + '" aria-label="Quitar de favoritas">' + EQUIS + '</button></div>')).join('') + '</ol>';
+      cuerpo += '<ol class="rk">' + f.map((it, i) => filaRank(it, i + 1, dueno
+        ? '<div class="rk-ctrl"><button class="ib" data-action="fav-up" data-id="' + it.id + '" aria-label="Subir un puesto"' + (i === 0 ? ' disabled' : '') + '>' + FLECHA_ARRIBA + '</button>' +
+          '<button class="ib" data-action="fav-down" data-id="' + it.id + '" aria-label="Bajar un puesto"' + (i === f.length - 1 ? ' disabled' : '') + '>' + FLECHA_ABAJO + '</button>' +
+          '<button class="ib" data-action="fav-quitar" data-id="' + it.id + '" aria-label="Quitar de favoritas">' + EQUIS + '</button></div>'
+        : '')).join('') + '</ol>';
     }
-    const cand = estado.items.filter(i => i.fav == null && i.nota >= 4.5).sort((a, b) => b.nota - a.nota).slice(0, 10);
+    const cand = dueno ? estado.items.filter(i => i.fav == null && i.nota >= 4.5).sort((a, b) => b.nota - a.nota).slice(0, 10) : [];
     if (cand.length) {
       cuerpo += '<h2 class="sec">Candidatas</h2><p class="ayuda" style="margin-bottom:12px">Reseñas con 4.5 o más que todavía no están en tu top.</p><ol class="rk">' +
         cand.map(it => filaRank(it, '·', '<div class="rk-ctrl"><button class="ib" data-action="fav-add" data-id="' + it.id + '" aria-label="Agregar a favoritas">' + MAS + '</button></div>')).join('') + '</ol>';
@@ -706,15 +770,33 @@ function vistaTop() {
   return '<h1 class="pag">Rankings</h1><div class="sub" role="group" aria-label="Tipo de ranking">' + sub + '</div>' + cuerpo;
 }
 
-/* ---------- Ajustes ---------- */
+/* ---------- Entrar y Ajustes ---------- */
+function vistaEntrar() {
+  return '<a class="volver" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
+    '<h1 class="pag">Entrar</h1>' +
+    '<form id="flogin" class="form" novalidate>' +
+      '<p class="ayuda">Solo el dueño de Claquetazo puede agregar y editar reseñas.</p>' +
+      '<div class="campo"><label for="login-email">Correo</label><input id="login-email" class="in" type="email" autocomplete="username" inputmode="email" autocapitalize="off"></div>' +
+      '<div class="campo"><label for="login-clave">Contraseña</label><input id="login-clave" class="in" type="password" autocomplete="current-password"></div>' +
+      '<p class="error" id="login-error" role="alert" hidden></p>' +
+      '<div class="barra-g"><button type="submit" id="login-btn" class="btn prim grande">Entrar</button></div>' +
+    '</form>';
+}
+
 function vistaAjustes() {
   let enMarco = false; try { enMarco = window.self !== window.top; } catch (e) { enMarco = true; }
-  return '<h1 class="pag">Ajustes</h1>' +
-    '<div class="ajuste"><h2>Respaldo</h2><p>Tus reseñas viven solo en este dispositivo. Descarga un respaldo de vez en cuando y úsalo para pasarlas a otro aparato.</p>' +
+  const cuenta = estado.sesion
+    ? '<div class="ajuste"><h2>Tu cuenta</h2><p>Sesión iniciada como <b>' + esc(estado.sesion.email || '') + '</b>.</p><button class="btn" data-action="salir">Cerrar sesión</button></div>'
+    : '<div class="ajuste"><h2>Entrar</h2><p>Solo el dueño de Claquetazo puede agregar y editar reseñas.</p><a class="btn prim" href="#entrar">Entrar</a></div>';
+  const migrar = (estado.sesion && estado.locales > 0)
+    ? '<div class="ajuste"><h2>Reseñas guardadas en este aparato</h2><p>Encontré ' + estado.locales + ' reseña' + (estado.locales === 1 ? '' : 's') + ' de la versión anterior. Súbelas a la nube para verlas en todos tus aparatos. Quedan como privadas.</p><button class="btn prim" data-action="migrar">Subir a la nube</button></div>'
+    : '';
+  const respaldo = estado.sesion
+    ? '<div class="ajuste"><h2>Respaldo</h2><p>Descarga un archivo con el texto de tus reseñas por si algún día lo necesitas. Las fotos no van en el archivo, se quedan en la nube. Importar agrega las reseñas del archivo como nuevas.</p>' +
       '<div class="barra-g"><button class="btn" data-action="exportar">Descargar respaldo</button><label class="btn" for="f-importar">Importar respaldo</label><input class="vh" type="file" id="f-importar" accept="application/json,.json"></div>' +
-      (enMarco ? '<p class="ayuda">En esta vista previa la descarga no funciona. En la app instalada o abierta en el navegador sí.</p>' : '') + '</div>' +
-    '<div class="ajuste"><h2>Ejemplos</h2><p>Quita las reseñas de muestra cuando quieras empezar con las tuyas.</p><button class="btn" data-action="borrar-ejemplos">Borrar ejemplos</button></div>' +
-    '<div class="ajuste"><h2>Siguiente paso</h2><p>Pasar los datos a una base en la nube (Supabase, gratis) para verlos igual en el celular y en Windows, y abrirlos a otras personas.</p></div>';
+      (enMarco ? '<p class="ayuda">En esta vista previa la descarga no funciona. En la app instalada o abierta en el navegador sí.</p>' : '') + '</div>'
+    : '';
+  return '<h1 class="pag">Ajustes</h1>' + cuenta + migrar + respaldo;
 }
 
 /* =====================================================================
@@ -722,14 +804,19 @@ function vistaAjustes() {
    ===================================================================== */
 function render(cambioDeRuta) {
   const h = location.hash.slice(1);
+  const rutaEditor = h === 'agregar' || h.indexOf('editar-') === 0;
+  if (rutaEditor && estado.iniciado && !estado.sesion) { location.hash = '#entrar'; return; }
+  if (h === 'entrar' && estado.sesion) { location.hash = '#ajustes'; return; }
   let html = '', sec = '';
   document.body.classList.toggle('en-bienvenida', !h);
   if (!h) { html = vistaBienvenida(); }
   else if (h === 'inicio') { html = vistaInicio(); sec = 'inicio'; }
+  else if (rutaEditor && !estado.iniciado) { html = '<p class="ayuda">Cargando…</p>'; sec = 'agregar'; }
   else if (h === 'agregar') { if (cambioDeRuta || !estado.ed) iniciarEditor(null); html = vistaEditor(); sec = 'agregar'; }
   else if (h.indexOf('editar-') === 0) { if (cambioDeRuta || !estado.ed) iniciarEditor(h.slice(7)); html = estado.ed && estado.ed.base ? vistaEditor() : vistaDetalle(''); sec = 'agregar'; }
   else if (h === 'top') { html = vistaTop(); sec = 'top'; }
   else if (h === 'ajustes') { html = vistaAjustes(); sec = 'ajustes'; }
+  else if (h === 'entrar') { html = vistaEntrar(); sec = 'ajustes'; }
   else if (h.indexOf('r-') === 0) { html = vistaDetalle(h.slice(2)); sec = 'inicio'; }
   else { location.hash = '#inicio'; return; }
   $('#vista').innerHTML = html;
@@ -737,6 +824,19 @@ function render(cambioDeRuta) {
     if (a.dataset.sec === sec) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
   if (cambioDeRuta) window.scrollTo(0, 0);
+  if (h.indexOf('r-') === 0 && sb && porId(h.slice(2))) {
+    const rid = h.slice(2);
+    cargarComentarios(rid).then(function () { if (location.hash === '#r-' + rid) pintarComentarios(porId(rid)); }).catch(function () { /* se queda sin comentarios */ });
+  }
+}
+
+// Vuelve a dibujar sin molestar si la persona está escribiendo.
+function renderSuave() {
+  const h = location.hash.slice(1);
+  if (h === 'agregar' || h.indexOf('editar-') === 0) { if (estado.iniciado && !estado.sesion) render(true); return; }
+  const a = document.activeElement;
+  if (a && (a.id === 'com-texto' || a.id === 'login-email' || a.id === 'login-clave')) return;
+  render(false);
 }
 
 let temporizador;
@@ -750,73 +850,144 @@ function toast(msg) {
 /* =====================================================================
    7. ACCIONES (todo lo que pasa al tocar algo)
    ===================================================================== */
-function guardarFavs(lista) { lista.forEach((it, i) => { if (it.fav !== i + 1) { it.fav = i + 1; DB.guardar(it); } }); }
-function agregarFav(id) {
-  const it = porId(id), l = listaFavs();
-  if (!it || it.fav != null) return;
-  if (l.length >= TOPE_TOP) { toast('Tu top ' + TOPE_TOP + ' está lleno. Quita una favorita primero.'); return; }
-  it.fav = l.length + 1; DB.guardar(it);
-}
-function quitarFav(id) {
-  const it = porId(id); if (!it) return;
-  it.fav = null; DB.guardar(it); guardarFavs(listaFavs());
-}
-function moverFav(id, dir) {
-  const l = listaFavs(), i = l.findIndex(x => x.id === id), j = i + dir;
-  if (i < 0 || j < 0 || j >= l.length) return;
-  const tmp = l[i]; l[i] = l[j]; l[j] = tmp;
-  guardarFavs(l);
-}
-function borrarItem(id) {
-  const it = porId(id); if (!it) return;
-  const eraFav = it.fav != null;
-  estado.items = estado.items.filter(x => x.id !== id);
-  DB.borrar(id);
-  if (eraFav) guardarFavs(listaFavs());
+// Corre una acción que habla con la nube. Si falla, avisa y vuelve a traer lo que hay guardado.
+async function seguro(fn, msgError) {
+  try { await fn(); renderSuave(); return true; }
+  catch (e) {
+    console.error(e);
+    toast(msgError || 'No se pudo guardar. Revisa tu internet e intenta otra vez.');
+    try { await cargarItems(); } catch (e2) { estado.sinConexion = true; }
+    renderSuave();
+    return false;
+  }
 }
 
-function procesarFoto(file) {
+/* ---------- Favoritas ---------- */
+async function sincronizarFavs(cambios) {
+  const rs = await Promise.all(cambios.map(c => sb.from('reviews').update({ fav: c[1] }).eq('id', c[0])));
+  const mal = rs.find(r => r.error);
+  if (mal) throw mal.error;
+  Copia.escribir(claveCopia(), estado.items);
+}
+async function renumerarFavs() {
+  const cambios = [];
+  listaFavs().forEach((it, i) => { if (it.fav !== i + 1) { it.fav = i + 1; cambios.push([it.id, it.fav]); } });
+  if (cambios.length) await sincronizarFavs(cambios);
+}
+async function agregarFav(id) {
+  const it = porId(id), l = listaFavs();
+  if (!it || it.fav != null) return false;
+  if (l.length >= TOPE_TOP) { toast('Tu top ' + TOPE_TOP + ' está lleno. Quita una favorita primero.'); return false; }
+  it.fav = l.length + 1;
+  await sincronizarFavs([[id, it.fav]]);
+  return true;
+}
+async function quitarFav(id) {
+  const it = porId(id); if (!it) return;
+  it.fav = null;
+  await sincronizarFavs([[id, null]]);
+  await renumerarFavs();
+}
+async function moverFav(id, dir) {
+  const l = listaFavs(), i = l.findIndex(x => x.id === id), j = i + dir;
+  if (i < 0 || j < 0 || j >= l.length) return;
+  const a = l[i], b = l[j], t = a.fav;
+  a.fav = b.fav; b.fav = t;
+  await sincronizarFavs([[a.id, a.fav], [b.id, b.fav]]);
+}
+
+async function borrarItem(id) {
+  const it = porId(id); if (!it) return;
+  const r = await sb.from('reviews').delete().eq('id', id);
+  if (r.error) throw r.error;
+  const rutas = [it.fotoPath, it.thumbPath].filter(Boolean);
+  if (rutas.length) sb.storage.from(BUCKET).remove(rutas);
+  estado.items = estado.items.filter(x => x.id !== id);
+  await renumerarFavs();
+}
+
+/* ---------- Fotos ---------- */
+function cargarImagen(archivo) {
   return new Promise(function (ok, mal) {
-    const lector = new FileReader();
-    lector.onerror = () => mal(new Error('lectura'));
-    lector.onload = function () {
-      const img = new Image();
-      img.onerror = () => mal(new Error('imagen'));
-      img.onload = function () {
-        const factor = Math.min(1, 1000 / Math.max(img.width, img.height));   // máximo 1000 px para que pese poco
-        const c = document.createElement('canvas');
-        c.width = Math.round(img.width * factor); c.height = Math.round(img.height * factor);
-        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        ok(c.toDataURL('image/jpeg', 0.82));
-      };
-      img.src = lector.result;
-    };
-    lector.readAsDataURL(file);
+    const url = URL.createObjectURL(archivo);
+    const img = new Image();
+    img.onload = function () { URL.revokeObjectURL(url); ok(img); };
+    img.onerror = function () { URL.revokeObjectURL(url); mal(new Error('imagen')); };
+    img.src = url;
   });
+}
+function aBlob(img, max, calidad) {
+  return new Promise(function (ok, mal) {
+    const f = Math.min(1, max / Math.max(img.width, img.height));
+    const c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(img.width * f)); c.height = Math.max(1, Math.round(img.height * f));
+    const x = c.getContext('2d');
+    x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height);   // las fotos PNG con fondo transparente quedan en blanco
+    x.drawImage(img, 0, 0, c.width, c.height);
+    c.toBlob(function (b) { b ? ok(b) : mal(new Error('blob')); }, 'image/jpeg', calidad);
+  });
+}
+// De una foto salen dos: la grande (máximo 1000 px) y una miniatura (360 px) para las tarjetas.
+async function procesarFoto(archivo) {
+  const img = await cargarImagen(archivo);
+  return { full: await aBlob(img, 1000, 0.82), thumb: await aBlob(img, 360, 0.75) };
+}
+async function subirFoto(ruta, blob) {
+  const r = await sb.storage.from(BUCKET).upload(ruta, blob, { contentType: 'image/jpeg', cacheControl: '31536000' });
+  if (r.error) throw r.error;
 }
 
 function mostrarError(msg, selector) {
-  const e = $('#f-error'); e.textContent = msg; e.hidden = false;
+  const e = $('#f-error'); if (e) { e.textContent = msg; e.hidden = false; }
   const c = selector && $(selector); if (c) c.focus();
 }
 
-function guardarFormulario() {
-  const ed = estado.ed; if (!ed) return;
+/* ---------- Guardar una reseña ---------- */
+async function guardarFormulario() {
+  const ed = estado.ed; if (!ed || estado.guardando) return;
+  if (!estado.sesion || !sb) { mostrarError('Necesitas iniciar sesión para guardar.'); return; }
   const titulo = $('#f-titulo').value.trim();
   if (!titulo) { mostrarError('Escribe el nombre para poder guardar.', '#f-titulo'); return; }
-  const b = ed.base;
-  const it = normalizar({
-    id: ed.id || nuevoId(), titulo: titulo, categoria: ed.categoria, generos: ed.generos,
-    fecha: $('#f-fecha').value, descripcion: $('#f-desc').value.trim(), nota: ed.nota,
-    veredicto: $('#f-veredicto').value.trim(), resenia: limpiar($('#f-resenia').innerHTML), foto: ed.foto,
-    creado: b ? b.creado : Date.now(), comentarios: b ? b.comentarios : [], fav: b ? b.fav : null, ejemplo: false
-  });
-  const i = estado.items.findIndex(x => x.id === it.id);
-  if (i >= 0) estado.items[i] = it; else estado.items.push(it);
-  DB.guardar(it);
-  estado.ed = null;
-  toast('Guardado');
-  location.hash = '#r-' + it.id;
+  const btn = $('#f-guardar');
+  estado.guardando = true;
+  if (btn) { btn.disabled = true; btn.textContent = 'Guardando…'; }
+  const b = ed.base, id = ed.id || nuevoId(), uid = estado.sesion.id;
+  const viejos = [], subidas = [];
+  let fotoPath = b ? b.fotoPath : null, thumbPath = b ? b.thumbPath : null;
+  try {
+    if (ed.nuevaFoto) {
+      const sello = Date.now().toString(36);
+      const pf = uid + '/' + id + '/' + sello + '-g.jpg', pt = uid + '/' + id + '/' + sello + '-m.jpg';
+      await subirFoto(pf, ed.nuevaFoto.full); subidas.push(pf);
+      await subirFoto(pt, ed.nuevaFoto.thumb); subidas.push(pt);
+      if (fotoPath) viejos.push(fotoPath);
+      if (thumbPath) viejos.push(thumbPath);
+      fotoPath = pf; thumbPath = pt;
+    } else if (!ed.foto && fotoPath) {
+      viejos.push(fotoPath); if (thumbPath) viejos.push(thumbPath);
+      fotoPath = null; thumbPath = null;
+    }
+    const fila = {
+      titulo: titulo, categoria: ed.categoria, generos: ed.generos, fecha: $('#f-fecha').value,
+      descripcion: $('#f-desc').value.trim().slice(0, 500), nota: ed.nota,
+      veredicto: $('#f-veredicto').value.trim().slice(0, 120), resenia: limpiar($('#f-resenia').innerHTML),
+      foto_path: fotoPath, thumb_path: thumbPath, publica: ed.publica
+    };
+    const r = b ? await sb.from('reviews').update(fila).eq('id', id) : await sb.from('reviews').insert(Object.assign({ id: id }, fila));
+    if (r.error) throw r.error;
+    if (viejos.length) sb.storage.from(BUCKET).remove(viejos);
+    estado.ed = null;
+    try { await cargarItems(); } catch (e2) { /* se verá al volver a cargar */ }
+    toast('Guardado');
+    location.hash = '#r-' + id;
+  } catch (e) {
+    console.error(e);
+    if (subidas.length) sb.storage.from(BUCKET).remove(subidas);
+    mostrarError('No se pudo guardar. Revisa tu internet e intenta otra vez.');
+  } finally {
+    estado.guardando = false;
+    const bt = $('#f-guardar'); if (bt) { bt.disabled = false; bt.textContent = 'Guardar'; }
+  }
 }
 
 function formato(cmd) {
@@ -843,8 +1014,9 @@ function cambiarNota(n) {
   $('#nota-prev').innerHTML = notaPrevHTML();
 }
 
+/* ---------- Respaldo, importar y pasar lo local a la nube ---------- */
 function exportar() {
-  const datos = JSON.stringify({ app: 'claquetazo', version: 1, items: estado.items });
+  const datos = JSON.stringify({ app: 'claquetazo', version: 2, items: estado.items });
   const url = URL.createObjectURL(new Blob([datos], { type: 'application/json' }));
   const a = document.createElement('a');
   a.href = url; a.download = 'claquetazo-respaldo-' + new Date().toISOString().slice(0, 10) + '.json';
@@ -852,25 +1024,90 @@ function exportar() {
   setTimeout(() => URL.revokeObjectURL(url), 3000);
   toast('Respaldo pedido. Revisa tus descargas.');
 }
-function importar(file) {
+
+// Sube reseñas "crudas" (de la versión anterior o de un respaldo) a la nube, como privadas.
+async function subirALaNube(crudos) {
+  const uid = estado.sesion.id, hechos = [];
+  let fallos = 0;
+  for (let i = 0; i < crudos.length; i++) {
+    const raw = crudos[i], id = nuevoId(), subidas = [];
+    toast('Subiendo ' + (i + 1) + ' de ' + crudos.length + '…');
+    try {
+      let fp = null, tp = null;
+      if (typeof raw.foto === 'string' && raw.foto.indexOf('data:image/') === 0) {
+        const fotos = await procesarFoto(await (await fetch(raw.foto)).blob());
+        const sello = Date.now().toString(36);
+        fp = uid + '/' + id + '/' + sello + '-g.jpg'; tp = uid + '/' + id + '/' + sello + '-m.jpg';
+        await subirFoto(fp, fotos.full); subidas.push(fp);
+        await subirFoto(tp, fotos.thumb); subidas.push(tp);
+      }
+      const d = normalizar(Object.assign({}, raw, { id: id, foto: null, thumb: null }));
+      const r = await sb.from('reviews').insert({
+        id: id, titulo: d.titulo, categoria: d.categoria, generos: d.generos, fecha: d.fecha, descripcion: d.descripcion,
+        nota: d.nota, veredicto: d.veredicto, resenia: limpiar(d.resenia), foto_path: fp, thumb_path: tp, publica: false
+      });
+      if (r.error) throw r.error;
+      const coms = (raw.comentarios || []).filter(c => c && typeof c.texto === 'string' && c.texto.trim().length >= MIN_COMENTARIO)
+        .map(c => ({ review_id: id, texto: c.texto.trim().slice(0, 5000) }));
+      if (coms.length) await sb.from('comments').insert(coms);
+      hechos.push(raw);
+    } catch (e) {
+      console.error(e); fallos++;
+      if (subidas.length) sb.storage.from(BUCKET).remove(subidas);
+    }
+  }
+  return { hechos: hechos, fallos: fallos };
+}
+async function contarLocales() {
+  try { estado.locales = (await Local.todos()).filter(x => x && !x.ejemplo && typeof x.titulo === 'string').length; }
+  catch (e) { estado.locales = 0; }
+}
+async function migrarLocales() {
+  const lista = (await Local.todos()).filter(x => x && !x.ejemplo && typeof x.titulo === 'string');
+  const r = await subirALaNube(lista);
+  for (const raw of r.hechos) await Local.borrar(raw.id);
+  await contarLocales();
+  await cargarItems();
+  toast(r.fallos ? r.hechos.length + ' subidas, ' + r.fallos + ' con error. Toca de nuevo para reintentar.' : r.hechos.length + ' reseña' + (r.hechos.length === 1 ? '' : 's') + ' en la nube, como privadas.');
+}
+function importar(archivo) {
   const lector = new FileReader();
   lector.onload = function () {
-    try {
-      const d = JSON.parse(lector.result);
-      const lista = Array.isArray(d) ? d : d.items;
-      if (!Array.isArray(lista)) throw new Error('formato');
-      let n = 0;
-      lista.forEach(function (r) {
-        if (!r || typeof r.titulo !== 'string') return;
-        const it = normalizar(r), i = estado.items.findIndex(x => x.id === it.id);
-        if (i >= 0) estado.items[i] = it; else estado.items.push(it);
-        DB.guardar(it); n++;
-      });
-      toast(n + ' reseña' + (n === 1 ? '' : 's') + ' importada' + (n === 1 ? '' : 's'));
-      render(false);
-    } catch (e) { toast('Ese archivo no es un respaldo de Claquetazo.'); }
+    seguro(async function () {
+      let d;
+      try { d = JSON.parse(lector.result); } catch (e) { toast('Ese archivo no es un respaldo de Claquetazo.'); return; }
+      const lista = (Array.isArray(d) ? d : (d && d.items)) || [];
+      const validas = lista.filter(r => r && typeof r.titulo === 'string');
+      if (!validas.length) { toast('Ese archivo no es un respaldo de Claquetazo.'); return; }
+      const r = await subirALaNube(validas);
+      await cargarItems();
+      toast(r.hechos.length + ' reseña' + (r.hechos.length === 1 ? '' : 's') + ' importada' + (r.hechos.length === 1 ? '' : 's') + (r.fallos ? ', ' + r.fallos + ' con error' : ''));
+    });
   };
-  lector.readAsText(file);
+  lector.readAsText(archivo);
+}
+
+/* ---------- Sesión ---------- */
+async function iniciarSesion(email, clave) {
+  const r = await sb.auth.signInWithPassword({ email: email, password: clave });
+  if (r.error) throw r.error;
+}
+
+// Se llama al abrir la app y cada vez que alguien entra o sale.
+async function alCambiarSesion(user, primera) {
+  const antes = estado.sesion ? estado.sesion.id : null;
+  const ahora = user ? user.id : null;
+  estado.sesion = user || null;
+  estado.iniciado = true;
+  document.body.classList.toggle('con-sesion', !!user);
+  if (!primera && antes === ahora) return;   // solo se renovó la sesión
+  estado.items = []; estado.cargando = true; estado.locales = 0;
+  const c = await Copia.leer(claveCopia());
+  if (c) estado.items = c.map(normalizar);
+  renderSuave();   // muestra la copia guardada mientras llega lo nuevo
+  if (sb) await refrescar(); else { estado.sinConexion = true; estado.cargando = false; }
+  if (user) await contarLocales();
+  if (primera) render(true); else renderSuave();
 }
 
 /* ---------- Eventos ---------- */
@@ -878,30 +1115,45 @@ document.addEventListener('click', function (e) {
   const b = e.target.closest('[data-action]'); if (!b) return;
   const a = b.dataset.action, id = b.dataset.id;
   switch (a) {
-    case 'entrar': location.hash = '#inicio'; break;
+    case 'empezar': location.hash = '#inicio'; break;
     case 'filtro': estado.cat = b.dataset.cat; render(false); break;
     case 'top-tab': estado.topTab = b.dataset.tab; render(false); break;
-    case 'fav-toggle': { const it = porId(id); if (it && it.fav != null) { quitarFav(id); toast('Quitada de favoritas'); } else { agregarFav(id); if (porId(id) && porId(id).fav != null) toast('Agregada a favoritas'); } render(false); break; }
-    case 'fav-add': agregarFav(id); render(false); break;
-    case 'fav-quitar': quitarFav(id); render(false); break;
-    case 'fav-up': moverFav(id, -1); render(false); break;
-    case 'fav-down': moverFav(id, 1); render(false); break;
+    case 'reintentar': estado.cargando = true; refrescar().then(function () { renderSuave(); }); break;
+    case 'salir':
+      sb.auth.signOut().then(function () { toast('Sesión cerrada'); location.hash = '#inicio'; });
+      break;
+    case 'fav-toggle':
+      seguro(async function () {
+        const it = porId(id);
+        if (it && it.fav != null) { await quitarFav(id); toast('Quitada de favoritas'); }
+        else if (await agregarFav(id)) toast('Agregada a favoritas');
+      });
+      break;
+    case 'fav-add': seguro(function () { return agregarFav(id); }); break;
+    case 'fav-quitar': seguro(function () { return quitarFav(id); }); break;
+    case 'fav-up': seguro(function () { return moverFav(id, -1); }); break;
+    case 'fav-down': seguro(function () { return moverFav(id, 1); }); break;
     case 'borrar':
-      if (b.classList.contains('sure')) { borrarItem(id); toast('Reseña borrada'); location.hash = '#inicio'; }
+      if (b.classList.contains('sure')) { seguro(async function () { await borrarItem(id); toast('Reseña borrada'); location.hash = '#inicio'; }); }
       else { b.classList.add('sure'); b.textContent = 'Toca otra vez para borrar'; setTimeout(function () { b.classList.remove('sure'); b.textContent = 'Borrar'; }, 4000); }
       break;
-    case 'borrar-com': { const it = porId(id); if (it) { it.comentarios = it.comentarios.filter(c => c.id !== b.dataset.cid); DB.guardar(it); render(false); } break; }
-    case 'borrar-ejemplos': {
-      const ej = estado.items.filter(i => i.ejemplo);
-      ej.forEach(i => DB.borrar(i.id));
-      estado.items = estado.items.filter(i => !i.ejemplo);
-      guardarFavs(listaFavs());
-      toast(ej.length ? 'Ejemplos borrados' : 'No hay ejemplos'); render(false); break;
-    }
+    case 'borrar-com':
+      seguro(async function () {
+        const r = await sb.from('comments').delete().eq('id', b.dataset.cid);
+        if (r.error) throw r.error;
+        await cargarComentarios(id);
+        pintarComentarios(porId(id));
+      }, 'No se pudo borrar el comentario.');
+      break;
+    case 'migrar':
+      b.disabled = true;
+      seguro(migrarLocales, 'No se pudieron subir las reseñas.').then(function () { b.disabled = false; });
+      break;
     case 'ed-cat': if (estado.ed.categoria !== b.dataset.cat) { estado.ed.categoria = b.dataset.cat; estado.ed.generos = []; $('#chips-cat').innerHTML = chipsCategoria(); $('#chips-gen').innerHTML = chipsGeneros(); } break;
     case 'ed-gen': { const g = b.dataset.g, i = estado.ed.generos.indexOf(g); if (i >= 0) estado.ed.generos.splice(i, 1); else estado.ed.generos.push(g); $('#chips-gen').innerHTML = chipsGeneros(); break; }
     case 'ed-gen-add': addGenero(); break;
-    case 'ed-quitar-foto': estado.ed.foto = null; $('#foto-ed').innerHTML = fotoEdHTML(); break;
+    case 'ed-vis': estado.ed.publica = b.dataset.v === '1'; $('#vis').innerHTML = visHTML(); break;
+    case 'ed-quitar-foto': estado.ed.foto = null; estado.ed.nuevaFoto = null; $('#foto-ed').innerHTML = fotoEdHTML(); break;
     case 'ed-nota-mas': cambiarNota(estado.ed.nota + 0.1); break;
     case 'ed-nota-menos': cambiarNota(estado.ed.nota - 0.1); break;
     case 'ed-fmt': formato(b.dataset.cmd); break;
@@ -931,8 +1183,10 @@ document.addEventListener('change', function (e) {
   else if (t.id === 'top-cat') { estado.topCat = t.value; estado.topGen = 'todos'; render(false); }
   else if (t.id === 'top-gen') { estado.topGen = t.value; render(false); }
   else if (t.id === 'foto' && t.files && t.files[0]) {
-    procesarFoto(t.files[0]).then(function (url) { estado.ed.foto = url; $('#foto-ed').innerHTML = fotoEdHTML(); })
-      .catch(function () { mostrarError('No pude leer esa foto. Prueba con otra.'); });
+    procesarFoto(t.files[0]).then(function (fotos) {
+      estado.ed.nuevaFoto = fotos; estado.ed.foto = URL.createObjectURL(fotos.full);
+      $('#foto-ed').innerHTML = fotoEdHTML();
+    }).catch(function () { mostrarError('No pude leer esa foto. Prueba con otra.'); });
   }
   else if (t.id === 'f-importar' && t.files && t.files[0]) { importar(t.files[0]); t.value = ''; }
 });
@@ -946,12 +1200,34 @@ document.addEventListener('keydown', function (e) {
 
 document.addEventListener('submit', function (e) {
   e.preventDefault();
-  if (e.target.id === 'f') guardarFormulario();
-  else if (e.target.id === 'fcom') {
-    const it = porId(e.target.dataset.id), txt = $('#com-texto').value.trim();
-    if (!it || txt.length < MIN_COMENTARIO) return;
-    it.comentarios.push({ id: nuevoId(), texto: txt, fecha: Date.now() });
-    DB.guardar(it); toast('Comentario publicado'); render(false);
+  const f = e.target;
+  if (f.id === 'f') { guardarFormulario(); }
+  else if (f.id === 'flogin') {
+    const err = $('#login-error'), btn = $('#login-btn');
+    const email = $('#login-email').value.trim(), clave = $('#login-clave').value;
+    err.hidden = true;
+    if (!email || !clave) { err.textContent = 'Escribe tu correo y tu contraseña.'; err.hidden = false; return; }
+    if (!sb) { err.textContent = 'No pude conectar con la nube. Revisa tu internet y recarga la página.'; err.hidden = false; return; }
+    btn.disabled = true; btn.textContent = 'Entrando…';
+    iniciarSesion(email, clave).then(function () { location.hash = '#inicio'; }).catch(function (er) {
+      err.textContent = (er && /invalid|credentials/i.test(er.message || '')) ? 'Correo o contraseña incorrectos.' : 'No pude conectar. Revisa tu internet e intenta otra vez.';
+      err.hidden = false; btn.disabled = false; btn.textContent = 'Entrar';
+    });
+  }
+  else if (f.id === 'fcom') {
+    const id = f.dataset.id, txt = $('#com-texto').value.trim();
+    if (txt.length < MIN_COMENTARIO || !estado.sesion || !sb) return;
+    $('#com-btn').disabled = true;
+    (async function () {
+      try {
+        const r = await sb.from('comments').insert({ review_id: id, texto: txt });
+        if (r.error) throw r.error;
+        await cargarComentarios(id);
+        const ta = $('#com-texto'); if (ta) { ta.value = ''; $('#com-cont').textContent = '0 / ' + MIN_COMENTARIO; $('#com-cont').classList.remove('ok'); }
+        pintarComentarios(porId(id));
+        toast('Comentario publicado');
+      } catch (er) { console.error(er); toast('No se pudo publicar el comentario.'); const bt = $('#com-btn'); if (bt) bt.disabled = false; }
+    })();
   }
 });
 
@@ -961,16 +1237,15 @@ window.addEventListener('hashchange', function () { render(true); });
    8. ARRANQUE
    ===================================================================== */
 (async function iniciar() {
-  await DB.abrir();
-  let lista = await DB.todos();
-  const sembrado = await DB.leerMeta('sembrado');
-  if (!lista.length && !sembrado) {
-    lista = EJEMPLOS.map(normalizar);
-    lista.forEach(DB.guardar);
-    DB.ponerMeta('sembrado', true);
-  }
-  estado.items = lista.map(normalizar);
+  await Copia.abrir();
+  const hay = iniciarCliente();
   render(false);
+  if (!hay) { await alCambiarSesion(null, true); return; }
+  sb.auth.onAuthStateChange(function (evento, ses) {
+    // Se pospone un instante para no pedir cosas a Supabase dentro de su propio aviso.
+    setTimeout(function () { alCambiarSesion(ses ? ses.user : null, evento === 'INITIAL_SESSION'); }, 0);
+  });
+  setTimeout(function () { if (!estado.iniciado) alCambiarSesion(null, true); }, 3000);
 })();
 
 })();
