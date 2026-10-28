@@ -577,7 +577,9 @@ function pintarGrid() { const g = $('#grid'); if (g) g.innerHTML = gridHTML(); }
 
 /* ---------- Bienvenida ---------- */
 // Tiempo máximo en la bienvenida: si no se toca la pantalla, entra sola.
-const DURACION_BIENVENIDA = 4000;
+const DURACION_BIENVENIDA = 6000;
+// Al abrir o refrescar siempre sale la bienvenida; después se va a la pantalla donde estabas.
+let bvPendiente = true, bvDestino = location.hash.slice(1);
 function vistaBienvenida() {
   const al = (a, b) => (a + Math.random() * (b - a)).toFixed(0);
   let luces = '';
@@ -600,7 +602,9 @@ function detenerBienvenida() {
 function entrarApp() {
   if (!document.querySelector('.bienvenida')) return;
   detenerBienvenida();
-  location.hash = '#inicio';
+  const d = (bvPendiente && bvDestino) ? bvDestino : 'inicio';
+  bvPendiente = false; bvDestino = '';
+  if (location.hash.slice(1) === d) render(true); else location.hash = '#' + d;
 }
 function iniciarHumo(cv) {
   try {
@@ -880,6 +884,14 @@ function vistaAjustes() {
    ===================================================================== */
 function render(cambioDeRuta) {
   const h = location.hash.slice(1);
+  if (bvPendiente) {
+    if (document.querySelector('.bienvenida')) return;
+    detenerBienvenida();
+    document.body.classList.add('en-bienvenida');
+    $('#vista').innerHTML = vistaBienvenida();
+    iniciarBienvenida();
+    return;
+  }
   if (!h && !cambioDeRuta && document.querySelector('.bienvenida')) return;   // la bienvenida no se repite sola
   detenerBienvenida();
   const rutaEditor = h === 'agregar' || h.indexOf('editar-') === 0;
@@ -912,7 +924,7 @@ function render(cambioDeRuta) {
 // Vuelve a dibujar sin molestar si la persona está escribiendo.
 function renderSuave() {
   const h = location.hash.slice(1);
-  if (!h) return;
+  if (!h || bvPendiente) return;
   if (h === 'agregar' || h.indexOf('editar-') === 0) { if (estado.iniciado && !estado.sesion) render(true); return; }
   const a = document.activeElement;
   if (a && (a.id === 'com-texto' || a.id === 'login-email' || a.id === 'login-clave')) return;
@@ -1312,7 +1324,7 @@ document.addEventListener('submit', function (e) {
   }
 });
 
-window.addEventListener('hashchange', function () { render(true); });
+window.addEventListener('hashchange', function () { bvPendiente = false; render(true); });
 
 /* =====================================================================
    8. ARRANQUE

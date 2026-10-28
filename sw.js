@@ -1,6 +1,6 @@
 // Service worker: deja la app funcionar sin internet.
 // Si cambias index.html y no ves el cambio, sube el número de VERSION.
-const VERSION = 'claquetazo-v4';
+const VERSION = 'claquetazo-v5';
 const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'favicon.svg', 'apple-touch-icon.png', 'img/logo-720.webp', 'img/logo-1200.webp'];
 
 self.addEventListener('install', e => {
