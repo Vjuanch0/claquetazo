@@ -1,41 +1,6 @@
-CLAQUETAZO - cómo ponerlo en internet gratis
-=============================================
-
-Esta carpeta ya es la app completa. No hay que instalar nada ni saber programar.
-
-QUÉ HAY ADENTRO
-- index.html            La app (pantallas, diseño y lógica en un solo archivo).
-- manifest.webmanifest  Le dice al celular que se puede instalar como app.
-- sw.js                 Hace que abra incluso sin internet.
-- icon-*.png            Los íconos.
-
-OPCIÓN 1: NETLIFY (la más fácil)
-1. Entra a https://app.netlify.com/drop (crea cuenta gratis con tu correo).
-2. Arrastra esta carpeta completa (descomprimida) a la página.
-3. Te da un link tipo https://algo-random.netlify.app
-4. En Site settings > Change site name lo cambias a "claquetazo".
-   Queda https://claquetazo.netlify.app (si está libre).
-
-OPCIÓN 2: GITHUB PAGES
-1. Crea cuenta en https://github.com y un repositorio público llamado "claquetazo".
-2. Sube estos archivos (Add file > Upload files).
-3. Settings > Pages > Branch: main > Save.
-4. Queda en https://TU-USUARIO.github.io/claquetazo
-
-INSTALARLA EN EL CELULAR (Android)
-1. Abre el link en Chrome.
-2. Menú de los tres puntos > "Instalar app" o "Agregar a la pantalla principal".
-
-INSTALARLA EN WINDOWS
-1. Abre el link en Chrome o Edge.
-2. En la barra de direcciones aparece un ícono de instalar. Tócalo.
-
-DÓNDE SE GUARDAN TUS RESEÑAS
-Por ahora, en el navegador de cada aparato. Eso significa que lo que escribes en el
-celular NO aparece en Windows. Mientras tanto, usa Ajustes > Descargar respaldo para
-no perder nada y pasarlo de un aparato a otro con Importar respaldo.
-
-El siguiente paso es conectar Supabase (gratis) para que todo viva en la nube.
-
-SI CAMBIAS index.html Y NO SE VE EL CAMBIO
-Abre sw.js y sube el número de VERSION (claquetazo-v1 -> claquetazo-v2). Vuelve a subir.
+CLAQUETAZO
+==========
+Esta carpeta es la app completa (HTML + íconos + service worker).
+Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
+Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
+Si no ves el cambio, sube el número de VERSION en sw.js.
