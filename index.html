@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f0818">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Claquetazo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Staatliches&display=swap">
+<style>
+/* Concepto: sala de cine a oscuras. Fondo morado casi negro, una sola claqueta (rayas) como firma,
+   y los ploncitos (nubes de humo) como sistema de nota. La lectura va en serif, el resto en grotesca. */
+:root{
+  color-scheme:dark;
+  --bg:#0f0818;
+  --surface:#180c27;
+  --surface-2:#221238;
+  --line:#38225c;
+  --nav-bg:#120a1f;
+  --ink:#efe7fb;
+  --ink-dim:#ab9ec8;
+  --ink-faint:#8a7cae;
+  --accent:#6d2fd6;
+  --accent-hi:#8446ee;
+  --lilac:#c1a5ff;
+  --orchid:#e879f9;
+  --plon-on:#d3bcff;
+  --plon-off:#35205a;
+  --v1:#ff5a78;
+  --v2:#ff9a62;
+  --v3:#c7b3ee;
+  --v4:#9b86ff;
+  --v5:#f08cff;
+  --display:'Staatliches','Arial Narrow',Impact,sans-serif;
+  --ui:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --lectura:'Newsreader',Georgia,'Times New Roman',serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font:400 16px/1.5 var(--ui);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0;
+  -webkit-text-size-adjust:100%;
+}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--lilac);outline-offset:2px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#shell{max-width:1120px;margin:0 auto;padding-block:18px 120px}
+#vista{min-width:0}
+
+/* ---------- Navegación ---------- */
+#nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-around;
+  background:var(--nav-bg);border-top:1px solid var(--line);
+  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));
+}
+.nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;font-size:12px;font-weight:500;color:var(--ink-dim);border-radius:8px}
+.nav-i .ic{width:24px;height:24px}
+.nav-i[aria-current="page"]{color:var(--lilac)}
+.nav-i.mas .ic{width:36px;height:36px;padding:7px;border-radius:50%;background:var(--accent);color:#fff}
+body.en-bienvenida #nav{display:none}
+@media(min-width:860px){
+  #nav{left:0;right:auto;top:0;bottom:0;width:92px;flex-direction:column;justify-content:flex-start;gap:8px;
+    border-top:0;border-right:1px solid var(--line);
+    padding:calc(24px + env(safe-area-inset-top,0px)) 8px 16px calc(8px + env(safe-area-inset-left,0px))}
+  .nav-i{flex:none}
+  #shell{padding-left:100px;padding-block:28px 60px}
+  body.en-bienvenida #shell{padding-left:0}
+}
+
+/* ---------- Piezas comunes ---------- */
+.logo{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-size:1.7rem;letter-spacing:.05em;text-transform:uppercase;line-height:1}
+.rayitas{display:inline-block;width:30px;height:16px;border-radius:2px;background:repeating-linear-gradient(115deg,var(--ink) 0 5px,var(--accent) 5px 10px)}
+.cab{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.cuenta{color:var(--ink-dim);font-size:14px}
+h1.pag{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1;letter-spacing:.03em;margin:4px 0 18px;text-transform:uppercase}
+h2.sec{font-family:var(--display);font-weight:400;font-size:1.5rem;letter-spacing:.04em;margin:28px 0 12px;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:6px;
+  border:1px solid var(--line);background:var(--surface-2);color:var(--ink);font-weight:600}
+.btn:hover{border-color:var(--lilac)}
+.btn.prim{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.prim:hover{background:var(--accent-hi);border-color:var(--accent-hi)}
+.btn.peligro{color:var(--v1)}
+.btn.peligro.sure{background:var(--v1);color:#1a0610;border-color:var(--v1)}
+.btn.grande{min-height:52px;padding:0 32px;font-size:1.05rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn .ic{width:20px;height:20px}
+.ic{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.in{width:100%;min-height:46px;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.in:focus{border-color:var(--lilac);outline:none}
+.in::placeholder{color:var(--ink-faint)}
+textarea.in{resize:vertical;min-height:84px;line-height:1.5}
+.aviso{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;padding:12px 14px;border:1px dashed var(--line);border-radius:6px;color:var(--ink-dim);font-size:14px}
+.aviso .btn{min-height:36px;padding:0 12px;font-size:14px}
+#toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);z-index:40;
+  max-width:min(92vw,420px);padding:10px 16px;border-radius:6px;background:var(--ink);color:var(--bg);font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media(min-width:860px){#toast{bottom:28px}}
+
+/* ---------- Ploncitos ---------- */
+.plones{--pl:1.3em;display:inline-flex;gap:1px;vertical-align:middle}
+.pl{position:relative;display:block;width:var(--pl);height:var(--pl)}
+.pl svg{display:block;width:var(--pl);height:var(--pl)}
+.pl-off{color:var(--plon-off)}
+.pl-on{position:absolute;left:0;top:0;height:100%;overflow:hidden;color:var(--vc,var(--plon-on))}
+.plones.chico{--pl:1.05em}
+.plones.grande{--pl:2rem}
+
+/* ---------- Bienvenida ---------- */
+.bienvenida{max-width:520px;margin:0 auto;padding-block:5vh 40px;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.claqueta{width:min(260px,70%);height:auto;margin-bottom:8px}
+.claqueta .s-a{fill:var(--ink)}
+.claqueta .s-b{fill:var(--accent)}
+.cl-cuerpo{fill:var(--surface-2);stroke:var(--line);stroke-width:2}
+.cl-lineas rect{fill:var(--line)}
+.cl-bisagra{fill:var(--lilac)}
+.arm{transform-origin:22px 66px;animation:claqueta .45s .3s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes claqueta{from{transform:rotate(-26deg)}to{transform:rotate(0)}}
+.eyebrow{margin:0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--lilac);font-weight:600}
+.marca{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(3.4rem,15vw,5.6rem);line-height:.9;letter-spacing:.03em;text-transform:uppercase}
+.lema{margin:0;font-family:var(--lectura);font-style:italic;font-size:1.35rem;color:var(--ink-dim)}
+.escala{list-style:none;margin:10px 0 14px;padding:0;display:grid;gap:8px;width:100%}
+.escala li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.escala .plones{--pl:1.15em}
+.escala span:last-child{font-family:var(--display);font-size:1.25rem;letter-spacing:.05em;text-transform:uppercase;color:var(--vc)}
+
+/* ---------- Home ---------- */
+.buscar{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:10px;margin-bottom:14px}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin-bottom:20px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px 9px;color:var(--ink-dim);font-weight:600;font-size:15px;white-space:nowrap}
+.tab small{color:var(--ink-faint);margin-left:4px;font-weight:500}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--lilac)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 14px}
+.card{display:block;min-width:0}
+.poster{position:relative;aspect-ratio:2/3;max-width:100%;background:var(--surface-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.poster img{display:block;width:100%;height:100%;object-fit:cover}
+.ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:12px;
+  background:linear-gradient(165deg,hsl(var(--h) 55% 24%),hsl(calc(var(--h) + 24) 60% 9%))}
+.ph-cat{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);font-weight:600}
+.ph-t{font-family:var(--display);font-size:1.6rem;line-height:1;text-transform:uppercase;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow-wrap:anywhere}
+.nota-b{position:absolute;left:8px;bottom:8px;padding:1px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--line);color:var(--vc);font-family:var(--display);font-size:1.3rem;line-height:1.3;letter-spacing:.04em}
+.tag-ej{position:absolute;top:8px;right:8px;padding:2px 6px;border-radius:3px;background:var(--bg);color:var(--ink-dim);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.card-b{padding-top:10px;display:grid;gap:3px}
+.card-cat{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
+.card h3{margin:0;font-size:1rem;font-weight:600;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:anywhere}
+.card-s{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin-top:2px}
+.palabra{font-family:var(--display);letter-spacing:.05em;text-transform:uppercase;color:var(--vc);font-size:1.05rem}
+.card:hover h3{color:var(--lilac)}
+.vacio-box{grid-column:1/-1;padding:36px 20px;border:1px dashed var(--line);border-radius:6px;text-align:left;color:var(--ink-dim);display:grid;gap:12px;justify-items:start}
+.vacio-box strong{color:var(--ink);font-size:1.1rem}
+
+/* ---------- Detalle ---------- */
+.volver{display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;color:var(--ink-dim);font-weight:500}
+.volver .ic{width:20px;height:20px}
+.d-cab{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:start}
+.d-info{min-width:0;display:grid;gap:8px}
+.d-info h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,7vw,3rem);line-height:1;letter-spacing:.03em;text-transform:uppercase;overflow-wrap:anywhere}
+.meta{margin:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
+.chips-ro{display:flex;flex-wrap:wrap;gap:6px}
+.chips-ro span{padding:3px 10px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--ink-dim)}
+.desc{margin:0;color:var(--ink-dim);font-size:15px}
+.vb{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;margin:22px 0 6px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.vb-num{font-family:var(--display);font-size:3.6rem;line-height:.9;color:var(--vc);letter-spacing:.02em}
+.vb-de{color:var(--ink-faint);margin-left:4px;font-size:1rem}
+.vb-med{display:grid;gap:2px}
+.vb-pal{font-family:var(--display);font-size:1.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--vc);line-height:1.1}
+.titular{margin:22px 0 4px;font-family:var(--lectura);font-style:italic;font-size:clamp(1.4rem,5vw,1.9rem);line-height:1.25;max-width:34ch;text-wrap:balance}
+.prosa,.rte{font-family:var(--lectura);font-size:1.1875rem;line-height:1.7}
+.prosa{max-width:65ch;margin-top:18px}
+.prosa p,.rte p,.rte div{margin:0 0 1em}
+.prosa h2,.rte h2{font-family:var(--ui);font-size:1.5rem;line-height:1.2;margin:1.4em 0 .5em;font-weight:700;text-wrap:balance}
+.prosa h3,.rte h3{font-family:var(--ui);font-size:1.2rem;margin:1.2em 0 .4em;font-weight:700}
+.prosa blockquote,.rte blockquote{margin:1.2em 0;padding:2px 0 2px 18px;border-left:3px solid var(--accent-hi);color:var(--ink-dim);font-style:italic}
+.prosa ul,.prosa ol,.rte ul,.rte ol{padding-left:1.4em;margin:0 0 1em}
+.vacio{color:var(--ink-faint);font-style:italic}
+.lectura-t{margin:6px 0 0;font-size:13px;color:var(--ink-faint)}
+.acciones{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 8px}
+.coms{margin-top:34px;max-width:65ch}
+.coms ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:12px}
+.coms li{padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.coms li p{margin:0 0 8px;font-family:var(--lectura);font-size:1.1rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.coms footer{display:flex;align-items:center;justify-content:space-between;color:var(--ink-faint);font-size:13px}
+.link-b{background:none;border:0;padding:6px 0;color:var(--ink-faint);text-decoration:underline;font-size:13px}
+.contador{font-size:13px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.contador.ok{color:var(--v4)}
+@media(min-width:720px){.d-cab{grid-template-columns:220px minmax(0,1fr);gap:28px}}
+
+/* ---------- Editor ---------- */
+.form{max-width:680px;display:grid;gap:22px}
+.campo{display:grid;gap:8px;min-width:0}
+.campo>label,.campo>.lbl{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
+.ayuda{margin:0;font-size:13px;color:var(--ink-faint)}
+.foto-ed{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:center}
+.foto-ed .poster{width:120px}
+.foto-ed div.btns{display:flex;flex-wrap:wrap;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink-dim);font-size:14px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.gen-nuevo{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.nota-ed{display:grid;gap:10px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.nota-prev{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px}
+.nota-prev .vb-num{font-size:3rem}
+.nota-ctrl{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:10px;align-items:center}
+.nota-ctrl .btn{padding:0;min-height:40px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--v1),var(--v3) 50%,var(--v5))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--ink);border:4px solid var(--accent)}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--v1),var(--v3) 50%,var(--v5))}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--ink);border:4px solid var(--accent)}
+.tbar{display:flex;flex-wrap:wrap;gap:6px}
+.tb{min-width:42px;height:42px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font-weight:700}
+.tb:hover{border-color:var(--lilac)}
+.rte{min-height:280px;padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow-wrap:anywhere}
+.rte:focus{outline:none;border-color:var(--lilac)}
+.rte:empty::before{content:attr(data-ph);color:var(--ink-faint)}
+.error{margin:0;color:var(--v1);font-weight:600}
+.barra-g{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* ---------- Rankings ---------- */
+.sub{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filtros{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px;max-width:520px}
+.rk{list-style:none;margin:0;padding:0;display:grid;gap:10px;max-width:760px}
+.rk li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.rk-main{display:grid;grid-template-columns:40px 52px minmax(0,1fr);gap:12px;align-items:center;min-width:0}
+.rk-n{font-family:var(--display);font-size:1.9rem;line-height:1;color:var(--lilac);text-align:center;font-variant-numeric:tabular-nums}
+.rk-th{width:52px;aspect-ratio:2/3;border-radius:3px;overflow:hidden;position:relative;background:var(--surface-2)}
+.rk-th img{width:100%;height:100%;object-fit:cover;display:block}
+.rk-th .ph{padding:4px}
+.rk-th .ph-cat,.rk-th .ph-t{display:none}
+.rk-t{min-width:0;display:grid;gap:2px}
+.rk-t b{font-weight:600;overflow-wrap:anywhere;line-height:1.25}
+.rk-t small{color:var(--ink-dim);font-size:13px;overflow-wrap:anywhere}
+.rk-s{display:flex;align-items:center;flex-wrap:wrap;gap:2px 8px}
+.rk-ctrl{display:flex;gap:4px}
+.ib{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--ink-dim)}
+.ib:hover{border-color:var(--lilac);color:var(--ink)}
+.ib:disabled{opacity:.35;cursor:default}
+.ib .ic{width:20px;height:20px}
+.fav-b .ic{width:20px;height:20px}
+.fav-b.on .ic{fill:currentColor;color:var(--orchid)}
+
+/* ---------- Ajustes ---------- */
+.ajuste{max-width:620px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px;display:grid;gap:10px;margin-bottom:14px;justify-items:start}
+.ajuste h2{margin:0;font-size:1.1rem}
+.ajuste p{margin:0;color:var(--ink-dim);font-size:15px}
+
+@media(prefers-reduced-motion:reduce){.arm{animation:none}#toast{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="plon" viewBox="0 0 24 24"><path fill="currentColor" d="M7 19a4 4 0 0 1-1-7.9a6 6 0 0 1 11.4-1.6a4.6 4.6 0 0 1 .9 9.5z"/></symbol>
+</svg>
+<div id="shell"><main id="vista"></main></div>
+<nav id="nav" aria-label="Principal">
+  <a class="nav-i" data-sec="inicio" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Inicio</span></a>
+  <a class="nav-i mas" data-sec="agregar" href="#agregar"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Agregar</span></a>
+  <a class="nav-i" data-sec="top" href="#top"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20v-7h4v7M10 20V6h4v14M14 20v-9h4v9"/></svg><span>Rankings</span></a>
+  <a class="nav-i" data-sec="ajustes" href="#ajustes"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h8M18 7h2M4 17h2M12 17h8"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg><span>Ajustes</span></a>
+</nav>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+'use strict';
+
+/* =====================================================================
+   1. CONFIGURACIÓN  (aquí cambias categorías, géneros y reglas)
+   ===================================================================== */
+const MIN_COMENTARIO = 150;   // caracteres mínimos para comentar
+const TOPE_TOP = 50;          // tamaño máximo de los rankings
+
+const CATEGORIAS = [
+  { id: 'cine',   nombre: 'Cine' },
+  { id: 'musica', nombre: 'Música' },
+  { id: 'libros', nombre: 'Libros' },
+  { id: 'futbol', nombre: 'Fútbol' },
+  { id: 'otros',  nombre: 'Otros' }
+];
+
+const GENEROS = {
+  cine:   ['Comedia', 'Comedia romántica', 'Comedia de acción', 'Acción', 'Horror', 'Slasher', 'Suspenso', 'Drama', 'Ciencia ficción', 'Animación', 'Documental', 'Crimen', 'Fantasía', 'Musical'],
+  musica: ['Rock', 'Pop', 'Hip hop', 'Rap', 'Reguetón', 'Salsa', 'Vallenato', 'Electrónica', 'Metal', 'Indie', 'Baladas', 'Concierto', 'Videoclip'],
+  libros: ['Novela', 'Ficción', 'Ensayo', 'Terror', 'Fantasía', 'Ciencia ficción', 'Biografía', 'Poesía', 'Historia', 'Misterio', 'Cómic'],
+  futbol: ['Liga', 'Copa', 'Champions', 'Selección', 'Clásico', 'Eliminatoria', 'Mundial'],
+  otros:  ['Serie', 'Videoclip', 'Concierto', 'Documental', 'Videojuego', 'Podcast']
+};
+
+// La escala de notas: una sola para todo.
+const NIVELES = [null,
+  { nombre: 're paila',  color: 'var(--v1)' },
+  { nombre: 'paila',     color: 'var(--v2)' },
+  { nombre: 'suave',     color: 'var(--v3)' },
+  { nombre: 'melo',      color: 'var(--v4)' },
+  { nombre: 're makia',  color: 'var(--v5)' }
+];
+
+/* =====================================================================
+   2. UTILIDADES
+   ===================================================================== */
+const $ = (s, el) => (el || document).querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = s => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+const nuevoId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+const catNombre = id => (CATEGORIAS.find(c => c.id === id) || { nombre: 'Otros' }).nombre;
+const redondear = n => Math.round(n * 10) / 10;
+
+function fmtFecha(s) {
+  if (!s) return '';
+  const p = s.split('-');
+  if (p.length < 3) return p[0];
+  return (+p[2]) + ' ' + (MESES[(+p[1]) - 1] || '') + ' ' + p[0];
+}
+function fmtFechaMs(ms) {
+  const d = new Date(ms);
+  return d.getDate() + ' ' + MESES[d.getMonth()] + ' ' + d.getFullYear();
+}
+function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; }
+
+// Nota (1.0 a 5.0) -> nivel (1 a 5). 4.9 sigue siendo "melo"; solo 5.0 es "re makia".
+function nivel(nota) { return NIVELES[Math.max(1, Math.min(5, Math.floor(nota + 1e-9)))]; }
+
+// Dibuja los 5 ploncitos. Cada uno se llena según lo que falte de la nota (ej: 4.7 = 4 llenos + uno al 70%).
+function plones(nota, clase) {
+  const nv = nivel(nota);
+  let h = '<span class="plones ' + (clase || '') + '" style="--vc:' + nv.color + '" role="img" aria-label="' + nota.toFixed(1) + ' de 5 ploncitos">';
+  for (let i = 0; i < 5; i++) {
+    const f = Math.max(0, Math.min(1, nota - i));
+    h += '<span class="pl"><svg class="pl-off" viewBox="0 0 24 24"><use href="#plon"/></svg>' +
+         '<span class="pl-on" style="width:' + (f * 100).toFixed(0) + '%"><svg viewBox="0 0 24 24"><use href="#plon"/></svg></span></span>';
+  }
+  return h + '</span>';
+}
+
+// Limpia el HTML de las reseñas: solo deja formato básico y quita todo lo demás.
+const PERMITIDAS = new Set(['P', 'BR', 'B', 'STRONG', 'I', 'EM', 'U', 'H2', 'H3', 'BLOCKQUOTE', 'UL', 'OL', 'LI']);
+function limpiar(html) {
+  const doc = new DOMParser().parseFromString('<body>' + (html || '') + '</body>', 'text/html');
+  (function recorrer(nodo) {
+    Array.from(nodo.childNodes).forEach(function (h) {
+      if (h.nodeType === 3) return;
+      if (h.nodeType !== 1) { h.remove(); return; }
+      recorrer(h);
+      if (PERMITIDAS.has(h.tagName)) {
+        Array.from(h.attributes).forEach(a => h.removeAttribute(a.name));
+      } else if (['SCRIPT', 'STYLE', 'IFRAME', 'OBJECT', 'EMBED', 'LINK', 'META'].indexOf(h.tagName) >= 0) {
+        h.remove();
+      } else if (h.tagName === 'DIV') {
+        const p = doc.createElement('p');
+        while (h.firstChild) p.appendChild(h.firstChild);
+        h.replaceWith(p);
+      } else {
+        while (h.firstChild) h.parentNode.insertBefore(h.firstChild, h);
+        h.remove();
+      }
+    });
+  })(doc.body);
+  return doc.body.innerHTML.trim();
+}
+function textoPlano(html) { const d = document.createElement('div'); d.innerHTML = limpiar(html); return d.textContent || ''; }
+
+/* =====================================================================
+   3. DATOS: guardado en el navegador (IndexedDB). Si falla, queda en memoria.
+      Más adelante este bloque se cambia por Supabase (la nube).
+   ===================================================================== */
+const DB = (function () {
+  let db = null;
+  const mem = new Map();
+  const meta = new Map();
+  function abrir() {
+    return new Promise(function (ok) {
+      try {
+        const rq = indexedDB.open('claquetazo', 1);
+        rq.onupgradeneeded = function () {
+          rq.result.createObjectStore('items', { keyPath: 'id' });
+          rq.result.createObjectStore('meta', { keyPath: 'k' });
+        };
+        rq.onsuccess = function () { db = rq.result; ok(); };
+        rq.onerror = function () { ok(); };
+        rq.onblocked = function () { ok(); };
+      } catch (e) { ok(); }
+    });
+  }
+  function pedir(almacen, metodo, arg) {
+    return new Promise(function (ok) {
+      if (!db) return ok(null);
+      try {
+        const r = db.transaction(almacen).objectStore(almacen)[metodo](arg);
+        r.onsuccess = function () { ok(r.result); };
+        r.onerror = function () { ok(null); };
+      } catch (e) { ok(null); }
+    });
+  }
+  function escribir(almacen, accion, valor) {
+    if (!db) return;
+    try { db.transaction(almacen, 'readwrite').objectStore(almacen)[accion](valor); } catch (e) { /* sin guardado */ }
+  }
+  return {
+    abrir: abrir,
+    todos: function () { return db ? pedir('items', 'getAll').then(r => r || []) : Promise.resolve(Array.from(mem.values())); },
+    guardar: function (it) { mem.set(it.id, it); escribir('items', 'put', it); },
+    borrar: function (id) { mem.delete(id); escribir('items', 'delete', id); },
+    leerMeta: function (k) { return db ? pedir('meta', 'get', k).then(r => r ? r.v : null) : Promise.resolve(meta.get(k) || null); },
+    ponerMeta: function (k, v) { meta.set(k, v); escribir('meta', 'put', { k: k, v: v }); }
+  };
+})();
+
+// Asegura que cada reseña tenga todos sus campos bien (también protege al importar respaldos).
+function normalizar(r) {
+  r = r || {};
+  const cat = CATEGORIAS.some(c => c.id === r.categoria) ? r.categoria : 'otros';
+  let nota = Number(r.nota); if (!isFinite(nota)) nota = 3;
+  nota = redondear(Math.max(1, Math.min(5, nota)));
+  return {
+    id: (typeof r.id === 'string' && /^[a-z0-9]+$/i.test(r.id)) ? r.id : nuevoId(),
+    titulo: String(r.titulo || 'Sin título').slice(0, 200),
+    categoria: cat,
+    generos: Array.isArray(r.generos) ? r.generos.map(g => String(g).slice(0, 30)).slice(0, 12) : [],
+    fecha: /^\d{4}(-\d{2}-\d{2})?$/.test(r.fecha || '') ? r.fecha : '',
+    descripcion: String(r.descripcion || '').slice(0, 500),
+    nota: nota,
+    veredicto: String(r.veredicto || '').slice(0, 120),
+    resenia: typeof r.resenia === 'string' ? r.resenia : '',
+    foto: (typeof r.foto === 'string' && r.foto.indexOf('data:image/') === 0) ? r.foto : null,
+    creado: Number(r.creado) || Date.now(),
+    fav: Number.isInteger(r.fav) ? r.fav : null,
+    comentarios: Array.isArray(r.comentarios) ? r.comentarios.filter(c => c && typeof c.texto === 'string').map(c => ({
+      id: String(c.id || nuevoId()).replace(/[^a-z0-9]/gi, '') || nuevoId(),
+      texto: c.texto.slice(0, 5000),
+      fecha: Number(c.fecha) || Date.now()
+    })) : [],
+    ejemplo: !!r.ejemplo
+  };
+}
+
+// Reseñas de ejemplo para que la app no arranque vacía. Se borran con un botón.
+const EJEMPLOS = [
+  { titulo: 'Scream', categoria: 'cine', generos: ['Slasher', 'Horror'], fecha: '1996-12-20', descripcion: 'Dirigida por Wes Craven.', nota: 4.6, fav: 3,
+    veredicto: 'Se burla del género mientras lo hace mejor que nadie.',
+    resenia: '<h2>El susto que se ríe de sí mismo</h2><p>Lo que más me gusta de <i>Scream</i> es que conoce todas las reglas del slasher y las usa en contra del espectador. Uno cree que sabe qué viene y justo ahí le cambian el juego.</p><blockquote>La mejor escena es la primera. Con eso ya te tienen.</blockquote><p>Se le notan los años en algunos diálogos, pero la tensión sigue intacta. Verla de noche y con las luces apagadas es obligatorio.</p>' },
+  { titulo: 'Cats', categoria: 'cine', generos: ['Musical', 'Fantasía'], fecha: '2019-12-20', descripcion: 'Dirigida por Tom Hooper. Basada en el musical de Andrew Lloyd Webber.', nota: 1.3,
+    veredicto: 'Dos horas preguntándose quién aprobó esto.',
+    resenia: '<h2>Un error carísimo</h2><p>No sé por dónde empezar. Los efectos visuales dan más incomodidad que ternura y la historia casi no existe.</p><p>Lo único rescatable es la ambición, porque se nota que alguien creyó que esto iba a funcionar. Se la recomiendo solo a quien quiera reírse de verdad.</p>' },
+  { titulo: 'Abbey Road', categoria: 'musica', generos: ['Rock'], fecha: '1969-09-26', descripcion: 'The Beatles. Álbum de estudio.', nota: 5, fav: 1,
+    veredicto: 'Un álbum que se escucha entero o no se escucha.',
+    resenia: '<h2>El lado B que no envejece</h2><p>La segunda mitad funciona como una sola canción larga, y ahí es donde el álbum se vuelve inmortal. No hay relleno y cada transición está pensada.</p><p>Se escucha de principio a fin, sin saltar nada, y todavía suena fresco.</p>' },
+  { titulo: 'Cien años de soledad', categoria: 'libros', generos: ['Novela', 'Ficción'], fecha: '1967-05-30', descripcion: 'Gabriel García Márquez.', nota: 4.8, fav: 2,
+    veredicto: 'Macondo se queda en la cabeza mucho después del último capítulo.',
+    resenia: '<h2>Macondo no se olvida</h2><p>La primera vez cuesta entrar por tantos nombres repetidos. Después uno entiende que esa repetición es parte del hechizo.</p><blockquote>Lo mágico se cuenta como si fuera normal, y por eso funciona.</blockquote><p>Es una novela para leer despacio, con lápiz y con paciencia.</p>' },
+  { titulo: 'Brasil 2 - 1 Colombia', categoria: 'futbol', generos: ['Mundial'], fecha: '2014-07-04', descripcion: 'Cuartos de final del Mundial 2014, en Fortaleza.', nota: 4.2,
+    veredicto: 'Se perdió, pero se jugó con el alma.',
+    resenia: '<h2>Perder con la cabeza en alto</h2><p>Fue un partido de mucha entrega y un final amargo. Colombia compitió de tú a tú contra el anfitrión y dejó una imagen que todavía se recuerda.</p><p>Duele, pero es un partido para volver a ver.</p>' },
+  { titulo: 'Cuando Harry conoció a Sally', categoria: 'cine', generos: ['Comedia romántica'], fecha: '1989-07-12', descripcion: 'Dirigida por Rob Reiner.', nota: 3.9,
+    veredicto: 'Charla bonita que envejeció mejor que muchas de su época.',
+    resenia: '<h2>Hablar es la mitad de la historia</h2><p>Casi toda la película son dos personas conversando, y aun así no aburre. Los diálogos están afilados y la química se siente real.</p><p>Algunos chistes ya no aterrizan igual, pero el corazón de la historia sigue en pie.</p>' }
+].map(function (e, i) { e.ejemplo = true; e.creado = Date.now() - i * 1000; return e; });
+
+/* =====================================================================
+   4. ESTADO
+   ===================================================================== */
+const estado = { items: [], cat: 'todo', q: '', orden: 'recientes', topTab: 'favoritas', topCat: 'todo', topGen: 'todos', ed: null };
+const porId = id => estado.items.find(x => x.id === id);
+
+/* =====================================================================
+   5. PIEZAS DE PANTALLA
+   ===================================================================== */
+function portada(it) {
+  if (it.foto) return '<img src="' + esc(it.foto) + '" alt="" loading="lazy">';
+  const h = 250 + (hash(it.titulo) % 80);
+  return '<div class="ph" style="--h:' + h + '"><span class="ph-cat">' + esc(catNombre(it.categoria)) + '</span><span class="ph-t">' + esc(it.titulo) + '</span></div>';
+}
+
+function tarjeta(it) {
+  const nv = nivel(it.nota);
+  const anio = it.fecha ? it.fecha.slice(0, 4) : '';
+  return '<a class="card" href="#r-' + it.id + '" style="--vc:' + nv.color + '">' +
+    '<div class="poster">' + portada(it) + '<span class="nota-b">' + it.nota.toFixed(1) + '</span>' + (it.ejemplo ? '<span class="tag-ej">Ejemplo</span>' : '') + '</div>' +
+    '<div class="card-b"><span class="card-cat">' + esc(catNombre(it.categoria)) + (anio ? ' · ' + esc(anio) : '') + '</span>' +
+    '<h3>' + esc(it.titulo) + '</h3>' +
+    '<div class="card-s">' + plones(it.nota, 'chico') + '<span class="palabra">' + nv.nombre + '</span></div></div></a>';
+}
+
+function filtrados() {
+  const q = norm(estado.q.trim());
+  const l = estado.items.filter(function (it) {
+    if (estado.cat !== 'todo' && it.categoria !== estado.cat) return false;
+    if (!q) return true;
+    return norm([it.titulo, catNombre(it.categoria), it.generos.join(' '), it.descripcion, it.veredicto].join(' ')).indexOf(q) >= 0;
+  });
+  const o = estado.orden;
+  l.sort(function (a, b) {
+    if (o === 'mejor') return b.nota - a.nota || b.creado - a.creado;
+    if (o === 'peor') return a.nota - b.nota || b.creado - a.creado;
+    if (o === 'az') return a.titulo.localeCompare(b.titulo, 'es');
+    return b.creado - a.creado;
+  });
+  return l;
+}
+
+function gridHTML() {
+  const l = filtrados();
+  if (l.length) return l.map(tarjeta).join('');
+  if (!estado.items.length) {
+    return '<div class="vacio-box"><strong>Aquí van a vivir tus reseñas.</strong><span>Agrega la primera: una peli, un álbum, un libro o un partido.</span><a class="btn prim" href="#agregar">Agregar reseña</a></div>';
+  }
+  return '<div class="vacio-box"><strong>No hay nada por aquí.</strong><span>' + (estado.q ? 'Ninguna reseña coincide con «' + esc(estado.q) + '».' : 'Todavía no hay reseñas en esta categoría.') + '</span></div>';
+}
+function pintarGrid() { const g = $('#grid'); if (g) g.innerHTML = gridHTML(); }
+
+/* ---------- Bienvenida ---------- */
+function vistaBienvenida() {
+  const escala = [1, 2, 3, 4, 5].map(n => '<li style="--vc:' + NIVELES[n].color + '">' + plones(n) + '<span>' + NIVELES[n].nombre + '</span></li>').join('');
+  return '<section class="bienvenida">' +
+    '<svg class="claqueta" viewBox="0 0 220 170" aria-hidden="true">' +
+      '<defs><pattern id="rayas" width="36" height="24" patternUnits="userSpaceOnUse" patternTransform="skewX(-28)"><rect class="s-a" width="18" height="24"/><rect class="s-b" x="18" width="18" height="24"/></pattern></defs>' +
+      '<rect class="cl-cuerpo" x="14" y="70" width="192" height="88" rx="5"/>' +
+      '<rect x="14" y="70" width="192" height="22" fill="url(#rayas)"/>' +
+      '<g class="cl-lineas"><rect x="30" y="108" width="70" height="6" rx="3"/><rect x="30" y="124" width="112" height="6" rx="3"/><rect x="30" y="140" width="52" height="6" rx="3"/><rect x="152" y="108" width="40" height="6" rx="3"/></g>' +
+      '<g class="arm"><rect x="14" y="42" width="192" height="24" rx="4" fill="url(#rayas)"/></g>' +
+      '<circle class="cl-bisagra" cx="22" cy="66" r="4"/>' +
+    '</svg>' +
+    '<p class="eyebrow">Crítica pura, sin filtro</p>' +
+    '<h1 class="marca">Claquetazo</h1>' +
+    '<p class="lema">Luces, cámara y sin palabras</p>' +
+    '<ol class="escala" aria-label="Escala de notas">' + escala + '</ol>' +
+    '<button class="btn prim grande" data-action="entrar">Entrar</button>' +
+  '</section>';
+}
+
+/* ---------- Home ---------- */
+function vistaInicio() {
+  const n = estado.items.length;
+  const hayEj = estado.items.some(i => i.ejemplo);
+  const conteo = id => estado.items.filter(i => i.categoria === id).length;
+  const tabs = [{ id: 'todo', nombre: 'Todo', n: n }].concat(CATEGORIAS.map(c => ({ id: c.id, nombre: c.nombre, n: conteo(c.id) })))
+    .map(t => '<button class="tab" role="tab" aria-selected="' + (estado.cat === t.id) + '" data-action="filtro" data-cat="' + t.id + '">' + t.nombre + '<small>' + t.n + '</small></button>').join('');
+  const op = (v, t) => '<option value="' + v + '"' + (estado.orden === v ? ' selected' : '') + '>' + t + '</option>';
+  return '<h1 class="vh">Inicio</h1>' +
+    '<header class="cab"><a class="logo" href="#inicio" aria-label="Claquetazo, inicio"><i class="rayitas"></i>Claquetazo</a><span class="cuenta">' + n + ' reseña' + (n === 1 ? '' : 's') + '</span></header>' +
+    (hayEj ? '<div class="aviso"><span>Las tarjetas con la etiqueta «Ejemplo» son de muestra. Puedes editarlas o borrarlas.</span><button class="btn" data-action="borrar-ejemplos">Borrar ejemplos</button></div>' : '') +
+    '<div class="buscar"><label class="vh" for="q">Buscar</label><input id="q" class="in" type="search" placeholder="Buscar por título, género o categoría" value="' + esc(estado.q) + '" autocomplete="off">' +
+    '<label class="vh" for="orden">Ordenar</label><select id="orden" class="in">' + op('recientes', 'Recientes') + op('mejor', 'Mejor nota') + op('peor', 'Peor nota') + op('az', 'A – Z') + '</select></div>' +
+    '<div class="tabs" role="tablist" aria-label="Categorías">' + tabs + '</div>' +
+    '<div id="grid" class="grid">' + gridHTML() + '</div>';
+}
+
+/* ---------- Detalle ---------- */
+function vistaDetalle(id) {
+  const it = porId(id);
+  if (!it) {
+    return '<a class="volver" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
+      '<div class="vacio-box"><strong>No encontré esa reseña.</strong><span>Puede que la hayas borrado.</span><a class="btn prim" href="#inicio">Ir al inicio</a></div>';
+  }
+  const nv = nivel(it.nota);
+  const palabras = textoPlano(it.resenia).trim().split(/\s+/).filter(Boolean).length;
+  const min = Math.max(1, Math.ceil(palabras / 200));
+  const cuerpo = limpiar(it.resenia);
+  const generos = it.generos.map(g => '<span>' + esc(g) + '</span>').join('');
+  return '<a class="volver" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
+    '<article style="--vc:' + nv.color + '">' +
+    '<header class="d-cab"><div class="poster">' + portada(it) + (it.ejemplo ? '<span class="tag-ej">Ejemplo</span>' : '') + '</div>' +
+      '<div class="d-info"><p class="meta">' + esc(catNombre(it.categoria)) + (it.fecha ? ' · ' + esc(fmtFecha(it.fecha)) : '') + '</p>' +
+      '<h1>' + esc(it.titulo) + '</h1>' +
+      (generos ? '<div class="chips-ro">' + generos + '</div>' : '') +
+      (it.descripcion ? '<p class="desc">' + esc(it.descripcion) + '</p>' : '') + '</div></header>' +
+    '<section class="vb" aria-label="Nota"><div><span class="vb-num">' + it.nota.toFixed(1) + '</span><span class="vb-de">/ 5</span></div>' +
+      '<div class="vb-med">' + plones(it.nota, 'grande') + '<span class="vb-pal">' + nv.nombre + '</span></div></section>' +
+    (it.fav != null ? '<p class="meta" style="margin-top:10px">Favorita de Juancho · puesto ' + it.fav + '</p>' : '') +
+    (it.veredicto ? '<p class="titular">' + esc(it.veredicto) + '</p>' : '') +
+    '<div class="prosa">' + (cuerpo || '<p class="vacio">Esta reseña todavía no tiene texto.</p>') + '</div>' +
+    (cuerpo ? '<p class="lectura-t">' + min + ' min de lectura</p>' : '') +
+    '<div class="acciones">' +
+      '<a class="btn" href="#editar-' + it.id + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Editar</a>' +
+      '<button class="btn fav-b' + (it.fav != null ? ' on' : '') + '" data-action="fav-toggle" data-id="' + it.id + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z"/></svg>' + (it.fav != null ? 'Quitar de favoritas' : 'Agregar a favoritas') + '</button>' +
+      '<button class="btn peligro" data-action="borrar" data-id="' + it.id + '">Borrar</button>' +
+    '</div></article>' +
+    '<section class="coms" aria-labelledby="coms-t"><h2 class="sec" id="coms-t" style="margin-top:34px">Comentarios (' + it.comentarios.length + ')</h2>' +
+      '<div id="lista-coms">' + comentariosHTML(it) + '</div>' +
+      '<form id="fcom" class="campo" data-id="' + it.id + '"><label for="com-texto">Agrega un comentario</label>' +
+      '<textarea id="com-texto" class="in" rows="5" placeholder="Escribe con calma. Mínimo ' + MIN_COMENTARIO + ' caracteres para que valga la pena."></textarea>' +
+      '<div class="barra-g"><button class="btn prim" id="com-btn" type="submit" disabled>Publicar comentario</button><span class="contador" id="com-cont">0 / ' + MIN_COMENTARIO + '</span></div></form></section>';
+}
+function comentariosHTML(it) {
+  if (!it.comentarios.length) return '<p class="ayuda" style="margin-bottom:16px">Todavía no hay comentarios.</p>';
+  return '<ul>' + it.comentarios.map(c => '<li><p>' + esc(c.texto) + '</p><footer><span>' + fmtFechaMs(c.fecha) + '</span><button class="link-b" data-action="borrar-com" data-id="' + it.id + '" data-cid="' + c.id + '">Borrar</button></footer></li>').join('') + '</ul>';
+}
+
+/* ---------- Editor (agregar / editar) ---------- */
+function iniciarEditor(id) {
+  const it = id ? porId(id) : null;
+  estado.ed = it
+    ? { id: it.id, foto: it.foto, categoria: it.categoria, generos: it.generos.slice(), nota: it.nota, base: it }
+    : { id: null, foto: null, categoria: 'cine', generos: [], nota: 3, base: null };
+}
+function chipsCategoria() {
+  return CATEGORIAS.map(c => '<button type="button" class="chip" aria-pressed="' + (estado.ed.categoria === c.id) + '" data-action="ed-cat" data-cat="' + c.id + '">' + c.nombre + '</button>').join('');
+}
+function chipsGeneros() {
+  const sug = GENEROS[estado.ed.categoria] || [];
+  const todos = sug.concat(estado.ed.generos.filter(g => sug.indexOf(g) < 0));
+  return todos.map(g => '<button type="button" class="chip" aria-pressed="' + (estado.ed.generos.indexOf(g) >= 0) + '" data-action="ed-gen" data-g="' + esc(g) + '">' + esc(g) + '</button>').join('');
+}
+function notaPrevHTML() {
+  const n = estado.ed.nota, nv = nivel(n);
+  return '<div class="nota-prev" style="--vc:' + nv.color + '"><span class="vb-num">' + n.toFixed(1) + '</span>' + plones(n, 'grande') + '<span class="vb-pal">' + nv.nombre + '</span></div>';
+}
+function fotoEdHTML() {
+  const f = estado.ed.foto;
+  return '<div class="poster">' + (f ? '<img src="' + esc(f) + '" alt="Foto elegida">' : '<div class="ph" style="--h:270"><span class="ph-cat">Sin foto</span></div>') + '</div>' +
+    '<div><p class="ayuda" style="margin-bottom:10px">Sube una foto desde tu celular o computador.</p><div class="btns">' +
+    '<label class="btn" for="foto"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>' + (f ? 'Cambiar foto' : 'Subir foto') + '</label>' +
+    (f ? '<button type="button" class="btn" data-action="ed-quitar-foto">Quitar</button>' : '') + '</div></div>';
+}
+function vistaEditor() {
+  const b = estado.ed.base;
+  const v = b || { titulo: '', fecha: '', descripcion: '', veredicto: '', resenia: '' };
+  const nuevo = !b;
+  return '<a class="volver" href="' + (nuevo ? '#inicio' : '#r-' + b.id) + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Cancelar</a>' +
+    '<h1 class="pag">' + (nuevo ? 'Nueva reseña' : 'Editar reseña') + '</h1>' +
+    '<form id="f" class="form" novalidate>' +
+      '<div class="campo"><span class="lbl">Foto</span><div class="foto-ed" id="foto-ed">' + fotoEdHTML() + '</div><input class="vh" type="file" id="foto" accept="image/*"></div>' +
+      '<div class="campo"><label for="f-titulo">Nombre</label><input id="f-titulo" class="in" type="text" maxlength="200" placeholder="Película, álbum, libro, partido..." value="' + esc(v.titulo) + '" autocomplete="off"></div>' +
+      '<div class="campo"><span class="lbl">Categoría</span><div class="chips" id="chips-cat">' + chipsCategoria() + '</div></div>' +
+      '<div class="campo"><span class="lbl">Géneros</span><div class="chips" id="chips-gen">' + chipsGeneros() + '</div>' +
+        '<div class="gen-nuevo"><label class="vh" for="f-gen-nuevo">Otro género</label><input id="f-gen-nuevo" class="in" type="text" maxlength="30" placeholder="Otro género (ej: Slasher, Trap, Crónica)" autocomplete="off"><button type="button" class="btn" data-action="ed-gen-add">Agregar</button></div></div>' +
+      '<div class="campo"><label for="f-fecha">Fecha del suceso o estreno</label><input id="f-fecha" class="in" type="date" value="' + esc(v.fecha.length === 10 ? v.fecha : '') + '"></div>' +
+      '<div class="campo"><label for="f-desc">Info básica</label><textarea id="f-desc" class="in" rows="2" maxlength="500" placeholder="Director, artista, autor, marcador, dónde fue...">' + esc(v.descripcion) + '</textarea></div>' +
+      '<div class="campo"><span class="lbl">Nota</span><div class="nota-ed"><div id="nota-prev">' + notaPrevHTML() + '</div>' +
+        '<div class="nota-ctrl"><button type="button" class="btn" data-action="ed-nota-menos" aria-label="Bajar 0.1">−</button><input id="f-nota" type="range" min="1" max="5" step="0.1" value="' + estado.ed.nota + '" aria-label="Nota de 1 a 5"><button type="button" class="btn" data-action="ed-nota-mas" aria-label="Subir 0.1">+</button></div></div></div>' +
+      '<div class="campo"><label for="f-veredicto">Veredicto en una línea</label><input id="f-veredicto" class="in" type="text" maxlength="120" placeholder="El titular de tu opinión" value="' + esc(v.veredicto) + '" autocomplete="off"></div>' +
+      '<div class="campo"><span class="lbl" id="lbl-res">Reseña</span>' +
+        '<div class="tbar" role="toolbar" aria-label="Formato"><button type="button" class="tb" data-action="ed-fmt" data-cmd="bold" aria-label="Negrilla"><b>B</b></button><button type="button" class="tb" data-action="ed-fmt" data-cmd="italic" aria-label="Cursiva"><i>I</i></button>' +
+        '<button type="button" class="tb" data-action="ed-fmt" data-cmd="h2" aria-label="Título">Título</button><button type="button" class="tb" data-action="ed-fmt" data-cmd="quote" aria-label="Cita">Cita</button><button type="button" class="tb" data-action="ed-fmt" data-cmd="list" aria-label="Lista">Lista</button></div>' +
+        '<div id="f-resenia" class="rte" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="lbl-res" data-ph="Escribe aquí, sin filtro...">' + limpiar(v.resenia) + '</div></div>' +
+      '<p class="error" id="f-error" role="alert" hidden></p>' +
+      '<div class="barra-g"><button type="submit" class="btn prim grande">Guardar</button><a class="btn" href="' + (nuevo ? '#inicio' : '#r-' + b.id) + '">Cancelar</a></div>' +
+    '</form>';
+}
+
+/* ---------- Rankings ---------- */
+function listaFavs() { return estado.items.filter(i => i.fav != null).sort((a, b) => a.fav - b.fav); }
+function listaTop(modo) {
+  const l = estado.items.filter(it => (estado.topCat === 'todo' || it.categoria === estado.topCat) && (estado.topGen === 'todos' || it.generos.indexOf(estado.topGen) >= 0));
+  const desempate = (a, b) => (a.fav == null ? 1e9 : a.fav) - (b.fav == null ? 1e9 : b.fav) || a.creado - b.creado;
+  l.sort(modo === 'mejores' ? (a, b) => b.nota - a.nota || desempate(a, b) : (a, b) => a.nota - b.nota || desempate(a, b));
+  return l.slice(0, TOPE_TOP);
+}
+function filaRank(it, pos, ctrl) {
+  const nv = nivel(it.nota);
+  return '<li style="--vc:' + nv.color + '"><a class="rk-main" href="#r-' + it.id + '"><span class="rk-n">' + pos + '</span><span class="rk-th">' + portada(it) + '</span>' +
+    '<span class="rk-t"><b>' + esc(it.titulo) + '</b><small>' + esc(catNombre(it.categoria)) + (it.generos.length ? ' · ' + esc(it.generos.join(', ')) : '') + '</small>' +
+    '<span class="rk-s">' + plones(it.nota, 'chico') + '<span class="palabra">' + it.nota.toFixed(1) + ' · ' + nv.nombre + '</span></span></span></a>' + (ctrl || '') + '</li>';
+}
+const FLECHA_ARRIBA = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>';
+const FLECHA_ABAJO = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+const EQUIS = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+const MAS = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+
+function vistaTop() {
+  const t = estado.topTab;
+  const sub = [['favoritas', 'Favoritas'], ['mejores', 'Mejores'], ['peores', 'Peores']]
+    .map(x => '<button class="chip" aria-pressed="' + (t === x[0]) + '" data-action="top-tab" data-tab="' + x[0] + '">' + x[1] + '</button>').join('');
+  let cuerpo = '';
+  if (t === 'favoritas') {
+    const f = listaFavs();
+    cuerpo = '<p class="ayuda" style="margin-bottom:14px">Tu orden manual, hasta ' + TOPE_TOP + ' puestos. Ahora tienes ' + f.length + '.</p>';
+    if (!f.length) {
+      cuerpo += '<div class="vacio-box"><strong>Todavía no hay favoritas.</strong><span>Abre una reseña y toca «Agregar a favoritas», o elige una de las candidatas de abajo.</span></div>';
+    } else {
+      cuerpo += '<ol class="rk">' + f.map((it, i) => filaRank(it, i + 1,
+        '<div class="rk-ctrl"><button class="ib" data-action="fav-up" data-id="' + it.id + '" aria-label="Subir un puesto"' + (i === 0 ? ' disabled' : '') + '>' + FLECHA_ARRIBA + '</button>' +
+        '<button class="ib" data-action="fav-down" data-id="' + it.id + '" aria-label="Bajar un puesto"' + (i === f.length - 1 ? ' disabled' : '') + '>' + FLECHA_ABAJO + '</button>' +
+        '<button class="ib" data-action="fav-quitar" data-id="' + it.id + '" aria-label="Quitar de favoritas">' + EQUIS + '</button></div>')).join('') + '</ol>';
+    }
+    const cand = estado.items.filter(i => i.fav == null && i.nota >= 4.5).sort((a, b) => b.nota - a.nota).slice(0, 10);
+    if (cand.length) {
+      cuerpo += '<h2 class="sec">Candidatas</h2><p class="ayuda" style="margin-bottom:12px">Reseñas con 4.5 o más que todavía no están en tu top.</p><ol class="rk">' +
+        cand.map(it => filaRank(it, '·', '<div class="rk-ctrl"><button class="ib" data-action="fav-add" data-id="' + it.id + '" aria-label="Agregar a favoritas">' + MAS + '</button></div>')).join('') + '</ol>';
+    }
+  } else {
+    const delCat = estado.items.filter(it => estado.topCat === 'todo' || it.categoria === estado.topCat);
+    const gens = Array.from(new Set(delCat.reduce((a, it) => a.concat(it.generos), []))).sort((a, b) => a.localeCompare(b, 'es'));
+    const ocat = [['todo', 'Todas las categorías']].concat(CATEGORIAS.map(c => [c.id, c.nombre]))
+      .map(c => '<option value="' + c[0] + '"' + (estado.topCat === c[0] ? ' selected' : '') + '>' + c[1] + '</option>').join('');
+    const ogen = '<option value="todos">Todos los géneros</option>' + gens.map(g => '<option value="' + esc(g) + '"' + (estado.topGen === g ? ' selected' : '') + '>' + esc(g) + '</option>').join('');
+    const l = listaTop(t);
+    cuerpo = '<div class="filtros"><div><label class="vh" for="top-cat">Categoría</label><select id="top-cat" class="in">' + ocat + '</select></div>' +
+      '<div><label class="vh" for="top-gen">Género</label><select id="top-gen" class="in">' + ogen + '</select></div></div>' +
+      (l.length ? '<ol class="rk">' + l.map((it, i) => filaRank(it, i + 1, '')).join('') + '</ol>'
+        : '<div class="vacio-box"><strong>Nada para mostrar.</strong><span>Prueba con otra categoría o género.</span></div>');
+  }
+  return '<h1 class="pag">Rankings</h1><div class="sub" role="group" aria-label="Tipo de ranking">' + sub + '</div>' + cuerpo;
+}
+
+/* ---------- Ajustes ---------- */
+function vistaAjustes() {
+  let enMarco = false; try { enMarco = window.self !== window.top; } catch (e) { enMarco = true; }
+  return '<h1 class="pag">Ajustes</h1>' +
+    '<div class="ajuste"><h2>Respaldo</h2><p>Tus reseñas viven solo en este dispositivo. Descarga un respaldo de vez en cuando y úsalo para pasarlas a otro aparato.</p>' +
+      '<div class="barra-g"><button class="btn" data-action="exportar">Descargar respaldo</button><label class="btn" for="f-importar">Importar respaldo</label><input class="vh" type="file" id="f-importar" accept="application/json,.json"></div>' +
+      (enMarco ? '<p class="ayuda">En esta vista previa la descarga no funciona. En la app instalada o abierta en el navegador sí.</p>' : '') + '</div>' +
+    '<div class="ajuste"><h2>Ejemplos</h2><p>Quita las reseñas de muestra cuando quieras empezar con las tuyas.</p><button class="btn" data-action="borrar-ejemplos">Borrar ejemplos</button></div>' +
+    '<div class="ajuste"><h2>Siguiente paso</h2><p>Pasar los datos a una base en la nube (Supabase, gratis) para verlos igual en el celular y en Windows, y abrirlos a otras personas.</p></div>';
+}
+
+/* =====================================================================
+   6. RUTAS: según el # de la dirección se dibuja una pantalla u otra
+   ===================================================================== */
+function render(cambioDeRuta) {
+  const h = location.hash.slice(1);
+  let html = '', sec = '';
+  document.body.classList.toggle('en-bienvenida', !h);
+  if (!h) { html = vistaBienvenida(); }
+  else if (h === 'inicio') { html = vistaInicio(); sec = 'inicio'; }
+  else if (h === 'agregar') { if (cambioDeRuta || !estado.ed) iniciarEditor(null); html = vistaEditor(); sec = 'agregar'; }
+  else if (h.indexOf('editar-') === 0) { if (cambioDeRuta || !estado.ed) iniciarEditor(h.slice(7)); html = estado.ed && estado.ed.base ? vistaEditor() : vistaDetalle(''); sec = 'agregar'; }
+  else if (h === 'top') { html = vistaTop(); sec = 'top'; }
+  else if (h === 'ajustes') { html = vistaAjustes(); sec = 'ajustes'; }
+  else if (h.indexOf('r-') === 0) { html = vistaDetalle(h.slice(2)); sec = 'inicio'; }
+  else { location.hash = '#inicio'; return; }
+  $('#vista').innerHTML = html;
+  document.querySelectorAll('#nav .nav-i').forEach(a => {
+    if (a.dataset.sec === sec) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
+  if (cambioDeRuta) window.scrollTo(0, 0);
+}
+
+let temporizador;
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg; t.classList.add('on');
+  clearTimeout(temporizador);
+  temporizador = setTimeout(() => t.classList.remove('on'), 2800);
+}
+
+/* =====================================================================
+   7. ACCIONES (todo lo que pasa al tocar algo)
+   ===================================================================== */
+function guardarFavs(lista) { lista.forEach((it, i) => { if (it.fav !== i + 1) { it.fav = i + 1; DB.guardar(it); } }); }
+function agregarFav(id) {
+  const it = porId(id), l = listaFavs();
+  if (!it || it.fav != null) return;
+  if (l.length >= TOPE_TOP) { toast('Tu top ' + TOPE_TOP + ' está lleno. Quita una favorita primero.'); return; }
+  it.fav = l.length + 1; DB.guardar(it);
+}
+function quitarFav(id) {
+  const it = porId(id); if (!it) return;
+  it.fav = null; DB.guardar(it); guardarFavs(listaFavs());
+}
+function moverFav(id, dir) {
+  const l = listaFavs(), i = l.findIndex(x => x.id === id), j = i + dir;
+  if (i < 0 || j < 0 || j >= l.length) return;
+  const tmp = l[i]; l[i] = l[j]; l[j] = tmp;
+  guardarFavs(l);
+}
+function borrarItem(id) {
+  const it = porId(id); if (!it) return;
+  const eraFav = it.fav != null;
+  estado.items = estado.items.filter(x => x.id !== id);
+  DB.borrar(id);
+  if (eraFav) guardarFavs(listaFavs());
+}
+
+function procesarFoto(file) {
+  return new Promise(function (ok, mal) {
+    const lector = new FileReader();
+    lector.onerror = () => mal(new Error('lectura'));
+    lector.onload = function () {
+      const img = new Image();
+      img.onerror = () => mal(new Error('imagen'));
+      img.onload = function () {
+        const factor = Math.min(1, 1000 / Math.max(img.width, img.height));   // máximo 1000 px para que pese poco
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.width * factor); c.height = Math.round(img.height * factor);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        ok(c.toDataURL('image/jpeg', 0.82));
+      };
+      img.src = lector.result;
+    };
+    lector.readAsDataURL(file);
+  });
+}
+
+function mostrarError(msg, selector) {
+  const e = $('#f-error'); e.textContent = msg; e.hidden = false;
+  const c = selector && $(selector); if (c) c.focus();
+}
+
+function guardarFormulario() {
+  const ed = estado.ed; if (!ed) return;
+  const titulo = $('#f-titulo').value.trim();
+  if (!titulo) { mostrarError('Escribe el nombre para poder guardar.', '#f-titulo'); return; }
+  const b = ed.base;
+  const it = normalizar({
+    id: ed.id || nuevoId(), titulo: titulo, categoria: ed.categoria, generos: ed.generos,
+    fecha: $('#f-fecha').value, descripcion: $('#f-desc').value.trim(), nota: ed.nota,
+    veredicto: $('#f-veredicto').value.trim(), resenia: limpiar($('#f-resenia').innerHTML), foto: ed.foto,
+    creado: b ? b.creado : Date.now(), comentarios: b ? b.comentarios : [], fav: b ? b.fav : null, ejemplo: false
+  });
+  const i = estado.items.findIndex(x => x.id === it.id);
+  if (i >= 0) estado.items[i] = it; else estado.items.push(it);
+  DB.guardar(it);
+  estado.ed = null;
+  toast('Guardado');
+  location.hash = '#r-' + it.id;
+}
+
+function formato(cmd) {
+  const ed = $('#f-resenia'); if (!ed) return;
+  if (document.activeElement !== ed) ed.focus();
+  if (cmd === 'bold' || cmd === 'italic') { document.execCommand(cmd); return; }
+  if (cmd === 'list') { document.execCommand('insertUnorderedList'); return; }
+  const tag = cmd === 'h2' ? 'h2' : 'blockquote';
+  const actual = String(document.queryCommandValue('formatBlock') || '').toLowerCase();
+  document.execCommand('formatBlock', false, actual === tag ? 'p' : tag);
+}
+
+function addGenero() {
+  const inp = $('#f-gen-nuevo'); if (!inp) return;
+  const g = inp.value.trim().slice(0, 30);
+  if (!g) return;
+  if (!estado.ed.generos.some(x => norm(x) === norm(g))) estado.ed.generos.push(g);
+  inp.value = '';
+  $('#chips-gen').innerHTML = chipsGeneros();
+}
+function cambiarNota(n) {
+  estado.ed.nota = redondear(Math.max(1, Math.min(5, n)));
+  $('#f-nota').value = estado.ed.nota;
+  $('#nota-prev').innerHTML = notaPrevHTML();
+}
+
+function exportar() {
+  const datos = JSON.stringify({ app: 'claquetazo', version: 1, items: estado.items });
+  const url = URL.createObjectURL(new Blob([datos], { type: 'application/json' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'claquetazo-respaldo-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 3000);
+  toast('Respaldo pedido. Revisa tus descargas.');
+}
+function importar(file) {
+  const lector = new FileReader();
+  lector.onload = function () {
+    try {
+      const d = JSON.parse(lector.result);
+      const lista = Array.isArray(d) ? d : d.items;
+      if (!Array.isArray(lista)) throw new Error('formato');
+      let n = 0;
+      lista.forEach(function (r) {
+        if (!r || typeof r.titulo !== 'string') return;
+        const it = normalizar(r), i = estado.items.findIndex(x => x.id === it.id);
+        if (i >= 0) estado.items[i] = it; else estado.items.push(it);
+        DB.guardar(it); n++;
+      });
+      toast(n + ' reseña' + (n === 1 ? '' : 's') + ' importada' + (n === 1 ? '' : 's'));
+      render(false);
+    } catch (e) { toast('Ese archivo no es un respaldo de Claquetazo.'); }
+  };
+  lector.readAsText(file);
+}
+
+/* ---------- Eventos ---------- */
+document.addEventListener('click', function (e) {
+  const b = e.target.closest('[data-action]'); if (!b) return;
+  const a = b.dataset.action, id = b.dataset.id;
+  switch (a) {
+    case 'entrar': location.hash = '#inicio'; break;
+    case 'filtro': estado.cat = b.dataset.cat; render(false); break;
+    case 'top-tab': estado.topTab = b.dataset.tab; render(false); break;
+    case 'fav-toggle': { const it = porId(id); if (it && it.fav != null) { quitarFav(id); toast('Quitada de favoritas'); } else { agregarFav(id); if (porId(id) && porId(id).fav != null) toast('Agregada a favoritas'); } render(false); break; }
+    case 'fav-add': agregarFav(id); render(false); break;
+    case 'fav-quitar': quitarFav(id); render(false); break;
+    case 'fav-up': moverFav(id, -1); render(false); break;
+    case 'fav-down': moverFav(id, 1); render(false); break;
+    case 'borrar':
+      if (b.classList.contains('sure')) { borrarItem(id); toast('Reseña borrada'); location.hash = '#inicio'; }
+      else { b.classList.add('sure'); b.textContent = 'Toca otra vez para borrar'; setTimeout(function () { b.classList.remove('sure'); b.textContent = 'Borrar'; }, 4000); }
+      break;
+    case 'borrar-com': { const it = porId(id); if (it) { it.comentarios = it.comentarios.filter(c => c.id !== b.dataset.cid); DB.guardar(it); render(false); } break; }
+    case 'borrar-ejemplos': {
+      const ej = estado.items.filter(i => i.ejemplo);
+      ej.forEach(i => DB.borrar(i.id));
+      estado.items = estado.items.filter(i => !i.ejemplo);
+      guardarFavs(listaFavs());
+      toast(ej.length ? 'Ejemplos borrados' : 'No hay ejemplos'); render(false); break;
+    }
+    case 'ed-cat': if (estado.ed.categoria !== b.dataset.cat) { estado.ed.categoria = b.dataset.cat; estado.ed.generos = []; $('#chips-cat').innerHTML = chipsCategoria(); $('#chips-gen').innerHTML = chipsGeneros(); } break;
+    case 'ed-gen': { const g = b.dataset.g, i = estado.ed.generos.indexOf(g); if (i >= 0) estado.ed.generos.splice(i, 1); else estado.ed.generos.push(g); $('#chips-gen').innerHTML = chipsGeneros(); break; }
+    case 'ed-gen-add': addGenero(); break;
+    case 'ed-quitar-foto': estado.ed.foto = null; $('#foto-ed').innerHTML = fotoEdHTML(); break;
+    case 'ed-nota-mas': cambiarNota(estado.ed.nota + 0.1); break;
+    case 'ed-nota-menos': cambiarNota(estado.ed.nota - 0.1); break;
+    case 'ed-fmt': formato(b.dataset.cmd); break;
+    case 'exportar': exportar(); break;
+  }
+});
+
+// Los botones de formato no deben quitarle el cursor a la reseña.
+document.addEventListener('mousedown', function (e) { if (e.target.closest('.tb')) e.preventDefault(); });
+
+document.addEventListener('input', function (e) {
+  const t = e.target;
+  if (t.id === 'q') { estado.q = t.value; pintarGrid(); }
+  else if (t.id === 'f-nota') { estado.ed.nota = redondear(parseFloat(t.value)); $('#nota-prev').innerHTML = notaPrevHTML(); }
+  else if (t.id === 'com-texto') {
+    const n = t.value.trim().length;
+    $('#com-cont').textContent = n + ' / ' + MIN_COMENTARIO;
+    $('#com-cont').classList.toggle('ok', n >= MIN_COMENTARIO);
+    $('#com-btn').disabled = n < MIN_COMENTARIO;
+  }
+  else if (t.id === 'f-titulo') { const er = $('#f-error'); if (er) er.hidden = true; }
+});
+
+document.addEventListener('change', function (e) {
+  const t = e.target;
+  if (t.id === 'orden') { estado.orden = t.value; pintarGrid(); }
+  else if (t.id === 'top-cat') { estado.topCat = t.value; estado.topGen = 'todos'; render(false); }
+  else if (t.id === 'top-gen') { estado.topGen = t.value; render(false); }
+  else if (t.id === 'foto' && t.files && t.files[0]) {
+    procesarFoto(t.files[0]).then(function (url) { estado.ed.foto = url; $('#foto-ed').innerHTML = fotoEdHTML(); })
+      .catch(function () { mostrarError('No pude leer esa foto. Prueba con otra.'); });
+  }
+  else if (t.id === 'f-importar' && t.files && t.files[0]) { importar(t.files[0]); t.value = ''; }
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && e.target.matches && e.target.matches('#f input')) {
+    e.preventDefault();
+    if (e.target.id === 'f-gen-nuevo') addGenero();
+  }
+});
+
+document.addEventListener('submit', function (e) {
+  e.preventDefault();
+  if (e.target.id === 'f') guardarFormulario();
+  else if (e.target.id === 'fcom') {
+    const it = porId(e.target.dataset.id), txt = $('#com-texto').value.trim();
+    if (!it || txt.length < MIN_COMENTARIO) return;
+    it.comentarios.push({ id: nuevoId(), texto: txt, fecha: Date.now() });
+    DB.guardar(it); toast('Comentario publicado'); render(false);
+  }
+});
+
+window.addEventListener('hashchange', function () { render(true); });
+
+/* =====================================================================
+   8. ARRANQUE
+   ===================================================================== */
+(async function iniciar() {
+  await DB.abrir();
+  let lista = await DB.todos();
+  const sembrado = await DB.leerMeta('sembrado');
+  if (!lista.length && !sembrado) {
+    lista = EJEMPLOS.map(normalizar);
+    lista.forEach(DB.guardar);
+    DB.ponerMeta('sembrado', true);
+  }
+  estado.items = lista.map(normalizar);
+  render(false);
+})();
+
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script>
+</body>
+</html>
