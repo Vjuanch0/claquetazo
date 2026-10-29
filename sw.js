@@ -1,7 +1,7 @@
 // Service worker: deja la app funcionar sin internet.
 // Si cambias index.html y no ves el cambio, sube el número de VERSION.
-const VERSION = 'claquetazo-v5';
-const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'favicon.svg', 'apple-touch-icon.png', 'img/logo-720.webp', 'img/logo-1200.webp'];
+const VERSION = 'claquetazo-v6';
+const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'favicon.svg', 'apple-touch-icon.png', 'img/logo-720.webp', 'img/logo-1200.webp', 'fonts/inter-latin-wght-normal.woff2', 'fonts/newsreader-latin-wght-normal.woff2', 'fonts/newsreader-latin-wght-italic.woff2', 'fonts/staatliches-latin-400-normal.woff2'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(BASE)).then(() => self.skipWaiting()));

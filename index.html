@@ -12,10 +12,11 @@
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Claquetazo</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Staatliches&display=swap">
 <style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-latin-wght-normal.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/newsreader-latin-wght-normal.woff2) format('woff2')}
+@font-face{font-family:'Newsreader';font-style:italic;font-weight:200 800;font-display:swap;src:url(fonts/newsreader-latin-wght-italic.woff2) format('woff2')}
+@font-face{font-family:'Staatliches';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/staatliches-latin-400-normal.woff2) format('woff2')}
 /* Concepto: sala de cine a oscuras. Fondo morado casi negro, una sola claqueta (rayas) como firma,
    y los ploncitos (nubes de humo) como sistema de nota. La lectura va en serif, el resto en grotesca. */
 :root{
@@ -40,14 +41,16 @@
   --v4:#9b86ff;
   --v5:#f08cff;
   --display:'Staatliches','Arial Narrow',Impact,sans-serif;
-  --ui:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --ui:'Inter',Arial,'Helvetica Neue',system-ui,sans-serif;
   --lectura:'Newsreader',Georgia,'Times New Roman',serif;
 }
 *,*::before,*::after{box-sizing:border-box}
+/* Tamaño base que se adapta al ancho: ~14 px en celular, 16 px en PC. Todo lo demás está en rem y se escala solo. */
+html{font-size:clamp(13.5px,.9vw + 10.4px,16px);-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{margin:0}
 body{
   background:var(--bg);color:var(--ink);
-  font:400 16px/1.5 var(--ui);
+  font:400 1rem/1.5 var(--ui);
   padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));
   padding-block:0;
@@ -67,7 +70,7 @@ button{cursor:pointer}
   background:var(--nav-bg);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));
 }
-.nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;font-size:12px;font-weight:500;color:var(--ink-dim);border-radius:8px}
+.nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;font-size:0.75rem;font-weight:500;color:var(--ink-dim);border-radius:8px}
 .nav-i .ic{width:24px;height:24px}
 .nav-i[aria-current="page"]{color:var(--lilac)}
 .nav-i.mas .ic{width:36px;height:36px;padding:7px;border-radius:50%;background:var(--accent);color:#fff}
@@ -82,11 +85,11 @@ body.en-bienvenida #nav{display:none}
 }
 
 /* ---------- Piezas comunes ---------- */
-.logo{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-size:1.7rem;letter-spacing:.05em;text-transform:uppercase;line-height:1}
+.logo{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-size:clamp(1.4rem,5vw,1.7rem);letter-spacing:.05em;text-transform:uppercase;line-height:1}
 .rayitas{display:inline-block;width:30px;height:16px;border-radius:2px;background:repeating-linear-gradient(115deg,var(--ink) 0 5px,var(--accent) 5px 10px)}
 .cab{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-.cuenta{color:var(--ink-dim);font-size:14px}
-h1.pag{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1;letter-spacing:.03em;margin:4px 0 18px;text-transform:uppercase}
+.cuenta{color:var(--ink-dim);font-size:0.875rem}
+h1.pag{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,6.5vw,2.4rem);line-height:1;letter-spacing:.03em;margin:4px 0 18px;text-transform:uppercase}
 h2.sec{font-family:var(--display);font-weight:400;font-size:1.5rem;letter-spacing:.04em;margin:28px 0 12px;text-transform:uppercase}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:6px;
   border:1px solid var(--line);background:var(--surface-2);color:var(--ink);font-weight:600}
@@ -103,10 +106,10 @@ h2.sec{font-family:var(--display);font-weight:400;font-size:1.5rem;letter-spacin
 .in:focus{border-color:var(--lilac);outline:none}
 .in::placeholder{color:var(--ink-faint)}
 textarea.in{resize:vertical;min-height:84px;line-height:1.5}
-.aviso{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;padding:12px 14px;border:1px dashed var(--line);border-radius:6px;color:var(--ink-dim);font-size:14px}
-.aviso .btn{min-height:36px;padding:0 12px;font-size:14px}
+.aviso{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;padding:12px 14px;border:1px dashed var(--line);border-radius:6px;color:var(--ink-dim);font-size:0.875rem}
+.aviso .btn{min-height:36px;padding:0 12px;font-size:0.875rem}
 #toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);z-index:40;
-  max-width:min(92vw,420px);padding:10px 16px;border-radius:6px;background:var(--ink);color:var(--bg);font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+  max-width:min(92vw,420px);padding:10px 16px;border-radius:6px;background:var(--ink);color:var(--bg);font-weight:600;font-size:0.875rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 @media(min-width:860px){#toast{bottom:28px}}
 
@@ -117,7 +120,7 @@ textarea.in{resize:vertical;min-height:84px;line-height:1.5}
 .pl-off{color:var(--plon-off)}
 .pl-on{position:absolute;left:0;top:0;height:100%;overflow:hidden;color:var(--vc,var(--plon-on))}
 .plones.chico{--pl:1.05em}
-.plones.grande{--pl:2rem}
+.plones.grande{--pl:clamp(1.5rem,6vw,2rem)}
 
 /* ---------- Bienvenida ---------- */
 .bienvenida{position:fixed;inset:0;z-index:30;isolation:isolate;overflow:hidden;cursor:pointer;display:flex;align-items:center;justify-content:center;
@@ -147,25 +150,50 @@ textarea.in{resize:vertical;min-height:84px;line-height:1.5}
 @media(prefers-reduced-motion:reduce){.bv-fondo::before,.bv-fondo::after,.bv-luz,.bv-destello,.bv-logo{animation:none!important}.bv-destello{display:none}.bv-luz{opacity:.3}.bv-carga{animation:none;opacity:1}.bv-carga::after{animation:none;transform:none;opacity:.5}}
 
 /* ---------- Home ---------- */
-.buscar{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:10px;margin-bottom:14px}
+.buscar{display:grid;grid-template-columns:minmax(0,1fr) minmax(112px,150px);gap:10px;margin-bottom:14px}
 .tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin-bottom:20px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:none;background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px 9px;color:var(--ink-dim);font-weight:600;font-size:15px;white-space:nowrap}
+.tab{flex:none;background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px 9px;color:var(--ink-dim);font-weight:600;font-size:0.9375rem;white-space:nowrap}
 .tab small{color:var(--ink-faint);margin-left:4px;font-weight:500}
 .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--lilac)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:22px 14px}
+@media(min-width:860px){.grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:32px 22px}}
+.card .poster{transition:transform .25s ease,box-shadow .25s ease}
+.card:hover .poster,.card:focus-visible .poster{transform:translateY(-5px);box-shadow:0 14px 32px rgba(109,47,214,.5)}
+/* Cartelera: letrero de marquesina y función destacada */
+.marquesina{display:flex;align-items:center;gap:12px;margin:4px 0 16px}
+.marq-t{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,6vw,2.4rem);letter-spacing:.09em;line-height:1;text-transform:uppercase;white-space:nowrap}
+.bombillas{flex:1;height:10px;background:radial-gradient(circle at 50% 50%,var(--orchid) 0 2px,transparent 2.8px) 0 0/16px 10px repeat-x;animation:bombillas 2.6s ease-in-out infinite alternate}
+@keyframes bombillas{from{opacity:.3}to{opacity:.95}}
+.fondo-bl{position:absolute;inset:-30px;z-index:-1;background-size:cover;background-position:center;filter:blur(26px) saturate(1.35);opacity:.4;transform:scale(1.1)}
+.dest,.d-hero{position:relative;isolation:isolate;overflow:hidden;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.dest::after,.d-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(15,8,24,.2),rgba(15,8,24,.8))}
+.dest{display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr);gap:clamp(12px,3vw,28px);align-items:center;padding:clamp(12px,3vw,24px);margin-bottom:24px}
+.dest .poster{max-width:250px;box-shadow:0 16px 40px rgba(0,0,0,.55);transition:transform .25s}
+.dest:hover .poster{transform:translateY(-3px)}
+.dest-info{display:grid;gap:8px;min-width:0;justify-items:start}
+.dest-ey{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orchid);font-weight:700}
+.dest-t{font-family:var(--display);font-size:clamp(1.8rem,6.4vw,3.2rem);line-height:1;letter-spacing:.03em;text-transform:uppercase;overflow-wrap:anywhere}
+.dest-v{font-family:var(--lectura);font-style:italic;font-size:1.08rem;line-height:1.4;color:var(--ink-dim);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.dest-ir{margin-top:4px;font-weight:700;color:var(--lilac)}
+.bors{margin:0 0 24px}
+.bor-l{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.bor-l li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:var(--surface);border:1px dashed var(--line);border-radius:6px}
+.bor-a{display:grid;gap:1px;min-width:0}
+.bor-a b{font-weight:600;overflow-wrap:anywhere}
+.bor-a small{color:var(--ink-faint);font-size:.8125rem}
 .card{display:block;min-width:0}
 .poster{position:relative;aspect-ratio:2/3;max-width:100%;background:var(--surface-2);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
 .poster img{display:block;width:100%;height:100%;object-fit:cover}
 .ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:12px 12px 46px;
   background:linear-gradient(165deg,hsl(var(--h) 55% 24%),hsl(calc(var(--h) + 24) 60% 9%))}
-.ph-cat{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);font-weight:600}
+.ph-cat{font-size:0.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);font-weight:600}
 .ph-t{font-family:var(--display);font-size:1.6rem;line-height:1;text-transform:uppercase;overflow:hidden;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow-wrap:anywhere}
 .nota-b{position:absolute;left:8px;bottom:8px;padding:1px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--line);color:var(--vc);font-family:var(--display);font-size:1.3rem;line-height:1.3;letter-spacing:.04em}
-.tag-ej,.tag-priv{position:absolute;top:8px;right:8px;padding:2px 6px;border-radius:3px;background:var(--bg);color:var(--ink-dim);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.tag-ej,.tag-priv{position:absolute;top:8px;right:8px;padding:2px 6px;border-radius:3px;background:var(--bg);color:var(--ink-dim);font-size:0.625rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
 .tag-priv{right:auto;left:8px;color:var(--lilac)}
 .card-b{padding-top:10px;display:grid;gap:3px}
-.card-cat{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
+.card-cat{font-size:0.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
 .card h3{margin:0;font-size:1rem;font-weight:600;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:anywhere}
 .card-s{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;margin-top:2px}
 .palabra{font-family:var(--display);letter-spacing:.05em;text-transform:uppercase;color:var(--vc);font-size:1.05rem}
@@ -176,54 +204,62 @@ textarea.in{resize:vertical;min-height:84px;line-height:1.5}
 /* ---------- Detalle ---------- */
 .volver{display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;color:var(--ink-dim);font-weight:500}
 .volver .ic{width:20px;height:20px}
-.d-cab{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:start}
+.d-hero{padding:clamp(14px,3vw,28px);margin-bottom:4px}
+.d-cab{display:grid;grid-template-columns:minmax(0,36%) minmax(0,1fr);gap:clamp(14px,3.5vw,30px);align-items:start}
+.d-poster{position:relative;aspect-ratio:2/3;max-width:300px;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:var(--surface-2);box-shadow:0 16px 44px rgba(0,0,0,.55)}
+.d-poster.ya{aspect-ratio:auto}
+.d-poster img{display:block;width:100%;height:100%;object-fit:cover}
+.d-poster.ya img{height:auto}
+.d-hero.ancha .d-cab{grid-template-columns:minmax(0,1fr)}
+.d-hero.ancha .d-poster{max-width:820px;width:100%;margin:0 auto}
+.libro{max-width:42rem;margin:26px auto 0}
+.prosa>p:first-child::first-letter{font-family:var(--display);float:left;font-size:3.1em;line-height:.8;padding:.07em .1em 0 0;color:var(--lilac)}
 .d-info{min-width:0;display:grid;gap:8px}
 .d-info h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,7vw,3rem);line-height:1;letter-spacing:.03em;text-transform:uppercase;overflow-wrap:anywhere}
-.meta{margin:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
+.meta{margin:0;font-size:0.8125rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
 .chips-ro{display:flex;flex-wrap:wrap;gap:6px}
-.chips-ro span{padding:3px 10px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--ink-dim)}
-.desc{margin:0;color:var(--ink-dim);font-size:15px}
+.chips-ro span{padding:3px 10px;border:1px solid var(--line);border-radius:999px;font-size:0.8125rem;color:var(--ink-dim)}
+.desc{margin:0;color:var(--ink-dim);font-size:0.9375rem}
 .vb{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;margin:22px 0 6px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
-.vb-num{font-family:var(--display);font-size:3.6rem;line-height:.9;color:var(--vc);letter-spacing:.02em}
+.vb-num{font-family:var(--display);font-size:clamp(2.6rem,9vw,3.6rem);line-height:.9;color:var(--vc);letter-spacing:.02em}
 .vb-de{color:var(--ink-faint);margin-left:4px;font-size:1rem}
 .vb-med{display:grid;gap:2px}
-.vb-pal{font-family:var(--display);font-size:1.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--vc);line-height:1.1}
+.vb-pal{font-family:var(--display);font-size:clamp(1.3rem,4.6vw,1.8rem);letter-spacing:.06em;text-transform:uppercase;color:var(--vc);line-height:1.1}
 .titular{margin:22px 0 4px;font-family:var(--lectura);font-style:italic;font-size:clamp(1.4rem,5vw,1.9rem);line-height:1.25;max-width:34ch;text-wrap:balance}
-.prosa,.rte{font-family:var(--lectura);font-size:1.1875rem;line-height:1.7}
-.prosa{max-width:65ch;margin-top:18px}
+.prosa,.rte{font-family:var(--lectura);font-size:calc(1.15rem * var(--esc,1));line-height:1.7}
+.prosa{margin-top:18px}
 .prosa p,.rte p,.rte div{margin:0 0 1em}
 .prosa h2,.rte h2{font-family:var(--ui);font-size:1.5rem;line-height:1.2;margin:1.4em 0 .5em;font-weight:700;text-wrap:balance}
 .prosa h3,.rte h3{font-family:var(--ui);font-size:1.2rem;margin:1.2em 0 .4em;font-weight:700}
 .prosa blockquote,.rte blockquote{margin:1.2em 0;padding:2px 0 2px 18px;border-left:3px solid var(--accent-hi);color:var(--ink-dim);font-style:italic}
 .prosa ul,.prosa ol,.rte ul,.rte ol{padding-left:1.4em;margin:0 0 1em}
 .vacio{color:var(--ink-faint);font-style:italic}
-.lectura-t{margin:6px 0 0;font-size:13px;color:var(--ink-faint)}
+.lectura-t{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:6px 0 0;font-size:0.8125rem;color:var(--ink-faint)}
 .acciones{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 8px}
-.coms{margin-top:34px;max-width:65ch}
+.coms{margin-top:34px}
 .coms ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:12px}
 .coms li{padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
 .coms li p{margin:0 0 8px;font-family:var(--lectura);font-size:1.1rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
-.coms footer{display:flex;align-items:center;justify-content:space-between;color:var(--ink-faint);font-size:13px}
-.link-b{background:none;border:0;padding:6px 0;color:var(--ink-faint);text-decoration:underline;font-size:13px}
-.contador{font-size:13px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.coms footer{display:flex;align-items:center;justify-content:space-between;color:var(--ink-faint);font-size:0.8125rem}
+.link-b{background:none;border:0;padding:6px 0;color:var(--ink-faint);text-decoration:underline;font-size:0.8125rem}
+.contador{font-size:0.8125rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
 .contador.ok{color:var(--v4)}
-@media(min-width:720px){.d-cab{grid-template-columns:220px minmax(0,1fr);gap:28px}}
 
 /* ---------- Editor ---------- */
 .form{max-width:680px;display:grid;gap:22px}
 .campo{display:grid;gap:8px;min-width:0}
-.campo>label,.campo>.lbl{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
-.ayuda{margin:0;font-size:13px;color:var(--ink-faint)}
+.campo>label,.campo>.lbl{font-size:0.8125rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
+.ayuda{margin:0;font-size:0.8125rem;color:var(--ink-faint)}
 .foto-ed{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:center}
 .foto-ed .poster{width:120px}
 .foto-ed div.btns{display:flex;flex-wrap:wrap;gap:10px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink-dim);font-size:14px}
+.chip{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink-dim);font-size:0.875rem}
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .gen-nuevo{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
 .nota-ed{display:grid;gap:10px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
 .nota-prev{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px}
-.nota-prev .vb-num{font-size:3rem}
+.nota-prev .vb-num{font-size:clamp(2.2rem,8vw,3rem)}
 .nota-ctrl{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:10px;align-items:center}
 .nota-ctrl .btn{padding:0;min-height:40px}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:transparent;margin:0}
@@ -236,7 +272,6 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .tb:hover{border-color:var(--lilac)}
 .rte{min-height:280px;padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow-wrap:anywhere}
 .rte:focus{outline:none;border-color:var(--lilac)}
-.rte:empty::before{content:attr(data-ph);color:var(--ink-faint)}
 .error{margin:0;color:var(--v1);font-weight:600}
 .barra-g{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 
@@ -253,7 +288,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .rk-th .ph-cat,.rk-th .ph-t{display:none}
 .rk-t{min-width:0;display:grid;gap:2px}
 .rk-t b{font-weight:600;overflow-wrap:anywhere;line-height:1.25}
-.rk-t small{color:var(--ink-dim);font-size:13px;overflow-wrap:anywhere}
+.rk-t small{color:var(--ink-dim);font-size:0.8125rem;overflow-wrap:anywhere}
 .rk-s{display:flex;align-items:center;flex-wrap:wrap;gap:2px 8px}
 .rk-ctrl{display:flex;gap:4px}
 .ib{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--ink-dim)}
@@ -266,12 +301,72 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 /* ---------- Ajustes ---------- */
 .ajuste{max-width:620px;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:6px;display:grid;gap:10px;margin-bottom:14px;justify-items:start}
 .ajuste h2{margin:0;font-size:1.1rem}
-.ajuste p{margin:0;color:var(--ink-dim);font-size:15px}
+.ajuste p{margin:0;color:var(--ink-dim);font-size:0.9375rem}
 
 body:not(.con-sesion) .nav-i.mas{display:none}
 .sub-l{text-decoration:underline;color:var(--lilac)}
 
-@media(prefers-reduced-motion:reduce){.arm{animation:none}#toast{transition:none}}
+/* ---------- Hojas (ventanas que suben desde abajo) ---------- */
+.hoja{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;background:rgba(8,3,16,.78)}
+.hoja-c{width:100%;max-width:640px;max-height:92dvh;display:flex;flex-direction:column;gap:12px;overflow:hidden;padding:16px 16px 0;background:var(--surface);border:1px solid var(--line);border-bottom:0;border-radius:16px 16px 0 0}
+.hoja-t{margin:0;font-family:var(--display);font-weight:400;font-size:1.6rem;letter-spacing:.05em;text-transform:uppercase}
+.hoja-pie{display:flex;gap:10px;padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px));background:var(--surface)}
+.hoja-pie .btn{flex:1}
+@media(min-width:720px){.hoja{align-items:center}.hoja-c{border-radius:16px;border-bottom:1px solid var(--line);max-height:88dvh}}
+body.hoja-abierta,body.escribiendo{overflow:hidden}
+.gen-lista{flex:1;min-height:0;overflow-y:auto;display:grid;grid-auto-rows:max-content;gap:8px;align-content:start;padding-bottom:6px;overscroll-behavior:contain}
+.gen-grupo{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.gen-cab{display:grid;grid-template-columns:minmax(0,1fr) 44px;align-items:stretch;background:var(--surface-2)}
+.gen-cab .ib{border:0;border-left:1px solid var(--line);border-radius:0;width:auto;height:auto}
+.gen-cab .ib .ic{transition:transform .2s}
+.gen-cab .ib[aria-expanded="true"] .ic{transform:rotate(180deg)}
+.gen-op{position:relative;display:grid;gap:2px;width:100%;text-align:left;padding:10px 46px 10px 14px;background:transparent;border:0;border-top:1px solid var(--line);color:var(--ink)}
+.gen-cab .gen-op{border-top:0}
+.gen-op.fijo{padding-right:14px}
+.gen-n{font-weight:700}
+.gen-op.macro .gen-n{font-family:var(--display);font-weight:400;font-size:1.25rem;letter-spacing:.06em;text-transform:uppercase}
+.gen-d{font-size:.8125rem;line-height:1.35;color:var(--ink-dim)}
+.gen-ok{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:22px;height:22px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);color:transparent;font-size:.8rem;font-weight:700}
+.gen-op[aria-pressed="true"]{background:rgba(109,47,214,.22)}
+.gen-op[aria-pressed="true"] .gen-ok{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip.ghost{border-style:dashed;color:var(--lilac)}
+.hoja-c.enc{align-items:center;text-align:center}
+.enc-marco{position:relative;overflow:hidden;width:calc(min(54dvh,460px) * 2 / 3);height:min(54dvh,460px);border-radius:6px;border:2px solid var(--lilac);background:#000;touch-action:none;cursor:grab}
+.enc-marco img{position:absolute;left:0;top:0;max-width:none;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.hoja-c.enc input[type=range]{max-width:320px}
+.res-resumen{display:grid;gap:10px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:6px;justify-items:start}
+.res-ext{margin:0;font-family:var(--lectura);font-size:1.05rem;line-height:1.55;color:var(--ink-dim)}
+pre.sql{margin:0;padding:12px;max-width:100%;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:6px;font:.8125rem/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap;user-select:all}
+
+/* ---------- Modo escritura: pantalla completa, como una hoja en blanco ---------- */
+.escritorio{position:fixed;left:0;top:0;right:0;height:100dvh;z-index:35;display:flex;flex-direction:column;background:radial-gradient(120% 80% at 50% 0%,#1a0d2e,#0c0614 70%)}
+.esc-barra{order:1;display:flex;align-items:center;gap:8px;padding:max(8px,env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+.esc-tit{flex:1;min-width:0;display:grid}
+.esc-tit b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.esc-tit small{font-size:.75rem;color:var(--ink-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.esc-barra .btn{min-height:40px;padding:0 14px}
+.esc-aa{font-weight:700;font-size:.95rem}
+.esc-scroll{order:3;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:26px max(18px,env(safe-area-inset-right,0px)) 45vh max(18px,env(safe-area-inset-left,0px))}
+.esc-hoja{max-width:40rem;margin:0 auto}
+.esc-cat{margin:0 0 6px;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+.esc-h{margin:0 0 22px;font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,6.5vw,2.8rem);line-height:1;letter-spacing:.03em;text-transform:uppercase;overflow-wrap:anywhere}
+.rte{position:relative}
+.rte.rte-vacio::before{content:attr(data-ph);position:absolute;left:0;top:0;color:var(--ink-faint);pointer-events:none}
+.escritorio .rte{min-height:46vh;padding:0;border:0;background:transparent;line-height:1.8;caret-color:var(--orchid)}
+.escritorio .rte:focus{border:0}
+.esc-pie{order:4;display:flex;align-items:center;gap:8px;padding:6px max(10px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px));border-top:1px solid var(--line);background:var(--nav-bg)}
+.tbar-esc{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tbar-esc::-webkit-scrollbar{display:none}
+.tbar-esc .tb{flex:none;display:grid;place-items:center;min-width:44px;height:44px;font-size:.9rem}
+.tbar-esc .tb .ic{width:20px;height:20px}
+.tb[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.esc-fuera{display:none}
+.escritorio.enfoque .esc-barra,.escritorio.enfoque .esc-pie{display:none}
+.escritorio.enfoque .esc-fuera{display:block;position:fixed;top:max(10px,env(safe-area-inset-top,0px));right:12px;z-index:2;opacity:.4;min-height:36px;padding:0 12px;font-size:.8125rem}
+.escritorio.enfoque .esc-fuera:hover,.escritorio.enfoque .esc-fuera:focus-visible{opacity:1}
+@media(min-width:860px){.esc-pie{order:2;border-top:0;border-bottom:1px solid var(--line);justify-content:center}.tbar-esc{flex:0 1 auto;justify-content:center}}
+
+@media(prefers-reduced-motion:reduce){.arm,.bombillas{animation:none}#toast,.card .poster,.dest .poster{transition:none}}
 </style>
 </head>
 <body>
@@ -318,6 +413,88 @@ const GENEROS = {
   futbol: ['Liga', 'Copa', 'Champions', 'Selección', 'Clásico', 'Eliminatoria', 'Mundial'],
   otros:  ['Serie', 'Videoclip', 'Concierto', 'Documental', 'Videojuego', 'Podcast']
 };
+
+// Géneros de cine: cada uno con su explicación. Al elegirlo en la reseña solo queda el nombre.
+// sel:false = es solo un título de grupo y no se puede elegir.
+const CINE_GENEROS = [
+  { g: 'Animación', d: 'No es solo un formato: tiene sus propias reglas y estilos narrativos.', s: [
+    ['Animación 2D', 'Animación tradicional: dibujo a mano alzada.'],
+    ['Animación 3D / CGI', 'Animación hecha por computadora.'],
+    ['Stop-motion', 'Cuadro por cuadro. Incluye claymation (plastilina) y marionetas.'],
+    ['Anime y donghua', 'Animación japonesa y china, con sus propios macrogéneros.'],
+    ['Shonen', 'Anime de acción.'], ['Shojo', 'Anime de romance.'], ['Mecha', 'Anime de robots gigantes.'],
+    ['Isekai', 'Anime de mundos paralelos.'], ['Slice of life', 'Anime de vida cotidiana.'],
+    ['Animación para adultos', 'Toca temas maduros, sátira cruda o violencia gráfica.']] },
+  { g: 'Documental', d: 'No ficción: películas que registran la realidad, informan o educan.', s: [
+    ['Naturaleza y vida silvestre', 'Enfocado en ecosistemas y animales.'],
+    ['Documental biográfico', 'Explora la vida de una figura real.'],
+    ['Documental histórico', 'Reconstruye o analiza eventos del pasado.'],
+    ['Documental de denuncia', 'Investigación: busca destapar verdades ocultas, corrupción o crímenes.'],
+    ['Docudrama', 'Usa actores para recrear escenas reales donde no hubo cámaras.'],
+    ['Cinema verité', 'Cine directo: la cámara es una «mosca en la pared», sin intervenir ni entrevistar.'],
+    ['Falso documental', 'Mockumentary: pura ficción que imita el estilo documental para hacer comedia o terror.']] },
+  { g: 'Fantasía', d: 'La magia y lo imposible mandan en la historia.', s: [
+    ['Fantasía urbana', 'La magia, las aves místicas, los mitos o lo sobrenatural chocan con el asfalto, las ciudades modernas y los barrios.'],
+    ['Alta fantasía', 'Epic fantasy: mundos completamente inventados con sus propias leyes, idiomas y razas.'],
+    ['Espada y brujería', 'Héroes musculosos, hechiceros y batallas cuerpo a cuerpo.'],
+    ['Fantasía oscura', 'Elementos mágicos con un tono sombrío, macabro y fatalista.'],
+    ['Realismo mágico', 'El mundo es real y cotidiano, pero pasan cosas mágicas que los personajes asumen como normales.']] },
+  { g: 'Ciencia ficción', d: 'Futuros, tecnología y el «¿qué pasaría si…?».', s: [
+    ['Cyberpunk', 'Alta tecnología (implantes, hackers) y baja calidad de vida (megacorporaciones, pobreza).'],
+    ['Space opera', 'Aventuras épicas e intergalácticas.'],
+    ['Ciencia ficción dura', 'Hard sci-fi: muy apegada a la física y a la ciencia real.'],
+    ['Viajes en el tiempo', 'Saltos al pasado o al futuro, con sus paradojas.'],
+    ['Post-apocalíptico', 'Supervivencia tras el colapso de la civilización.'],
+    ['Ucronía', 'Historias alternativas: ¿qué pasaría si un evento histórico hubiera terminado distinto?'],
+    ['Kaiju', 'Monstruos gigantes atacando ciudades.']] },
+  { g: 'Crimen, misterio y suspenso', d: 'Casos, tensión y secretos que se destapan poco a poco.', s: [
+    ['Misterio (whodunit)', 'Detectives excéntricos o forenses resolviendo un caso paso a paso, buscando pistas.'],
+    ['Procedimental policial', 'Se enfoca en el método realista de la policía para atrapar a un criminal.'],
+    ['Espionaje', 'Agentes encubiertos, inteligencias secretas operando desde las sombras, agencias gubernamentales y traiciones.'],
+    ['Cine negro / neo-noir', 'Detectives cínicos, crímenes urbanos, mujeres fatales y atmósferas muy oscuras.'],
+    ['Atracos (heist)', 'La planificación y ejecución del robo perfecto.'],
+    ['Thriller psicológico', 'La tensión viene de la mente, la paranoia o la inestabilidad de los personajes.'],
+    ['Mafia y gánsteres', 'Familias criminales, lealtades, poder y traición.']] },
+  { g: 'Terror / Horror', d: 'Hecho para asustar, de lo psicológico a lo sangriento.', s: [
+    ['Slasher', 'Un asesino imparable persigue a un grupo de personas.'],
+    ['Terror psicológico', 'No hay monstruos físicos: el terror ataca la cordura.'],
+    ['Sobrenatural', 'Fantasmas, posesiones y demonios.'],
+    ['Folk horror', 'Terror basado en cultos rurales, folclore antiguo y paganismo.'],
+    ['Terror cósmico', 'Lovecraftiano: el miedo a lo desconocido, a dioses antiguos y a la insignificancia humana.'],
+    ['Body horror', 'Horror corporal: miedo a la mutación, la enfermedad o la destrucción del cuerpo humano.'],
+    ['Giallo', 'Subgénero italiano que mezcla crimen policial con asesinatos muy sangrientos y estilizados.'],
+    ['Gore / splatter', 'Lo visceral, la sangre y la violencia gráfica extrema.']] },
+  { g: 'Acción y aventura', d: 'Persecuciones, peleas y riesgos en movimiento.', s: [
+    ['Artes marciales', 'Con subgéneros como el wuxia (héroes chinos voladores y espadas) o el chambara (samuráis).'],
+    ['Superhéroes', 'Poderes, capas y destinos extraordinarios.'],
+    ['Cine de desastres', 'Terremotos, meteoritos, volcanes.'],
+    ['Capa y espada', 'Swashbuckler: aventuras de época con duelos de esgrima, piratas o mosqueteros.'],
+    ['Heroic bloodshed', 'Acción asiática con tiroteos masivos, cámara lenta y honor entre criminales o policías.'],
+    ['Carreras / vehicular', 'La acción principal ocurre detrás del volante.']] },
+  { g: 'Drama', d: 'Los conflictos humanos y las emociones en el centro.', s: [
+    ['Melodrama', 'Emociones desbordadas y situaciones familiares o románticas extremas.'],
+    ['Drama histórico', 'Drama de época (period piece).'],
+    ['Drama judicial', 'El clímax ocurre en los tribunales, con abogados y fiscales.'],
+    ['Coming-of-age', 'El paso de la adolescencia a la adultez; descubrimiento personal.']] },
+  { g: 'Comedia', d: 'Hecha para reír, de lo físico a lo absurdo.', s: [
+    ['Comedia negra', 'Bromear con la muerte, la tragedia o temas socialmente inaceptables.'],
+    ['Slapstick', 'Comedia puramente física: golpes, caídas, tartazos.'],
+    ['Comedia romántica', 'Rom-com: el amor como enredo y final feliz.'],
+    ['Comedia absurda', 'Comedia absurda o surrealista.'],
+    ['Parodia (spoof)', 'Burla descarada de otras películas.'],
+    ['Screwball comedy', 'Comedia clásica de enredos con diálogos rapidísimos y guerras de sexos.']] },
+  { g: 'Western', d: 'El viejo oeste y sus códigos: ley, forajidos y soledad.', s: [
+    ['Western clásico', 'El enfrentamiento tradicional entre la ley y el forajido o el vaquero solitario.'],
+    ['Spaghetti western', 'Visión italiana del oeste: más sucia, violenta y con antihéroes morales.'],
+    ['Neo-western', 'Ambientado en la actualidad, pero con los temas de justicia fronteriza y soledad.'],
+    ['Weird west', 'Mezcla vaqueros con zombis, vampiros o tecnología retrofuturista.']] },
+  { g: 'Cine de culto y nichos', sel: false, d: 'Otros géneros, nichos y formatos.', s: [
+    ['Cine bélico', 'Guerra y antibélico.'],
+    ['Musical', 'Clásico o jukebox (con canciones que ya existían).'],
+    ['Road movie', 'Película de carretera: los personajes se desarrollan durante un largo viaje.'],
+    ['Cine de explotación', 'Exploitation: serie B de bajo presupuesto que busca público con temas morbosos (blaxploitation, sexploitation, etc.).'],
+    ['Cine experimental', 'Vanguardia: rompe las reglas tradicionales de narrativa, tiempos y estética.']] }
+];
 
 // La escala de notas: una sola para todo.
 const NIVELES = [null,
@@ -415,7 +592,7 @@ function abrirIDB(nombre, almacen, clave) {
         ok({
           todos: function () { return pedir(function () { return tx('readonly').getAll(); }).then(function (x) { return x || []; }); },
           leer: function (k) { return pedir(function () { return tx('readonly').get(k); }); },
-          poner: function (v) { try { tx('readwrite').put(v); } catch (e) { /* sin copia */ } },
+          poner: function (v) { try { tx('readwrite').put(v); return true; } catch (e) { return false; } },
           borrar: function (k) { try { tx('readwrite').delete(k); } catch (e) { /* nada */ } }
         });
       };
@@ -427,7 +604,9 @@ const Copia = {
   db: null,
   async abrir() { this.db = await abrirIDB('claquetazo-nube', 'copia', 'k'); },
   async leer(k) { if (!this.db) return null; const r = await this.db.leer(k); return r ? r.v : null; },
-  escribir(k, v) { if (this.db) this.db.poner({ k: k, v: v }); }
+  escribir(k, v) { return this.db ? this.db.poner({ k: k, v: v }) : false; },
+  borrar(k) { if (this.db) this.db.borrar(k); },
+  async todos() { return this.db ? await this.db.todos() : []; }
 };
 
 // Lo que guardaba la primera versión de la app en este aparato (sirve para pasarlo a la nube).
@@ -467,7 +646,7 @@ function normalizar(r) {
     veredicto: String(r.veredicto || '').slice(0, 120),
     resenia: typeof r.resenia === 'string' ? r.resenia : '',
     foto: https(r.foto), thumb: https(r.thumb), fotoPath: ruta(r.fotoPath), thumbPath: ruta(r.thumbPath),
-    publica: !!r.publica,
+    publica: !!r.publica, borrador: !!r.borrador, actualizado: Number(r.actualizado) || 0,
     creado: Number(r.creado) || Date.now(),
     fav: Number.isInteger(r.fav) ? r.fav : null,
     comentarios: Array.isArray(r.comentarios) ? r.comentarios.filter(c => c && typeof c.texto === 'string').map(c => ({
@@ -483,7 +662,7 @@ function desdeFila(f) {
   return normalizar({
     id: f.id, titulo: f.titulo, categoria: f.categoria, generos: f.generos, fecha: f.fecha, descripcion: f.descripcion,
     nota: f.nota, veredicto: f.veredicto, resenia: f.resenia, fotoPath: f.foto_path, thumbPath: f.thumb_path,
-    foto: urlFoto(f.foto_path), thumb: urlFoto(f.thumb_path), fav: f.fav, publica: f.publica, creado: Date.parse(f.created_at)
+    foto: urlFoto(f.foto_path), thumb: urlFoto(f.thumb_path), fav: f.fav, publica: f.publica, borrador: f.borrador, actualizado: Date.parse(f.updated_at), creado: Date.parse(f.created_at)
   });
 }
 
@@ -491,17 +670,20 @@ function desdeFila(f) {
    4. ESTADO
    ===================================================================== */
 const estado = {
-  items: [], sesion: null, cargando: true, sinConexion: false, iniciado: false, guardando: false, locales: 0,
+  items: [], borradoresNube: [], borradoresLocales: [], borradorNube: null, bor: { local: 0, nube: 0 }, sesion: null, cargando: true, sinConexion: false, iniciado: false, guardando: false, locales: 0,
   cat: 'todo', q: '', orden: 'recientes', topTab: 'favoritas', topCat: 'todo', topGen: 'todos', ed: null
 };
-const porId = id => estado.items.find(x => x.id === id);
+const porId = id => estado.items.find(x => x.id === id) || estado.borradoresNube.find(x => x.id === id);
 const claveCopia = () => 'items-' + (estado.sesion ? estado.sesion.id : 'anon');
 
 async function cargarItems() {
   if (!sb) throw new Error('sin cliente');
   const r = await sb.from('reviews').select('*').order('created_at', { ascending: false });
   if (r.error) throw r.error;
-  estado.items = r.data.map(desdeFila);
+  const todas = r.data.map(desdeFila);
+  if (r.data.length) estado.borradorNube = ('borrador' in r.data[0]);   // sin la columna, los borradores quedan solo en este aparato
+  estado.items = todas.filter(x => !x.borrador);
+  estado.borradoresNube = todas.filter(x => x.borrador);
   estado.sinConexion = false;
   Copia.escribir(claveCopia(), estado.items);
 }
@@ -561,8 +743,38 @@ function filtrados() {
   return l;
 }
 
-function gridHTML() {
+// La función destacada es la reseña más reciente; solo sale cuando no hay búsqueda ni filtros.
+function destacadaItem() {
+  if (estado.q.trim() || estado.cat !== 'todo' || estado.orden !== 'recientes') return null;
   const l = filtrados();
+  return l.length >= 2 ? l[0] : null;
+}
+function destacadaHTML() {
+  const it = destacadaItem(); if (!it) return '';
+  const nv = nivel(it.nota), src = it.thumb || it.foto, anio = it.fecha ? it.fecha.slice(0, 4) : '';
+  return '<a class="dest" href="#r-' + it.id + '" style="--vc:' + nv.color + '">' +
+    (src ? '<span class="fondo-bl" style="background-image:url(&quot;' + esc(src) + '&quot;)"></span>' : '') +
+    '<span class="poster">' + portada(it) + '<span class="nota-b">' + it.nota.toFixed(1) + '</span>' + (!it.publica ? '<span class="tag-priv">Privada</span>' : '') + '</span>' +
+    '<span class="dest-info"><span class="dest-ey">Última función</span><span class="dest-t">' + esc(it.titulo) + '</span>' +
+    '<span class="meta">' + esc(catNombre(it.categoria)) + (anio ? ' · ' + esc(anio) : '') + '</span>' +
+    '<span class="card-s">' + plones(it.nota, 'chico') + '<span class="palabra">' + nv.nombre + '</span></span>' +
+    (it.veredicto ? '<span class="dest-v">' + esc(it.veredicto) + '</span>' : '') +
+    '<span class="dest-ir">Leer reseña →</span></span></a>';
+}
+function borradoresHTML() {
+  const l = estado.sesion ? listaBorradores() : [];
+  if (!l.length) return '';
+  return '<section class="bors" aria-label="Borradores"><h2 class="sec" style="margin-top:6px">Borradores</h2><ul class="bor-l">' + l.map(function (d) {
+    return '<li><a class="bor-a" href="#' + (d.nube || d.cambios ? 'editar-' : 'borrador-') + d.id + '"><b>' + esc(d.titulo || 'Sin título') + '</b>' +
+      '<small>' + (d.cambios ? 'Cambios sin guardar · ' : '') + esc(catNombre(d.categoria)) + ' · ' + hace(d.hora) + (d.nube ? ' · en la nube' : ' · solo en este aparato') + '</small></a>' +
+      '<button class="link-b" data-action="bor-borrar" data-id="' + d.id + '">Borrar</button></li>';
+  }).join('') + '</ul></section>';
+}
+
+function gridHTML() {
+  const d = destacadaItem();
+  let l = filtrados();
+  if (d) l = l.slice(1);
   if (l.length) return l.map(tarjeta).join('');
   if (estado.cargando && !estado.items.length) return '<div class="vacio-box"><strong>Cargando reseñas…</strong></div>';
   if (!estado.items.length) {
@@ -573,7 +785,10 @@ function gridHTML() {
   }
   return '<div class="vacio-box"><strong>No hay nada por aquí.</strong><span>' + (estado.q ? 'Ninguna reseña coincide con «' + esc(estado.q) + '».' : 'Todavía no hay reseñas en esta categoría.') + '</span></div>';
 }
-function pintarGrid() { const g = $('#grid'); if (g) g.innerHTML = gridHTML(); }
+function pintarGrid() {
+  const g = $('#grid'); if (g) g.innerHTML = gridHTML();
+  const d = $('#destacada'); if (d) d.innerHTML = destacadaHTML();
+}
 
 /* ---------- Bienvenida ---------- */
 // Tiempo máximo en la bienvenida: si no se toca la pantalla, entra sola.
@@ -676,6 +891,9 @@ function vistaInicio() {
     '<header class="cab"><a class="logo" href="#inicio" aria-label="Claquetazo, inicio"><i class="rayitas"></i>Claquetazo</a>' +
     '<span class="cuenta">' + n + ' reseña' + (n === 1 ? '' : 's') + (estado.sesion ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</span></header>' +
     (estado.sinConexion && estado.items.length ? '<div class="aviso"><span>Sin conexión. Estás viendo la última copia guardada en este aparato.</span><button class="btn" data-action="reintentar">Reintentar</button></div>' : '') +
+    '<div id="borradores">' + borradoresHTML() + '</div>' +
+    '<div id="destacada">' + destacadaHTML() + '</div>' +
+    '<div class="marquesina"><h2 class="marq-t">En cartelera</h2><span class="bombillas" aria-hidden="true"></span></div>' +
     '<div class="buscar"><label class="vh" for="q">Buscar</label><input id="q" class="in" type="search" placeholder="Buscar por título, género o categoría" value="' + esc(estado.q) + '" autocomplete="off">' +
     '<label class="vh" for="orden">Ordenar</label><select id="orden" class="in">' + op('recientes', 'Recientes') + op('mejor', 'Mejor nota') + op('peor', 'Peor nota') + op('az', 'A – Z') + '</select></div>' +
     '<div class="tabs" role="tablist" aria-label="Categorías">' + tabs + '</div>' +
@@ -696,25 +914,29 @@ function vistaDetalle(id) {
   const cuerpo = limpiar(it.resenia);
   const generos = it.generos.map(g => '<span>' + esc(g) + '</span>').join('');
   const dueno = !!estado.sesion;
+  const src = it.foto || it.thumb;
+  const retrato = src ? '<img class="d-img" src="' + esc(src) + '" alt="Imagen de ' + esc(it.titulo) + '">' : portada(it, true);
   return '<a class="volver" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
     '<article style="--vc:' + nv.color + '">' +
-    '<header class="d-cab"><div class="poster">' + portada(it, true) + (!it.publica ? '<span class="tag-priv">Privada</span>' : '') + '</div>' +
+    '<header class="d-hero">' + (src ? '<span class="fondo-bl" style="background-image:url(&quot;' + esc(it.thumb || src) + '&quot;)"></span>' : '') +
+      '<div class="d-cab"><div class="d-poster">' + retrato + (!it.publica ? '<span class="tag-priv">Privada</span>' : '') + '</div>' +
       '<div class="d-info"><p class="meta">' + esc(catNombre(it.categoria)) + (it.fecha ? ' · ' + esc(fmtFecha(it.fecha)) : '') + '</p>' +
       '<h1>' + esc(it.titulo) + '</h1>' +
       (generos ? '<div class="chips-ro">' + generos + '</div>' : '') +
-      (it.descripcion ? '<p class="desc">' + esc(it.descripcion) + '</p>' : '') + '</div></header>' +
+      (it.descripcion ? '<p class="desc">' + esc(it.descripcion) + '</p>' : '') + '</div></div></header>' +
+    '<div class="libro">' +
     '<section class="vb" aria-label="Nota"><div><span class="vb-num">' + it.nota.toFixed(1) + '</span><span class="vb-de">/ 5</span></div>' +
       '<div class="vb-med">' + plones(it.nota, 'grande') + '<span class="vb-pal">' + nv.nombre + '</span></div></section>' +
     (it.fav != null ? '<p class="meta" style="margin-top:10px">Favorita de Juancho · puesto ' + it.fav + '</p>' : '') +
     (it.veredicto ? '<p class="titular">' + esc(it.veredicto) + '</p>' : '') +
     '<div class="prosa">' + (cuerpo || '<p class="vacio">Esta reseña todavía no tiene texto.</p>') + '</div>' +
-    (cuerpo ? '<p class="lectura-t">' + min + ' min de lectura</p>' : '') +
+    (cuerpo ? '<p class="lectura-t"><span>' + min + ' min de lectura</span><button class="link-b" data-action="esc-tam" aria-label="Cambiar el tamaño de la letra">Aa · tamaño de letra</button></p>' : '') +
     (dueno ? '<div class="acciones">' +
       '<a class="btn" href="#editar-' + it.id + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>Editar</a>' +
       '<button class="btn fav-b' + (it.fav != null ? ' on' : '') + '" data-action="fav-toggle" data-id="' + it.id + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z"/></svg>' + (it.fav != null ? 'Quitar de favoritas' : 'Agregar a favoritas') + '</button>' +
       '<button class="btn peligro" data-action="borrar" data-id="' + it.id + '">Borrar</button></div>' : '') +
-    '</article>' +
-    '<section class="coms" aria-labelledby="coms-t"><h2 class="sec" id="coms-t" style="margin-top:34px">Comentarios (<span id="coms-n">' + it.comentarios.length + '</span>)</h2>' +
+    '</div></article>' +
+    '<section class="coms libro" aria-labelledby="coms-t"><h2 class="sec" id="coms-t" style="margin-top:34px">Comentarios (<span id="coms-n">' + it.comentarios.length + '</span>)</h2>' +
       '<div id="lista-coms">' + comentariosHTML(it) + '</div>' +
       (dueno
         ? '<form id="fcom" class="campo" data-id="' + it.id + '"><label for="com-texto">Agrega un comentario</label>' +
@@ -735,19 +957,84 @@ function pintarComentarios(it) {
 }
 
 /* ---------- Editor (agregar / editar) ---------- */
-function iniciarEditor(id) {
+function iniciarEditor(id, idBor) {
   const it = id ? porId(id) : null;
+  const comun = { nuevaFoto: null, fuente: null, vals: null, tocado: false, recuperado: 0, nubeCreada: false, deRuta: !!idBor, paso: 'datos' };
   estado.ed = it
-    ? { id: it.id, foto: it.foto, nuevaFoto: null, categoria: it.categoria, generos: it.generos.slice(), nota: it.nota, publica: it.publica, base: it }
-    : { id: null, foto: null, nuevaFoto: null, categoria: 'cine', generos: [], nota: 3, publica: false, base: null };
+    ? Object.assign({ id: it.id, foto: it.foto, categoria: it.categoria, generos: it.generos.slice(), nota: it.nota, publica: it.publica, base: it }, comun)
+    : Object.assign({ id: idBor || nuevoId(), foto: null, categoria: 'cine', generos: [], nota: 3, publica: false, base: null }, comun);
+  restaurarBorrador();
 }
 function chipsCategoria() {
   return CATEGORIAS.map(c => '<button type="button" class="chip" aria-pressed="' + (estado.ed.categoria === c.id) + '" data-action="ed-cat" data-cat="' + c.id + '">' + c.nombre + '</button>').join('');
 }
 function chipsGeneros() {
-  const sug = GENEROS[estado.ed.categoria] || [];
-  const todos = sug.concat(estado.ed.generos.filter(g => sug.indexOf(g) < 0));
-  return todos.map(g => '<button type="button" class="chip" aria-pressed="' + (estado.ed.generos.indexOf(g) >= 0) + '" data-action="ed-gen" data-g="' + esc(g) + '">' + esc(g) + '</button>').join('');
+  const ed = estado.ed;
+  if (ed.categoria === 'cine') {
+    return ed.generos.map(g => '<button type="button" class="chip" aria-pressed="true" aria-label="Quitar ' + esc(g) + '" data-action="ed-gen" data-g="' + esc(g) + '">' + esc(g) + ' ✕</button>').join('') +
+      '<button type="button" class="chip ghost" data-action="gen-abrir">+ Elegir géneros</button>';
+  }
+  const sug = GENEROS[ed.categoria] || [];
+  const todos = sug.concat(ed.generos.filter(g => sug.indexOf(g) < 0));
+  return todos.map(g => '<button type="button" class="chip" aria-pressed="' + (ed.generos.indexOf(g) >= 0) + '" data-action="ed-gen" data-g="' + esc(g) + '">' + esc(g) + '</button>').join('');
+}
+// La hoja para elegir géneros de cine, con la explicación de cada uno.
+function hojaGenerosHTML() {
+  const sel = estado.ed.generos;
+  const op = (n, d, macro) => '<button type="button" class="gen-op' + (macro ? ' macro' : '') + '" data-action="gen-pick" data-g="' + esc(n) + '" aria-pressed="' + (sel.indexOf(n) >= 0) +
+    '" data-t="' + esc(norm(n + ' ' + d)) + '"><span class="gen-n">' + esc(n) + '</span><span class="gen-d">' + esc(d) + '</span><span class="gen-ok" aria-hidden="true">✓</span></button>';
+  const grupos = CINE_GENEROS.map(function (g) {
+    const abierto = g.s.some(x => sel.indexOf(x[0]) >= 0);
+    return '<section class="gen-grupo"><div class="gen-cab">' +
+      (g.sel === false ? '<div class="gen-op macro fijo"><span class="gen-n">' + esc(g.g) + '</span><span class="gen-d">' + esc(g.d) + '</span></div>' : op(g.g, g.d, true)) +
+      '<button type="button" class="ib" data-action="gen-plegar" aria-expanded="' + abierto + '" aria-label="Mostrar u ocultar los subgéneros de ' + esc(g.g) + '">' + FLECHA_ABAJO + '</button></div>' +
+      '<div class="gen-subs"' + (abierto ? '' : ' hidden') + '>' + g.s.map(x => op(x[0], x[1], false)).join('') + '</div></section>';
+  }).join('');
+  return '<div class="hoja-c gen"><h2 class="hoja-t">Géneros de cine</h2><p class="ayuda">Toca para elegir. Aquí ves qué significa cada uno; en tu reseña solo queda el nombre.</p>' +
+    '<label class="vh" for="gen-q">Buscar género</label><input id="gen-q" class="in" type="search" placeholder="Buscar: slasher, noir, anime…" autocomplete="off">' +
+    '<div class="gen-lista" id="gen-lista">' + grupos + '<p class="ayuda" id="gen-nada" hidden>No encontré ese género. Puedes escribirlo en «Otro género».</p></div>' +
+    '<div class="hoja-pie"><button type="button" class="btn prim" data-action="gen-cerrar" id="gen-listo">Listo (' + sel.length + ')</button></div></div>';
+}
+function abrirHoja(id, html) {
+  cerrarHoja(id);
+  const h = document.createElement('div');
+  h.className = 'hoja'; h.id = id; h.setAttribute('role', 'dialog'); h.setAttribute('aria-modal', 'true');
+  h.innerHTML = html;
+  document.body.appendChild(h); document.body.classList.add('hoja-abierta');
+  return h;
+}
+function cerrarHoja(id) {
+  const h = document.getElementById(id); if (h) h.remove();
+  if (!document.querySelector('.hoja')) document.body.classList.remove('hoja-abierta');
+}
+function abrirGeneros() {
+  const h = abrirHoja('hoja-gen', hojaGenerosHTML()); h.setAttribute('aria-label', 'Elegir géneros');
+}
+function pickGenero(g) {
+  const ed = estado.ed, i = ed.generos.indexOf(g);
+  if (i >= 0) ed.generos.splice(i, 1);
+  else if (ed.generos.length >= 12) { toast('Máximo 12 géneros.'); return; }
+  else ed.generos.push(g);
+  document.querySelectorAll('#hoja-gen .gen-op[data-g]').forEach(function (b) { if (b.dataset.g === g) b.setAttribute('aria-pressed', ed.generos.indexOf(g) >= 0); });
+  const l = $('#gen-listo'); if (l) l.textContent = 'Listo (' + ed.generos.length + ')';
+  const c = $('#chips-gen'); if (c) c.innerHTML = chipsGeneros();
+}
+function plegarGenero(btn) {
+  const subs = btn.closest('.gen-grupo').querySelector('.gen-subs'), abrir = subs.hidden;
+  subs.hidden = !abrir; btn.setAttribute('aria-expanded', abrir);
+}
+function filtrarGeneros(q) {
+  const n = norm(q.trim()); let alguno = false;
+  document.querySelectorAll('#gen-lista .gen-grupo').forEach(function (g) {
+    let hay = !n;
+    g.querySelectorAll('.gen-subs .gen-op, .gen-cab .gen-op:not(.fijo)').forEach(function (b) {
+      const ok = !n || b.dataset.t.indexOf(n) >= 0; b.hidden = !ok; if (ok) hay = true;
+    });
+    g.hidden = !hay; if (hay) alguno = true;
+    const subs = g.querySelector('.gen-subs'), btn = g.querySelector('[data-action=gen-plegar]');
+    subs.hidden = n ? false : btn.getAttribute('aria-expanded') !== 'true';
+  });
+  const nada = $('#gen-nada'); if (nada) nada.hidden = alguno || !n;
 }
 function notaPrevHTML() {
   const n = estado.ed.nota, nv = nivel(n);
@@ -761,37 +1048,63 @@ function visHTML() {
     '<p class="ayuda">' + (p ? 'Cualquiera con el link de Claquetazo la puede leer.' : 'Solo tú la ves, cuando inicias sesión.') + '</p>';
 }
 function fotoEdHTML() {
-  const f = estado.ed.foto;
-  return '<div class="poster">' + (f ? '<img src="' + esc(f) + '" alt="Foto elegida">' : '<div class="ph" style="--h:270"><span class="ph-cat">Sin foto</span></div>') + '</div>' +
-    '<div><p class="ayuda" style="margin-bottom:10px">Sube una foto desde tu celular o computador.</p><div class="btns">' +
+  const ed = estado.ed, f = ed.foto;
+  const vista = ed.vistaThumb || (f && ed.base && f === ed.base.foto && ed.base.thumb) || f;
+  return '<div class="poster">' + (vista ? '<img src="' + esc(vista) + '" alt="Así se verá el afiche">' : '<div class="ph" style="--h:270"><span class="ph-cat">Sin foto</span></div>') + '</div>' +
+    '<div><p class="ayuda" style="margin-bottom:10px">Puede ser horizontal o vertical. Después eliges cómo se ve el afiche.</p><div class="btns">' +
     '<label class="btn" for="foto"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>' + (f ? 'Cambiar foto' : 'Subir foto') + '</label>' +
-    (f ? '<button type="button" class="btn" data-action="ed-quitar-foto">Quitar</button>' : '') + '</div></div>';
+    (f ? '<button type="button" class="btn" data-action="ed-reencuadrar">Reencuadrar</button><button type="button" class="btn" data-action="ed-quitar-foto">Quitar</button>' : '') + '</div></div>';
+}
+function resumenResHTML(html) {
+  const t = textoPlano(html).trim(), n = t ? t.split(/\s+/).length : 0;
+  if (!n) return '<p class="ayuda">Todavía no escribes nada.</p><button type="button" class="btn prim" data-action="esc-abrir">Escribir la reseña</button>';
+  return '<p class="res-ext">' + esc(t.slice(0, 220)) + (t.length > 220 ? '…' : '') + '</p><p class="ayuda">' + n + ' palabra' + (n === 1 ? '' : 's') + ' · ' + Math.max(1, Math.ceil(n / 200)) + ' min de lectura</p>' +
+    '<button type="button" class="btn" data-action="esc-abrir">Seguir escribiendo</button>';
+}
+function pintarResumen() {
+  const r = $('#res-resumen'), e = $('#f-resenia'); if (r && e) r.innerHTML = resumenResHTML(limpiar(e.innerHTML));
+}
+const IC = d => '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">' + d + '</svg>';
+function escritorioHTML(v) {
+  const tb = (cmd, etq, cont) => '<button type="button" class="tb" data-action="ed-fmt" data-cmd="' + cmd + '" aria-label="' + etq + '" aria-pressed="false">' + cont + '</button>';
+  return '<div class="escritorio" id="escritorio" role="dialog" aria-modal="true" aria-label="Escribir la reseña" hidden>' +
+    '<header class="esc-barra"><button type="button" class="ib" data-action="esc-cerrar" aria-label="Volver a los datos">' + IC('<path d="M15 5l-7 7 7 7"/>') + '</button>' +
+      '<div class="esc-tit"><b id="esc-nombre">Sin título</b><small><span id="esc-cuenta">0 palabras</span> · <span class="bor-estado"></span></small></div>' +
+      '<button type="button" class="ib esc-aa" data-action="esc-tam" aria-label="Tamaño de letra">Aa</button>' +
+      '<button type="button" class="ib" data-action="esc-enfoque" aria-label="Modo enfoque">' + IC('<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>') + '</button>' +
+      '<button type="button" class="btn prim" data-action="esc-guardar">Guardar</button></header>' +
+    '<div class="esc-scroll" id="esc-scroll"><div class="esc-hoja"><p class="esc-cat" id="esc-cat"></p><h2 class="esc-h" id="esc-h">Sin título</h2>' +
+      '<div id="f-resenia" class="rte" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Texto de la reseña" data-ph="Empieza a escribir…" spellcheck="true">' + limpiar(v.resenia) + '</div></div></div>' +
+    '<div class="esc-pie"><div class="tbar-esc" role="toolbar" aria-label="Formato">' +
+      tb('undo', 'Deshacer', IC('<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/>')) + tb('redo', 'Rehacer', IC('<path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 000 12h3"/>')) +
+      tb('bold', 'Negrilla', '<b>B</b>') + tb('italic', 'Cursiva', '<i>I</i>') + tb('h2', 'Título', 'Título') + tb('h3', 'Subtítulo', 'Subtítulo') +
+      tb('quote', 'Cita', 'Cita') + tb('list', 'Lista con viñetas', 'Lista') + tb('olist', 'Lista numerada', '1. Lista') + '</div></div>' +
+    '<button type="button" class="btn esc-fuera" data-action="esc-enfoque">Salir del enfoque</button></div>';
 }
 function vistaEditor() {
-  const b = estado.ed.base;
-  const v = b || { titulo: '', fecha: '', descripcion: '', veredicto: '', resenia: '' };
-  const nuevo = !b;
-  return '<a class="volver" href="' + (nuevo ? '#inicio' : '#r-' + b.id) + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Cancelar</a>' +
-    '<h1 class="pag">' + (nuevo ? 'Nueva reseña' : 'Editar reseña') + '</h1>' +
+  const ed = estado.ed, b = ed.base;
+  const v = ed.vals || b || { titulo: '', fecha: '', descripcion: '', veredicto: '', resenia: '' };
+  const nuevo = !b, atras = nuevo ? '#inicio' : '#r-' + b.id;
+  return '<a class="volver" href="' + atras + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
+    '<h1 class="pag">' + (nuevo ? 'Nueva reseña' : (b.borrador ? 'Borrador' : 'Editar reseña')) + '</h1>' +
+    (ed.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin guardar (' + hace(ed.recuperado) + ').</span><button type="button" class="btn" data-action="bor-descartar">' + (nuevo ? 'Descartar borrador' : 'Volver a la versión guardada') + '</button></div>' : '') +
     '<form id="f" class="form" novalidate>' +
       '<div class="campo"><span class="lbl">Foto</span><div class="foto-ed" id="foto-ed">' + fotoEdHTML() + '</div><input class="vh" type="file" id="foto" accept="image/*"></div>' +
       '<div class="campo"><label for="f-titulo">Nombre</label><input id="f-titulo" class="in" type="text" maxlength="200" placeholder="Película, álbum, libro, partido..." value="' + esc(v.titulo) + '" autocomplete="off"></div>' +
       '<div class="campo"><span class="lbl">Categoría</span><div class="chips" id="chips-cat">' + chipsCategoria() + '</div></div>' +
       '<div class="campo"><span class="lbl">Géneros</span><div class="chips" id="chips-gen">' + chipsGeneros() + '</div>' +
-        '<div class="gen-nuevo"><label class="vh" for="f-gen-nuevo">Otro género</label><input id="f-gen-nuevo" class="in" type="text" maxlength="30" placeholder="Otro género (ej: Slasher, Trap, Crónica)" autocomplete="off"><button type="button" class="btn" data-action="ed-gen-add">Agregar</button></div></div>' +
+        '<div class="gen-nuevo"><label class="vh" for="f-gen-nuevo">Otro género</label><input id="f-gen-nuevo" class="in" type="text" maxlength="30" placeholder="Otro género (ej: Trap, Crónica)" autocomplete="off"><button type="button" class="btn" data-action="ed-gen-add">Agregar</button></div></div>' +
       '<div class="campo"><label for="f-fecha">Fecha del suceso o estreno</label><input id="f-fecha" class="in" type="date" value="' + esc(v.fecha.length === 10 ? v.fecha : '') + '"></div>' +
       '<div class="campo"><label for="f-desc">Info básica</label><textarea id="f-desc" class="in" rows="2" maxlength="500" placeholder="Director, artista, autor, marcador, dónde fue...">' + esc(v.descripcion) + '</textarea></div>' +
       '<div class="campo"><span class="lbl">Nota</span><div class="nota-ed"><div id="nota-prev">' + notaPrevHTML() + '</div>' +
-        '<div class="nota-ctrl"><button type="button" class="btn" data-action="ed-nota-menos" aria-label="Bajar 0.1">−</button><input id="f-nota" type="range" min="1" max="5" step="0.1" value="' + estado.ed.nota + '" aria-label="Nota de 1 a 5"><button type="button" class="btn" data-action="ed-nota-mas" aria-label="Subir 0.1">+</button></div></div></div>' +
+        '<div class="nota-ctrl"><button type="button" class="btn" data-action="ed-nota-menos" aria-label="Bajar 0.1">−</button><input id="f-nota" type="range" min="1" max="5" step="0.1" value="' + ed.nota + '" aria-label="Nota de 1 a 5"><button type="button" class="btn" data-action="ed-nota-mas" aria-label="Subir 0.1">+</button></div></div></div>' +
       '<div class="campo"><label for="f-veredicto">Veredicto en una línea</label><input id="f-veredicto" class="in" type="text" maxlength="120" placeholder="El titular de tu opinión" value="' + esc(v.veredicto) + '" autocomplete="off"></div>' +
-      '<div class="campo"><span class="lbl" id="lbl-res">Reseña</span>' +
-        '<div class="tbar" role="toolbar" aria-label="Formato"><button type="button" class="tb" data-action="ed-fmt" data-cmd="bold" aria-label="Negrilla"><b>B</b></button><button type="button" class="tb" data-action="ed-fmt" data-cmd="italic" aria-label="Cursiva"><i>I</i></button>' +
-        '<button type="button" class="tb" data-action="ed-fmt" data-cmd="h2" aria-label="Título">Título</button><button type="button" class="tb" data-action="ed-fmt" data-cmd="quote" aria-label="Cita">Cita</button><button type="button" class="tb" data-action="ed-fmt" data-cmd="list" aria-label="Lista">Lista</button></div>' +
-        '<div id="f-resenia" class="rte" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="lbl-res" data-ph="Escribe aquí, sin filtro...">' + limpiar(v.resenia) + '</div></div>' +
+      '<div class="campo"><span class="lbl">Reseña</span><div class="res-resumen" id="res-resumen">' + resumenResHTML(v.resenia) + '</div></div>' +
       '<div class="campo"><span class="lbl">Quién la puede ver</span><div id="vis">' + visHTML() + '</div></div>' +
       '<p class="error" id="f-error" role="alert" hidden></p>' +
-      '<div class="barra-g"><button type="submit" id="f-guardar" class="btn prim grande">Guardar</button><a class="btn" href="' + (nuevo ? '#inicio' : '#r-' + b.id) + '">Cancelar</a></div>' +
-    '</form>';
+      '<div class="barra-g"><button type="submit" id="f-guardar" class="btn prim grande">Guardar</button><button type="button" class="btn" data-action="bor-guardar">Guardar borrador</button></div>' +
+      '<p class="ayuda bor-estado" role="status"></p>' +
+    '</form>' + escritorioHTML(v);
 }
 
 /* ---------- Rankings ---------- */
@@ -876,7 +1189,13 @@ function vistaAjustes() {
       '<div class="barra-g"><button class="btn" data-action="exportar">Descargar respaldo</button><label class="btn" for="f-importar">Importar respaldo</label><input class="vh" type="file" id="f-importar" accept="application/json,.json"></div>' +
       (enMarco ? '<p class="ayuda">En esta vista previa la descarga no funciona. En la app instalada o abierta en el navegador sí.</p>' : '') + '</div>'
     : '';
-  return '<h1 class="pag">Ajustes</h1>' + cuenta + migrar + respaldo;
+  const borr = estado.sesion
+    ? '<div class="ajuste"><h2>Borradores en la nube</h2>' + (estado.borradorNube === true
+      ? '<p>Activos. Tus reseñas nuevas se guardan solas en este aparato y también en la nube, así las puedes seguir desde otro aparato.</p>'
+      : '<p>Tus borradores ya se guardan en este aparato. Para que también viajen a la nube (y seguirlos en el celular o el PC), pega esto una sola vez en Supabase: <b>SQL Editor → New query → pegar → Run</b>. Si ya lo hiciste, recarga la app.</p>' +
+        '<pre class="sql" id="sql-bor">' + esc(SQL_BORRADORES) + '</pre><button class="btn" data-action="copiar-sql">Copiar el SQL</button>') + '</div>'
+    : '';
+  return '<h1 class="pag">Ajustes</h1>' + cuenta + migrar + borr + respaldo;
 }
 
 /* =====================================================================
@@ -894,7 +1213,9 @@ function render(cambioDeRuta) {
   }
   if (!h && !cambioDeRuta && document.querySelector('.bienvenida')) return;   // la bienvenida no se repite sola
   detenerBienvenida();
-  const rutaEditor = h === 'agregar' || h.indexOf('editar-') === 0;
+  if (estado.ed && $('#f')) flushBorrador();   // lo escrito se guarda antes de cambiar de pantalla
+  document.body.classList.remove('escribiendo'); estado.escHist = false; cerrarHoja('hoja-gen'); cerrarHoja('hoja-enc');
+  const rutaEditor = h === 'agregar' || h.indexOf('editar-') === 0 || h.indexOf('borrador-') === 0;
   if (rutaEditor && estado.iniciado && !estado.sesion) { location.hash = '#entrar'; return; }
   if (h === 'entrar' && estado.sesion) { location.hash = '#ajustes'; return; }
   let html = '', sec = '';
@@ -904,6 +1225,11 @@ function render(cambioDeRuta) {
   else if (rutaEditor && !estado.iniciado) { html = '<p class="ayuda">Cargando…</p>'; sec = 'agregar'; }
   else if (h === 'agregar') { if (cambioDeRuta || !estado.ed) iniciarEditor(null); html = vistaEditor(); sec = 'agregar'; }
   else if (h.indexOf('editar-') === 0) { if (cambioDeRuta || !estado.ed) iniciarEditor(h.slice(7)); html = estado.ed && estado.ed.base ? vistaEditor() : vistaDetalle(''); sec = 'agregar'; }
+  else if (h.indexOf('borrador-') === 0) {
+    const ex = porId(h.slice(9)); if (ex) { location.hash = '#editar-' + ex.id; return; }
+    if (cambioDeRuta || !estado.ed) iniciarEditor(null, h.slice(9));
+    html = vistaEditor(); sec = 'agregar';
+  }
   else if (h === 'top') { html = vistaTop(); sec = 'top'; }
   else if (h === 'ajustes') { html = vistaAjustes(); sec = 'ajustes'; }
   else if (h === 'entrar') { html = vistaEntrar(); sec = 'ajustes'; }
@@ -914,6 +1240,7 @@ function render(cambioDeRuta) {
     if (a.dataset.sec === sec) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
   if (cambioDeRuta) window.scrollTo(0, 0);
+  const di = $('.d-img'); if (di && di.complete) ajustarImgDetalle(di);
   if (!h) iniciarBienvenida();
   if (h.indexOf('r-') === 0 && sb && porId(h.slice(2))) {
     const rid = h.slice(2);
@@ -925,7 +1252,7 @@ function render(cambioDeRuta) {
 function renderSuave() {
   const h = location.hash.slice(1);
   if (!h || bvPendiente) return;
-  if (h === 'agregar' || h.indexOf('editar-') === 0) { if (estado.iniciado && !estado.sesion) render(true); return; }
+  if (h === 'agregar' || h.indexOf('editar-') === 0 || h.indexOf('borrador-') === 0) { if (estado.iniciado && !estado.sesion) render(true); return; }
   const a = document.activeElement;
   if (a && (a.id === 'com-texto' || a.id === 'login-email' || a.id === 'login-clave')) return;
   render(false);
@@ -1003,7 +1330,7 @@ function cargarImagen(archivo) {
   return new Promise(function (ok, mal) {
     const url = URL.createObjectURL(archivo);
     const img = new Image();
-    img.onload = function () { URL.revokeObjectURL(url); ok(img); };
+    img.onload = function () { img._url = url; ok(img); };   // quien la use revoca el URL cuando termine
     img.onerror = function () { URL.revokeObjectURL(url); mal(new Error('imagen')); };
     img.src = url;
   });
@@ -1019,10 +1346,26 @@ function aBlob(img, max, calidad) {
     c.toBlob(function (b) { b ? ok(b) : mal(new Error('blob')); }, 'image/jpeg', calidad);
   });
 }
-// De una foto salen dos: la grande (máximo 1000 px) y una miniatura (360 px) para las tarjetas.
+// Recorte de afiche (2:3) para la cartelera. Sin encuadre elegido, se centra solo.
+function recorteAfiche(img, enc) {
+  return new Promise(function (ok, mal) {
+    const W = 480, H = 720, nw = img.naturalWidth || img.width, nh = img.naturalHeight || img.height;
+    let sx, sy, sw, sh;
+    if (enc) { const sc = Math.max(enc.w / nw, enc.h / nh) * enc.zoom; sx = -enc.x / sc; sy = -enc.y / sc; sw = enc.w / sc; sh = enc.h / sc; }
+    else { const sc = Math.max(W / nw, H / nh); sw = W / sc; sh = H / sc; sx = (nw - sw) / 2; sy = (nh - sh) / 2; }
+    const c = document.createElement('canvas'); c.width = W; c.height = H;
+    try {
+      const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H);
+      x.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
+      c.toBlob(function (b) { b ? ok(b) : mal(new Error('blob')); }, 'image/jpeg', 0.8);
+    } catch (e) { mal(e); }
+  });
+}
+// De una foto salen dos: la grande (con su forma original, máximo 1200 px) y el afiche para las tarjetas (2:3).
 async function procesarFoto(archivo) {
   const img = await cargarImagen(archivo);
-  return { full: await aBlob(img, 1000, 0.82), thumb: await aBlob(img, 360, 0.75) };
+  try { return { full: await aBlob(img, 1200, 0.82), thumb: await recorteAfiche(img, null) }; }
+  finally { if (img._url) URL.revokeObjectURL(img._url); }
 }
 async function subirFoto(ruta, blob) {
   const r = await sb.storage.from(BUCKET).upload(ruta, blob, { contentType: 'image/jpeg', cacheControl: '31536000' });
@@ -1031,7 +1374,145 @@ async function subirFoto(ruta, blob) {
 
 function mostrarError(msg, selector) {
   const e = $('#f-error'); if (e) { e.textContent = msg; e.hidden = false; }
-  const c = selector && $(selector); if (c) c.focus();
+  if (document.body.classList.contains('escribiendo')) { toast(msg); if (selector) salirEscritura(); }
+  const c = selector && $(selector); if (c) setTimeout(function () { c.focus(); }, 80);
+}
+
+/* ---------- Borradores ---------- */
+// Lo que escribes se guarda solo en este aparato. Las reseñas nuevas también se copian a la nube como "borrador"
+// (eso pide un cambio pequeño en la base de datos: está en Ajustes). Las reseñas ya publicadas solo guardan cambios aquí.
+const claveBor = id => 'bor-' + (estado.sesion ? estado.sesion.id : 'anon') + '-' + id;
+const SQL_BORRADORES = 'alter table public.reviews add column if not exists borrador boolean not null default false;\n\n' +
+  'drop policy if exists "reviews: publicas para todos" on public.reviews;\n' +
+  'create policy "reviews: publicas para todos" on public.reviews\n  for select to anon, authenticated\n  using (publica = true and borrador = false);\n\n' +
+  'create index if not exists reviews_borrador_idx on public.reviews (user_id, borrador);';
+
+function hace(ms) {
+  const m = Math.max(0, Math.round((Date.now() - ms) / 60000));
+  if (m < 1) return 'ahora mismo';
+  if (m < 60) return 'hace ' + m + ' min';
+  const h = Math.round(m / 60);
+  if (h < 24) return 'hace ' + h + (h === 1 ? ' hora' : ' horas');
+  const d = Math.round(h / 24);
+  return 'hace ' + d + (d === 1 ? ' día' : ' días');
+}
+async function cargarBorradoresLocales() {
+  estado.borradoresLocales = [];
+  if (!estado.sesion) return;
+  const pref = 'bor-' + estado.sesion.id + '-';
+  try {
+    const todos = await Copia.todos();
+    estado.borradoresLocales = todos.filter(x => x && typeof x.k === 'string' && x.k.indexOf(pref) === 0 && x.v && x.v.datos).map(x => x.v);
+  } catch (e) { estado.borradoresLocales = []; }
+}
+// Une los borradores de la nube y los de este aparato en una sola lista.
+function listaBorradores() {
+  const mapa = new Map();
+  estado.borradoresNube.forEach(it => mapa.set(it.id, { id: it.id, titulo: it.titulo, categoria: it.categoria, hora: it.actualizado || it.creado, nube: true, cambios: false }));
+  estado.borradoresLocales.forEach(function (r) {
+    const d = r.datos || {}, pub = estado.items.find(x => x.id === r.id), ya = mapa.get(r.id);
+    if (ya) { if (r.hora > ya.hora) { ya.hora = r.hora; ya.titulo = d.titulo || ya.titulo; } return; }
+    mapa.set(r.id, { id: r.id, titulo: d.titulo || (pub ? pub.titulo : ''), categoria: d.categoria || 'otros', hora: r.hora, nube: false, cambios: !!pub });
+  });
+  return Array.from(mapa.values()).sort((a, b) => b.hora - a.hora);
+}
+function recogerDatos() {
+  const ed = estado.ed, val = sel => { const e = $(sel); return e ? e.value : ''; }, r = $('#f-resenia');
+  return {
+    titulo: val('#f-titulo'), categoria: ed.categoria, generos: ed.generos.slice(), fecha: val('#f-fecha'), descripcion: val('#f-desc'),
+    nota: ed.nota, veredicto: val('#f-veredicto'), resenia: r ? limpiar(r.innerHTML) : '', publica: ed.publica
+  };
+}
+function datosVacios(d, ed) {
+  return !d.titulo.trim() && !d.descripcion.trim() && !d.veredicto.trim() && !textoPlano(d.resenia).trim() && !ed.generos.length && !ed.nuevaFoto;
+}
+function pintarEstadoBor() {
+  const b = estado.bor, partes = [];
+  if (b.local) partes.push('Guardado en este aparato ' + hace(b.local));
+  if (b.nube) partes.push('y en la nube');
+  else if (estado.borradorNube === false && b.local) partes.push('(la nube de borradores está apagada, mira Ajustes)');
+  const t = partes.join(' ') || 'Se guarda solo mientras escribes';
+  document.querySelectorAll('.bor-estado').forEach(e => { e.textContent = t; });
+}
+function guardarBorradorLocal() {
+  const ed = estado.ed; if (!ed || !ed.tocado || !estado.sesion || !$('#f')) return;
+  const d = recogerDatos();
+  if (datosVacios(d, ed)) { Copia.borrar(claveBor(ed.id)); return; }
+  const reg = { id: ed.id, hora: Date.now(), nuevo: !ed.base, datos: d, fotos: ed.nuevaFoto ? { full: ed.nuevaFoto.full || null, thumb: ed.nuevaFoto.thumb } : null };
+  if (!Copia.escribir(claveBor(ed.id), reg) && reg.fotos) { reg.fotos = null; Copia.escribir(claveBor(ed.id), reg); }
+  estado.bor.local = reg.hora;
+  estado.borradoresLocales = estado.borradoresLocales.filter(x => x.id !== ed.id).concat([reg]);
+  pintarEstadoBor();
+}
+async function sincronizarNube() {
+  const ed = estado.ed;
+  if (!ed || !ed.tocado || !estado.sesion || !sb || estado.borradorNube === false || estado.guardando || !$('#f')) return;
+  if (ed.base && !ed.base.borrador) return;   // una reseña ya publicada no se pisa con un borrador
+  const d = recogerDatos();
+  if (datosVacios(d, ed)) return;
+  const fila = {
+    titulo: d.titulo.trim().slice(0, 200) || 'Sin título', categoria: d.categoria, generos: d.generos, fecha: d.fecha,
+    descripcion: d.descripcion.trim().slice(0, 500), nota: d.nota, veredicto: d.veredicto.trim().slice(0, 120), resenia: d.resenia,
+    publica: false, borrador: true
+  };
+  const existe = !!ed.base || ed.nubeCreada;
+  try {
+    const r = existe ? await sb.from('reviews').update(fila).eq('id', ed.id) : await sb.from('reviews').insert(Object.assign({ id: ed.id }, fila));
+    if (r.error) throw r.error;
+    ed.nubeCreada = true; estado.borradorNube = true; estado.bor.nube = Date.now(); pintarEstadoBor();
+    const ya = estado.borradoresNube.find(x => x.id === ed.id), ahora = Date.now();
+    const ent = normalizar(Object.assign({}, fila, { id: ed.id, creado: ya ? ya.creado : ahora, actualizado: ahora, fotoPath: ya ? ya.fotoPath : null, thumbPath: ya ? ya.thumbPath : null }));
+    estado.borradoresNube = estado.borradoresNube.filter(x => x.id !== ed.id).concat([ent]);
+  } catch (e) {
+    const m = String((e && (e.message || e.code)) || '');
+    if (/borrador/i.test(m) || (e && e.code === 'PGRST204')) { estado.borradorNube = false; pintarEstadoBor(); }
+    else console.warn('borrador en la nube:', e);
+  }
+}
+let tBorLocal = null, tBorNube = null;
+function marcar() {
+  const ed = estado.ed; if (!ed) return;
+  ed.tocado = true;
+  clearTimeout(tBorLocal); tBorLocal = setTimeout(guardarBorradorLocal, 700);
+  clearTimeout(tBorNube); tBorNube = setTimeout(sincronizarNube, 15000);
+}
+function flushBorrador() {
+  clearTimeout(tBorLocal); clearTimeout(tBorNube);
+  guardarBorradorLocal();
+  return sincronizarNube();
+}
+async function restaurarBorrador() {
+  const ed = estado.ed; if (!ed || !estado.sesion) return;
+  const reg = await Copia.leer(claveBor(ed.id));
+  if (estado.ed !== ed || ed.tocado) return;
+  if (!reg || !reg.datos) {
+    if (ed.deRuta && !ed.base) { toast('No encontré ese borrador.'); location.hash = '#inicio'; }
+    return;
+  }
+  if (ed.base && reg.hora <= (ed.base.actualizado || 0)) { Copia.borrar(claveBor(ed.id)); return; }   // lo de la nube es más nuevo
+  const d = reg.datos;
+  ed.vals = { titulo: d.titulo || '', fecha: d.fecha || '', descripcion: d.descripcion || '', veredicto: d.veredicto || '', resenia: d.resenia || '' };
+  ed.categoria = CATEGORIAS.some(c => c.id === d.categoria) ? d.categoria : ed.categoria;
+  ed.generos = Array.isArray(d.generos) ? d.generos.slice(0, 12) : ed.generos;
+  ed.nota = redondear(Math.max(1, Math.min(5, Number(d.nota) || ed.nota)));
+  ed.publica = !!d.publica;
+  if (reg.fotos && reg.fotos.thumb) {
+    ed.nuevaFoto = { full: reg.fotos.full, thumb: reg.fotos.thumb };
+    try { ed.foto = URL.createObjectURL(reg.fotos.full || reg.fotos.thumb); } catch (e) { /* sin vista previa */ }
+  }
+  ed.recuperado = reg.hora;
+  estado.bor.local = reg.hora;
+  if (location.hash.slice(1) === (ed.deRuta ? 'borrador-' + ed.id : (ed.base ? 'editar-' + ed.id : 'agregar'))) render(false);
+}
+async function borrarBorrador(id) {
+  Copia.borrar(claveBor(id));
+  estado.borradoresLocales = estado.borradoresLocales.filter(x => x.id !== id);
+  const n = estado.borradoresNube.find(x => x.id === id);
+  if (n && sb) {
+    const r = await sb.from('reviews').delete().eq('id', id);
+    if (r.error) throw r.error;
+    estado.borradoresNube = estado.borradoresNube.filter(x => x.id !== id);
+  }
 }
 
 /* ---------- Guardar una reseña ---------- */
@@ -1050,11 +1531,14 @@ async function guardarFormulario() {
     if (ed.nuevaFoto) {
       const sello = Date.now().toString(36);
       const pf = uid + '/' + id + '/' + sello + '-g.jpg', pt = uid + '/' + id + '/' + sello + '-m.jpg';
-      await subirFoto(pf, ed.nuevaFoto.full); subidas.push(pf);
+      if (ed.nuevaFoto.full) {   // si solo se reencuadró, la foto grande se queda como está
+        await subirFoto(pf, ed.nuevaFoto.full); subidas.push(pf);
+        if (fotoPath) viejos.push(fotoPath);
+        fotoPath = pf;
+      }
       await subirFoto(pt, ed.nuevaFoto.thumb); subidas.push(pt);
-      if (fotoPath) viejos.push(fotoPath);
       if (thumbPath) viejos.push(thumbPath);
-      fotoPath = pf; thumbPath = pt;
+      thumbPath = pt;
     } else if (!ed.foto && fotoPath) {
       viejos.push(fotoPath); if (thumbPath) viejos.push(thumbPath);
       fotoPath = null; thumbPath = null;
@@ -1065,9 +1549,14 @@ async function guardarFormulario() {
       veredicto: $('#f-veredicto').value.trim().slice(0, 120), resenia: limpiar($('#f-resenia').innerHTML),
       foto_path: fotoPath, thumb_path: thumbPath, publica: ed.publica
     };
-    const r = b ? await sb.from('reviews').update(fila).eq('id', id) : await sb.from('reviews').insert(Object.assign({ id: id }, fila));
+    if (estado.borradorNube === true || ed.nubeCreada || (b && b.borrador)) fila.borrador = false;
+    const existe = !!b || ed.nubeCreada;
+    clearTimeout(tBorLocal); clearTimeout(tBorNube);
+    const r = existe ? await sb.from('reviews').update(fila).eq('id', id) : await sb.from('reviews').insert(Object.assign({ id: id }, fila));
     if (r.error) throw r.error;
     if (viejos.length) sb.storage.from(BUCKET).remove(viejos);
+    Copia.borrar(claveBor(id));
+    estado.borradoresLocales = estado.borradoresLocales.filter(x => x.id !== id);
     estado.ed = null;
     try { await cargarItems(); } catch (e2) { /* se verá al volver a cargar */ }
     toast('Guardado');
@@ -1085,12 +1574,154 @@ async function guardarFormulario() {
 function formato(cmd) {
   const ed = $('#f-resenia'); if (!ed) return;
   if (document.activeElement !== ed) ed.focus();
-  if (cmd === 'bold' || cmd === 'italic') { document.execCommand(cmd); return; }
+  if (cmd === 'bold' || cmd === 'italic' || cmd === 'undo' || cmd === 'redo') { document.execCommand(cmd); return; }
   if (cmd === 'list') { document.execCommand('insertUnorderedList'); return; }
-  const tag = cmd === 'h2' ? 'h2' : 'blockquote';
+  if (cmd === 'olist') { document.execCommand('insertOrderedList'); return; }
+  const tag = { h2: 'h2', h3: 'h3', quote: 'blockquote' }[cmd]; if (!tag) return;
   const actual = String(document.queryCommandValue('formatBlock') || '').toLowerCase();
   document.execCommand('formatBlock', false, actual === tag ? 'p' : tag);
 }
+
+/* ---------- Foto: elegir, encuadrar, reencuadrar ---------- */
+function abrirEncuadre(img, alAceptar) {
+  const h = abrirHoja('hoja-enc', '<div class="hoja-c enc"><h2 class="hoja-t">Encuadra el afiche</h2>' +
+    '<p class="ayuda">Mueve la foto con el dedo o el mouse y acércala si quieres. Así se verá en la cartelera.</p>' +
+    '<div class="enc-marco" id="enc-marco"><img id="enc-img" alt="" draggable="false"></div>' +
+    '<label class="vh" for="enc-zoom">Acercar</label><input id="enc-zoom" type="range" min="1" max="3" step="0.01" value="1">' +
+    '<div class="hoja-pie" style="width:100%"><button type="button" class="btn prim" data-action="enc-ok">Listo</button><button type="button" class="btn" data-action="enc-cancel">Cancelar</button></div></div>');
+  h.setAttribute('aria-label', 'Encuadrar el afiche');
+  const marco = $('#enc-marco'), el = $('#enc-img');
+  const st = { alAceptar: alAceptar, zoom: 1, x: 0, y: 0, w: marco.clientWidth || 280, h: marco.clientHeight || 420, nw: img.naturalWidth || img.width || 1, nh: img.naturalHeight || img.height || 1 };
+  estado.enc = st;
+  el.src = img._url || img.src;
+  const base = () => Math.max(st.w / st.nw, st.h / st.nh);
+  st.colocar = function () {
+    const sc = base() * st.zoom, iw = st.nw * sc, ih = st.nh * sc;
+    st.x = Math.min(0, Math.max(st.w - iw, st.x)); st.y = Math.min(0, Math.max(st.h - ih, st.y));
+    el.style.width = iw + 'px'; el.style.height = ih + 'px'; el.style.transform = 'translate(' + st.x + 'px,' + st.y + 'px)';
+  };
+  st.acercar = function (z) {
+    z = Math.max(1, Math.min(3, z));
+    const s0 = base() * st.zoom, cx = (st.w / 2 - st.x) / s0, cy = (st.h / 2 - st.y) / s0;
+    st.zoom = z; const s1 = base() * z;
+    st.x = st.w / 2 - cx * s1; st.y = st.h / 2 - cy * s1;
+    const zr = $('#enc-zoom'); if (zr) zr.value = z;
+    st.colocar();
+  };
+  st.x = (st.w - st.nw * base()) / 2; st.y = (st.h - st.nh * base()) / 2; st.colocar();
+  const dedos = new Map(); let dist0 = 0, zoom0 = 1;
+  marco.addEventListener('pointerdown', function (e) {
+    try { marco.setPointerCapture(e.pointerId); } catch (x) { /* sin captura */ }
+    dedos.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (dedos.size === 2) { const p = Array.from(dedos.values()); dist0 = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y); zoom0 = st.zoom; }
+  });
+  marco.addEventListener('pointermove', function (e) {
+    const d = dedos.get(e.pointerId); if (!d) return;
+    if (dedos.size === 1) { st.x += e.clientX - d.x; st.y += e.clientY - d.y; d.x = e.clientX; d.y = e.clientY; st.colocar(); }
+    else { d.x = e.clientX; d.y = e.clientY; const p = Array.from(dedos.values()), dd = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y); if (dist0) st.acercar(zoom0 * dd / dist0); }
+  });
+  const soltar = function (e) { dedos.delete(e.pointerId); };
+  marco.addEventListener('pointerup', soltar); marco.addEventListener('pointercancel', soltar);
+  marco.addEventListener('wheel', function (e) { e.preventDefault(); st.acercar(st.zoom * (e.deltaY < 0 ? 1.08 : 1 / 1.08)); }, { passive: false });
+}
+async function elegirFoto(archivo) {
+  const ed = estado.ed; if (!ed) return;
+  try {
+    const img = await cargarImagen(archivo);
+    const full = await aBlob(img, 1200, 0.82);
+    abrirEncuadre(img, async function (enc) {
+      const thumb = await recorteAfiche(img, enc);
+      ed.fuente = img; ed.nuevaFoto = { full: full, thumb: thumb };
+      ed.foto = URL.createObjectURL(full); ed.vistaThumb = URL.createObjectURL(thumb);
+      const fe = $('#foto-ed'); if (fe) fe.innerHTML = fotoEdHTML();
+      marcar();
+    });
+  } catch (e) { mostrarError('No pude leer esa foto. Prueba con otra.'); }
+}
+async function reencuadrar() {
+  const ed = estado.ed; if (!ed || !ed.foto) return;
+  try {
+    let img = ed.fuente;
+    if (!img) {
+      const url = ed.foto + (/^https?:/.test(ed.foto) ? (ed.foto.indexOf('?') >= 0 ? '&' : '?') + 'cors=1' : '');
+      img = await new Promise(function (ok, mal) { const i = new Image(); i.crossOrigin = 'anonymous'; i.onload = function () { ok(i); }; i.onerror = function () { mal(new Error('foto')); }; i.src = url; });
+      ed.fuente = img;
+    }
+    abrirEncuadre(img, async function (enc) {
+      const thumb = await recorteAfiche(img, enc);
+      ed.nuevaFoto = { full: ed.nuevaFoto ? ed.nuevaFoto.full : null, thumb: thumb };
+      ed.vistaThumb = URL.createObjectURL(thumb);
+      const fe = $('#foto-ed'); if (fe) fe.innerHTML = fotoEdHTML();
+      marcar();
+    });
+  } catch (e) { toast('No pude abrir la foto para reencuadrar. Súbela de nuevo.'); }
+}
+
+/* ---------- Modo escritura ---------- */
+const TAMANOS = [[0.9, 'pequeña'], [1, 'normal'], [1.14, 'grande'], [1.3, 'muy grande']];
+let idxTam = 1;
+try { const g = parseInt(localStorage.getItem('claquetazo-letra'), 10); if (g >= 0 && g < TAMANOS.length) idxTam = g; } catch (e) { /* sin memoria */ }
+function aplicarTam() { document.documentElement.style.setProperty('--esc', TAMANOS[idxTam][0]); }
+function ciclarTam() {
+  idxTam = (idxTam + 1) % TAMANOS.length; aplicarTam();
+  try { localStorage.setItem('claquetazo-letra', idxTam); } catch (e) { /* sin memoria */ }
+  toast('Letra ' + TAMANOS[idxTam][1]);
+}
+aplicarTam();
+
+function contarPalabras() {
+  const r = $('#f-resenia'), c = $('#esc-cuenta'); if (!r || !c) return;
+  const n = (r.textContent || '').trim().split(/\s+/).filter(Boolean).length;
+  c.textContent = n + ' palabra' + (n === 1 ? '' : 's') + (n ? ' · ' + Math.max(1, Math.ceil(n / 200)) + ' min' : '');
+}
+function ajustarVV() {
+  const e = $('#escritorio'); if (!e || e.hidden) return;
+  const v = window.visualViewport; if (!v) return;
+  e.style.height = v.height + 'px'; e.style.top = v.offsetTop + 'px';
+}
+function mantenerCursor() {
+  try {
+    const sc = $('#esc-scroll'), sel = getSelection(); if (!sc || !sel || !sel.rangeCount) return;
+    let r = sel.getRangeAt(0).getBoundingClientRect();
+    if (!r.height) { const n = sel.focusNode && (sel.focusNode.nodeType === 3 ? sel.focusNode.parentElement : sel.focusNode); if (!n) return; r = n.getBoundingClientRect(); }
+    const c = sc.getBoundingClientRect();
+    if (r.bottom > c.bottom - 30) sc.scrollTop += r.bottom - c.bottom + 80;
+    else if (r.top < c.top + 10) sc.scrollTop -= c.top - r.top + 50;
+  } catch (e) { /* no pasa nada */ }
+}
+// Todo el texto va en párrafos (así Enter hace un párrafo nuevo con su espacio) y se muestra el aviso cuando está vacío.
+function prepararTexto(r) {
+  if (!r) return;
+  if (!r.querySelector('p,h2,h3,ul,ol,blockquote')) r.innerHTML = '<p>' + (r.innerHTML.trim() || '<br>') + '</p>';
+  r.classList.toggle('rte-vacio', !r.textContent.trim() && !r.querySelector('li,blockquote,h2,h3'));
+}
+function cursorAlFinal(el) {
+  try { const r = document.createRange(); r.selectNodeContents(el); r.collapse(false); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) { /* nada */ }
+}
+function abrirEscritura() {
+  const e = $('#escritorio'); if (!e) return;
+  const f = $('#f-fecha').value;
+  $('#esc-nombre').textContent = $('#esc-h').textContent = $('#f-titulo').value.trim() || 'Sin título';
+  $('#esc-cat').textContent = catNombre(estado.ed.categoria) + (f ? ' · ' + f.slice(0, 4) : '');
+  e.hidden = false; e.classList.remove('enfoque'); document.body.classList.add('escribiendo');
+  estado.escHist = true; try { history.pushState({ esc: 1 }, '', location.href); } catch (x) { estado.escHist = false; }
+  ajustarVV(); contarPalabras(); pintarEstadoBor();
+  const r = $('#f-resenia');
+  try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (x) { /* nada */ }
+  prepararTexto(r);
+  setTimeout(function () { r.focus(); cursorAlFinal(r); mantenerCursor(); }, 60);
+}
+function cerrarEscritura() {
+  const e = $('#escritorio'); if (!e) return;
+  e.hidden = true; e.classList.remove('enfoque'); e.style.height = ''; e.style.top = '';
+  document.body.classList.remove('escribiendo');
+  pintarResumen(); flushBorrador();
+}
+function salirEscritura() {
+  if (estado.escHist) { try { history.back(); return; } catch (e) { /* se cierra directo */ } }
+  cerrarEscritura();
+}
+function alternarEnfoque() { const e = $('#escritorio'); if (e) e.classList.toggle('enfoque'); }
 
 function addGenero() {
   const inp = $('#f-gen-nuevo'); if (!inp) return;
@@ -1199,14 +1830,56 @@ async function alCambiarSesion(user, primera) {
   renderSuave();   // muestra la copia guardada mientras llega lo nuevo
   if (sb) await refrescar(); else { estado.sinConexion = true; estado.cargando = false; }
   if (user) await contarLocales();
+  await cargarBorradoresLocales();
   if (primera) { if (location.hash.slice(1)) render(true); } else renderSuave();
 }
 
 /* ---------- Eventos ---------- */
 document.addEventListener('click', function (e) {
+  if (e.target.id === 'hoja-gen') { cerrarHoja('hoja-gen'); return; }
   const b = e.target.closest('[data-action]'); if (!b) return;
   const a = b.dataset.action, id = b.dataset.id;
+  if (a.indexOf('ed-') === 0 && estado.ed) marcar();
   switch (a) {
+    case 'gen-abrir': abrirGeneros(); break;
+    case 'gen-pick': pickGenero(b.dataset.g); marcar(); break;
+    case 'gen-plegar': plegarGenero(b); break;
+    case 'gen-cerrar': cerrarHoja('hoja-gen'); break;
+    case 'enc-ok': {
+      const st = estado.enc; if (!st) break;
+      estado.enc = null; cerrarHoja('hoja-enc');
+      Promise.resolve(st.alAceptar(st)).catch(function () { toast('No pude usar esa foto. Prueba con otra.'); });
+      break;
+    }
+    case 'enc-cancel': estado.enc = null; cerrarHoja('hoja-enc'); break;
+    case 'ed-reencuadrar': reencuadrar(); break;
+    case 'esc-abrir': abrirEscritura(); break;
+    case 'esc-cerrar': salirEscritura(); break;
+    case 'esc-guardar': guardarFormulario(); break;
+    case 'esc-tam': ciclarTam(); break;
+    case 'esc-enfoque': alternarEnfoque(); break;
+    case 'bor-guardar':
+      if (!estado.ed) break;
+      estado.ed.tocado = true; b.disabled = true;
+      flushBorrador().then(function () { b.disabled = false; toast(estado.bor.nube ? 'Borrador guardado en este aparato y en la nube' : 'Borrador guardado en este aparato'); });
+      break;
+    case 'bor-descartar': {
+      const ed = estado.ed; if (!ed) break;
+      const base = ed.base, id0 = ed.id;
+      Copia.borrar(claveBor(id0));
+      estado.borradoresLocales = estado.borradoresLocales.filter(x => x.id !== id0);
+      if (base) { iniciarEditor(base.id); render(false); toast('Volví a la versión guardada'); }
+      else { estado.ed = null; seguro(function () { return borrarBorrador(id0); }, 'No se pudo borrar el borrador de la nube.').then(function () { location.hash = '#inicio'; }); }
+      break;
+    }
+    case 'bor-borrar':
+      if (b.classList.contains('sure')) { seguro(async function () { await borrarBorrador(id); toast('Borrador borrado'); }, 'No se pudo borrar el borrador.'); }
+      else { b.classList.add('sure'); b.textContent = '¿Seguro?'; setTimeout(function () { b.classList.remove('sure'); b.textContent = 'Borrar'; }, 4000); }
+      break;
+    case 'copiar-sql':
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(SQL_BORRADORES).then(function () { toast('SQL copiado'); }, function () { toast('Selecciona el texto y cópialo.'); });
+      else toast('Selecciona el texto y cópialo.');
+      break;
     case 'empezar': entrarApp(); break;
     case 'filtro': estado.cat = b.dataset.cat; render(false); break;
     case 'top-tab': estado.topTab = b.dataset.tab; render(false); break;
@@ -1267,6 +1940,14 @@ document.addEventListener('input', function (e) {
     $('#com-btn').disabled = n < MIN_COMENTARIO;
   }
   else if (t.id === 'f-titulo') { const er = $('#f-error'); if (er) er.hidden = true; }
+  else if (t.id === 'enc-zoom') { if (estado.enc) estado.enc.acercar(parseFloat(t.value)); return; }
+  else if (t.id === 'gen-q') { filtrarGeneros(t.value); return; }
+  else if (t.id === 'f-resenia') {
+    if (!t.textContent.trim() && !t.querySelector('li,blockquote,h2,h3') && !/^<p><br><\/p>$/.test(t.innerHTML.trim())) prepararTexto(t);
+    t.classList.toggle('rte-vacio', !t.textContent.trim() && !t.querySelector('li,blockquote,h2,h3'));
+    contarPalabras(); mantenerCursor();
+  }
+  if (t.id === 'f-resenia' || (t.closest && t.closest('#f'))) marcar();
 });
 
 document.addEventListener('change', function (e) {
@@ -1274,22 +1955,29 @@ document.addEventListener('change', function (e) {
   if (t.id === 'orden') { estado.orden = t.value; pintarGrid(); }
   else if (t.id === 'top-cat') { estado.topCat = t.value; estado.topGen = 'todos'; render(false); }
   else if (t.id === 'top-gen') { estado.topGen = t.value; render(false); }
-  else if (t.id === 'foto' && t.files && t.files[0]) {
-    procesarFoto(t.files[0]).then(function (fotos) {
-      estado.ed.nuevaFoto = fotos; estado.ed.foto = URL.createObjectURL(fotos.full);
-      $('#foto-ed').innerHTML = fotoEdHTML();
-    }).catch(function () { mostrarError('No pude leer esa foto. Prueba con otra.'); });
-  }
+  else if (t.id === 'foto' && t.files && t.files[0]) { const ar = t.files[0]; t.value = ''; elegirFoto(ar); }
   else if (t.id === 'f-importar' && t.files && t.files[0]) { importar(t.files[0]); t.value = ''; }
 });
 
 document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    if ($('#hoja-enc')) { estado.enc = null; cerrarHoja('hoja-enc'); return; }
+    if ($('#hoja-gen')) { cerrarHoja('hoja-gen'); return; }
+    const es = $('#escritorio'); if (es && !es.hidden) { salirEscritura(); return; }
+  }
   if ((e.key === 'Enter' || e.key === ' ') && document.querySelector('.bienvenida')) { e.preventDefault(); entrarApp(); return; }
   if (e.key === 'Enter' && e.target.matches && e.target.matches('#f input')) {
     e.preventDefault();
     if (e.target.id === 'f-gen-nuevo') addGenero();
   }
 });
+
+function ajustarImgDetalle(i) {
+  const p = i.closest('.d-poster'), h = i.closest('.d-hero'); if (!p || !h || !i.naturalWidth) return;
+  p.classList.add('ya');
+  h.classList.toggle('ancha', i.naturalWidth > i.naturalHeight * 1.12);
+}
+document.addEventListener('load', function (e) { const i = e.target; if (i && i.classList && i.classList.contains('d-img')) ajustarImgDetalle(i); }, true);
 
 document.addEventListener('submit', function (e) {
   e.preventDefault();
@@ -1325,6 +2013,31 @@ document.addEventListener('submit', function (e) {
 });
 
 window.addEventListener('hashchange', function () { bvPendiente = false; render(true); });
+window.addEventListener('popstate', function () { if (estado.escHist) { estado.escHist = false; cerrarEscritura(); } });
+if (window.visualViewport) {
+  visualViewport.addEventListener('resize', function () { ajustarVV(); setTimeout(mantenerCursor, 60); });
+  visualViewport.addEventListener('scroll', ajustarVV);
+}
+// Al pegar texto se pega limpio, sin la letra ni los colores de donde venga.
+document.addEventListener('paste', function (e) {
+  if (!e.target || e.target.id !== 'f-resenia') return;
+  e.preventDefault();
+  const txt = String((e.clipboardData || window.clipboardData).getData('text/plain') || '').replace(/\r/g, '');
+  const partes = txt.split(/\n{2,}/);
+  if (partes.length === 1) document.execCommand('insertText', false, txt);
+  else document.execCommand('insertHTML', false, partes.map(p => '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>').join(''));
+});
+// Los botones de formato se iluminan según dónde esté el cursor.
+document.addEventListener('selectionchange', function () {
+  const e = $('#escritorio'); if (!e || e.hidden || document.activeElement !== $('#f-resenia')) return;
+  const est = c => { try { return document.queryCommandState(c); } catch (x) { return false; } };
+  let bloque = ''; try { bloque = String(document.queryCommandValue('formatBlock') || '').toLowerCase(); } catch (x) { /* nada */ }
+  const m = { bold: est('bold'), italic: est('italic'), list: est('insertUnorderedList'), olist: est('insertOrderedList'), h2: bloque === 'h2', h3: bloque === 'h3', quote: bloque === 'blockquote' };
+  e.querySelectorAll('.tb[data-cmd]').forEach(function (b) { if (b.dataset.cmd in m) b.setAttribute('aria-pressed', !!m[b.dataset.cmd]); });
+});
+// Si se cierra la app o se cambia de pestaña, lo escrito se guarda.
+document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden' && estado.ed && estado.ed.tocado) flushBorrador(); });
+window.addEventListener('pagehide', function () { if (estado.ed && estado.ed.tocado) flushBorrador(); });
 
 /* =====================================================================
    8. ARRANQUE
