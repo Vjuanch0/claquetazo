@@ -241,6 +241,11 @@ textarea.in{resize:vertical;min-height:84px;line-height:1.5}
 .coms li{padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
 .coms li p{margin:0 0 8px;font-family:var(--lectura);font-size:1.1rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
 .coms footer{display:flex;align-items:center;justify-content:space-between;color:var(--ink-faint);font-size:0.8125rem}
+.barra-g{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.olvide-l{margin:0;font-size:.9375rem}
+.olvide-l a{color:var(--lilac);text-decoration:underline;text-underline-offset:3px}
+.ver-clave{display:flex;align-items:center;gap:8px;font-size:.875rem;color:var(--ink-dim)}
+.ver-clave input{width:18px;height:18px;accent-color:var(--accent)}
 .link-b{background:none;border:0;padding:6px 0;color:var(--ink-faint);text-decoration:underline;font-size:0.8125rem}
 .contador{font-size:0.8125rem;color:var(--ink-faint);font-variant-numeric:tabular-nums}
 .contador.ok{color:var(--v4)}
@@ -474,6 +479,7 @@ const TOPE_TOP = 50;          // tamaño máximo de los rankings
 const SUPABASE_URL = 'https://kmrmhktllsjsqfpbmjka.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_uAnYR3p8A7l4hOxKq6Li_A_Wls99dM_';
 const BUCKET = 'fotos';
+const SITIO = 'https://vjuanch0.github.io/claquetazo/';   // a dónde te devuelve el link del correo (debe estar en Redirect URLs de Supabase)
 
 const CATEGORIAS = [
   { id: 'cine',        nombre: 'Películas' },
@@ -1460,7 +1466,12 @@ function pintarGrid() {
 // Tiempo máximo en la bienvenida: si no se toca la pantalla, entra sola.
 const DURACION_BIENVENIDA = 6000;
 // Al abrir o refrescar siempre sale la bienvenida; después se va a la pantalla donde estabas.
-let bvPendiente = true, bvDestino = location.hash.slice(1);
+const hashInicial = location.hash.slice(1);
+let bvPendiente = true, bvDestino = hashInicial;
+// Si entras con el link del correo ("olvidé mi contraseña"): Supabase deja las llaves en la dirección. Se leen antes de que las borre.
+let recuperando = /(^|&)type=recovery(&|$)/.test(hashInicial), avisoLink = '';
+if (recuperando) bvDestino = 'nueva-clave';
+else if (/(^|&)error(_code|_description)?=/.test(hashInicial)) { avisoLink = 'Ese link ya venció o ya se usó. Pide uno nuevo.'; bvDestino = 'olvide'; }
 function vistaBienvenida() {
   const al = (a, b) => (a + Math.random() * (b - a)).toFixed(0);
   let luces = '';
@@ -1889,13 +1900,45 @@ function vistaEntrar() {
       '<div class="campo"><label for="login-clave">Contraseña</label><input id="login-clave" class="in" type="password" autocomplete="current-password"></div>' +
       '<p class="error" id="login-error" role="alert" hidden></p>' +
       '<div class="barra-g"><button type="submit" id="login-btn" class="btn prim grande">Entrar</button></div>' +
+      '<p class="olvide-l"><a href="#olvide" data-action="olvide-ir">¿Olvidaste tu contraseña?</a></p>' +
+    '</form>';
+}
+const volverHTML = (href) => '<a class="volver" href="' + href + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>';
+function vistaOlvide() {
+  const aviso = avisoLink ? '<div class="aviso"><span>' + esc(avisoLink) + '</span></div>' : '';
+  if (estado.olvideEnviado) {
+    return volverHTML('#entrar') + '<h1 class="pag">Revisa tu correo</h1>' +
+      '<div class="ajuste"><h2>Ya te lo mandamos</h2><p>Si ese correo es el del dueño de Claquetazo, te llegó un link para elegir una contraseña nueva. Mira también en spam o promociones. El link dura 1 hora.</p>' +
+      '<div class="barra-g"><a class="btn prim" href="#entrar">Volver a entrar</a><button type="button" class="btn" data-action="olvide-otra">Mandar a otro correo</button></div></div>';
+  }
+  return volverHTML('#entrar') + '<h1 class="pag">¿Olvidaste tu contraseña?</h1>' + aviso +
+    '<form id="folvide" class="form" novalidate>' +
+      '<p class="ayuda">Escribe tu correo y te mandamos un link para elegir una contraseña nueva.</p>' +
+      '<div class="campo"><label for="olvide-email">Correo</label><input id="olvide-email" class="in" type="email" autocomplete="username" inputmode="email" autocapitalize="off" value="' + esc(estado.emailOlvide || '') + '"></div>' +
+      '<p class="error" id="olvide-error" role="alert" hidden></p>' +
+      '<div class="barra-g"><button type="submit" id="olvide-btn" class="btn prim grande">Enviarme el link</button></div>' +
+    '</form>';
+}
+function vistaClave() {
+  if (!estado.sesion) {
+    return volverHTML('#entrar') + '<h1 class="pag">Contraseña nueva</h1>' +
+      '<div class="ajuste"><h2>Falta el link del correo</h2><p>Para elegir una contraseña nueva abre el link que te enviamos al correo. Si ya no lo tienes o venció, pide otro.</p><a class="btn prim" href="#olvide">Pedir el link</a></div>';
+  }
+  return volverHTML(recuperando ? '#inicio' : '#ajustes') + '<h1 class="pag">' + (recuperando ? 'Elige tu contraseña nueva' : 'Cambiar contraseña') + '</h1>' +
+    '<form id="fclave" class="form" novalidate>' +
+      '<p class="ayuda">Mínimo 8 caracteres. Mezcla letras y números para que sea fuerte.</p>' +
+      '<div class="campo"><label for="clave-1">Contraseña nueva</label><input id="clave-1" class="in" type="password" autocomplete="new-password" minlength="8"></div>' +
+      '<div class="campo"><label for="clave-2">Repítela</label><input id="clave-2" class="in" type="password" autocomplete="new-password" minlength="8"></div>' +
+      '<label class="ver-clave"><input type="checkbox" id="clave-ver"> Mostrar las contraseñas</label>' +
+      '<p class="error" id="clave-error" role="alert" hidden></p>' +
+      '<div class="barra-g"><button type="submit" id="clave-btn" class="btn prim grande">Guardar contraseña</button></div>' +
     '</form>';
 }
 
 function vistaAjustes() {
   let enMarco = false; try { enMarco = window.self !== window.top; } catch (e) { enMarco = true; }
   const cuenta = estado.sesion
-    ? '<div class="ajuste"><h2>Tu cuenta</h2><p>Sesión iniciada como <b>' + esc(estado.sesion.email || '') + '</b>.</p><button class="btn" data-action="salir">Cerrar sesión</button></div>'
+    ? '<div class="ajuste"><h2>Tu cuenta</h2><p>Sesión iniciada como <b>' + esc(estado.sesion.email || '') + '</b>.</p><div class="barra-g"><a class="btn" href="#nueva-clave">Cambiar contraseña</a><button class="btn" data-action="salir">Cerrar sesión</button></div></div>'
     : '<div class="ajuste"><h2>Entrar</h2><p>Solo el dueño de Claquetazo puede agregar y editar reseñas.</p><a class="btn prim" href="#entrar">Entrar</a></div>';
   const migrar = (estado.sesion && estado.locales > 0)
     ? '<div class="ajuste"><h2>Reseñas guardadas en este aparato</h2><p>Encontré ' + estado.locales + ' reseña' + (estado.locales === 1 ? '' : 's') + ' de la versión anterior. Súbelas a la nube para verlas en todos tus aparatos. Quedan como privadas.</p><button class="btn prim" data-action="migrar">Subir a la nube</button></div>'
@@ -1949,6 +1992,8 @@ function render(cambioDeRuta) {
   else if (h === 'top') { html = vistaTop(); sec = 'top'; }
   else if (h === 'ajustes') { html = vistaAjustes(); sec = 'ajustes'; }
   else if (h === 'entrar') { html = vistaEntrar(); sec = 'ajustes'; }
+  else if (h === 'olvide') { if (cambioDeRuta && !avisoLink) estado.olvideEnviado = false; html = vistaOlvide(); sec = 'ajustes'; }
+  else if (h === 'nueva-clave') { html = estado.iniciado ? vistaClave() : '<p class="ayuda">Cargando…</p>'; sec = 'ajustes'; }
   else if (h.indexOf('r-') === 0) { html = vistaDetalle(h.slice(2)); sec = 'inicio'; }
   else { location.hash = '#inicio'; return; }
   $('#vista').innerHTML = html;
@@ -1970,7 +2015,7 @@ function renderSuave() {
   if (!h || bvPendiente) return;
   if (h === 'agregar' || h.indexOf('editar-') === 0 || h.indexOf('borrador-') === 0) { if (estado.iniciado && !estado.sesion) render(true); return; }
   const a = document.activeElement;
-  if (a && (a.id === 'com-texto' || a.id === 'login-email' || a.id === 'login-clave')) return;
+  if (a && /^(com-texto|login-email|login-clave|olvide-email|clave-1|clave-2)$/.test(a.id)) return;
   render(false);
 }
 
@@ -2592,6 +2637,8 @@ document.addEventListener('click', function (e) {
       if (b.classList.contains('sure')) { seguro(async function () { await borrarBorrador(id); toast('Borrador borrado'); }, 'No se pudo borrar el borrador.'); }
       else { b.classList.add('sure'); b.textContent = '¿Seguro?'; setTimeout(function () { b.classList.remove('sure'); b.textContent = 'Borrar'; }, 4000); }
       break;
+    case 'olvide-ir': { const le = $('#login-email'); if (le && le.value.trim()) estado.emailOlvide = le.value.trim(); break; }
+    case 'olvide-otra': estado.olvideEnviado = false; render(false); break;
     case 'copiar-sql':
       if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(SQL_BORRADORES).then(function () { toast('SQL copiado'); }, function () { toast('Selecciona el texto y cópialo.'); });
       else toast('Selecciona el texto y cópialo.');
@@ -2682,6 +2729,7 @@ document.addEventListener('change', function (e) {
   else if (t.id === 'top-gen') { estado.topGen = t.value; render(false); }
   else if (t.id === 'foto' && t.files && t.files[0]) { const ar = t.files[0]; t.value = ''; elegirFoto(ar); }
   else if (t.id === 'f-importar' && t.files && t.files[0]) { importar(t.files[0]); t.value = ''; }
+  else if (t.id === 'clave-ver') { ['#clave-1', '#clave-2'].forEach(function (q) { const i = $(q); if (i) i.type = t.checked ? 'text' : 'password'; }); }
 });
 
 document.addEventListener('keydown', function (e) {
@@ -2719,6 +2767,38 @@ document.addEventListener('submit', function (e) {
     iniciarSesion(email, clave).then(function () { location.hash = '#inicio'; }).catch(function (er) {
       err.textContent = (er && /invalid|credentials/i.test(er.message || '')) ? 'Correo o contraseña incorrectos.' : 'No pude conectar. Revisa tu internet e intenta otra vez.';
       err.hidden = false; btn.disabled = false; btn.textContent = 'Entrar';
+    });
+  }
+  else if (f.id === 'folvide') {
+    const err = $('#olvide-error'), btn = $('#olvide-btn'), email = $('#olvide-email').value.trim();
+    err.hidden = true;
+    if (email.indexOf('@') < 1) { err.textContent = 'Escribe tu correo.'; err.hidden = false; return; }
+    if (!sb) { err.textContent = 'No pude conectar con la nube. Revisa tu internet y recarga la página.'; err.hidden = false; return; }
+    estado.emailOlvide = email; btn.disabled = true; btn.textContent = 'Enviando…';
+    sb.auth.resetPasswordForEmail(email, { redirectTo: SITIO }).then(function (r) {
+      if (r.error) throw r.error;
+      avisoLink = ''; estado.olvideEnviado = true; render(false);
+    }).catch(function (er) {
+      const m = String((er && er.message) || '');
+      err.textContent = ((er && er.status === 429) || /rate|too many|seconds|after/i.test(m)) ? 'Pediste varios correos seguidos. Espera unos minutos e intenta otra vez.' : 'No pude enviar el correo. Revisa tu internet e intenta otra vez.';
+      err.hidden = false; btn.disabled = false; btn.textContent = 'Enviarme el link';
+    });
+  }
+  else if (f.id === 'fclave') {
+    const err = $('#clave-error'), btn = $('#clave-btn'), a = $('#clave-1').value, b2 = $('#clave-2').value;
+    err.hidden = true;
+    const mal = t => { err.textContent = t; err.hidden = false; };
+    if (a.length < 8) { mal('Escribe mínimo 8 caracteres.'); return; }
+    if (a !== b2) { mal('Las dos contraseñas no son iguales.'); return; }
+    if (!sb || !estado.sesion) { mal('Esta pantalla necesita el link del correo. Pídelo otra vez.'); return; }
+    btn.disabled = true; btn.textContent = 'Guardando…';
+    sb.auth.updateUser({ password: a }).then(function (r) {
+      if (r.error) throw r.error;
+      recuperando = false; toast('Contraseña cambiada'); location.hash = '#inicio';
+    }).catch(function (er) {
+      const m = String((er && er.message) || '');
+      mal(/same|different/i.test(m) ? 'Esa es la misma contraseña de antes. Elige otra.' : /weak|short|least|characters/i.test(m) ? 'Esa contraseña es muy débil. Prueba con más letras y números.' : 'No se pudo cambiar. Revisa tu internet; si el link venció, pide otro.');
+      btn.disabled = false; btn.textContent = 'Guardar contraseña';
     });
   }
   else if (f.id === 'fcom') {
@@ -2775,6 +2855,10 @@ window.addEventListener('pagehide', function () { if (estado.ed && estado.ed.toc
   render(false);
   if (!hay) { await alCambiarSesion(null, true); return; }
   sb.auth.onAuthStateChange(function (evento, ses) {
+    if (evento === 'PASSWORD_RECOVERY') {   // abrió el link del correo: directo a elegir la contraseña nueva
+      recuperando = true; bvPendiente = false; bvDestino = ''; detenerBienvenida();
+      if (location.hash === '#nueva-clave') setTimeout(function () { render(true); }, 0); else location.hash = '#nueva-clave';
+    }
     // Se pospone un instante para no pedir cosas a Supabase dentro de su propio aviso.
     setTimeout(function () { alCambiarSesion(ses ? ses.user : null, evento === 'INITIAL_SESSION'); }, 0);
   });

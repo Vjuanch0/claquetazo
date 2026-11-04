@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="supported-color-schemes" content="dark">
+<title>Cambia tu contraseña de Claquetazo</title>
+</head>
+<body style="margin:0;padding:0;background-color:#0f0818;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:#0f0818;">Elige tu contraseña nueva. El link dura 1 hora.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#0f0818" style="background-color:#0f0818;">
+  <tr>
+    <td align="center" style="padding:28px 14px;">
+
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:560px;">
+
+        <!-- claqueta: franjas -->
+        <tr>
+          <td style="border-radius:12px 12px 0 0;overflow:hidden;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td height="14" width="12.5%" bgcolor="#efe7fb" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="14" width="12.5%" bgcolor="#6d2fd6" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="14" width="12.5%" bgcolor="#efe7fb" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="14" width="12.5%" bgcolor="#6d2fd6" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="14" width="12.5%" bgcolor="#efe7fb" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="14" width="12.5%" bgcolor="#6d2fd6" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="14" width="12.5%" bgcolor="#efe7fb" style="font-size:0;line-height:0;">&nbsp;</td>
+                <td height="14" width="12.5%" bgcolor="#6d2fd6" style="font-size:0;line-height:0;">&nbsp;</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- tarjeta -->
+        <tr>
+          <td bgcolor="#180c27" style="background-color:#180c27;border:1px solid #38225c;border-top:0;border-radius:0 0 12px 12px;padding:34px 30px 30px 30px;font-family:Arial,Helvetica,sans-serif;color:#efe7fb;">
+
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" style="padding-bottom:18px;">
+                  <img src="https://vjuanch0.github.io/claquetazo/apple-touch-icon.png" width="72" height="72" alt="Claquetazo" style="display:block;border:0;border-radius:16px;width:72px;height:72px;">
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="font-family:'Arial Narrow',Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:#e879f9;font-weight:bold;padding-bottom:10px;">
+                  Luces, cámara y sin palabras
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="font-family:Arial,Helvetica,sans-serif;font-size:28px;line-height:34px;font-weight:bold;color:#efe7fb;padding-bottom:16px;">
+                  Hora de una contraseña nueva
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:25px;color:#ab9ec8;padding-bottom:26px;">
+                  Pediste cambiar la contraseña de <b style="color:#efe7fb;">Claquetazo</b>.<br>
+                  Toca el botón, elige la nueva y vuelve a tu cartelera.
+                </td>
+              </tr>
+
+              <!-- botón -->
+              <tr>
+                <td align="center" style="padding-bottom:26px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td align="center" bgcolor="#6d2fd6" style="background-color:#6d2fd6;border-radius:10px;">
+                        <a href="{{ .ConfirmationURL }}" target="_blank" style="display:inline-block;padding:15px 34px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;border-radius:10px;">Elegir mi contraseña nueva</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- aviso -->
+              <tr>
+                <td style="padding-bottom:6px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td bgcolor="#221238" style="background-color:#221238;border:1px solid #38225c;border-radius:10px;padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:21px;color:#ab9ec8;">
+                        <b style="color:#c1a5ff;">El link dura 1 hora</b> y sirve una sola vez.<br>
+                        ¿No fuiste tú? Ignora este correo: tu contraseña de siempre sigue funcionando.
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td style="padding-top:22px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:19px;color:#8a7cae;">
+                  Si el botón no abre, copia y pega este link en tu navegador:<br>
+                  <a href="{{ .ConfirmationURL }}" target="_blank" style="color:#c1a5ff;word-break:break-all;text-decoration:underline;">{{ .ConfirmationURL }}</a>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+
+        <!-- pie -->
+        <tr>
+          <td align="center" style="padding:20px 10px 0 10px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#8a7cae;">
+            Claquetazo · crítica pura de lo que veo, escucho, leo y juego
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+</table>
+</body>
+</html>
