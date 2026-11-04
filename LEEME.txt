@@ -7,3 +7,6 @@ Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube
 
 Diario: pega UNA sola vez el contenido de supabase-diario.sql en Supabase (SQL Editor -> New query -> Run).
 (Ese archivo es solo para copiar; no hace falta subirlo a GitHub, pero no estorba.)
+
+Ícono instalado en el PC (Chrome): si el ícono viejo se queda, desinstala la app y vuélvela a instalar
+(menú ⋮ de la app -> Desinstalar Aluna; luego abre la página en Chrome y usa "Instalar"). Desancla y vuelve a anclar de la barra de tareas.

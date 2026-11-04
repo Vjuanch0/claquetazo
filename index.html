@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=12">
-<link rel="icon" href="favicon.svg?v=12" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=12" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=12">
+<link rel="manifest" href="manifest.webmanifest?v=15">
+<link rel="icon" href="favicon.svg?v=15" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=15" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=15">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1626,12 +1626,12 @@ let bvPendiente = true, bvDestino = hashInicial;
 let recuperando = /(^|&)type=recovery(&|$)/.test(hashInicial), avisoLink = '';
 if (recuperando) bvDestino = 'nueva-clave';
 else if (/(^|&)error(_code|_description)?=/.test(hashInicial)) { avisoLink = 'Ese link ya venció o ya se usó. Pide uno nuevo.'; bvDestino = 'olvide'; }
-// Logo Aluna: orquídea campana (flor de mayo, naranja con labelo morado) + punta de lápiz.
-const LOGO_MARCA = "<path d=\"M75 126H125L100 182Z\" fill=\"#ffe0b8\" stroke=\"#2b1203\" stroke-width=\"6\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M90 166.32L100 182L110 166.32Z\" fill=\"#2b1203\"/><g transform=\"translate(100 92) rotate(0) scale(0.66)\"><path d=\"M0 -8C-30 -44 -26 -88 0 -98C26 -88 30 -44 0 -8Z\" transform=\"rotate(138) scale(.92)\" fill=\"#ff7a1a\" stroke=\"#2b1203\" stroke-width=\"6\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M0 -8C-30 -44 -26 -88 0 -98C26 -88 30 -44 0 -8Z\" transform=\"rotate(-138) scale(.92)\" fill=\"#ff7a1a\" stroke=\"#2b1203\" stroke-width=\"6\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M0 -8C-30 -44 -26 -88 0 -98C26 -88 30 -44 0 -8Z\" fill=\"#ff7a1a\" stroke=\"#2b1203\" stroke-width=\"6\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M0 -12V-84\" stroke=\"#ffc58a\" stroke-width=\"4\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M0 -4C-34 -56 -112 -64 -110 -14C-108 32 -48 30 0 8Z\" fill=\"#ff9a45\" stroke=\"#2b1203\" stroke-width=\"6\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M0 -4C-34 -56 -112 -64 -110 -14C-108 32 -48 30 0 8Z\" transform=\"scale(-1 1)\" fill=\"#ff9a45\" stroke=\"#2b1203\" stroke-width=\"6\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M-12 -2C-44 -10 -72 -22 -92 -26M12 -2C44 -10 72 -22 92 -26\" stroke=\"#ffd7ae\" stroke-width=\"4\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M-11 -8C-12 20 -36 30 -44 54Q-32 64 -24 58Q-14 76 0 68Q14 76 24 58Q32 64 44 54C36 30 12 20 11 -8C5 -15 -5 -15 -11 -8Z\" fill=\"#b13fc6\" stroke=\"#2b1203\" stroke-width=\"6\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M-8 -4C-10 14 -6 30 0 44C6 30 10 14 8 -4C4 -9 -4 -9 -8 -4Z\" fill=\"#ffc83a\" stroke=\"#2b1203\" stroke-width=\"3.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M-20 44Q-24 56 -26 58M20 44Q24 56 26 58M-10 50L-10 62M10 50L10 62\" stroke=\"#4b1384\" stroke-width=\"2.6\" stroke-linecap=\"round\" fill=\"none\" opacity=\".7\"/></g>";
+// Logo Aluna: hoja naranja que termina en punta de lápiz.
+const LOGO_MARCA = "<path d=\"M172 300H228L200 372Z\" fill=\"#ffe0b8\" stroke=\"#2b1203\" stroke-width=\"8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M189 352L200 372L211 352Z\" fill=\"#2b1203\"/><path d=\"M172 300C112 270 104 186 200 112C296 186 288 270 228 300Z\" fill=\"#ff7a1a\" stroke=\"#2b1203\" stroke-width=\"8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path class=\"lg-vena\" pathLength=\"1\" d=\"M200 300V150\" stroke=\"#ffb066\" stroke-width=\"12\" stroke-linecap=\"round\" fill=\"none\"/><path class=\"lg-vena\" pathLength=\"1\" d=\"M200 252L160 218M200 252L240 218M200 206L172 178M200 206L228 178\" stroke=\"#ffb066\" stroke-width=\"8\" stroke-linecap=\"round\" fill=\"none\"/><path class=\"lg-brillo\" d=\"M142 232C132 206 140 182 160 160\" stroke=\"#fff4e2\" stroke-width=\"8\" stroke-linecap=\"round\" fill=\"none\" opacity=\".75\"/>";
 const LOGO_LETRAS = "M168.1 30.5L166.2 29.9L162.4 30.1L157.0 33.4L150.8 40.2L143.4 51.8L142.6 51.0L143.5 35.9L142.8 33.8L140.8 31.9L137.9 31.1L135.2 32.1L133.4 34.2L132.1 38.5L131.5 45.5L131.5 63.8L132.9 77.0L134.1 80.2L135.8 82.0L138.1 82.9L140.4 82.8L143.4 80.6L147.6 67.9L153.8 54.4L159.9 45.4L161.2 44.0L162.2 43.8L163.4 45.9L163.9 61.2L164.9 69.4L166.8 77.8L169.2 82.5L172.0 84.6L175.8 84.6L177.9 83.0L178.8 78.9L175.6 66.5L174.2 41.0L171.4 33.5ZM119.6 30.2L117.0 29.4L114.5 29.8L112.9 30.8L111.1 33.1L108.6 45.8L105.5 56.1L99.8 68.0L97.2 71.2L94.5 73.2L92.6 73.0L91.2 71.5L89.5 65.2L89.5 49.6L91.4 37.8L91.1 35.4L89.2 32.5L86.6 31.5L83.5 32.1L81.6 33.8L79.8 38.0L78.1 47.2L77.6 54.8L77.9 65.2L78.9 71.0L81.0 76.6L84.1 81.1L86.6 83.1L91.6 84.9L95.4 84.8L98.9 83.5L102.0 81.5L105.5 78.1L111.5 69.1L112.5 69.6L113.9 74.9L116.0 79.4L118.2 82.1L120.5 83.6L122.9 84.0L124.9 83.5L127.0 81.6L127.5 80.4L127.4 77.6L123.6 68.6L121.8 59.2L121.5 47.8L122.4 34.9L121.4 32.0ZM42.1 30.0L37.0 28.2L31.9 28.1L23.1 30.2L13.4 35.8L8.5 39.6L3.6 44.8L2.8 46.8L2.9 49.5L4.4 51.6L7.6 52.8L11.0 51.1L18.0 45.0L22.5 41.9L29.2 38.6L32.0 38.0L35.2 38.4L37.1 40.5L37.8 43.6L37.4 50.4L36.2 53.0L31.6 52.0L25.6 52.0L18.1 54.2L10.5 59.0L4.8 65.1L0.8 72.9L0.0 76.8L0.0 80.2L1.8 85.8L4.0 88.5L6.1 90.0L10.0 91.2L14.4 91.4L18.4 90.6L23.8 88.2L28.0 85.5L31.8 82.2L39.8 72.2L40.9 73.0L42.0 77.5L44.6 83.6L47.2 86.8L49.0 87.9L51.8 88.2L53.9 87.5L55.4 86.0L56.0 84.1L55.9 82.4L51.8 72.5L49.6 63.9L48.9 54.4L49.0 44.4L48.4 39.5L46.0 33.6ZM33.5 62.2L33.5 63.2L30.4 68.8L27.9 72.1L23.8 76.2L20.5 78.6L17.2 80.0L14.5 80.5L11.9 79.2L11.4 76.0L12.5 72.5L15.2 68.5L18.9 65.1L22.6 62.9L28.6 61.1L31.6 61.2ZM187.0 41.5L184.8 44.5L184.5 47.1L185.0 48.8L186.1 50.0L188.6 50.9L192.4 50.0L203.2 42.0L210.5 38.6L213.6 37.9L217.1 38.0L218.9 39.4L219.8 41.9L219.6 49.4L219.2 51.9L218.5 52.9L210.9 51.5L204.2 52.2L198.8 54.2L194.6 56.5L190.6 59.6L187.6 62.9L184.1 69.5L183.1 75.9L185.0 82.4L188.5 86.2L191.1 87.8L196.4 88.9L200.9 88.6L205.5 87.5L210.5 84.9L214.6 81.6L218.1 77.9L221.4 73.1L222.4 72.8L226.4 82.9L228.9 86.8L231.4 89.2L234.1 90.8L236.6 90.9L239.0 90.0L240.8 88.4L241.8 85.8L241.5 83.2L240.6 81.8L237.5 79.5L235.8 77.2L232.5 68.2L231.0 57.2L230.6 39.8L229.4 35.6L226.6 31.5L223.1 29.1L219.4 28.0L215.2 27.8L207.8 29.0L198.1 33.1L191.6 37.5ZM215.8 62.1L215.6 63.9L212.1 69.6L206.2 75.6L202.0 78.0L199.0 78.8L196.9 78.5L194.9 76.9L194.2 75.2L194.6 72.1L197.4 67.5L201.0 64.2L205.5 62.0L209.6 60.9L213.5 60.9ZM66.2 0.0L63.1 1.2L61.2 3.8L58.9 12.6L56.9 29.6L56.9 49.5L57.9 60.5L60.9 75.9L63.5 83.2L65.5 86.5L67.9 88.4L70.1 88.8L72.8 87.8L74.5 84.9L74.4 81.6L72.5 76.1L70.5 66.2L68.9 49.5L69.4 25.9L72.0 5.0L71.5 3.0L70.2 1.2L68.0 0.1Z";
 const LOGO_SUB = "M172.0 107.6L169.6 109.5L169.4 111.8L170.9 113.8L173.5 114.2L175.2 113.2L176.1 110.6L174.9 108.4ZM163.1 108.9L161.8 107.0L160.2 106.4L151.4 105.1L138.9 104.6L120.9 105.1L98.9 108.4L88.1 111.1L82.0 113.4L80.6 114.4L80.4 115.4L81.2 116.2L97.4 113.0L112.0 111.0L121.0 110.5L145.1 110.8L160.1 112.6L162.6 111.1ZM199.4 99.6L198.9 98.4L197.4 97.0L192.8 95.4L172.6 92.2L142.8 90.4L125.5 90.4L98.2 92.1L76.2 95.2L61.9 98.2L47.8 102.1L39.0 105.1L26.4 110.8L24.8 112.4L24.5 114.5L25.4 115.9L27.6 116.4L45.2 110.8L69.5 104.9L86.9 101.9L105.1 99.9L122.1 98.8L151.4 98.9L174.4 100.9L190.4 103.6L195.9 104.0L198.8 102.4Z";
-const LOGO_DEFS = '<symbol id="aluna-mark" viewBox="22 20 156 168">' + LOGO_MARCA + '</symbol><symbol id="aluna-letras" viewBox="-4 -4 250 100"><path d="' + LOGO_LETRAS + '" fill="#f6f1e6" fill-rule="evenodd"/></symbol>';
-const marcaMini = h => '<svg class="mk" style="height:' + h + 'px" viewBox="0 0 156 168" aria-hidden="true"><use href="#aluna-mark" width="156" height="168"/></svg>';
+const LOGO_DEFS = '<symbol id="aluna-mark" viewBox="92 100 216 284">' + LOGO_MARCA + '</symbol><symbol id="aluna-letras" viewBox="-4 -4 250 100"><path d="' + LOGO_LETRAS + '" fill="#f6f1e6" fill-rule="evenodd"/></symbol>';
+const marcaMini = h => '<svg class="mk" style="height:' + h + 'px" viewBox="0 0 216 284" aria-hidden="true"><use href="#aluna-mark" width="216" height="284"/></svg>';
 const letrasMini = w => '<svg class="lt" style="width:' + w + 'px" viewBox="0 0 250 100" aria-hidden="true"><use href="#aluna-letras" width="250" height="100"/></svg>';
 
 /* ---------- La orquídea (Cattleya trianae): una hoja carnosa, vaina, flor que se abre ---------- */
@@ -1738,9 +1738,10 @@ function orq(v, o) {
 }
 
 function reducido() { return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); }
-// Entrada: una ráfaga de hojitas cruza la pantalla y va dejando "aluna"; después la flor-lápiz cae y se queda con su brillo.
+// Entrada: una ráfaga de hojas, pétalos y florecitas de colores cruza la pantalla y va dejando "aluna";
+// después la hoja-lápiz cae, se balancea y se queda quieta con su brillo.
 const BV_SC = 280 / 246, BV_WX = (390 - 246 * BV_SC) / 2, BV_WY = 338;   // dónde queda la palabra en la escena
-const BV_FIN = { x: 195, y: 300, sc: .74 };                             // dónde termina el logo (la punta es el ancla)
+const BV_FIN = { x: 195, y: 302, sc: .385 };                            // dónde termina la hoja-lápiz (la punta es el ancla)
 function vistaBienvenida() {
   return '<section class="bienvenida" data-action="empezar" role="button" tabindex="0" aria-label="Entrar a Aluna. Toca la pantalla">' +
     '<div class="bv-fondo" aria-hidden="true"><span class="bv-g bv-g1"></span><span class="bv-g bv-g2"></span><span class="bv-g bv-g3"></span></div>' +
@@ -1750,12 +1751,14 @@ function vistaBienvenida() {
     '<radialGradient id="bvGl"><stop offset="0" stop-color="#ff7a1a" stop-opacity=".38"/><stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/></radialGradient>' +
     '<linearGradient id="bvFr" gradientUnits="userSpaceOnUse" x1="-60" y1="0" x2="-20" y2="0"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/></linearGradient>' +
     '<mask id="bvMB" maskUnits="userSpaceOnUse" x="-160" y="-40" width="620" height="220"><rect x="-160" y="-40" width="620" height="220" fill="url(#bvFr)"/></mask>' +
-    '<path id="bvHoja" d="M0 -11C9 -4 9 6 0 11C-9 6 -9 -4 0 -11Z"/></defs>' +
-    '<circle class="bv-brillo" cx="195" cy="245" r="125" fill="url(#bvGl)" opacity="0"/>' +
+    '<path id="bvHoja" d="M0 -11C9 -4 9 6 0 11C-9 6 -9 -4 0 -11Z" stroke="#2b1203" stroke-width="1.2"/>' +
+    '<path id="bvPetalo" d="M0 -9C8 -9 11 2 0 10C-11 2 -8 -9 0 -9Z" stroke="#2b1203" stroke-width="1.2"/>' +
+    '<g id="bvFl5" stroke="#2b1203" stroke-width="1"><path d="M0 0C-3 -3 -4 -8 0 -9C4 -8 3 -3 0 0Z" transform="rotate(0)"/><path d="M0 0C-3 -3 -4 -8 0 -9C4 -8 3 -3 0 0Z" transform="rotate(72)"/><path d="M0 0C-3 -3 -4 -8 0 -9C4 -8 3 -3 0 0Z" transform="rotate(144)"/><path d="M0 0C-3 -3 -4 -8 0 -9C4 -8 3 -3 0 0Z" transform="rotate(216)"/><path d="M0 0C-3 -3 -4 -8 0 -9C4 -8 3 -3 0 0Z" transform="rotate(288)"/><circle r="2" fill="#ffd23f" stroke="none"/></g></defs>' +
+    '<circle class="bv-brillo" cx="195" cy="250" r="125" fill="url(#bvGl)" opacity="0"/>' +
     '<g class="bv-viento" fill="none" stroke="#f6f1e6" stroke-linecap="round" stroke-width="1.4"></g>' +
     '<g transform="translate(' + BV_WX + ' ' + BV_WY + ') scale(' + BV_SC + ')"><g mask="url(#bvMB)"><path d="' + LOGO_LETRAS + '" fill="#f6f1e6" fill-rule="evenodd"/><path d="' + LOGO_SUB + '" fill="#ff7a1a"/></g></g>' +
     '<g class="bv-hojas"></g>' +
-    '<g class="bv-lapiz" opacity="0"><g transform="translate(-100,-182)">' + LOGO_MARCA + '</g></g></svg>' +
+    '<g class="bv-lapiz" opacity="0"><g transform="translate(-200,-372)">' + LOGO_MARCA + '</g></g></svg>' +
     '<p class="bv-lema">tu lugar para sembrar ideas</p></div>' +
     '<p class="bv-toca" aria-hidden="true">Toca para entrar</p>' +
     '<div class="bv-carga" aria-hidden="true" style="--dur:' + (DURACION_BIENVENIDA / 1000) + 's"></div></section>';
@@ -1764,6 +1767,7 @@ function vistaBienvenida() {
 const BV_K = 1;   // velocidad general
 function bvEase(u) { u = u < 0 ? 0 : u > 1 ? 1 : u; return u * u * (3 - 2 * u); }
 function bvEo(u) { u = u < 0 ? 0 : u > 1 ? 1 : u; return 1 - Math.pow(1 - u, 3); }
+function bvBack(u) { if (u <= 0) return 0; if (u >= 1) return 1; const c = 1.9; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); }
 function bvRng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 function bvEscena(sec) {
   const NS = 'http://www.w3.org/2000/svg', svg = sec.querySelector('.bv-escena');
@@ -1774,15 +1778,24 @@ function bvEscena(sec) {
   try { const r = svg.getBoundingClientRect(); if (r.width > 20) { const k = r.width / 390; xMin = -r.left / k - 30; xMax = (window.innerWidth - r.left) / k + 30; yTop = 170 - r.top / k - 70; } } catch (e) {}
   const ancho = xMax - xMin, pasoX = ancho / 450;
   const frente = function (t) { return xMin + ancho * bvEase((t - .85) / 2.9); };
-  const COL = ['#ff7a1a', '#ff9a45', '#e85d04', '#ffb066'], r = bvRng(11), hojas = [], rayas = [];
+  const COL = {
+    hoja: ['#3ccf8e', '#22a876', '#7ad66a', '#178a5f', '#ff9a45'],
+    petalo: ['#e0359b', '#ffc83a', '#e63946', '#ff7a1a', '#8e2bd0', '#ff6fc0'],
+    flor: ['#e0359b', '#ffc83a', '#fff3e0', '#ff8f1f', '#ff3b4a']
+  };
+  const r = bvRng(11), hojas = [], rayas = [];
   const yPal = function () { return BV_WY + (10 + r() * 100) * BV_SC - 4 + (r() - .5) * 10; };
-  for (let i = 0; i < 50; i++) {
-    const g = document.createElementNS(NS, 'g'), u = document.createElementNS(NS, 'use'), v = document.createElementNS(NS, 'path');
-    u.setAttribute('href', '#bvHoja'); u.setAttribute('fill', COL[Math.floor(r() * 4)]);
-    v.setAttribute('d', 'M0 -8V8'); v.setAttribute('stroke', '#2b1203'); v.setAttribute('stroke-width', '1'); v.setAttribute('opacity', '.5');
-    g.appendChild(u); g.appendChild(v); g.setAttribute('opacity', '0'); gH.appendChild(g);
-    if (i < 14) hojas.push({ g: g, lead: true, ts: .6 + r() * .15, off: -4 + r() * 70, y: yPal(), ph: r() * 6, sc: .55 + r() * .45, rot: r() * 360, spin: 120 + r() * 160, life: 3.6 });
-    else { const vx = (190 + r() * 140) * pasoX; hojas.push({ g: g, ts: .5 + r() * 2.8, vx: vx, y: 90 + r() * 640, ph: r() * 6, sc: .45 + r() * .65, rot: r() * 360, spin: (r() - .5) * 320, life: (ancho + 60) / vx + .3 }); }
+  for (let i = 0; i < 58; i++) {
+    const g = document.createElementNS(NS, 'g'), u = document.createElementNS(NS, 'use'), q = r();
+    const tipo = q < .4 ? 'hoja' : q < .7 ? 'petalo' : 'flor';
+    u.setAttribute('href', tipo === 'hoja' ? '#bvHoja' : tipo === 'petalo' ? '#bvPetalo' : '#bvFl5');
+    u.setAttribute('fill', COL[tipo][Math.floor(r() * COL[tipo].length)]);
+    g.appendChild(u);
+    if (tipo === 'hoja') { const v = document.createElementNS(NS, 'path'); v.setAttribute('d', 'M0 -8V8'); v.setAttribute('stroke', '#2b1203'); v.setAttribute('stroke-width', '1'); v.setAttribute('opacity', '.45'); g.appendChild(v); }
+    g.setAttribute('opacity', '0'); gH.appendChild(g);
+    const esc = tipo === 'flor' ? 1.1 + r() * .7 : .55 + r() * .55;
+    if (i < 18) hojas.push({ g: g, lead: true, ts: .6 + r() * .15, off: -4 + r() * 70, y: yPal(), ph: r() * 6, sc: esc, rot: r() * 360, spin: 120 + r() * 160, life: 3.6 });
+    else { const vx = (190 + r() * 140) * pasoX; hojas.push({ g: g, ts: .5 + r() * 2.8, vx: vx, y: 90 + r() * 640, ph: r() * 6, sc: esc, rot: r() * 360, spin: (r() - .5) * 320, life: (ancho + 60) / vx + .3 }); }
   }
   for (let i = 0; i < 9; i++) {
     const x = xMin - 30, y = 120 + i * 70 + ((i * 37) % 30), p = document.createElementNS(NS, 'path');
@@ -1810,7 +1823,7 @@ function bvEscena(sec) {
       s.el.setAttribute('stroke-dasharray', '.38 2'); s.el.setAttribute('stroke-dashoffset', String(.38 - u * 1.2));
       s.el.setAttribute('transform', 'translate(' + (u * ancho * .55) + ' 0)');
     });
-    // la flor-lápiz cae, se balancea y se queda quieta
+    // la hoja-lápiz cae, se balancea y se queda quieta
     const u = Math.max(0, Math.min(1, (t - tD) / .95));
     let y = yTop, rot = 0;
     if (u > 0) {
@@ -1825,7 +1838,7 @@ function bvEscena(sec) {
   }
   return { cuadro: pintarEscena, fin: 8.2 };
 }
-// Estado final (sin movimiento): palabra escrita, flor arriba, lema visible. También es el plan B si algo falla.
+// Estado final (sin movimiento): palabra escrita, hoja arriba, lema visible. También es el plan B si algo falla.
 function bvFinal(sec) {
   try {
     sec.querySelectorAll('[mask]').forEach(function (e) { e.removeAttribute('mask'); });
@@ -1860,8 +1873,8 @@ function iniciarBienvenida() {
     const esc = bvEscena(sec), t0 = performance.now();
     const pasoEsc = function (ahora) {
       const t = Math.max(0, (ahora - t0) / 1000) * BV_K;
-      esc.cuadro(Math.min(t, esc.fin));
-      if (t < esc.fin) bvRaf2 = requestAnimationFrame(pasoEsc);
+      esc.cuadro(t);
+      bvRaf2 = requestAnimationFrame(pasoEsc);
     };
     bvRaf2 = requestAnimationFrame(pasoEsc);
   } catch (e) { bvFinal(sec); }
