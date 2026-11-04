@@ -541,11 +541,11 @@ body:not(.con-sesion) .nav-i.solo-sesion{display:none}
 
 /* ---------- Ploncitos-orquídea ---------- */
 .nw{display:grid;gap:10px}
-.nw-arriba{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 14px}
-.nw-orq{width:100%;max-width:200px;height:auto;max-height:215px;justify-self:center;overflow:visible;transition:opacity .25s,filter .25s}
-.nw-num{display:grid;justify-items:center;min-width:5.4rem;line-height:1}
-.nw-num b{font:600 clamp(2.4rem,9vw,3.2rem)/1 var(--display);color:var(--vc);letter-spacing:-.01em}
-.nw-num span{margin-top:6px;font:600 1rem var(--display);color:var(--vc);text-align:center}
+.nw-arriba{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;justify-items:start;gap:4px 16px}
+.nw-orq{width:92px;height:auto;max-height:112px;overflow:visible;transition:opacity .25s,filter .25s}
+.nw-num{display:grid;justify-items:start;text-align:left;line-height:1}
+.nw-num b{font:600 2.3rem/1 var(--display);color:var(--vc);letter-spacing:-.01em}
+.nw-num span{margin-top:6px;font:600 1rem var(--display);color:var(--vc)}
 .nw-fino{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px}
 .nw-rango{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;cursor:pointer}
 .nw-rango::-webkit-slider-runnable-track{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--v1),var(--v2),var(--v3),var(--v4),var(--v5))}
@@ -553,9 +553,9 @@ body:not(.con-sesion) .nav-i.solo-sesion{display:none}
 .nw-rango::-moz-range-track{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--v1),var(--v2),var(--v3),var(--v4),var(--v5))}
 .nw-rango::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--vc);box-shadow:0 2px 8px rgba(0,0,0,.45)}
 .nw-et{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
-.nw-e{display:grid;justify-items:center;gap:2px;padding:6px 2px;border:1px solid var(--line);border-radius:14px;background:transparent;color:var(--ink-dim)}
-.nw-e svg{width:100%;height:54px;display:block}
-.nw-e small{font-size:.66rem;line-height:1.1;text-align:center}
+.nw-e{display:grid;justify-items:center;gap:1px;padding:4px 2px;border:1px solid var(--line);border-radius:14px;background:transparent;color:var(--ink-dim)}
+.nw-e svg{width:100%;height:34px;display:block}
+.nw-e small{font-size:.62rem;line-height:1.1;text-align:center}
 .nw-e:hover{border-color:var(--vc)}
 .nw-e[aria-pressed="true"]{border-color:var(--vc);color:var(--vc);background:rgba(255,154,60,.08)}
 .nw-vacio .nw-orq{opacity:.45;filter:saturate(.45)}
@@ -568,6 +568,30 @@ body:not(.con-sesion) .nav-i.solo-sesion{display:none}
 .viento-msg{position:absolute;left:0;right:0;top:64%;margin:0;text-align:center;font:300 1.05rem var(--display);color:var(--ink-dim);opacity:0;transition:opacity .6s}
 .viento-msg.on{opacity:1}
 @media(prefers-reduced-motion:reduce){.viento,.viento-msg{transition:none}.sem-card,.sem-f .ic{transition:none}}
+
+/* ---------- Logo: hoja-lápiz ---------- */
+.bv-centro{gap:0}
+.bv-logo{display:block;width:min(44vw,190px);height:auto;overflow:visible;filter:drop-shadow(6px 8px 0 rgba(0,0,0,.4)) drop-shadow(0 0 38px rgba(255,122,26,.28));animation:lgFlota 5s ease-in-out 2.4s infinite alternate}
+.lg-todo{transform-box:fill-box;transform-origin:50% 100%;animation:lgCrece 1.15s cubic-bezier(.2,.9,.3,1.18) .55s both}
+.lg-sem{opacity:0;transform-box:fill-box;transform-origin:50% 50%;animation:lgSem 1.05s ease-in-out both}
+.lg-vena{stroke-dasharray:1;animation:lgVena .7s ease-out 1.4s both}
+.lg-brillo{animation:lgFade .5s ease-out 1.85s both}
+.bv-letras{display:block;width:min(64vw,290px);height:auto;margin-top:12px;overflow:visible;filter:drop-shadow(4px 5px 0 rgba(0,0,0,.35))}
+.lg-rev{transform-box:fill-box;transform-origin:0 50%;animation:lgRev 1.3s cubic-bezier(.4,0,.2,1) 1.95s both}
+.bv-lema{margin:14px 0 0;font-size:.95rem;color:var(--ink-dim);animation:lgFade .9s ease-out 3.3s both}
+.bv-toca{animation-delay:3.7s}
+@keyframes lgCrece{0%{transform:scale(.04);opacity:0}18%{opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes lgSem{0%{opacity:0;transform:scale(.3)}35%{opacity:1;transform:scale(1)}70%{opacity:1;transform:scale(1.35)}100%{opacity:0;transform:scale(2.2)}}
+@keyframes lgVena{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes lgRev{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes lgFade{from{opacity:0}to{opacity:1}}
+@keyframes lgFlota{from{transform:translateY(0)}to{transform:translateY(-5px)}}
+@media(prefers-reduced-motion:reduce){.bv-logo,.lg-todo,.lg-sem,.lg-vena,.lg-brillo,.lg-rev,.bv-lema{animation:none!important}}
+.logo .mk{height:30px;width:auto;flex:none;filter:drop-shadow(2px 3px 0 rgba(0,0,0,.35))}
+.marca-c{display:flex;flex-direction:column;align-items:center;gap:8px;margin:2px 0 14px}
+.marca-c .mk,.marca-fila .mk{filter:drop-shadow(3px 4px 0 rgba(0,0,0,.35))}
+.marca-fila{display:flex;align-items:center;gap:12px}
+.mk{width:auto;display:block}.lt{height:auto;display:block}
 </style>
 </head>
 <body>
@@ -1327,7 +1351,7 @@ function nivel(nota) { return NIVELES[Math.max(1, Math.min(5, Math.floor(nota + 
 // Dibuja los 5 ploncitos. Cada uno se llena según lo que falte de la nota (ej: 4.7 = 4 llenos + uno al 70%).
 function plones(nota, clase) {
   const nv = nivel(nota);
-  let h = '<span class="plones ' + (clase || '') + '" style="--vc:' + nv.color + '" role="img" aria-label="' + nota.toFixed(1) + ' de 5 ploncitos">';
+  let h = '<span class="plones ' + (clase || '') + '" style="--vc:' + nv.color + '" role="img" aria-label="' + nota.toFixed(1) + ' de 5 florecitas">';
   for (let i = 0; i < 5; i++) {
     const f = Math.max(0, Math.min(1, nota - i));
     h += '<span class="pl"><svg class="pl-off" viewBox="0 0 24 24"><use href="#plon"/></svg>' +
@@ -1589,7 +1613,7 @@ function pintarGrid() {
 
 /* ---------- Bienvenida ---------- */
 // Tiempo máximo en la bienvenida: si no se toca la pantalla, entra sola.
-const DURACION_BIENVENIDA = 6500;
+const DURACION_BIENVENIDA = 5800;
 // Al abrir o refrescar siempre sale la bienvenida; después se va a la pantalla donde estabas.
 const hashInicial = location.hash.slice(1);
 let bvPendiente = true, bvDestino = hashInicial;
@@ -1597,6 +1621,13 @@ let bvPendiente = true, bvDestino = hashInicial;
 let recuperando = /(^|&)type=recovery(&|$)/.test(hashInicial), avisoLink = '';
 if (recuperando) bvDestino = 'nueva-clave';
 else if (/(^|&)error(_code|_description)?=/.test(hashInicial)) { avisoLink = 'Ese link ya venció o ya se usó. Pide uno nuevo.'; bvDestino = 'olvide'; }
+/* ---------- Logo de Aluna: hoja que termina en punta de lápiz ---------- */
+const LOGO_MARCA = "<path d=\"M172 300H228L200 372Z\" fill=\"#ffe0b8\" stroke=\"#2b1203\" stroke-width=\"8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M189 352L200 372L211 352Z\" fill=\"#2b1203\"/><path d=\"M172 300C112 270 104 186 200 112C296 186 288 270 228 300Z\" fill=\"#ff7a1a\" stroke=\"#2b1203\" stroke-width=\"8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path class=\"lg-vena\" pathLength=\"1\" d=\"M200 300V150\" stroke=\"#ffb066\" stroke-width=\"12\" stroke-linecap=\"round\" fill=\"none\"/><path class=\"lg-vena\" pathLength=\"1\" d=\"M200 252L160 218M200 252L240 218M200 206L172 178M200 206L228 178\" stroke=\"#ffb066\" stroke-width=\"8\" stroke-linecap=\"round\" fill=\"none\"/><path class=\"lg-brillo\" d=\"M142 232C132 206 140 182 160 160\" stroke=\"#fff4e2\" stroke-width=\"8\" stroke-linecap=\"round\" fill=\"none\" opacity=\".75\"/>";
+const LOGO_LETRAS = "M168.1 30.5L166.2 29.9L162.4 30.1L157.0 33.4L150.8 40.2L143.4 51.8L142.6 51.0L143.5 35.9L142.8 33.8L140.8 31.9L137.9 31.1L135.2 32.1L133.4 34.2L132.1 38.5L131.5 45.5L131.5 63.8L132.9 77.0L134.1 80.2L135.8 82.0L138.1 82.9L140.4 82.8L143.4 80.6L147.6 67.9L153.8 54.4L159.9 45.4L161.2 44.0L162.2 43.8L163.4 45.9L163.9 61.2L164.9 69.4L166.8 77.8L169.2 82.5L172.0 84.6L175.8 84.6L177.9 83.0L178.8 78.9L175.6 66.5L174.2 41.0L171.4 33.5ZM119.6 30.2L117.0 29.4L114.5 29.8L112.9 30.8L111.1 33.1L108.6 45.8L105.5 56.1L99.8 68.0L97.2 71.2L94.5 73.2L92.6 73.0L91.2 71.5L89.5 65.2L89.5 49.6L91.4 37.8L91.1 35.4L89.2 32.5L86.6 31.5L83.5 32.1L81.6 33.8L79.8 38.0L78.1 47.2L77.6 54.8L77.9 65.2L78.9 71.0L81.0 76.6L84.1 81.1L86.6 83.1L91.6 84.9L95.4 84.8L98.9 83.5L102.0 81.5L105.5 78.1L111.5 69.1L112.5 69.6L113.9 74.9L116.0 79.4L118.2 82.1L120.5 83.6L122.9 84.0L124.9 83.5L127.0 81.6L127.5 80.4L127.4 77.6L123.6 68.6L121.8 59.2L121.5 47.8L122.4 34.9L121.4 32.0ZM42.1 30.0L37.0 28.2L31.9 28.1L23.1 30.2L13.4 35.8L8.5 39.6L3.6 44.8L2.8 46.8L2.9 49.5L4.4 51.6L7.6 52.8L11.0 51.1L18.0 45.0L22.5 41.9L29.2 38.6L32.0 38.0L35.2 38.4L37.1 40.5L37.8 43.6L37.4 50.4L36.2 53.0L31.6 52.0L25.6 52.0L18.1 54.2L10.5 59.0L4.8 65.1L0.8 72.9L0.0 76.8L0.0 80.2L1.8 85.8L4.0 88.5L6.1 90.0L10.0 91.2L14.4 91.4L18.4 90.6L23.8 88.2L28.0 85.5L31.8 82.2L39.8 72.2L40.9 73.0L42.0 77.5L44.6 83.6L47.2 86.8L49.0 87.9L51.8 88.2L53.9 87.5L55.4 86.0L56.0 84.1L55.9 82.4L51.8 72.5L49.6 63.9L48.9 54.4L49.0 44.4L48.4 39.5L46.0 33.6ZM33.5 62.2L33.5 63.2L30.4 68.8L27.9 72.1L23.8 76.2L20.5 78.6L17.2 80.0L14.5 80.5L11.9 79.2L11.4 76.0L12.5 72.5L15.2 68.5L18.9 65.1L22.6 62.9L28.6 61.1L31.6 61.2ZM187.0 41.5L184.8 44.5L184.5 47.1L185.0 48.8L186.1 50.0L188.6 50.9L192.4 50.0L203.2 42.0L210.5 38.6L213.6 37.9L217.1 38.0L218.9 39.4L219.8 41.9L219.6 49.4L219.2 51.9L218.5 52.9L210.9 51.5L204.2 52.2L198.8 54.2L194.6 56.5L190.6 59.6L187.6 62.9L184.1 69.5L183.1 75.9L185.0 82.4L188.5 86.2L191.1 87.8L196.4 88.9L200.9 88.6L205.5 87.5L210.5 84.9L214.6 81.6L218.1 77.9L221.4 73.1L222.4 72.8L226.4 82.9L228.9 86.8L231.4 89.2L234.1 90.8L236.6 90.9L239.0 90.0L240.8 88.4L241.8 85.8L241.5 83.2L240.6 81.8L237.5 79.5L235.8 77.2L232.5 68.2L231.0 57.2L230.6 39.8L229.4 35.6L226.6 31.5L223.1 29.1L219.4 28.0L215.2 27.8L207.8 29.0L198.1 33.1L191.6 37.5ZM215.8 62.1L215.6 63.9L212.1 69.6L206.2 75.6L202.0 78.0L199.0 78.8L196.9 78.5L194.9 76.9L194.2 75.2L194.6 72.1L197.4 67.5L201.0 64.2L205.5 62.0L209.6 60.9L213.5 60.9ZM66.2 0.0L63.1 1.2L61.2 3.8L58.9 12.6L56.9 29.6L56.9 49.5L57.9 60.5L60.9 75.9L63.5 83.2L65.5 86.5L67.9 88.4L70.1 88.8L72.8 87.8L74.5 84.9L74.4 81.6L72.5 76.1L70.5 66.2L68.9 49.5L69.4 25.9L72.0 5.0L71.5 3.0L70.2 1.2L68.0 0.1Z";
+const LOGO_DEFS = '<symbol id="aluna-mark" viewBox="92 100 216 284">' + LOGO_MARCA + '</symbol><symbol id="aluna-letras" viewBox="-4 -4 250 100"><path d="' + LOGO_LETRAS + '" fill="#f6f1e6" fill-rule="evenodd"/></symbol>';
+const marcaMini = h => '<svg class="mk" style="height:' + h + 'px" viewBox="0 0 216 284" aria-hidden="true"><use href="#aluna-mark" width="216" height="284"/></svg>';
+const letrasMini = w => '<svg class="lt" style="width:' + w + 'px" viewBox="0 0 250 100" aria-hidden="true"><use href="#aluna-letras" width="250" height="100"/></svg>';
+
 /* ---------- La orquídea (Cattleya trianae): una hoja carnosa, vaina, flor que se abre ---------- */
 const AQ_DEFS =
   '<filter id="aqGl" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
@@ -1706,8 +1737,9 @@ function vistaBienvenida() {
     '<div class="bv-fondo" aria-hidden="true"><span class="bv-g bv-g1"></span><span class="bv-g bv-g2"></span><span class="bv-g bv-g3"></span></div>' +
     '<canvas class="bv-polvo" aria-hidden="true"></canvas>' +
     '<h1 class="vh">Aluna. Tu lugar para sembrar ideas</h1>' +
-    '<div class="bv-centro"><svg class="bv-orq" viewBox="-90 -180 180 215" aria-hidden="true"><g class="bv-g-orq"></g></svg>' +
-    '<div class="bv-marca"><span class="bv-nombre">Aluna</span><span class="bv-lema">tu lugar para sembrar ideas</span></div></div>' +
+    '<div class="bv-centro"><svg class="bv-logo" viewBox="92 100 216 284" aria-hidden="true"><circle class="lg-sem" cx="200" cy="356" r="13" fill="#ff9a3c"/><g class="lg-todo">' + LOGO_MARCA + '</g></svg>' +
+    '<svg class="bv-letras" viewBox="-4 -4 250 100" aria-hidden="true"><defs><clipPath id="lgRev"><rect class="lg-rev" x="-4" y="-4" width="250" height="100"/></clipPath></defs><g clip-path="url(#lgRev)"><path d="' + LOGO_LETRAS + '" fill="#f6f1e6" fill-rule="evenodd"/></g></svg>' +
+    '<p class="bv-lema">tu lugar para sembrar ideas</p></div>' +
     '<p class="bv-toca" aria-hidden="true">Toca para entrar</p>' +
     '<div class="bv-carga" aria-hidden="true" style="--dur:' + (DURACION_BIENVENIDA / 1000) + 's"></div></section>';
 }
@@ -1731,15 +1763,13 @@ function iniciarBienvenida() {
   const sec = document.querySelector('.bienvenida'); if (!sec) return;
   bvTimer = setTimeout(entrarApp, DURACION_BIENVENIDA);
   try { sec.focus({ preventScroll: true }); } catch (e) {}
-  const g = sec.querySelector('.bv-g-orq'); if (!g) return;
-  if (reducido() || !window.requestAnimationFrame) { g.innerHTML = orq(5); sec.classList.add('marca'); return; }
+  if (reducido() || !window.requestAnimationFrame) return;
   try {
-    const cv = sec.querySelector('canvas.bv-polvo'), svg = sec.querySelector('.bv-orq');
-    const ctx = cv && cv.getContext && cv.getContext('2d');
+    const cv = sec.querySelector('canvas.bv-polvo');
+    const ctx = cv && cv.getContext && cv.getContext('2d'); if (!ctx) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     let W = 0, H = 0;
     const medir = function () {
-      if (!ctx) return;
       W = cv.clientWidth || window.innerWidth; H = cv.clientHeight || window.innerHeight;
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -1748,20 +1778,11 @@ function iniciarBienvenida() {
     bvLimpiar = function () { window.removeEventListener('resize', medir); };
     const R = function (a, b) { return a + Math.random() * (b - a); };
     const motas = [];
-    for (let i = 0; i < 36; i++) motas.push({ x: Math.random(), y: Math.random(), r: R(.6, 1.9), vy: R(5, 15), vx: R(-3, 6), f: R(0, 6.28), n: Math.random() < .6 });
-    const polvo = [];
-    const T0 = performance.now(), INI = 400, DUR = 4200;
-    let ult = T0, vPint = -1, tPint = 0, marca = false;
-    g.innerHTML = orq(1);
+    for (let i = 0; i < 40; i++) motas.push({ x: Math.random(), y: Math.random(), r: R(.6, 2), vy: R(5, 16), vx: R(-3, 6), f: R(0, 6.28), n: Math.random() < .65 });
+    let ult = performance.now();
     function cuadro(ahora) {
       bvRaf = requestAnimationFrame(cuadro);
-      const t = ahora - T0, dt = Math.min(.05, (ahora - ult) / 1000); ult = ahora;
-      const k = Math.min(1, Math.max(0, (t - INI) / DUR));
-      const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-      const v = 1 + 4 * e;
-      if (Math.abs(v - vPint) > .012 && ahora - tPint > 30) { g.innerHTML = orq(v); vPint = v; tPint = ahora; }
-      if (!marca && t > 3000) { marca = true; sec.classList.add('marca'); }
-      if (!ctx) return;
+      const dt = Math.min(.05, (ahora - ult) / 1000); ult = ahora;
       ctx.clearRect(0, 0, W, H);
       motas.forEach(function (m) {
         m.y -= m.vy * dt / H; m.x += m.vx * dt / W;
@@ -1771,28 +1792,16 @@ function iniciarBienvenida() {
         ctx.fillStyle = m.n ? '#ffb066' : '#bfe9e0';
         ctx.beginPath(); ctx.arc(m.x * W, m.y * H, m.r, 0, 6.2832); ctx.fill();
       });
-      if (v > 4.55 && polvo.length < 140 && svg) {
-        const r = svg.getBoundingClientRect(), ox = r.left + (75 / 180) * r.width, oy = r.top + (62 / 215) * r.height;
-        for (let i = 0; i < 2; i++) polvo.push({ x: ox + R(-16, 16), y: oy + R(-12, 12), vx: R(18, 52), vy: -R(4, 26), vida: R(1.4, 2.6), e: 0, r: R(.8, 1.7), c: ['#f3c4f6', '#e24cc2', '#ffb066', '#ffe9c2'][Math.floor(Math.random() * 4)] });
-      }
-      for (let i = polvo.length - 1; i >= 0; i--) {
-        const p = polvo[i]; p.e += dt;
-        if (p.e > p.vida) { polvo.splice(i, 1); continue; }
-        p.vx += 34 * dt; p.x += p.vx * dt; p.y += (p.vy + Math.sin(p.e * 5 + p.x * .02) * 12) * dt;
-        ctx.globalAlpha = .85 * (1 - p.e / p.vida); ctx.fillStyle = p.c;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill();
-      }
       ctx.globalAlpha = 1;
     }
     bvRaf = requestAnimationFrame(cuadro);
-  } catch (e) { g.innerHTML = orq(5); sec.classList.add('marca'); }
+  } catch (e) { /* sin polvo, la bienvenida sigue */ }
 }
 
-
 /* =====================================================================
-   ALUNA: sembrar (diario), ploncitos-orquídea y el viento
+   ALUNA: sembrar (diario), florecitas-orquídea y el viento
    ===================================================================== */
-// Lo que se puede sembrar. "nota" = pregunta por los ploncitos desde el principio.
+// Lo que se puede sembrar. "nota" = pregunta por las florecitas desde el principio.
 const TIPOS = [
   { id: 'dia', nombre: 'Mi día', desc: 'El resumen del día completo', ask: '¿Cómo te fue <b>hoy</b>?', ph: 'Cuéntalo como si se lo contaras a alguien de confianza…', nota: true },
   { id: 'idea', nombre: 'Idea', desc: 'Algo que se te ocurrió', ask: '¿Qué pensamiento vas a <b>sembrar</b> hoy?', ph: 'Escríbelo antes de que se vaya…' },
@@ -1848,18 +1857,18 @@ const SQL_SEMILLAS =
   'grant select on public.semillas to anon;\n' +
   'grant select, insert, update, delete on public.semillas to authenticated;';
 
-/* ---------- Ploncitos-orquídea: el widget para poner la nota ---------- */
+/* ---------- Florecitas-orquídea: el widget para poner la nota ---------- */
 const VB_ETAPA = [null, '-26 -36 52 44', '-46 -84 92 92', '-80 -150 160 160', '-90 -180 180 215', '-90 -180 180 215'];
 function notaWHTML(n, pfx) {
   const vacio = n == null, v = vacio ? 3 : n, nv = nivel(v), act = Math.floor(v + 1e-9);
   return '<div class="nw' + (vacio ? ' nw-vacio' : '') + '" id="' + pfx + '-nw" data-v="' + v + '" style="--vc:' + nv.color + '">' +
     '<div class="nw-arriba"><svg class="nw-orq" viewBox="-90 -180 180 215" aria-hidden="true"><g>' + orq(v) + '</g></svg>' +
-    '<div class="nw-num" role="status" aria-live="polite"><b>' + (vacio ? '–' : v.toFixed(1)) + '</b><span>' + (vacio ? 'sin ploncitos' : nv.nombre) + '</span></div></div>' +
+    '<div class="nw-num" role="status" aria-live="polite"><b>' + (vacio ? '–' : v.toFixed(1)) + '</b><span>' + (vacio ? 'sin florecitas' : nv.nombre) + '</span></div></div>' +
     '<div class="nw-fino"><button type="button" class="nota-aj" data-action="' + pfx + '-nota-menos" aria-label="Bajar 0.1">−</button>' +
-    '<input type="range" class="nw-rango" data-pfx="' + pfx + '" min="1" max="5" step="0.1" value="' + v + '" aria-label="Ploncitos, de 1 a 5">' +
+    '<input type="range" class="nw-rango" data-pfx="' + pfx + '" min="1" max="5" step="0.1" value="' + v + '" aria-label="Florecitas, de 1 a 5">' +
     '<button type="button" class="nota-aj" data-action="' + pfx + '-nota-mas" aria-label="Subir 0.1">+</button></div>' +
     '<div class="nw-et" role="group" aria-label="Etapas de la orquídea">' + [1, 2, 3, 4, 5].map(function (i) {
-      return '<button type="button" class="nw-e" data-action="' + pfx + '-nota-set" data-n="' + i + '" aria-pressed="' + (!vacio && act === i) + '" style="--vc:' + NIVELES[i].color + '" aria-label="Poner ' + i + (i === 1 ? ' ploncito' : ' ploncitos') + ', ' + NIVELES[i].nombre + '">' +
+      return '<button type="button" class="nw-e" data-action="' + pfx + '-nota-set" data-n="' + i + '" aria-pressed="' + (!vacio && act === i) + '" style="--vc:' + NIVELES[i].color + '" aria-label="Poner ' + i + (i === 1 ? ' florecita' : ' florecitas') + ', ' + NIVELES[i].nombre + '">' +
         '<svg viewBox="' + VB_ETAPA[i] + '" aria-hidden="true">' + orq(i, { sinBrillo: true }) + '</svg><small>' + NIVELES[i].nombre + '</small></button>';
     }).join('') + '</div></div>';
 }
@@ -1869,7 +1878,7 @@ function pintarNW(pfx, n, animar) {
   el.classList.toggle('nw-vacio', vacio);
   el.style.setProperty('--vc', nv.color);
   el.querySelector('.nw-num b').textContent = vacio ? '–' : v.toFixed(1);
-  el.querySelector('.nw-num span').textContent = vacio ? 'sin ploncitos' : nv.nombre;
+  el.querySelector('.nw-num span').textContent = vacio ? 'sin florecitas' : nv.nombre;
   const rg = el.querySelector('.nw-rango'); if (rg && parseFloat(rg.value) !== v) rg.value = v;
   el.querySelectorAll('.nw-e').forEach(function (b, i) { b.setAttribute('aria-pressed', String(!vacio && act === i + 1)); });
   const g = el.querySelector('.nw-orq g'); if (!g) return;
@@ -2122,10 +2131,10 @@ function visSemHTML() {
 function notaSecHTML() {
   const s = estado.sem, t = tipoDe(s.tipo);
   if (t.nota) {
-    return '<h2 class="mod-t">¿Cuántos <b class="resalta">ploncitos</b> le das a tu día?' + (s.nota != null ? ' <button type="button" class="link-b" data-action="sem-nota-quitar">Quitar</button>' : '') + '</h2>' + notaWHTML(s.nota, 'sem');
+    return '<h2 class="mod-t">¿Cuántas <b class="resalta">florecitas</b> le das a tu día?' + (s.nota != null ? ' <button type="button" class="link-b" data-action="sem-nota-quitar">Quitar</button>' : '') + '</h2>' + notaWHTML(s.nota, 'sem');
   }
-  if (!s.abierta) return '<button type="button" class="btn" data-action="sem-nota-abrir">+ Ponerle ploncitos</button>';
-  return '<h2 class="mod-t">Ploncitos <button type="button" class="link-b" data-action="sem-nota-quitar">Quitar</button></h2>' + notaWHTML(s.nota, 'sem');
+  if (!s.abierta) return '<button type="button" class="btn" data-action="sem-nota-abrir">+ Ponerle florecitas</button>';
+  return '<h2 class="mod-t">Florecitas <button type="button" class="link-b" data-action="sem-nota-quitar">Quitar</button></h2>' + notaWHTML(s.nota, 'sem');
 }
 function pintarSecNota() { const e = $('#s-nota'); if (e) e.innerHTML = notaSecHTML(); }
 function cambiarNotaSem(n, directo) {
@@ -2212,7 +2221,7 @@ function vistaCartelera() {
     .map(t => '<button class="tab" role="tab" aria-selected="' + (estado.cat === t.id) + '" data-action="filtro" data-cat="' + t.id + '">' + t.nombre + '<small>' + t.n + '</small></button>').join('');
   const op = (v, t) => '<option value="' + v + '"' + (estado.orden === v ? ' selected' : '') + '>' + t + '</option>';
   return '<h1 class="vh">Cartelera</h1>' +
-    '<header class="cab"><span class="logo"><i class="rayitas"></i>Cartelera</span>' +
+    '<header class="cab"><span class="logo">' + marcaMini(30) + 'Cartelera</span>' +
     '<span class="cuenta">' + n + ' reseña' + (n === 1 ? '' : 's') + (estado.sesion ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</span></header>' +
     (estado.sinConexion && estado.items.length ? '<div class="aviso"><span>Sin conexión. Estás viendo la última copia guardada en este aparato.</span><button class="btn" data-action="reintentar">Reintentar</button></div>' : '') +
     '<div id="borradores">' + borradoresHTML() + '</div>' +
@@ -2527,6 +2536,7 @@ function vistaTop() {
 /* ---------- Entrar y Ajustes ---------- */
 function vistaEntrar() {
   return '<a class="volver" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
+    '<div class="marca-c">' + marcaMini(64) + letrasMini(150) + '</div>' +
     '<h1 class="pag">Entrar</h1>' +
     '<form id="flogin" class="form" novalidate>' +
       '<p class="ayuda">Solo el dueño de Aluna puede agregar y editar reseñas.</p>' +
@@ -2592,7 +2602,7 @@ function vistaAjustes() {
     ? '<div class="ajuste"><h2>Diario en la nube</h2><p>Para guardar tus semillas en la nube (y verlas desde el celular y el PC), pega esto una sola vez en Supabase: <b>SQL Editor → New query → pegar → Run</b>. Después recarga la app.</p>' +
       '<pre class="sql" id="sql-sem">' + esc(SQL_SEMILLAS) + '</pre><button class="btn" data-action="copiar-sql" data-sql="sem">Copiar el SQL</button></div>'
     : '';
-  const acerca = '<div class="ajuste"><h2>Qué significa Aluna</h2>' +
+  const acerca = '<div class="ajuste"><div class="marca-fila">' + marcaMini(46) + letrasMini(120) + '</div><h2>Qué significa Aluna</h2>' +
     '<p>Aluna es una palabra del pueblo kogui, de la Sierra Nevada de Santa Marta, en Colombia. Se suele explicar como el mundo del pensamiento, del espíritu y de la memoria: lo que existe antes de volverse realidad.</p>' +
     '<p>Aquí se usa con respeto, por la idea de sembrar pensamiento. Esta app no explica ni representa su significado completo, porque no es nuestro para explicarlo. Si te da curiosidad, busca lo que cuentan los propios pueblos de la Sierra.</p></div>';
   return '<h1 class="pag">Ajustes</h1>' + cuenta + migrar + borr + diarioAj + respaldo + acerca;
@@ -3550,7 +3560,7 @@ window.addEventListener('pagehide', function () { if (estado.ed && estado.ed.toc
    8. ARRANQUE
    ===================================================================== */
 (async function iniciar() {
-  const dfs = document.getElementById('aq-defs'); if (dfs) dfs.innerHTML = AQ_DEFS;
+  const dfs = document.getElementById('aq-defs'); if (dfs) dfs.innerHTML = AQ_DEFS + LOGO_DEFS;
   await Copia.abrir();
   const hay = iniciarCliente();
   render(false);
