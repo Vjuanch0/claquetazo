@@ -1,6 +1,9 @@
-CLAQUETAZO
-==========
+ALUNA
+=====
 Esta carpeta es la app completa (HTML + íconos + service worker).
 Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
 Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
-Si no ves el cambio, sube el número de VERSION en sw.js.
+Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube el número de VERSION en sw.js).
+
+Diario: pega UNA sola vez el contenido de supabase-diario.sql en Supabase (SQL Editor -> New query -> Run).
+(Ese archivo es solo para copiar; no hace falta subirlo a GitHub, pero no estorba.)

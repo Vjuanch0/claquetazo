@@ -1,14 +1,14 @@
 {
-  "name": "Claquetazo",
-  "short_name": "Claquetazo",
-  "description": "Reseñas de cine, música, libros y fútbol, sin filtro.",
+  "name": "Aluna",
+  "short_name": "Aluna",
+  "description": "Tu lugar para sembrar ideas: diario y reseñas.",
   "lang": "es",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#0f0818",
-  "theme_color": "#0f0818",
+  "background_color": "#05181c",
+  "theme_color": "#05181c",
   "icons": [
     {
       "src": "icon-192.png",
