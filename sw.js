@@ -1,6 +1,6 @@
 // Service worker: deja la app funcionar sin internet.
 // Si cambias index.html y no ves el cambio, sube el número de VERSION.
-const VERSION = 'aluna-v11';
+const VERSION = 'aluna-v12';
 const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'favicon.svg', 'apple-touch-icon.png', 'fonts/inter-latin-wght-normal.woff2', 'fonts/outfit-latin-wght-normal.woff2', 'fonts/newsreader-latin-wght-normal.woff2', 'fonts/newsreader-latin-wght-italic.woff2'];
 
 self.addEventListener('install', e => {
