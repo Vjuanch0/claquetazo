@@ -250,30 +250,16 @@ textarea.in{resize:vertical;min-height:84px;line-height:1.5}
 .campo{display:grid;gap:8px;min-width:0}
 .campo>label,.campo>.lbl{font-size:0.8125rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim)}
 .ayuda{margin:0;font-size:0.8125rem;color:var(--ink-faint)}
-.foto-ed{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:center}
-.foto-ed .poster{width:120px}
-.foto-ed div.btns{display:flex;flex-wrap:wrap;gap:10px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink-dim);font-size:0.875rem}
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
 .gen-nuevo{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
-.nota-ed{display:grid;gap:10px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
-.nota-prev{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px}
-.nota-prev .vb-num{font-size:clamp(2.2rem,8vw,3rem)}
-.nota-ctrl{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:10px;align-items:center}
-.nota-ctrl .btn{padding:0;min-height:40px}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:transparent;margin:0}
 input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--v1),var(--v3) 50%,var(--v5))}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--ink);border:4px solid var(--accent)}
 input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--v1),var(--v3) 50%,var(--v5))}
 input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--ink);border:4px solid var(--accent)}
-.tbar{display:flex;flex-wrap:wrap;gap:6px}
-.tb{min-width:42px;height:42px;padding:0 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);font-weight:700}
-.tb:hover{border-color:var(--lilac)}
-.rte{min-height:280px;padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow-wrap:anywhere}
-.rte:focus{outline:none;border-color:var(--lilac)}
 .error{margin:0;color:var(--v1);font-weight:600}
-.barra-g{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 
 /* ---------- Rankings ---------- */
 .sub{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
@@ -338,33 +324,124 @@ body.hoja-abierta,body.escribiendo{overflow:hidden}
 .res-ext{margin:0;font-family:var(--lectura);font-size:1.05rem;line-height:1.55;color:var(--ink-dim)}
 pre.sql{margin:0;padding:12px;max-width:100%;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:6px;font:.8125rem/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap;user-select:all}
 
-/* ---------- Modo escritura: pantalla completa, como una hoja en blanco ---------- */
-.escritorio{position:fixed;left:0;top:0;right:0;height:100dvh;z-index:35;display:flex;flex-direction:column;background:radial-gradient(120% 80% at 50% 0%,#1a0d2e,#0c0614 70%)}
-.esc-barra{order:1;display:flex;align-items:center;gap:8px;padding:max(8px,env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
+/* ---------- Editor en módulos ---------- */
+.ed-top{max-width:1180px}
+.ed-top h1.pag{font-size:clamp(1.5rem,4.4vw,1.9rem);margin:0 0 12px}
+.ed-top .volver{margin-bottom:6px;font-size:.875rem}
+.form.ed{max-width:760px;gap:14px}
+.ed-a,.ed-b,.ed-c{display:grid;gap:14px;min-width:0;align-content:start}
+@media(min-width:1180px){
+  .form.ed{max-width:1180px;grid-template-columns:minmax(340px,410px) minmax(0,1fr);grid-template-rows:auto 1fr;grid-template-areas:"a b" "c b";column-gap:22px;align-items:start}
+  .ed-a{grid-area:a}.ed-b{grid-area:b}.ed-c{grid-area:c;align-self:stretch}
+}
+.mod{position:relative;display:grid;gap:10px;padding:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;min-width:0}
+.mod-t{margin:0;display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim)}
+.mod-t small{font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink-faint);font-size:.78rem}
+.lbl-s{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim)}
+.form.ed .in{min-height:40px;padding:8px 12px;border-radius:8px;font-size:.9375rem}
+.form.ed textarea.in{min-height:64px}
+.form.ed .btn{min-height:38px;padding:0 14px;font-size:.875rem;border-radius:8px}
+.form.ed .chip{min-height:32px;padding:0 12px;font-size:.8125rem}
+.chips.sm{gap:6px}
+.chips.sm .chip{min-height:29px;padding:0 10px;font-size:.78rem}
+.mini{display:inline-flex;align-items:center;min-height:30px;padding:0 11px;border:1px solid var(--line);border-radius:999px;background:rgba(15,8,24,.5);color:var(--ink-dim);font-size:.78rem;font-weight:600;cursor:pointer}
+.mini:hover{border-color:var(--lilac);color:var(--ink)}
+/* Portada: la foto, el nombre, la categoría y la fecha en una sola tarjeta */
+.portada{isolation:isolate;overflow:hidden;padding:16px;grid-template-columns:104px minmax(0,1fr);grid-template-areas:"tit tit" "foto cat" "foto fec" "acc acc";gap:12px 14px;background:linear-gradient(160deg,var(--surface-2),var(--surface))}
+.por-fondo{position:absolute;inset:-30px;z-index:-2;background-size:cover;background-position:center;filter:blur(28px) saturate(1.3);transform:scale(1.1);opacity:0;transition:opacity .4s}
+.portada.con-foto .por-fondo{opacity:.45}
+.portada.con-foto::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(15,8,24,.15),rgba(15,8,24,.6))}
+.por-tit{grid-area:tit;display:grid;gap:2px;min-width:0}
+.por-eti{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lilac)}
+.por-titulo{width:100%;padding:2px 0 8px;background:transparent;border:0;border-bottom:2px solid var(--line);border-radius:0;color:var(--ink);font-family:var(--display);font-size:clamp(1.5rem,5.2vw,2.2rem);line-height:1.1;letter-spacing:.03em;text-transform:uppercase}
+.por-titulo::placeholder{color:var(--ink-faint);font-family:var(--ui);font-size:.95rem;letter-spacing:0;text-transform:none}
+.por-titulo:focus{outline:none;border-bottom-color:var(--orchid)}
+#foto-ed{display:contents}
+.por-foto{grid-area:foto;align-self:start;display:block;width:100%;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.5)}
+.por-foto.vacia{display:grid;place-content:center;justify-items:center;gap:6px;padding:8px;text-align:center;border:1.5px dashed var(--lilac);background:rgba(109,47,214,.14);color:var(--lilac);font-size:.75rem;font-weight:600;box-shadow:none}
+.por-foto.vacia .ic{width:26px;height:26px}
+.por-acc{grid-area:acc;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.por-cat{grid-area:cat;display:grid;gap:6px;align-content:start;min-width:0}
+.por-fec{grid-area:fec;display:grid;gap:4px;align-content:start;min-width:0}
+@media(min-width:720px){
+  .portada{grid-template-columns:150px minmax(0,1fr);grid-template-areas:"foto tit" "foto cat" "foto fec" "foto acc"}
+  .por-acc{align-self:end}
+}
+/* Nota: ploncitos que se tocan */
+.nota-mod{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
+.nota-tap{position:relative;flex:none}
+.plones.xl{--pl:clamp(1.75rem,6.4vw,2.15rem)}
+.nota-btns{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr)}
+.nota-b1{padding:0;border:0;border-radius:6px;background:transparent;cursor:pointer}
+.nota-b1:hover{background:rgba(193,165,255,.14)}
+.nota-der{display:flex;align-items:center;gap:6px;margin-left:auto}
+.nota-v{display:grid;justify-items:center;min-width:4.4rem;line-height:1}
+.nota-v b{font-family:var(--display);font-weight:400;font-size:1.9rem;letter-spacing:.02em;color:var(--vc)}
+.nota-v span{font-family:var(--display);font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:var(--vc)}
+.nota-aj{width:30px;height:30px;padding:0;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink-dim);font-size:1.05rem;font-weight:700}
+.nota-aj:hover{border-color:var(--lilac);color:var(--ink)}
+.seg{display:inline-grid;grid-template-columns:1fr 1fr;justify-self:start;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--bg)}
+.seg button{min-height:30px;padding:0 18px;border:0;border-radius:999px;background:transparent;color:var(--ink-dim);font-size:.8125rem;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.ed-bar{display:flex;gap:10px;align-items:center}
+.ed-bar .btn.prim{flex:1;max-width:220px}
+@media(max-width:859px){.ed-bar{position:sticky;bottom:calc(var(--navh,76px) + 6px);z-index:5;padding:8px;background:rgba(15,8,24,.94);border:1px solid var(--line);border-radius:12px}}
+@media(min-width:860px){.ed-bar{position:sticky;bottom:14px;z-index:5}}
+
+/* ---------- Tu reseña: módulo en la página; en celular se abre a pantalla completa ---------- */
+.escritorio{display:flex;flex-direction:column}
+.esc-barra,.esc-fuera{display:none}
+.mod-cab{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.esc-scroll{min-width:0}
+.esc-hoja{display:grid;gap:8px;min-width:0}
+.esc-cat{margin:0;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);overflow-wrap:anywhere}
+.esc-nombre{width:100%;padding:4px 0 8px;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;color:var(--ink);font-family:var(--lectura);font-style:italic;font-weight:500;font-size:clamp(1.3rem,4.4vw,1.8rem);line-height:1.25;text-overflow:ellipsis}
+.esc-nombre::placeholder{color:var(--ink-faint);font-style:italic}
+.esc-nombre:focus{outline:none;border-bottom-color:var(--orchid)}
+.nombre-pie{display:flex;justify-content:space-between;gap:10px;margin-bottom:6px;font-size:.78rem;color:var(--ink-faint)}
+.res-meta{margin:0;font-size:.78rem;color:var(--ink-faint)}
+.esc-pie{display:flex;align-items:center;gap:6px;padding:5px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2)}
+.tbar-esc{flex:1;display:flex;flex-wrap:wrap;gap:4px}
+.tb{display:inline-grid;place-items:center;min-width:36px;height:34px;padding:0 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--ink-dim);font-weight:700;font-size:.8125rem}
+.tb:hover{background:var(--surface);color:var(--ink)}
+.tb[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.tb .ic{width:18px;height:18px}
+.tb.solo-pc{display:none}
+.rte{position:relative;min-height:46vh;padding:2px 0;border:0;background:transparent;overflow-wrap:anywhere;line-height:1.8;caret-color:var(--orchid)}
+.mod-res .rte{font-size:calc(1.05rem * var(--esc,1))}
+.rte:focus{outline:none}
+.rte.rte-vacio::before{content:attr(data-ph);position:absolute;left:0;top:2px;color:var(--ink-faint);pointer-events:none}
+@media(max-width:859px){
+  .escritorio:not(.abierto) .esc-pie,.escritorio:not(.abierto) .rte,.escritorio:not(.abierto) .res-meta,.escritorio:not(.abierto) .mod-cab .mini{display:none}
+}
+@media(min-width:860px){
+  .escritorio:not(.abierto) .res-resumen{display:none}
+  .escritorio:not(.abierto) .esc-pie{position:sticky;top:10px;z-index:4}
+  .tb.solo-pc{display:inline-grid}
+  .rte{min-height:55vh}
+}
+/* A pantalla completa */
+.escritorio.abierto{position:fixed;left:0;top:0;right:0;height:100dvh;z-index:35;gap:0;padding:0;border:0;border-radius:0;background:radial-gradient(120% 80% at 50% 0%,#1a0d2e,#0c0614 70%)}
+.escritorio.abierto .mod-cab,.escritorio.abierto .res-resumen,.escritorio.abierto .res-meta{display:none}
+.escritorio.abierto .esc-barra{order:1;display:flex;align-items:center;gap:8px;padding:max(8px,env(safe-area-inset-top,0px)) max(10px,env(safe-area-inset-right,0px)) 8px max(10px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line)}
 .esc-tit{flex:1;min-width:0;display:grid}
 .esc-tit b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .esc-tit small{font-size:.75rem;color:var(--ink-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.esc-barra .btn{min-height:40px;padding:0 14px}
+.esc-barra .btn{min-height:38px;padding:0 14px}
 .esc-aa{font-weight:700;font-size:.95rem}
-.esc-scroll{order:3;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:26px max(18px,env(safe-area-inset-right,0px)) 45vh max(18px,env(safe-area-inset-left,0px))}
-.esc-hoja{max-width:40rem;margin:0 auto}
-.esc-cat{margin:0 0 6px;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
-.esc-h{margin:0 0 22px;font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,6.5vw,2.8rem);line-height:1;letter-spacing:.03em;text-transform:uppercase;overflow-wrap:anywhere}
-.rte{position:relative}
-.rte.rte-vacio::before{content:attr(data-ph);position:absolute;left:0;top:0;color:var(--ink-faint);pointer-events:none}
-.escritorio .rte{min-height:46vh;padding:0;border:0;background:transparent;line-height:1.8;caret-color:var(--orchid)}
-.escritorio .rte:focus{border:0}
-.esc-pie{order:4;display:flex;align-items:center;gap:8px;padding:6px max(10px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px));border-top:1px solid var(--line);background:var(--nav-bg)}
-.tbar-esc{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-.tbar-esc::-webkit-scrollbar{display:none}
-.tbar-esc .tb{flex:none;display:grid;place-items:center;min-width:44px;height:44px;font-size:.9rem}
-.tbar-esc .tb .ic{width:20px;height:20px}
-.tb[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
-.esc-fuera{display:none}
-.escritorio.enfoque .esc-barra,.escritorio.enfoque .esc-pie{display:none}
-.escritorio.enfoque .esc-fuera{display:block;position:fixed;top:max(10px,env(safe-area-inset-top,0px));right:12px;z-index:2;opacity:.4;min-height:36px;padding:0 12px;font-size:.8125rem}
-.escritorio.enfoque .esc-fuera:hover,.escritorio.enfoque .esc-fuera:focus-visible{opacity:1}
-@media(min-width:860px){.esc-pie{order:2;border-top:0;border-bottom:1px solid var(--line);justify-content:center}.tbar-esc{flex:0 1 auto;justify-content:center}}
+.escritorio.abierto .esc-scroll{order:3;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:22px max(18px,env(safe-area-inset-right,0px)) 45vh max(18px,env(safe-area-inset-left,0px))}
+.escritorio.abierto .esc-hoja{max-width:46rem;margin:0 auto;gap:10px}
+.escritorio.abierto .esc-nombre{font-size:clamp(1.6rem,6vw,2.4rem);border-bottom-color:transparent}
+.escritorio.abierto .esc-nombre:focus{border-bottom-color:var(--line)}
+.escritorio.abierto .rte{display:block;min-height:46vh;font-size:calc(1.15rem * var(--esc,1))}
+.escritorio.abierto .esc-pie{order:4;position:static;gap:8px;padding:6px max(10px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px));border:0;border-top:1px solid var(--line);border-radius:0;background:var(--nav-bg)}
+.escritorio.abierto .tbar-esc{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.escritorio.abierto .tbar-esc::-webkit-scrollbar{display:none}
+.escritorio.abierto .tb{flex:none;min-width:44px;height:44px}
+@media(min-width:860px){.escritorio.abierto .esc-pie{order:2;justify-content:center;border-top:0;border-bottom:1px solid var(--line)}.escritorio.abierto .tbar-esc{flex:0 1 auto;justify-content:center}.escritorio.abierto .tb.solo-pc{display:inline-grid}.escritorio.abierto .tb{min-width:38px;height:38px}}
+.escritorio.abierto.enfoque .esc-barra,.escritorio.abierto.enfoque .esc-pie{display:none}
+.escritorio.abierto.enfoque .esc-fuera{display:block;position:fixed;top:max(10px,env(safe-area-inset-top,0px));right:12px;z-index:2;opacity:.4;min-height:36px;padding:0 12px;font-size:.8125rem}
+.escritorio.abierto.enfoque .esc-fuera:hover,.escritorio.abierto.enfoque .esc-fuera:focus-visible{opacity:1}
 
 @media(prefers-reduced-motion:reduce){.arm,.bombillas{animation:none}#toast,.card .poster,.dest .poster{transition:none}}
 </style>
@@ -399,19 +476,26 @@ const SUPABASE_KEY = 'sb_publishable_uAnYR3p8A7l4hOxKq6Li_A_Wls99dM_';
 const BUCKET = 'fotos';
 
 const CATEGORIAS = [
-  { id: 'cine',   nombre: 'Cine' },
-  { id: 'musica', nombre: 'Música' },
-  { id: 'libros', nombre: 'Libros' },
-  { id: 'futbol', nombre: 'Fútbol' },
-  { id: 'otros',  nombre: 'Otros' }
+  { id: 'cine',        nombre: 'Películas' },
+  { id: 'series',      nombre: 'Series' },
+  { id: 'anime',       nombre: 'Anime' },
+  { id: 'musica',      nombre: 'Música' },
+  { id: 'libros',      nombre: 'Libros' },
+  { id: 'videojuegos', nombre: 'Videojuegos' },
+  { id: 'futbol',      nombre: 'Fútbol' },
+  { id: 'otros',       nombre: 'Otros' }
 ];
 
-const GENEROS = {
-  cine:   ['Comedia', 'Comedia romántica', 'Comedia de acción', 'Acción', 'Horror', 'Slasher', 'Suspenso', 'Drama', 'Ciencia ficción', 'Animación', 'Documental', 'Crimen', 'Fantasía', 'Musical'],
-  musica: ['Rock', 'Pop', 'Hip hop', 'Rap', 'Reguetón', 'Salsa', 'Vallenato', 'Electrónica', 'Metal', 'Indie', 'Baladas', 'Concierto', 'Videoclip'],
-  libros: ['Novela', 'Ficción', 'Ensayo', 'Terror', 'Fantasía', 'Ciencia ficción', 'Biografía', 'Poesía', 'Historia', 'Misterio', 'Cómic'],
-  futbol: ['Liga', 'Copa', 'Champions', 'Selección', 'Clásico', 'Eliminatoria', 'Mundial'],
-  otros:  ['Serie', 'Videoclip', 'Concierto', 'Documental', 'Videojuego', 'Podcast']
+// Lo que cambia en el formulario según la categoría: la pista del nombre, la fecha, la ficha y la búsqueda de géneros.
+const CAT_META = {
+  cine:        { eti: 'Nombre de la película',   ej: 'Ej: El padrino',               fecha: 'Estreno',          ficha: 'Director, reparto, dónde la viste…',            busca: 'slasher, noir, comedia…' },
+  series:      { eti: 'Nombre de la serie',      ej: 'Ej: Breaking Bad',             fecha: 'Estreno',          ficha: 'Creador, reparto, plataforma, temporada…',      busca: 'sitcom, miniserie, policial…' },
+  anime:       { eti: 'Nombre del anime',        ej: 'Ej: Fullmetal Alchemist',      fecha: 'Estreno',          ficha: 'Estudio, autor del manga, temporadas…',         busca: 'shonen, isekai, mecha…' },
+  musica:      { eti: 'Canción, álbum o artista', ej: 'Ej: Abbey Road – The Beatles', fecha: 'Lanzamiento',      ficha: 'Artista, álbum, sello, año…',                   busca: 'salsa, rock, vallenato…' },
+  libros:      { eti: 'Título del libro',        ej: 'Ej: Cien años de soledad',     fecha: 'Publicación',      ficha: 'Autor, editorial, número de páginas…',          busca: 'novela negra, poesía, ensayo…' },
+  videojuegos: { eti: 'Nombre del videojuego',   ej: 'Ej: The Last of Us',           fecha: 'Lanzamiento',      ficha: 'Plataforma, estudio, horas jugadas…',           busca: 'souls-like, rpg, shooter…' },
+  futbol:      { eti: 'Partido o equipos',       ej: 'Ej: Colombia vs Argentina',    fecha: 'Fecha del partido', ficha: 'Competición, marcador, estadio…',               busca: 'clásico, final, goleada…' },
+  otros:       { eti: '¿Qué estás reseñando?',   ej: 'Ej: Un restaurante, un podcast, un evento…', fecha: 'Fecha', ficha: 'Lugar, autor, datos que quieras recordar…', busca: 'podcast, concierto, restaurante…' }
 };
 
 // Géneros de cine: cada uno con su explicación. Al elegirlo en la reseña solo queda el nombre.
@@ -495,6 +579,588 @@ const CINE_GENEROS = [
     ['Cine de explotación', 'Exploitation: serie B de bajo presupuesto que busca público con temas morbosos (blaxploitation, sexploitation, etc.).'],
     ['Cine experimental', 'Vanguardia: rompe las reglas tradicionales de narrativa, tiempos y estética.']] }
 ];
+
+// Géneros por categoría. Cada grupo: nombre, explicación y sus subgéneros [nombre, explicación].
+// sel:false = el grupo es solo un título y no se puede elegir. Las de cine están arriba (CINE_GENEROS).
+const G = (g, d, s, sel) => ({ g: g, d: d, s: s, sel: sel });
+
+const TAXO = {
+  cine: CINE_GENEROS,
+
+  series: [
+    G('Formato', 'Cómo está armada la serie.', [
+      ['Miniserie', 'Una historia cerrada en pocos episodios.'],
+      ['Serie antológica', 'Cada episodio o temporada cuenta una historia distinta.'],
+      ['Sitcom', 'Comedia de situación: personajes fijos y episodios autoconclusivos.'],
+      ['Telenovela', 'Melodrama largo con amores, secretos y venganzas.'],
+      ['Serie web', 'Hecha para internet, con episodios cortos.'],
+      ['Docuserie', 'Documental dividido en episodios.'],
+      ['Reality show', 'Personas reales en situaciones armadas o competencias.'],
+      ['Programa de concursos', 'Preguntas, retos y premios.'],
+      ['Late night / talk show', 'Entrevistas, monólogos y humor de actualidad.'],
+      ['Sketch comedy', 'Comedia hecha de escenas cortas e independientes.'],
+      ['Serie animada', 'Animación en formato de serie, para niños o adultos.']], false),
+    G('Drama', 'Conflictos humanos y emociones en el centro.', [
+      ['Drama familiar', 'Las relaciones y secretos de una familia.'],
+      ['Drama médico', 'Hospitales, casos clínicos y vidas en juego.'],
+      ['Drama judicial', 'Abogados, juicios y justicia.'],
+      ['Drama político', 'Poder, campañas y traiciones en el gobierno.'],
+      ['Drama adolescente', 'Colegio, amistades, primeros amores y crisis.'],
+      ['Drama histórico', 'Ambientado en otra época.'],
+      ['Drama criminal', 'El crimen visto desde adentro y desde afuera.'],
+      ['Narcoserie', 'Narcotráfico, capos y poder; muy fuerte en Colombia y México.']]),
+    G('Comedia', 'Hecha para reír.', [
+      ['Comedia de situación', 'Enredos cotidianos con personajes fijos.'],
+      ['Comedia negra', 'Humor con temas oscuros o incómodos.'],
+      ['Comedia de oficina', 'Humor del trabajo y los compañeros.'],
+      ['Comedia romántica', 'El amor como enredo.'],
+      ['Falso documental', 'Parece documental pero es comedia (mockumentary).'],
+      ['Comedia absurda', 'Humor surrealista, sin lógica.']]),
+    G('Suspenso y crimen', 'Tensión, casos y secretos.', [
+      ['Policial', 'Detectives y procedimientos para atrapar al criminal.'],
+      ['Thriller psicológico', 'La tensión viene de la mente de los personajes.'],
+      ['Misterio', 'Un caso por resolver con pistas.'],
+      ['Espionaje', 'Agentes, agencias secretas y traiciones.'],
+      ['Crimen real (true crime)', 'Casos reales contados en detalle.'],
+      ['Heist / atracos', 'Planear y ejecutar el robo perfecto.']]),
+    G('Ciencia ficción y fantasía', 'Futuros, magia y mundos imposibles.', [
+      ['Ciencia ficción', 'Tecnología, espacio y futuros posibles.'],
+      ['Cyberpunk', 'Alta tecnología y baja calidad de vida.'],
+      ['Distopía', 'Sociedades controladas o en decadencia.'],
+      ['Post-apocalíptica', 'Sobrevivir después del colapso.'],
+      ['Fantasía épica', 'Reinos, magia y grandes guerras.'],
+      ['Fantasía urbana', 'Lo sobrenatural en la ciudad actual.'],
+      ['Superhéroes', 'Poderes, capas y destinos extraordinarios.'],
+      ['Viajes en el tiempo', 'Saltos temporales y paradojas.']]),
+    G('Terror', 'Hecho para asustar.', [
+      ['Terror psicológico', 'El miedo ataca la cordura.'],
+      ['Sobrenatural', 'Fantasmas, posesiones y demonios.'],
+      ['Gore', 'Sangre y violencia gráfica.'],
+      ['Zombis', 'Muertos vivientes y supervivencia.'],
+      ['Terror gótico', 'Atmósferas oscuras y misterios antiguos.']]),
+    G('Acción y aventura', 'Persecuciones, peleas y riesgo.', [
+      ['Acción', 'Peleas, tiroteos y escenas de riesgo.'],
+      ['Aventura', 'Viajes, exploración y descubrimientos.'],
+      ['Bélica', 'Guerra vista desde soldados y civiles.'],
+      ['Western', 'El viejo oeste, forajidos y ley.'],
+      ['Piratas y mar', 'Aventuras en el océano.']]),
+    G('Otros temas', 'Nichos y mezclas.', [
+      ['Romance', 'El amor es el centro de la historia.'],
+      ['Musical', 'Las canciones cuentan la historia.'],
+      ['Deportes', 'Competencia, equipos y superación.'],
+      ['Infantil y familiar', 'Pensada para niños y toda la familia.'],
+      ['Vampiros y criaturas', 'Seres de la noche, lobos y monstruos.'],
+      ['Histórica y de época', 'Reconstruye épocas pasadas.'],
+      ['Cocina y gastronomía', 'Chefs, recetas y competencias de comida.']])
+  ],
+
+  anime: [
+    G('Para quién es', 'La demografía a la que apunta la historia.', [
+      ['Shonen', 'Para chicos jóvenes: acción, superación y amistad.'],
+      ['Shojo', 'Para chicas jóvenes: romance y emociones.'],
+      ['Seinen', 'Para adultos jóvenes: temas más duros y complejos.'],
+      ['Josei', 'Para mujeres adultas: relaciones y vida real.'],
+      ['Kodomo', 'Para niños pequeños.']], false),
+    G('Acción y aventura', 'Peleas, viajes y retos.', [
+      ['Acción', 'Combates y escenas de adrenalina.'],
+      ['Aventura', 'Exploración y viajes.'],
+      ['Artes marciales', 'Técnicas de pelea y entrenamiento.'],
+      ['Superpoderes', 'Personajes con habilidades especiales.'],
+      ['Battle royale / supervivencia', 'Grupos obligados a sobrevivir o eliminarse.'],
+      ['Militar', 'Guerra, ejércitos y estrategia.'],
+      ['Samurái e histórico', 'Japón antiguo, espadas y honor.']]),
+    G('Fantasía y ciencia ficción', 'Mundos imposibles y futuros.', [
+      ['Fantasía', 'Magia, reinos y criaturas.'],
+      ['Isekai', 'Alguien es transportado a otro mundo.'],
+      ['Ciencia ficción', 'Tecnología, espacio y futuros.'],
+      ['Mecha', 'Robots gigantes pilotados.'],
+      ['Cyberpunk', 'Alta tecnología y sociedad decadente.'],
+      ['Post-apocalíptico', 'Sobrevivir tras el fin del mundo.'],
+      ['Magical girl', 'Chicas con poderes mágicos que protegen el mundo.'],
+      ['Sobrenatural', 'Espíritus, demonios y lo paranormal.']]),
+    G('Drama y emociones', 'Historias de personas y sentimientos.', [
+      ['Drama', 'Conflictos emocionales intensos.'],
+      ['Romance', 'El amor como eje.'],
+      ['Slice of life', 'Vida cotidiana, tranquila y cercana.'],
+      ['Escolar', 'Ambientado en el colegio o la universidad.'],
+      ['Psicológico', 'La mente, la manipulación y la locura.'],
+      ['Tragedia', 'Historias que duelen y hacen llorar.'],
+      ['Iyashikei', 'Anime para relajar y sanar.']]),
+    G('Comedia y estilo', 'Humor y ambientes.', [
+      ['Comedia', 'Hecho para reír.'],
+      ['Parodia', 'Se burla de otros animes y géneros.'],
+      ['Ecchi', 'Humor y picardía con insinuaciones.'],
+      ['Harem', 'Un personaje rodeado de varios intereses románticos.'],
+      ['Idols y música', 'Cantantes, bandas y escenarios.'],
+      ['Deportes', 'Competencia, equipos y superación.']]),
+    G('Oscuro e intenso', 'Para estómagos fuertes.', [
+      ['Terror', 'Hecho para asustar.'],
+      ['Misterio', 'Casos y secretos por resolver.'],
+      ['Thriller', 'Tensión constante.'],
+      ['Gore', 'Violencia gráfica extrema.'],
+      ['Crimen y mafia', 'Bandas, policías y mundo criminal.'],
+      ['Dark fantasy', 'Fantasía sombría, cruda y fatalista.']]),
+    G('Formato', 'En qué viene el anime.', [
+      ['Serie de TV', 'Episodios semanales por temporadas.'],
+      ['Película', 'Historia completa en formato largo.'],
+      ['OVA', 'Episodios especiales lanzados directo a video.'],
+      ['ONA / web', 'Estrenado directo en internet o en streaming.'],
+      ['Donghua', 'Animación china con estilo similar al anime.'],
+      ['Adaptación de manga', 'Basado en un manga ya publicado.'],
+      ['Adaptación de novela ligera', 'Basado en una novela corta japonesa.']], false)
+  ],
+
+  musica: [
+    G('Pop', 'Música masiva, pegajosa y de radio.', [
+      ['Dance-pop', 'Pop hecho para bailar.'],
+      ['Synth-pop', 'Pop con sintetizadores y sonido retro.'],
+      ['Electropop', 'Pop con base electrónica.'],
+      ['Indie pop', 'Pop independiente, más íntimo.'],
+      ['K-pop', 'Pop coreano: coreografías y producción pulida.'],
+      ['J-pop', 'Pop japonés.'],
+      ['Europop', 'Pop europeo de pista de baile.'],
+      ['Baladas', 'Canciones lentas y románticas.'],
+      ['Pop latino', 'Pop cantado en español con ritmos latinos.']]),
+    G('Rock', 'Guitarras, batería y actitud.', [
+      ['Rock clásico', 'El rock de los 60, 70 y 80.'],
+      ['Rock alternativo', 'Rock fuera de la radio tradicional.'],
+      ['Hard rock', 'Guitarras potentes y voces fuertes.'],
+      ['Rock progresivo', 'Canciones largas, complejas y experimentales.'],
+      ['Rock psicodélico', 'Sonidos alucinantes y efectos.'],
+      ['Punk', 'Rápido, crudo y rebelde.'],
+      ['Post-punk', 'Punk más oscuro y atmosférico.'],
+      ['Grunge', 'Guitarras sucias y letras melancólicas de Seattle.'],
+      ['Indie rock', 'Rock independiente.'],
+      ['Garage rock', 'Sonido crudo, como de ensayo en el garaje.'],
+      ['Stoner rock', 'Riffs pesados, lentos y fumados.'],
+      ['Surf rock', 'Guitarras brillantes con aire de playa.'],
+      ['Rock en español', 'Rock cantado en español.'],
+      ['Folk rock', 'Mezcla de folk y rock.']]),
+    G('Metal y hardcore', 'Lo más pesado y extremo de las guitarras.', [
+      ['Heavy metal', 'El metal clásico: riffs y voces potentes.'],
+      ['Thrash metal', 'Rapidísimo y agresivo.'],
+      ['Death metal', 'Voces guturales y violencia sonora.'],
+      ['Black metal', 'Crudo, oscuro y atmosférico.'],
+      ['Doom metal', 'Lento, pesado y sombrío.'],
+      ['Power metal', 'Épico, melódico y rápido.'],
+      ['Metal progresivo', 'Metal técnico y complejo.'],
+      ['Metal sinfónico', 'Metal con orquesta y voces líricas.'],
+      ['Metalcore', 'Mezcla de metal con hardcore.'],
+      ['Nu metal', 'Metal con influencias de hip hop y electrónica.'],
+      ['Hardcore punk', 'Punk muy rápido y furioso.']]),
+    G('Hip hop y rap', 'Rimas, ritmos y barrio.', [
+      ['Boom bap', 'Hip hop clásico de bombo y caja.'],
+      ['Trap', 'Hi-hats rápidos, 808 graves y letras de calle.'],
+      ['Drill', 'Trap oscuro y agresivo.'],
+      ['G-funk', 'Rap de la costa oeste con sintes y bajos.'],
+      ['Cloud rap', 'Rap etéreo y atmosférico.'],
+      ['Rap consciente', 'Letras políticas y sociales.'],
+      ['Rap en español', 'Hip hop cantado en español.'],
+      ['Lo-fi hip hop', 'Ritmos suaves para estudiar y relajar.']]),
+    G('Urbano latino', 'El sonido de la calle latina.', [
+      ['Reguetón', 'Dembow, perreo y letras de fiesta.'],
+      ['Trap latino', 'Trap cantado en español.'],
+      ['Dembow', 'Ritmo caribeño base del reguetón.'],
+      ['Perreo', 'Reguetón para bailar pegado.'],
+      ['Latin R&B urbano', 'Urbano más romántico y suave.'],
+      ['Corridos tumbados', 'Mezcla de corrido mexicano con trap.']]),
+    G('Tropical y caribeño', 'Ritmos calientes de la costa y el Caribe.', [
+      ['Salsa', 'Clave, metales y baile.'],
+      ['Salsa brava', 'Salsa dura de barrio, con mucha percusión.'],
+      ['Salsa romántica', 'Salsa suave de letras de amor.'],
+      ['Salsa choke', 'Salsa urbana nacida en Cali.'],
+      ['Merengue', 'Ritmo rápido de Dominicana.'],
+      ['Bachata', 'Guitarras y desamor dominicano.'],
+      ['Cumbia', 'Raíz colombiana, tambores y gaitas.'],
+      ['Vallenato', 'Acordeón, caja y guacharaca.'],
+      ['Champeta', 'Ritmo afrocaribeño de Cartagena.'],
+      ['Bolero', 'Canción romántica clásica.'],
+      ['Son cubano', 'Raíz de la salsa, de Cuba.'],
+      ['Mambo', 'Ritmo cubano de big band.'],
+      ['Guaracha', 'Cubana, rápida y pícara.'],
+      ['Reggae', 'Jamaiquino: ritmo relajado y mensaje.'],
+      ['Dancehall', 'Reggae bailable y más moderno.'],
+      ['Ska', 'Antecesor del reggae, rápido y con vientos.'],
+      ['Dub', 'Reggae con eco y mucho bajo.'],
+      ['Soca y calipso', 'Ritmos festivos del Caribe anglófono.']]),
+    G('Regional mexicano', 'Folclor y música popular de México.', [
+      ['Mariachi', 'Trompetas, violines y guitarrón.'],
+      ['Ranchera', 'Canciones de amor y orgullo mexicano.'],
+      ['Norteño', 'Acordeón y bajo sexto.'],
+      ['Banda', 'Metales, tuba y tambora.'],
+      ['Corridos', 'Canciones que narran historias.'],
+      ['Sierreño', 'Guitarras y requinto, estilo moderno.']]),
+    G('Folclor y raíces latinas', 'Música tradicional de Latinoamérica.', [
+      ['Bambuco', 'Ritmo andino colombiano.'],
+      ['Pasillo', 'Vals andino lento y melancólico.'],
+      ['Música llanera / joropo', 'Arpa, cuatro y maracas de los llanos.'],
+      ['Currulao y música del Pacífico', 'Marimba y cantos de la costa pacífica.'],
+      ['Porro y gaita', 'Raíces de la costa caribe colombiana.'],
+      ['Música popular / carrilera', 'Canciones de despecho, guitarras y cantinas.'],
+      ['Tango', 'Bandoneón y drama rioplatense.'],
+      ['Samba', 'Ritmo festivo de Brasil.'],
+      ['Bossa nova', 'Samba suave con jazz.'],
+      ['Forró', 'Baile del nordeste brasileño.'],
+      ['Andina', 'Quenas, charangos y zampoñas.'],
+      ['Nueva trova y canción de autor', 'Letras poéticas con guitarra.']]),
+    G('Electrónica', 'Sintetizadores, máquinas y pista de baile.', [
+      ['House', 'Bombo constante, ritmo de club.'],
+      ['Techno', 'Repetitivo, frío y hipnótico.'],
+      ['Trance', 'Melodías largas y emocionales.'],
+      ['Drum and bass', 'Ritmos rapidísimos y bajos profundos.'],
+      ['Dubstep', 'Bajos pesados y cortes bruscos.'],
+      ['EDM', 'Electrónica masiva de festival.'],
+      ['Ambient', 'Atmósferas largas y tranquilas.'],
+      ['Disco', 'Ritmo bailable de los 70.'],
+      ['UK garage', 'Ritmos quebrados de Londres.'],
+      ['Synthwave', 'Sonido retro de los 80 con sintes.'],
+      ['IDM / experimental', 'Electrónica compleja para escuchar.']]),
+    G('Jazz', 'Improvisación y swing.', [
+      ['Bebop', 'Rápido y técnico, de pequeños grupos.'],
+      ['Big band', 'Orquesta de vientos con swing.'],
+      ['Cool jazz', 'Relajado y suave.'],
+      ['Hard bop', 'Más bluesero y enérgico.'],
+      ['Free jazz', 'Improvisación sin reglas.'],
+      ['Jazz fusión', 'Jazz mezclado con rock y funk.'],
+      ['Swing', 'Jazz bailable de los años 30 y 40.'],
+      ['Latin jazz', 'Jazz con ritmos afrocubanos y brasileños.'],
+      ['Smooth jazz', 'Jazz suave y elegante.']]),
+    G('Blues, soul, R&B y funk', 'Alma, groove y emociones.', [
+      ['Blues', 'Doce compases y sentimiento crudo.'],
+      ['Soul', 'Voz cargada de emoción y gospel.'],
+      ['R&B contemporáneo', 'Voces suaves con ritmo moderno.'],
+      ['Funk', 'Bajos con groove y ritmo bailable.'],
+      ['Neo soul', 'Soul moderno con aire jazzero.'],
+      ['Gospel', 'Música religiosa cantada con fuerza.'],
+      ['Motown', 'El pop soul clásico de Detroit.']]),
+    G('Country y folk', 'Historias contadas con guitarra.', [
+      ['Country', 'Guitarras, historias y vida rural.'],
+      ['Bluegrass', 'Banjo, violín y velocidad.'],
+      ['Americana', 'Mezcla de folk, country y rock.'],
+      ['Folk', 'Voz y guitarra tradicional.'],
+      ['Indie folk', 'Folk íntimo y moderno.'],
+      ['Cantautor', 'Canciones de autor con voz y guitarra.'],
+      ['Celta', 'Folclor de Irlanda y Escocia.']]),
+    G('Clásica e instrumental', 'Orquesta, piano y composición.', [
+      ['Clásica', 'Música orquestal y de cámara.'],
+      ['Barroca', 'Bach, Vivaldi: ornamentada y elegante.'],
+      ['Romántica', 'Emocional y dramática del siglo XIX.'],
+      ['Ópera', 'Teatro cantado con orquesta.'],
+      ['Minimalista', 'Patrones repetitivos que cambian poco a poco.'],
+      ['Banda sonora', 'Música de películas, series y videojuegos.'],
+      ['Piano solo', 'Obras para piano.'],
+      ['Instrumental', 'Sin voces.']]),
+    G('Música del mundo y otros', 'Sonidos de otras regiones y rarezas.', [
+      ['Flamenco', 'Cante, guitarra y palmas de Andalucía.'],
+      ['Fado', 'Canción melancólica de Portugal.'],
+      ['Afrobeat', 'Ritmos africanos con funk y jazz.'],
+      ['Afrobeats', 'Pop bailable nigeriano y ghanés.'],
+      ['Raï', 'Música popular del norte de África.'],
+      ['Bhangra', 'Baile del Punjab.'],
+      ['Música infantil', 'Hecha para los niños.'],
+      ['Música navideña', 'Villancicos y clásicos de diciembre.'],
+      ['Concierto en vivo', 'El show, no solo el disco.'],
+      ['Videoclip', 'El video como parte de la obra.'],
+      ['Karaoke', 'Canciones para cantar entre amigos.']])
+  ],
+
+  libros: [
+    G('Novela y narrativa', 'Historias largas con personajes.', [
+      ['Novela literaria', 'Prioriza el estilo y la profundidad.'],
+      ['Ficción contemporánea', 'Historias ambientadas en el presente.'],
+      ['Clásicos', 'Obras que resisten el paso del tiempo.'],
+      ['Novela histórica', 'Ficción ambientada en el pasado.'],
+      ['Realismo mágico', 'Lo mágico convive con lo cotidiano; muy latinoamericano.'],
+      ['Novela de formación', 'El crecimiento de un personaje (bildungsroman).'],
+      ['Drama familiar', 'Secretos y heridas de una familia.'],
+      ['Sátira', 'Se burla de la sociedad y el poder.'],
+      ['Historia alternativa', '¿Y si la historia hubiera sido distinta?'],
+      ['Novela corta', 'Entre un cuento y una novela.'],
+      ['Novela epistolar', 'Contada en cartas o diarios.']]),
+    G('Fantasía', 'Magia, mundos y criaturas.', [
+      ['Fantasía épica', 'Mundos inventados, reinos y grandes guerras.'],
+      ['Fantasía oscura', 'Magia con tono sombrío.'],
+      ['Fantasía urbana', 'Magia en la ciudad actual.'],
+      ['Cuentos de hadas', 'Relatos clásicos o reinventados.'],
+      ['Fantasía heroica', 'Héroes, espadas y destinos.'],
+      ['Mitología y leyendas', 'Dioses y héroes de antiguas culturas.'],
+      ['Romantasy', 'Romance en un mundo de fantasía.']]),
+    G('Ciencia ficción', 'Futuros, tecnología y preguntas grandes.', [
+      ['Ciencia ficción dura', 'Muy apegada a la ciencia real.'],
+      ['Ciencia ficción blanda', 'Más centrada en personas y sociedad.'],
+      ['Space opera', 'Aventuras épicas entre estrellas.'],
+      ['Cyberpunk', 'Alta tecnología y calles sucias.'],
+      ['Distopía', 'Sociedades opresivas.'],
+      ['Post-apocalíptica', 'Vida después del colapso.'],
+      ['Steampunk', 'Tecnología de vapor en un pasado alternativo.'],
+      ['Viajes en el tiempo', 'Paradojas y saltos temporales.'],
+      ['Primer contacto', 'Humanos frente a vida extraterrestre.']]),
+    G('Terror y gótico', 'Hecho para asustar.', [
+      ['Terror psicológico', 'El miedo está en la mente.'],
+      ['Terror sobrenatural', 'Fantasmas y presencias.'],
+      ['Terror cósmico', 'Lovecraft: lo inabarcable.'],
+      ['Gótico', 'Casas malditas, secretos y melancolía.'],
+      ['Slasher', 'Asesinos en serie y supervivientes.'],
+      ['Body horror', 'Miedo al cuerpo y su mutación.'],
+      ['Terror cómico', 'Miedo mezclado con humor.']]),
+    G('Misterio, crimen y thriller', 'Casos, tensión y giros.', [
+      ['Novela negra', 'Detectives cínicos y ciudades corruptas.'],
+      ['Misterio clásico (whodunit)', '¿Quién fue? Pistas y sospechosos.'],
+      ['Cozy mystery', 'Misterio tranquilo, sin violencia explícita.'],
+      ['Policial', 'El trabajo de la policía.'],
+      ['Thriller psicológico', 'Tensión mental y giros.'],
+      ['Thriller de espionaje', 'Agentes y conspiraciones.'],
+      ['Thriller legal', 'Abogados y tribunales.'],
+      ['Thriller de conspiración', 'Poderes ocultos y secretos.'],
+      ['Misterio de cuarto cerrado', 'Un crimen imposible en un lugar cerrado.']]),
+    G('Romance', 'El amor como motor de la historia.', [
+      ['Romance contemporáneo', 'Amor en la actualidad.'],
+      ['Romance histórico', 'Amor en otras épocas.'],
+      ['Comedia romántica', 'Amor con humor.'],
+      ['Romance oscuro', 'Amor con tono intenso y peligroso.'],
+      ['Romance erótico', 'Con escenas íntimas explícitas.'],
+      ['Romance paranormal', 'Amor con vampiros, lobos o fantasmas.'],
+      ['Romance de suspenso', 'Amor mezclado con peligro.']]),
+    G('Aventura y otros géneros', 'Más narrativa para todos los gustos.', [
+      ['Aventura', 'Viajes, peligros y descubrimientos.'],
+      ['Western', 'El viejo oeste.'],
+      ['Bélica', 'Ficción de guerra.'],
+      ['Ficción deportiva', 'Deporte como eje de la historia.'],
+      ['LGBTQ+', 'Historias con personajes y temas LGBTQ+.'],
+      ['Ficción urbana', 'Vida y calles de las ciudades.'],
+      ['Humor', 'Hecho para hacer reír.']]),
+    G('Juvenil e infantil', 'Para lectores jóvenes.', [
+      ['Juvenil (young adult)', 'Para adolescentes.'],
+      ['Nuevo adulto (new adult)', 'Para jóvenes de 18 a 25.'],
+      ['Infantil', 'Para niños.'],
+      ['Álbum ilustrado', 'Historias contadas con imágenes.'],
+      ['Primeros lectores', 'Para quienes empiezan a leer solos.']]),
+    G('Cómic, manga y novela gráfica', 'Historias con dibujo.', [
+      ['Novela gráfica', 'Historias largas y maduras en viñetas.'],
+      ['Cómic de superhéroes', 'Capas, poderes y universos compartidos.'],
+      ['Manga', 'Historieta japonesa.'],
+      ['Manhwa y webtoon', 'Cómics coreanos, muchos para leer en celular.'],
+      ['Cómic independiente', 'Autores fuera de las grandes editoriales.'],
+      ['Tira cómica', 'Chistes o historias cortas de pocas viñetas.']]),
+    G('Cuento, poesía y teatro', 'Formatos breves y de escena.', [
+      ['Cuento', 'Relato corto con principio y final.'],
+      ['Antología de cuentos', 'Varios cuentos reunidos.'],
+      ['Poesía', 'Versos y lenguaje en su forma más concentrada.'],
+      ['Teatro', 'Obras escritas para la escena.'],
+      ['Microrrelato', 'Historia en pocas líneas.'],
+      ['Haiku', 'Poema breve japonés de tres versos.']]),
+    G('Biografía y memorias', 'Vidas reales contadas.', [
+      ['Biografía', 'La vida de una persona escrita por otra.'],
+      ['Autobiografía', 'Alguien cuenta su propia vida.'],
+      ['Memorias', 'Recuerdos de una etapa de la vida.'],
+      ['Diarios y cartas', 'Escritos personales publicados.']]),
+    G('Historia, política y sociedad', 'Entender el pasado y el presente.', [
+      ['Historia', 'Hechos del pasado.'],
+      ['Historia de Colombia y Latinoamérica', 'Procesos y personajes de nuestra región.'],
+      ['Política', 'Poder, gobierno y estado.'],
+      ['Sociología y antropología', 'Cómo viven y se organizan las personas.'],
+      ['Economía', 'Dinero, mercados y sociedad.'],
+      ['Periodismo y crónica', 'Realidad contada con técnica narrativa.'],
+      ['Crimen real (true crime)', 'Casos criminales verdaderos.'],
+      ['Feminismo y género', 'Estudios y debates sobre género.']]),
+    G('Ciencia y tecnología', 'Cómo funciona el mundo.', [
+      ['Divulgación científica', 'Ciencia explicada para todos.'],
+      ['Física y astronomía', 'Universo, materia y energía.'],
+      ['Biología y naturaleza', 'Seres vivos y ecosistemas.'],
+      ['Matemáticas', 'Números, lógica y patrones.'],
+      ['Tecnología e internet', 'Cómo cambia la tecnología nuestras vidas.'],
+      ['Programación e informática', 'Aprender a crear con código.'],
+      ['Inteligencia artificial', 'Máquinas que aprenden.'],
+      ['Medio ambiente', 'Clima, ecología y planeta.']]),
+    G('Pensamiento y espiritualidad', 'Ideas para pensar la vida.', [
+      ['Ensayo', 'Reflexión personal sobre un tema.'],
+      ['Filosofía', 'Preguntas grandes sobre la existencia.'],
+      ['Psicología', 'Cómo funciona la mente.'],
+      ['Religión', 'Textos y estudios de las religiones.'],
+      ['Espiritualidad', 'Búsqueda interior, meditación y sentido.'],
+      ['Estoicismo', 'Filosofía práctica para la calma y el carácter.']]),
+    G('Vida práctica', 'Libros para aplicar.', [
+      ['Autoayuda', 'Mejorar hábitos, ánimo y vida.'],
+      ['Desarrollo personal', 'Crecer como persona.'],
+      ['Negocios y emprendimiento', 'Crear y dirigir empresas.'],
+      ['Finanzas personales', 'Ahorrar e invertir.'],
+      ['Productividad', 'Organizarse y rendir mejor.'],
+      ['Salud y bienestar', 'Cuerpo, sueño y alimentación.'],
+      ['Cocina', 'Recetas y cultura gastronómica.'],
+      ['Crianza y familia', 'Acompañar a los hijos.'],
+      ['Viajes', 'Guías y relatos de viaje.'],
+      ['Guías y manuales (how-to)', 'Paso a paso para aprender algo.'],
+      ['Deportes y fitness', 'Entrenamiento y deporte.'],
+      ['Educación', 'Aprender y enseñar.']]),
+    G('Arte y cultura', 'Creatividad y expresión.', [
+      ['Arte y fotografía', 'Pintura, escultura e imagen.'],
+      ['Cine y televisión', 'Libros sobre películas y series.'],
+      ['Música (libros)', 'Biografías y estudios de música.'],
+      ['Diseño y arquitectura', 'Cómo se piensa lo que usamos y habitamos.'],
+      ['Literatura y crítica', 'Análisis de libros y autores.'],
+      ['Humor y sátira', 'Libros para reírse.']])
+  ],
+
+  videojuegos: [
+    G('Acción', 'Reflejos, combate y movimiento.', [
+      ['Plataformas', 'Correr y saltar entre plataformas.'],
+      ['Shooter', 'Combate con armas; primera o tercera persona.'],
+      ['Hero shooter', 'Shooter por equipos con héroes de habilidades únicas.'],
+      ['Battle royale', 'Muchos jugadores, el último en pie gana.'],
+      ['Lucha (fighting)', 'Combates uno contra uno.'],
+      ['Beat \'em up', 'Avanzar peleando contra oleadas de enemigos.'],
+      ['Sigilo', 'Esconderse y planear antes de actuar.'],
+      ['Supervivencia', 'Recolectar, construir y aguantar.'],
+      ['Ritmo', 'Botones al compás de la música.'],
+      ['Hack and slash', 'Combate rápido y espectacular con armas cuerpo a cuerpo.']]),
+    G('Acción-aventura', 'Exploración con combate e historia.', [
+      ['Mundo abierto', 'Un mapa enorme para recorrer a tu ritmo.'],
+      ['Metroidvania', 'Exploración no lineal que se abre con mejoras.'],
+      ['Survival horror', 'Terror con recursos limitados.'],
+      ['Souls-like', 'Difícil, castigador y con combate calculado.'],
+      ['Juego de acción narrativo', 'Historia cinematográfica con acción.']]),
+    G('Aventura', 'Historias y puzles.', [
+      ['Aventura gráfica', 'Puzles tipo point and click.'],
+      ['Novela visual', 'Lectura con decisiones que cambian el final.'],
+      ['Aventura de texto', 'Historia por comandos escritos.'],
+      ['Película interactiva', 'Escenas filmadas con decisiones.'],
+      ['Walking simulator', 'Exploración y narrativa sin combate.']]),
+    G('RPG', 'Personajes que crecen y deciden.', [
+      ['RPG de acción', 'Combate en tiempo real.'],
+      ['JRPG', 'RPG japonés: historia, grupo y combate por turnos.'],
+      ['CRPG', 'RPG occidental clásico de computador, con decisiones.'],
+      ['MMORPG', 'Mundo online compartido por miles.'],
+      ['Roguelike', 'Mazmorras generadas al azar y muerte permanente.'],
+      ['Roguelite', 'Como el roguelike, pero con mejoras permanentes.'],
+      ['RPG táctico', 'Batallas por turnos en cuadrícula.'],
+      ['RPG de mundo abierto', 'Misiones y secundarias en un mapa enorme.']]),
+    G('Estrategia', 'Pensar antes de actuar.', [
+      ['Estrategia en tiempo real (RTS)', 'Recursos y ejércitos en tiempo real.'],
+      ['Estrategia por turnos', 'Cada quien juega en su turno.'],
+      ['4X', 'Explorar, expandir, explotar y exterminar.'],
+      ['MOBA', 'Equipos de héroes para destruir la base enemiga.'],
+      ['Defensa de torres', 'Frenar oleadas con torres.'],
+      ['Gran estrategia', 'Naciones, guerras y siglos.'],
+      ['Táctica por turnos', 'Escuadras pequeñas y planeación fina.'],
+      ['Autobattler / deckbuilder', 'Armar mazos o equipos y ver cómo pelean.']]),
+    G('Simulación', 'Reproducir la vida o un oficio.', [
+      ['Gestión y construcción', 'Construir y manejar ciudades o negocios.'],
+      ['Simulación de vida', 'Cuidar vidas, familias o mascotas.'],
+      ['Simulador de vehículos', 'Volar, manejar o conducir trenes.'],
+      ['Granjas y cozy', 'Tranquilos, relajantes y acogedores.'],
+      ['Sandbox', 'Libertad total para crear y experimentar.'],
+      ['Simulador de oficios', 'Trabajos cotidianos hechos juego.']]),
+    G('Deportes y carreras', 'Competencia y velocidad.', [
+      ['Fútbol y deportes de equipo', 'Simulación de deportes de conjunto.'],
+      ['Carreras', 'Contra rivales o el reloj.'],
+      ['Carreras arcade', 'Velocidad y diversión sin realismo.'],
+      ['Deportes de lucha', 'Boxeo, lucha libre y artes marciales.'],
+      ['Deportes extremos', 'Skate, snowboard y acrobacias.'],
+      ['Esports', 'Juegos pensados para competir profesionalmente.']]),
+    G('Puzle y casual', 'Para pensar o pasar el rato.', [
+      ['Puzle / lógica', 'Resolver acertijos.'],
+      ['Trivia', 'Preguntas y respuestas.'],
+      ['Casual', 'Sencillo, para partidas cortas.'],
+      ['Juego de fiesta', 'Minijuegos para jugar en grupo.'],
+      ['Cartas y mesa', 'Versiones digitales de juegos de mesa.'],
+      ['Idle / clicker', 'Avanzan casi solos con poca interacción.'],
+      ['Gacha', 'Personajes por sorteo, con compras dentro del juego.']]),
+    G('Estilo y modo de juego', 'Cómo se juega o se ve.', [
+      ['Un jugador', 'Se juega solo.'],
+      ['Cooperativo', 'Se juega en equipo contra el juego.'],
+      ['Multijugador competitivo', 'Jugadores contra jugadores.'],
+      ['Indie', 'Hecho por estudios pequeños.'],
+      ['Retro / pixel art', 'Estética de los juegos clásicos.'],
+      ['Terror', 'Hecho para asustar.'],
+      ['Realidad virtual (VR)', 'Se juega con visor y controles de movimiento.'],
+      ['Juego educativo', 'Enseña mientras juegas.'],
+      ['Ejercicio (exergame)', 'Te hace mover el cuerpo.']], false)
+  ],
+
+  futbol: [
+    G('Competición', 'En qué torneo se jugó.', [
+      ['Liga', 'Campeonato local de todos contra todos.'],
+      ['Liga colombiana', 'El torneo local de Colombia.'],
+      ['Copa nacional', 'Torneo de eliminación del país.'],
+      ['Champions League', 'Máximo torneo de clubes de Europa.'],
+      ['Copa Libertadores', 'Máximo torneo de clubes de Sudamérica.'],
+      ['Copa Sudamericana', 'Segundo torneo de clubes de Sudamérica.'],
+      ['Europa League', 'Segundo torneo de clubes de Europa.'],
+      ['Mundial', 'Copa del Mundo de selecciones.'],
+      ['Copa América', 'Torneo de selecciones sudamericanas.'],
+      ['Eurocopa', 'Torneo de selecciones europeas.'],
+      ['Eliminatorias', 'Camino para clasificar a un Mundial.'],
+      ['Amistoso', 'Partido sin puntos en juego.'],
+      ['Mundial de Clubes', 'Los campeones de cada continente.'],
+      ['Torneo de verano / pretemporada', 'Preparación antes de la temporada.']]),
+    G('Tipo de partido', 'Qué tan especial era el cruce.', [
+      ['Clásico / derbi', 'Rivalidad histórica entre dos equipos.'],
+      ['Final', 'Partido por el título.'],
+      ['Semifinal', 'Por un lugar en la final.'],
+      ['Cuartos de final', 'Primeras rondas de eliminación.'],
+      ['Partido de ida', 'Primer juego de una serie.'],
+      ['Partido de vuelta', 'Segundo juego de una serie.'],
+      ['Fase de grupos', 'Etapa inicial del torneo.'],
+      ['Partido por el descenso', 'Se juega la permanencia.'],
+      ['Partido por el ascenso', 'Se juega el subir de categoría.'],
+      ['Despedida / homenaje', 'Partido para despedir o homenajear a alguien.']]),
+    G('Cómo fue', 'Etiquetas para recordar el partido.', [
+      ['Partidazo', 'De los que se recuerdan.'],
+      ['Goleada', 'Marcador muy abultado.'],
+      ['Remontada', 'Se ganó o empató perdiendo.'],
+      ['Definición por penales', 'Se decidió desde los doce pasos.'],
+      ['Tiempo extra', 'Hubo prórroga.'],
+      ['Golazo', 'Hubo un gol espectacular.'],
+      ['Polémica de VAR', 'La tecnología dio de qué hablar.'],
+      ['Partido aburrido', 'Poco fútbol y pocas ocasiones.'],
+      ['Partido tenso', 'Muchas faltas, tarjetas y nervios.'],
+      ['Debut o regreso', 'Alguien jugaba por primera vez o volvía.'],
+      ['Muy defensivo', 'Pocas llegadas y mucho orden atrás.'],
+      ['Final agónico', 'Se definió en los últimos minutos.']]),
+    G('Categoría', 'Quiénes jugaron.', [
+      ['Equipos de club', 'Partido entre equipos de club.'],
+      ['Selección', 'Selecciones nacionales.'],
+      ['Femenino', 'Fútbol femenino.'],
+      ['Juvenil / fútbol base', 'Categorías menores.'],
+      ['Fútbol sala / microfútbol', 'Cancha reducida.'],
+      ['Aficionado / picadito', 'Partido entre amigos.'],
+      ['Fútbol playa', 'Se juega en la arena.']])
+  ],
+
+  otros: [
+    G('Audio y video', 'Para escuchar o ver.', [
+      ['Podcast', 'Programa de audio por episodios.'],
+      ['Documental', 'Registro de la realidad.'],
+      ['YouTube / streaming', 'Creadores y transmisiones.'],
+      ['Videoclip', 'Video musical.'],
+      ['Stand-up', 'Comedia en vivo de un solo humorista.'],
+      ['Entrevista', 'Una conversación que valga la pena.'],
+      ['Cortometraje', 'Película muy breve.']]),
+    G('Eventos y escena', 'Experiencias en vivo.', [
+      ['Concierto', 'Música en vivo.'],
+      ['Festival', 'Varios shows en un mismo evento.'],
+      ['Teatro', 'Obra en escena.'],
+      ['Danza', 'Ballet, danza contemporánea o folclórica.'],
+      ['Exposición / museo', 'Arte para ver y recorrer.'],
+      ['Evento deportivo (no fútbol)', 'Baloncesto, tenis, ciclismo, F1 y más.'],
+      ['Feria o convención', 'Ferias del libro, comics, tecnología.']]),
+    G('Lugares y comida', 'Para visitar y probar.', [
+      ['Restaurante', 'Un lugar para comer.'],
+      ['Café o bar', 'Un sitio para tomar y conversar.'],
+      ['Comida callejera', 'Puestos y carros de comida.'],
+      ['Viaje o lugar', 'Un destino, un sitio o un paseo.'],
+      ['Hotel o alojamiento', 'Dónde dormir.'],
+      ['Receta', 'Algo que cocinaste o probaste.']]),
+    G('Cosas y juegos', 'Objetos, apps y juegos.', [
+      ['Producto / gadget', 'Algo que compraste y usas.'],
+      ['App o sitio web', 'Herramientas digitales.'],
+      ['Juego de mesa', 'Para jugar en persona.'],
+      ['Cartas coleccionables', 'Magic, Pokémon y similares.'],
+      ['Obra de arte', 'Cuadro, escultura, ilustración.'],
+      ['Moda y estilo', 'Ropa, marcas y tendencias.'],
+      ['Otro', 'Lo que no cabe en ningún lado.']])
+  ]
+};
 
 // La escala de notas: una sola para todo.
 const NIVELES = [null,
@@ -965,33 +1631,28 @@ function iniciarEditor(id, idBor) {
     : Object.assign({ id: idBor || nuevoId(), foto: null, categoria: 'cine', generos: [], nota: 3, publica: false, base: null }, comun);
   restaurarBorrador();
 }
+const meta = () => CAT_META[estado.ed.categoria] || CAT_META.otros;
 function chipsCategoria() {
   return CATEGORIAS.map(c => '<button type="button" class="chip" aria-pressed="' + (estado.ed.categoria === c.id) + '" data-action="ed-cat" data-cat="' + c.id + '">' + c.nombre + '</button>').join('');
 }
 function chipsGeneros() {
-  const ed = estado.ed;
-  if (ed.categoria === 'cine') {
-    return ed.generos.map(g => '<button type="button" class="chip" aria-pressed="true" aria-label="Quitar ' + esc(g) + '" data-action="ed-gen" data-g="' + esc(g) + '">' + esc(g) + ' ✕</button>').join('') +
-      '<button type="button" class="chip ghost" data-action="gen-abrir">+ Elegir géneros</button>';
-  }
-  const sug = GENEROS[ed.categoria] || [];
-  const todos = sug.concat(ed.generos.filter(g => sug.indexOf(g) < 0));
-  return todos.map(g => '<button type="button" class="chip" aria-pressed="' + (ed.generos.indexOf(g) >= 0) + '" data-action="ed-gen" data-g="' + esc(g) + '">' + esc(g) + '</button>').join('');
+  return estado.ed.generos.map(g => '<button type="button" class="chip" aria-pressed="true" aria-label="Quitar ' + esc(g) + '" data-action="ed-gen" data-g="' + esc(g) + '">' + esc(g) + ' ✕</button>').join('') +
+    '<button type="button" class="chip ghost" data-action="gen-abrir">+ Elegir géneros</button>';
 }
-// La hoja para elegir géneros de cine, con la explicación de cada uno.
+// La hoja para elegir géneros de la categoría, con la explicación de cada uno.
 function hojaGenerosHTML() {
-  const sel = estado.ed.generos;
+  const sel = estado.ed.generos, lista = TAXO[estado.ed.categoria] || [];
   const op = (n, d, macro) => '<button type="button" class="gen-op' + (macro ? ' macro' : '') + '" data-action="gen-pick" data-g="' + esc(n) + '" aria-pressed="' + (sel.indexOf(n) >= 0) +
     '" data-t="' + esc(norm(n + ' ' + d)) + '"><span class="gen-n">' + esc(n) + '</span><span class="gen-d">' + esc(d) + '</span><span class="gen-ok" aria-hidden="true">✓</span></button>';
-  const grupos = CINE_GENEROS.map(function (g) {
+  const grupos = lista.map(function (g) {
     const abierto = g.s.some(x => sel.indexOf(x[0]) >= 0);
     return '<section class="gen-grupo"><div class="gen-cab">' +
       (g.sel === false ? '<div class="gen-op macro fijo"><span class="gen-n">' + esc(g.g) + '</span><span class="gen-d">' + esc(g.d) + '</span></div>' : op(g.g, g.d, true)) +
       '<button type="button" class="ib" data-action="gen-plegar" aria-expanded="' + abierto + '" aria-label="Mostrar u ocultar los subgéneros de ' + esc(g.g) + '">' + FLECHA_ABAJO + '</button></div>' +
       '<div class="gen-subs"' + (abierto ? '' : ' hidden') + '>' + g.s.map(x => op(x[0], x[1], false)).join('') + '</div></section>';
   }).join('');
-  return '<div class="hoja-c gen"><h2 class="hoja-t">Géneros de cine</h2><p class="ayuda">Toca para elegir. Aquí ves qué significa cada uno; en tu reseña solo queda el nombre.</p>' +
-    '<label class="vh" for="gen-q">Buscar género</label><input id="gen-q" class="in" type="search" placeholder="Buscar: slasher, noir, anime…" autocomplete="off">' +
+  return '<div class="hoja-c gen"><h2 class="hoja-t">Géneros · ' + esc(catNombre(estado.ed.categoria)) + '</h2><p class="ayuda">Toca para elegir varios. Aquí ves qué significa cada uno; en tu reseña solo queda el nombre.</p>' +
+    '<label class="vh" for="gen-q">Buscar género</label><input id="gen-q" class="in" type="search" placeholder="Buscar: ' + esc(meta().busca) + '" autocomplete="off">' +
     '<div class="gen-lista" id="gen-lista">' + grupos + '<p class="ayuda" id="gen-nada" hidden>No encontré ese género. Puedes escribirlo en «Otro género».</p></div>' +
     '<div class="hoja-pie"><button type="button" class="btn prim" data-action="gen-cerrar" id="gen-listo">Listo (' + sel.length + ')</button></div></div>';
 }
@@ -1036,25 +1697,70 @@ function filtrarGeneros(q) {
   });
   const nada = $('#gen-nada'); if (nada) nada.hidden = alguno || !n;
 }
+
+/* ---- Nota: ploncitos que se tocan, con el nombre de la reseña ---- */
+const notaTitulo = t => { t = String(t || '').trim(); return t ? 'Tu nota para «' + esc(t) + '»' : 'Tu nota'; };
 function notaPrevHTML() {
   const n = estado.ed.nota, nv = nivel(n);
-  return '<div class="nota-prev" style="--vc:' + nv.color + '"><span class="vb-num">' + n.toFixed(1) + '</span>' + plones(n, 'grande') + '<span class="vb-pal">' + nv.nombre + '</span></div>';
+  return '<div class="nota-mod" id="nota-mod" style="--vc:' + nv.color + '"><div class="nota-tap">' + plones(n, 'xl') +
+    '<div class="nota-btns">' + [1, 2, 3, 4, 5].map(i => '<button type="button" class="nota-b1" data-action="ed-nota-set" data-n="' + i + '" aria-label="Poner ' + i + (i === 1 ? ' ploncito' : ' ploncitos') + '"></button>').join('') + '</div></div>' +
+    '<div class="nota-der"><button type="button" class="nota-aj" data-action="ed-nota-menos" aria-label="Bajar 0.1">−</button>' +
+    '<div class="nota-v"><b>' + n.toFixed(1) + '</b><span>' + nv.nombre + '</span></div>' +
+    '<button type="button" class="nota-aj" data-action="ed-nota-mas" aria-label="Subir 0.1">+</button></div></div>';
+}
+function actualizarNota() {
+  const n = estado.ed.nota, nv = nivel(n), m = $('#nota-mod'); if (!m) return;
+  m.style.setProperty('--vc', nv.color);
+  const p = m.querySelector('.plones'); if (p) p.outerHTML = plones(n, 'xl');
+  m.querySelector('.nota-v b').textContent = n.toFixed(1);
+  m.querySelector('.nota-v span').textContent = nv.nombre;
 }
 function visHTML() {
   const p = estado.ed.publica;
-  return '<div class="chips" role="group" aria-label="Quién la puede ver">' +
-    '<button type="button" class="chip" aria-pressed="' + (!p) + '" data-action="ed-vis" data-v="0">Privada</button>' +
-    '<button type="button" class="chip" aria-pressed="' + p + '" data-action="ed-vis" data-v="1">Pública</button></div>' +
+  return '<div class="seg" role="group" aria-label="Quién la puede ver">' +
+    '<button type="button" aria-pressed="' + (!p) + '" data-action="ed-vis" data-v="0">Privada</button>' +
+    '<button type="button" aria-pressed="' + p + '" data-action="ed-vis" data-v="1">Pública</button></div>' +
     '<p class="ayuda">' + (p ? 'Cualquiera con el link de Claquetazo la puede leer.' : 'Solo tú la ves, cuando inicias sesión.') + '</p>';
 }
-function fotoEdHTML() {
+
+/* ---- Portada: la foto hace parte de la tarjeta de arriba ---- */
+function urlFotoEd() {
   const ed = estado.ed, f = ed.foto;
-  const vista = ed.vistaThumb || (f && ed.base && f === ed.base.foto && ed.base.thumb) || f;
-  return '<div class="poster">' + (vista ? '<img src="' + esc(vista) + '" alt="Así se verá el afiche">' : '<div class="ph" style="--h:270"><span class="ph-cat">Sin foto</span></div>') + '</div>' +
-    '<div><p class="ayuda" style="margin-bottom:10px">Puede ser horizontal o vertical. Después eliges cómo se ve el afiche.</p><div class="btns">' +
-    '<label class="btn" for="foto"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>' + (f ? 'Cambiar foto' : 'Subir foto') + '</label>' +
-    (f ? '<button type="button" class="btn" data-action="ed-reencuadrar">Reencuadrar</button><button type="button" class="btn" data-action="ed-quitar-foto">Quitar</button>' : '') + '</div></div>';
+  return ed.vistaThumb || (f && ed.base && f === ed.base.foto && ed.base.thumb) || f || '';
 }
+function fotoEdHTML() {
+  const ed = estado.ed, f = ed.foto, vista = urlFotoEd();
+  const cam = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+  return (vista
+      ? '<label class="poster por-foto" for="foto" title="Cambiar la portada"><img src="' + esc(vista) + '" alt="Así se verá la portada"></label>'
+      : '<label class="poster por-foto vacia" for="foto">' + cam + '<span>Subir portada</span></label>') +
+    '<div class="por-acc">' + (f
+      ? '<label class="mini" for="foto">Cambiar</label><button type="button" class="mini" data-action="ed-reencuadrar">Reencuadrar</button><button type="button" class="mini" data-action="ed-quitar-foto">Quitar</button>'
+      : '<span class="ayuda">Horizontal o vertical; luego eliges el encuadre.</span>') + '</div>';
+}
+function pintarFoto() {
+  const fe = $('#foto-ed'); if (fe) fe.innerHTML = fotoEdHTML();
+  const u = urlFotoEd(), fo = $('#por-fondo'), po = $('#portada');
+  if (fo) fo.style.backgroundImage = u ? 'url("' + u.replace(/"/g, '%22') + '")' : '';
+  if (po) po.classList.toggle('con-foto', !!u);
+}
+function aplicarCategoria() {
+  const m = meta(), t = $('#f-titulo');
+  const e1 = $('#eti-titulo'); if (e1) e1.textContent = m.eti;
+  if (t) t.placeholder = m.ej;
+  const e2 = $('#lbl-fecha'); if (e2) e2.textContent = m.fecha;
+  const e3 = $('#f-desc'); if (e3) e3.placeholder = m.ficha;
+  pintarEyebrow();
+}
+function pintarEyebrow() {
+  const e = $('#esc-cat'); if (!e) return;
+  const t = $('#f-titulo'), f = $('#f-fecha');
+  e.textContent = [t && t.value.trim(), catNombre(estado.ed.categoria), f && f.value ? f.value.slice(0, 4) : ''].filter(Boolean).join(' · ');
+  const nom = $('#esc-nombre'); if (nom) nom.textContent = (t && t.value.trim()) || 'Sin título';
+  const nt = $('#nota-tit'); if (nt) nt.innerHTML = notaTitulo(t && t.value);
+}
+
+/* ---- Reseña ---- */
 function resumenResHTML(html) {
   const t = textoPlano(html).trim(), n = t ? t.split(/\s+/).length : 0;
   if (!n) return '<p class="ayuda">Todavía no escribes nada.</p><button type="button" class="btn prim" data-action="esc-abrir">Escribir la reseña</button>';
@@ -1066,45 +1772,55 @@ function pintarResumen() {
 }
 const IC = d => '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">' + d + '</svg>';
 function escritorioHTML(v) {
-  const tb = (cmd, etq, cont) => '<button type="button" class="tb" data-action="ed-fmt" data-cmd="' + cmd + '" aria-label="' + etq + '" aria-pressed="false">' + cont + '</button>';
-  return '<div class="escritorio" id="escritorio" role="dialog" aria-modal="true" aria-label="Escribir la reseña" hidden>' +
+  const tb = (cmd, etq, cont, cls) => '<button type="button" class="tb' + (cls ? ' ' + cls : '') + '" data-action="ed-fmt" data-cmd="' + cmd + '" aria-label="' + etq + '" title="' + etq + '" aria-pressed="false">' + cont + '</button>';
+  const vacio = !textoPlano(v.resenia).trim();
+  return '<section class="mod mod-res escritorio" id="escritorio" aria-label="Tu reseña">' +
     '<header class="esc-barra"><button type="button" class="ib" data-action="esc-cerrar" aria-label="Volver a los datos">' + IC('<path d="M15 5l-7 7 7 7"/>') + '</button>' +
-      '<div class="esc-tit"><b id="esc-nombre">Sin título</b><small><span id="esc-cuenta">0 palabras</span> · <span class="bor-estado"></span></small></div>' +
+      '<div class="esc-tit"><b id="esc-nombre">Sin título</b><small><span class="js-cuenta" id="esc-cuenta">0 palabras</span> · <span class="bor-estado"></span></small></div>' +
       '<button type="button" class="ib esc-aa" data-action="esc-tam" aria-label="Tamaño de letra">Aa</button>' +
       '<button type="button" class="ib" data-action="esc-enfoque" aria-label="Modo enfoque">' + IC('<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>') + '</button>' +
       '<button type="button" class="btn prim" data-action="esc-guardar">Guardar</button></header>' +
-    '<div class="esc-scroll" id="esc-scroll"><div class="esc-hoja"><p class="esc-cat" id="esc-cat"></p><h2 class="esc-h" id="esc-h">Sin título</h2>' +
-      '<div id="f-resenia" class="rte" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Texto de la reseña" data-ph="Empieza a escribir…" spellcheck="true">' + limpiar(v.resenia) + '</div></div></div>' +
+    '<div class="mod-cab"><h2 class="mod-t">Tu reseña</h2><button type="button" class="mini" data-action="esc-abrir">Pantalla completa</button></div>' +
     '<div class="esc-pie"><div class="tbar-esc" role="toolbar" aria-label="Formato">' +
-      tb('undo', 'Deshacer', IC('<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/>')) + tb('redo', 'Rehacer', IC('<path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 000 12h3"/>')) +
-      tb('bold', 'Negrilla', '<b>B</b>') + tb('italic', 'Cursiva', '<i>I</i>') + tb('h2', 'Título', 'Título') + tb('h3', 'Subtítulo', 'Subtítulo') +
-      tb('quote', 'Cita', 'Cita') + tb('list', 'Lista con viñetas', 'Lista') + tb('olist', 'Lista numerada', '1. Lista') + '</div></div>' +
-    '<button type="button" class="btn esc-fuera" data-action="esc-enfoque">Salir del enfoque</button></div>';
+      tb('undo', 'Deshacer', IC('<path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 010 12h-3"/>')) + tb('redo', 'Rehacer', IC('<path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 000 12h3"/>'), 'solo-pc') +
+      tb('bold', 'Negrilla', '<b>B</b>') + tb('italic', 'Cursiva', '<i>I</i>') + tb('h2', 'Subtítulo', 'Subtítulo') +
+      tb('quote', 'Cita', 'Cita') + tb('list', 'Lista con viñetas', 'Lista') + '</div></div>' +
+    '<div class="esc-scroll" id="esc-scroll"><div class="esc-hoja"><p class="esc-cat" id="esc-cat"></p>' +
+      '<label class="vh" for="f-veredicto">Ponle nombre a tu reseña</label>' +
+      '<input id="f-veredicto" class="esc-nombre" type="text" maxlength="120" placeholder="Ponle nombre a tu reseña" value="' + esc(v.veredicto) + '" autocomplete="off" enterkeyhint="next">' +
+      '<div class="nombre-pie"><span>Ej: «La mejor pesadilla de la década»</span><span class="contador" id="nombre-cont">' + (v.veredicto || '').length + ' / 120</span></div>' +
+      '<div class="res-resumen" id="res-resumen">' + resumenResHTML(v.resenia) + '</div>' +
+      '<div id="f-resenia" class="rte' + (vacio ? ' rte-vacio' : '') + '" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Texto de la reseña" data-ph="Cuéntalo todo: qué te pasó, qué te sobró y qué te faltó…" spellcheck="true">' + limpiar(v.resenia) + '</div></div></div>' +
+    '<p class="res-meta"><span class="js-cuenta">0 palabras</span> · <span class="bor-estado"></span></p>' +
+    '<button type="button" class="btn esc-fuera" data-action="esc-enfoque">Salir del enfoque</button></section>';
 }
 function vistaEditor() {
-  const ed = estado.ed, b = ed.base;
+  const ed = estado.ed, b = ed.base, m = meta();
   const v = ed.vals || b || { titulo: '', fecha: '', descripcion: '', veredicto: '', resenia: '' };
-  const nuevo = !b, atras = nuevo ? '#inicio' : '#r-' + b.id;
-  return '<a class="volver" href="' + atras + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
+  const nuevo = !b, atras = nuevo ? '#inicio' : '#r-' + b.id, u = urlFotoEd();
+  return '<div class="ed-top"><a class="volver" href="' + atras + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
     '<h1 class="pag">' + (nuevo ? 'Nueva reseña' : (b.borrador ? 'Borrador' : 'Editar reseña')) + '</h1>' +
-    (ed.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin guardar (' + hace(ed.recuperado) + ').</span><button type="button" class="btn" data-action="bor-descartar">' + (nuevo ? 'Descartar borrador' : 'Volver a la versión guardada') + '</button></div>' : '') +
-    '<form id="f" class="form" novalidate>' +
-      '<div class="campo"><span class="lbl">Foto</span><div class="foto-ed" id="foto-ed">' + fotoEdHTML() + '</div><input class="vh" type="file" id="foto" accept="image/*"></div>' +
-      '<div class="campo"><label for="f-titulo">Nombre</label><input id="f-titulo" class="in" type="text" maxlength="200" placeholder="Película, álbum, libro, partido..." value="' + esc(v.titulo) + '" autocomplete="off"></div>' +
-      '<div class="campo"><span class="lbl">Categoría</span><div class="chips" id="chips-cat">' + chipsCategoria() + '</div></div>' +
-      '<div class="campo"><span class="lbl">Géneros</span><div class="chips" id="chips-gen">' + chipsGeneros() + '</div>' +
-        '<div class="gen-nuevo"><label class="vh" for="f-gen-nuevo">Otro género</label><input id="f-gen-nuevo" class="in" type="text" maxlength="30" placeholder="Otro género (ej: Trap, Crónica)" autocomplete="off"><button type="button" class="btn" data-action="ed-gen-add">Agregar</button></div></div>' +
-      '<div class="campo"><label for="f-fecha">Fecha del suceso o estreno</label><input id="f-fecha" class="in" type="date" value="' + esc(v.fecha.length === 10 ? v.fecha : '') + '"></div>' +
-      '<div class="campo"><label for="f-desc">Info básica</label><textarea id="f-desc" class="in" rows="2" maxlength="500" placeholder="Director, artista, autor, marcador, dónde fue...">' + esc(v.descripcion) + '</textarea></div>' +
-      '<div class="campo"><span class="lbl">Nota</span><div class="nota-ed"><div id="nota-prev">' + notaPrevHTML() + '</div>' +
-        '<div class="nota-ctrl"><button type="button" class="btn" data-action="ed-nota-menos" aria-label="Bajar 0.1">−</button><input id="f-nota" type="range" min="1" max="5" step="0.1" value="' + ed.nota + '" aria-label="Nota de 1 a 5"><button type="button" class="btn" data-action="ed-nota-mas" aria-label="Subir 0.1">+</button></div></div></div>' +
-      '<div class="campo"><label for="f-veredicto">Veredicto en una línea</label><input id="f-veredicto" class="in" type="text" maxlength="120" placeholder="El titular de tu opinión" value="' + esc(v.veredicto) + '" autocomplete="off"></div>' +
-      '<div class="campo"><span class="lbl">Reseña</span><div class="res-resumen" id="res-resumen">' + resumenResHTML(v.resenia) + '</div></div>' +
-      '<div class="campo"><span class="lbl">Quién la puede ver</span><div id="vis">' + visHTML() + '</div></div>' +
-      '<p class="error" id="f-error" role="alert" hidden></p>' +
-      '<div class="barra-g"><button type="submit" id="f-guardar" class="btn prim grande">Guardar</button><button type="button" class="btn" data-action="bor-guardar">Guardar borrador</button></div>' +
-      '<p class="ayuda bor-estado" role="status"></p>' +
-    '</form>' + escritorioHTML(v);
+    (ed.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin guardar (' + hace(ed.recuperado) + ').</span><button type="button" class="btn" data-action="bor-descartar">' + (nuevo ? 'Descartar borrador' : 'Volver a la versión guardada') + '</button></div>' : '') + '</div>' +
+    '<form id="f" class="form ed" novalidate>' +
+      '<div class="ed-a">' +
+        '<section class="mod portada' + (u ? ' con-foto' : '') + '" id="portada"><div class="por-fondo" id="por-fondo" aria-hidden="true"' + (u ? ' style="background-image:url(&quot;' + esc(u) + '&quot;)"' : '') + '></div>' +
+          '<div class="por-tit"><label class="por-eti" for="f-titulo" id="eti-titulo">' + esc(m.eti) + '</label>' +
+            '<input id="f-titulo" class="por-titulo" type="text" maxlength="200" placeholder="' + esc(m.ej) + '" value="' + esc(v.titulo) + '" autocomplete="off"></div>' +
+          '<div id="foto-ed">' + fotoEdHTML() + '</div>' +
+          '<div class="por-cat"><span class="lbl-s">Categoría</span><div class="chips sm" id="chips-cat">' + chipsCategoria() + '</div></div>' +
+          '<div class="por-fec"><label class="lbl-s" for="f-fecha" id="lbl-fecha">' + esc(m.fecha) + '</label><input id="f-fecha" class="in" type="date" value="' + esc(v.fecha.length === 10 ? v.fecha : '') + '"></div>' +
+          '<input class="vh" type="file" id="foto" accept="image/*"></section>' +
+        '<section class="mod"><h2 class="mod-t">Géneros <small>elige los que quieras</small></h2><div class="chips" id="chips-gen">' + chipsGeneros() + '</div>' +
+          '<div class="gen-nuevo"><label class="vh" for="f-gen-nuevo">Otro género</label><input id="f-gen-nuevo" class="in" type="text" maxlength="30" placeholder="Otro género (ej: Trap, Crónica)" autocomplete="off"><button type="button" class="btn" data-action="ed-gen-add">Agregar</button></div></section>' +
+        '<section class="mod"><label class="mod-t" for="f-desc">Ficha</label><textarea id="f-desc" class="in" rows="2" maxlength="500" placeholder="' + esc(m.ficha) + '">' + esc(v.descripcion) + '</textarea></section>' +
+        '<section class="mod"><h2 class="mod-t" id="nota-tit">' + notaTitulo(v.titulo) + '</h2><div id="nota-prev">' + notaPrevHTML() + '</div></section>' +
+      '</div>' +
+      '<div class="ed-b">' + escritorioHTML(v) + '</div>' +
+      '<div class="ed-c"><section class="mod"><h2 class="mod-t">Quién la puede ver</h2><div id="vis">' + visHTML() + '</div></section>' +
+        '<p class="error" id="f-error" role="alert" hidden></p>' +
+        '<div class="ed-bar"><button type="submit" id="f-guardar" class="btn prim">Guardar</button><button type="button" class="btn" data-action="bor-guardar">Guardar borrador</button></div>' +
+        '<p class="ayuda bor-estado" role="status"></p></div>' +
+    '</form>';
 }
 
 /* ---------- Rankings ---------- */
@@ -1633,7 +2349,7 @@ async function elegirFoto(archivo) {
       const thumb = await recorteAfiche(img, enc);
       ed.fuente = img; ed.nuevaFoto = { full: full, thumb: thumb };
       ed.foto = URL.createObjectURL(full); ed.vistaThumb = URL.createObjectURL(thumb);
-      const fe = $('#foto-ed'); if (fe) fe.innerHTML = fotoEdHTML();
+      pintarFoto();
       marcar();
     });
   } catch (e) { mostrarError('No pude leer esa foto. Prueba con otra.'); }
@@ -1651,7 +2367,7 @@ async function reencuadrar() {
       const thumb = await recorteAfiche(img, enc);
       ed.nuevaFoto = { full: ed.nuevaFoto ? ed.nuevaFoto.full : null, thumb: thumb };
       ed.vistaThumb = URL.createObjectURL(thumb);
-      const fe = $('#foto-ed'); if (fe) fe.innerHTML = fotoEdHTML();
+      pintarFoto();
       marcar();
     });
   } catch (e) { toast('No pude abrir la foto para reencuadrar. Súbela de nuevo.'); }
@@ -1670,16 +2386,19 @@ function ciclarTam() {
 aplicarTam();
 
 function contarPalabras() {
-  const r = $('#f-resenia'), c = $('#esc-cuenta'); if (!r || !c) return;
+  const r = $('#f-resenia'); if (!r) return;
   const n = (r.textContent || '').trim().split(/\s+/).filter(Boolean).length;
-  c.textContent = n + ' palabra' + (n === 1 ? '' : 's') + (n ? ' · ' + Math.max(1, Math.ceil(n / 200)) + ' min' : '');
+  const t = n + ' palabra' + (n === 1 ? '' : 's') + (n ? ' · ' + Math.max(1, Math.ceil(n / 200)) + ' min' : '');
+  document.querySelectorAll('.js-cuenta').forEach(function (c) { c.textContent = t; });
 }
+const escAbierto = () => { const e = $('#escritorio'); return !!e && e.classList.contains('abierto'); };
 function ajustarVV() {
-  const e = $('#escritorio'); if (!e || e.hidden) return;
+  const e = $('#escritorio'); if (!e || !escAbierto()) return;
   const v = window.visualViewport; if (!v) return;
   e.style.height = v.height + 'px'; e.style.top = v.offsetTop + 'px';
 }
 function mantenerCursor() {
+  if (!escAbierto()) return;
   try {
     const sc = $('#esc-scroll'), sel = getSelection(); if (!sc || !sel || !sel.rangeCount) return;
     let r = sel.getRangeAt(0).getBoundingClientRect();
@@ -1699,11 +2418,9 @@ function cursorAlFinal(el) {
   try { const r = document.createRange(); r.selectNodeContents(el); r.collapse(false); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) { /* nada */ }
 }
 function abrirEscritura() {
-  const e = $('#escritorio'); if (!e) return;
-  const f = $('#f-fecha').value;
-  $('#esc-nombre').textContent = $('#esc-h').textContent = $('#f-titulo').value.trim() || 'Sin título';
-  $('#esc-cat').textContent = catNombre(estado.ed.categoria) + (f ? ' · ' + f.slice(0, 4) : '');
-  e.hidden = false; e.classList.remove('enfoque'); document.body.classList.add('escribiendo');
+  const e = $('#escritorio'); if (!e || escAbierto()) return;
+  pintarEyebrow();
+  e.classList.add('abierto'); e.classList.remove('enfoque'); document.body.classList.add('escribiendo');
   estado.escHist = true; try { history.pushState({ esc: 1 }, '', location.href); } catch (x) { estado.escHist = false; }
   ajustarVV(); contarPalabras(); pintarEstadoBor();
   const r = $('#f-resenia');
@@ -1713,15 +2430,15 @@ function abrirEscritura() {
 }
 function cerrarEscritura() {
   const e = $('#escritorio'); if (!e) return;
-  e.hidden = true; e.classList.remove('enfoque'); e.style.height = ''; e.style.top = '';
+  e.classList.remove('abierto', 'enfoque'); e.style.height = ''; e.style.top = '';
   document.body.classList.remove('escribiendo');
-  pintarResumen(); flushBorrador();
+  pintarResumen(); contarPalabras(); flushBorrador();
 }
 function salirEscritura() {
   if (estado.escHist) { try { history.back(); return; } catch (e) { /* se cierra directo */ } }
   cerrarEscritura();
 }
-function alternarEnfoque() { const e = $('#escritorio'); if (e) e.classList.toggle('enfoque'); }
+function alternarEnfoque() { const e = $('#escritorio'); if (e && escAbierto()) e.classList.toggle('enfoque'); }
 
 function addGenero() {
   const inp = $('#f-gen-nuevo'); if (!inp) return;
@@ -1733,8 +2450,7 @@ function addGenero() {
 }
 function cambiarNota(n) {
   estado.ed.nota = redondear(Math.max(1, Math.min(5, n)));
-  $('#f-nota').value = estado.ed.nota;
-  $('#nota-prev').innerHTML = notaPrevHTML();
+  actualizarNota();
 }
 
 /* ---------- Respaldo, importar y pasar lo local a la nube ---------- */
@@ -1914,11 +2630,16 @@ document.addEventListener('click', function (e) {
       b.disabled = true;
       seguro(migrarLocales, 'No se pudieron subir las reseñas.').then(function () { b.disabled = false; });
       break;
-    case 'ed-cat': if (estado.ed.categoria !== b.dataset.cat) { estado.ed.categoria = b.dataset.cat; estado.ed.generos = []; $('#chips-cat').innerHTML = chipsCategoria(); $('#chips-gen').innerHTML = chipsGeneros(); } break;
+    case 'ed-cat': if (estado.ed.categoria !== b.dataset.cat) { estado.ed.categoria = b.dataset.cat; estado.ed.generos = []; $('#chips-cat').innerHTML = chipsCategoria(); $('#chips-gen').innerHTML = chipsGeneros(); aplicarCategoria(); } break;
     case 'ed-gen': { const g = b.dataset.g, i = estado.ed.generos.indexOf(g); if (i >= 0) estado.ed.generos.splice(i, 1); else estado.ed.generos.push(g); $('#chips-gen').innerHTML = chipsGeneros(); break; }
     case 'ed-gen-add': addGenero(); break;
     case 'ed-vis': estado.ed.publica = b.dataset.v === '1'; $('#vis').innerHTML = visHTML(); break;
-    case 'ed-quitar-foto': estado.ed.foto = null; estado.ed.nuevaFoto = null; $('#foto-ed').innerHTML = fotoEdHTML(); break;
+    case 'ed-quitar-foto': estado.ed.foto = null; estado.ed.nuevaFoto = null; estado.ed.vistaThumb = null; pintarFoto(); break;
+    case 'ed-nota-set': {
+      let n = parseInt(b.dataset.n, 10);
+      if (e.detail > 0 && e.clientX) { const r = b.getBoundingClientRect(); if (e.clientX < r.left + r.width / 2) n -= 0.5; }   // mitad izquierda = medio ploncito menos
+      cambiarNota(n); break;
+    }
     case 'ed-nota-mas': cambiarNota(estado.ed.nota + 0.1); break;
     case 'ed-nota-menos': cambiarNota(estado.ed.nota - 0.1); break;
     case 'ed-fmt': formato(b.dataset.cmd); break;
@@ -1928,18 +2649,22 @@ document.addEventListener('click', function (e) {
 
 // Los botones de formato no deben quitarle el cursor a la reseña.
 document.addEventListener('mousedown', function (e) { if (e.target.closest('.tb')) e.preventDefault(); });
+document.addEventListener('focusin', function (e) {
+  if (e.target && e.target.id === 'f-resenia') { try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (x) { /* nada */ } prepararTexto(e.target); contarPalabras(); }
+});
 
 document.addEventListener('input', function (e) {
   const t = e.target;
   if (t.id === 'q') { estado.q = t.value; pintarGrid(); }
-  else if (t.id === 'f-nota') { estado.ed.nota = redondear(parseFloat(t.value)); $('#nota-prev').innerHTML = notaPrevHTML(); }
   else if (t.id === 'com-texto') {
     const n = t.value.trim().length;
     $('#com-cont').textContent = n + ' / ' + MIN_COMENTARIO;
     $('#com-cont').classList.toggle('ok', n >= MIN_COMENTARIO);
     $('#com-btn').disabled = n < MIN_COMENTARIO;
   }
-  else if (t.id === 'f-titulo') { const er = $('#f-error'); if (er) er.hidden = true; }
+  else if (t.id === 'f-titulo') { const er = $('#f-error'); if (er) er.hidden = true; pintarEyebrow(); }
+  else if (t.id === 'f-fecha') { pintarEyebrow(); }
+  else if (t.id === 'f-veredicto') { const nc = $('#nombre-cont'); if (nc) nc.textContent = t.value.length + ' / 120'; }
   else if (t.id === 'enc-zoom') { if (estado.enc) estado.enc.acercar(parseFloat(t.value)); return; }
   else if (t.id === 'gen-q') { filtrarGeneros(t.value); return; }
   else if (t.id === 'f-resenia') {
@@ -1963,12 +2688,13 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') {
     if ($('#hoja-enc')) { estado.enc = null; cerrarHoja('hoja-enc'); return; }
     if ($('#hoja-gen')) { cerrarHoja('hoja-gen'); return; }
-    const es = $('#escritorio'); if (es && !es.hidden) { salirEscritura(); return; }
+    if (escAbierto()) { salirEscritura(); return; }
   }
   if ((e.key === 'Enter' || e.key === ' ') && document.querySelector('.bienvenida')) { e.preventDefault(); entrarApp(); return; }
   if (e.key === 'Enter' && e.target.matches && e.target.matches('#f input')) {
     e.preventDefault();
     if (e.target.id === 'f-gen-nuevo') addGenero();
+    else if (e.target.id === 'f-veredicto') { const r = $('#f-resenia'); if (r) { prepararTexto(r); r.focus(); cursorAlFinal(r); } }
   }
 });
 
@@ -2029,7 +2755,8 @@ document.addEventListener('paste', function (e) {
 });
 // Los botones de formato se iluminan según dónde esté el cursor.
 document.addEventListener('selectionchange', function () {
-  const e = $('#escritorio'); if (!e || e.hidden || document.activeElement !== $('#f-resenia')) return;
+  if (document.activeElement !== $('#f-resenia')) return;
+  const e = $('#escritorio'); if (!e) return;
   const est = c => { try { return document.queryCommandState(c); } catch (x) { return false; } };
   let bloque = ''; try { bloque = String(document.queryCommandValue('formatBlock') || '').toLowerCase(); } catch (x) { /* nada */ }
   const m = { bold: est('bold'), italic: est('italic'), list: est('insertUnorderedList'), olist: est('insertOrderedList'), h2: bloque === 'h2', h3: bloque === 'h3', quote: bloque === 'blockquote' };
