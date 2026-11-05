@@ -5,6 +5,19 @@ Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
 Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
 Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube el número de VERSION en sw.js).
 
+NOVEDAD v23 - La Hoja nueva:
+ - Al crear una semilla te pregunta "¿A mano o con teclado?" (también puedes elegir solo un texto sencillo).
+ - La hoja tiene tamaño fijo (como una hoja de cuaderno). Si necesitas más espacio, agregas otra página (hasta 8).
+ - Texto en cápsulas con formato (letra, tamaño, negrita, color, listas...), 5 pinceles, recortes, esquinas y lados arrastrables, y panel de Capas.
+ - Se ve integrada a la app: el texto como texto normal, los recortes como figuras y un botón "Ver la hoja tal cual".
+ - Las fotos recortadas se guardan aparte en el almacenamiento (Storage) de Supabase, no dentro de la hoja.
+ - En el editor de reseñas hay un botón de cámara para pegar una "foto recortada" dentro del texto.
+ - Las hojas de la versión anterior se abren y se convierten solas.
+ (No hay que volver a correr ningún SQL si ya corriste supabase-hojas.sql.)
+
+Hojas (lápiz, texto y recortes): pega UNA sola vez el contenido de supabase-hojas.sql en Supabase (SQL Editor -> New query -> Run).
+Sin ese paso la app funciona igual; las hojas solo quedan guardadas en el aparato donde las hiciste.
+
 Diario: pega UNA sola vez el contenido de supabase-diario.sql en Supabase (SQL Editor -> New query -> Run).
 (Ese archivo es solo para copiar; no hace falta subirlo a GitHub, pero no estorba.)
 
