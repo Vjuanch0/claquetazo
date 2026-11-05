@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=20">
-<link rel="icon" href="favicon.svg?v=20" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=20" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=20">
+<link rel="manifest" href="manifest.webmanifest?v=21">
+<link rel="icon" href="favicon.svg?v=21" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=21" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=21">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -597,6 +597,36 @@ body:not(.con-sesion) .nav-i.solo-sesion{display:none}
 .bv-escena{display:block;width:min(100vw,460px);height:auto;overflow:visible}
 .bv-lema{animation:none;opacity:0;margin:4px 0 0}
 .bv-toca{animation-delay:3s}
+/* ---------- Tejidos ---------- */
+.tj-bar{display:flex;gap:4px;margin:2px 0 16px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--surface);max-width:440px}
+.tj-t{flex:1;text-align:center;padding:9px 8px;border-radius:999px;color:var(--ink-dim);font-weight:600;font-size:.92rem;transition:background .2s,color .2s}
+.tj-t:hover{color:var(--ink)}
+.tj-t[aria-current="page"]{background:var(--accent);color:#fff}
+.tj-sub{display:flex;gap:8px;margin:-4px 0 16px}
+.tj-c{min-height:36px;display:inline-flex;align-items:center;padding:0 16px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim);font-size:.875rem;font-weight:600}
+.tj-c[aria-current="page"]{border-color:var(--lilac);color:var(--lilac);background:rgba(255,154,60,.1)}
+.tj-ayuda{margin:6px 0 16px;max-width:36rem}
+.tj-hilos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 8px;max-width:640px}
+.tj-hilo{position:relative;overflow:hidden;display:grid;gap:2px;align-content:end;min-height:150px;padding:16px;border:1px solid var(--line);border-radius:22px;background:var(--surface);transition:transform .2s,border-color .2s}
+.tj-hilo:hover,.tj-hilo:focus-visible{transform:translateY(-3px)}
+.tj-hp{--hc:#ff9a3c}.tj-hr{--hc:#3ccf8e}
+.tj-hilo:hover,.tj-hilo:focus-visible{border-color:var(--hc)}
+.tj-hh{position:absolute;left:10px;right:10px;top:10px;width:calc(100% - 20px);height:44px;fill:none;stroke:var(--hc);stroke-width:2.4;stroke-linecap:round;opacity:.85}
+.tj-hh path{stroke-dasharray:1 1;animation:tjHilo 1.4s ease-out both}
+@keyframes tjHilo{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.tj-n{font:600 2.3rem/1 var(--display);color:var(--hc)}
+.tj-hilo strong{font:600 1.15rem/1.2 var(--display)}
+.tj-hilo small{color:var(--ink-dim);font-size:.82rem;line-height:1.3}
+.tj-sec{margin:22px 0 10px}
+.tj-lista{display:grid;gap:10px;max-width:640px}
+.tj-fila{display:grid;gap:3px;min-width:0;padding:13px 16px 13px 18px;border:1px solid var(--line);border-left:4px solid #ff9a3c;border-radius:16px;background:var(--surface);transition:border-color .2s,transform .2s}
+.tj-fila.tj-r{border-left-color:#3ccf8e}
+.tj-fila:hover,.tj-fila:focus-visible{transform:translateX(3px);border-color:var(--lilac)}
+.tj-ty{font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-dim);font-weight:700}
+.tj-fila strong{font:600 1.05rem/1.25 var(--display);overflow-wrap:anywhere}
+.tj-pie{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px;color:var(--ink-faint);font-size:.8rem}
+.tj-pie .tag-priv{position:static;padding:2px 8px}
+@media(prefers-reduced-motion:reduce){.tj-hh path{animation:none}.tj-hilo,.tj-fila{transition:none}}
 </style>
 </head>
 <body>
@@ -606,9 +636,7 @@ body:not(.con-sesion) .nav-i.solo-sesion{display:none}
 <div id="shell"><main id="vista"></main></div>
 <nav id="nav" aria-label="Principal">
   <a class="nav-i solo-sesion" data-sec="inicio" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12C12 8 9 6 5 6c0 4 3 6 7 6z"/><path d="M12 14c0-3 2.5-5 6-5 0 3.2-2.5 5-6 5z"/></svg><span>Inicio</span></a>
-  <a class="nav-i" data-sec="cartelera" href="#cartelera"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="11" rx="2"/><path d="M3 9l3-5 4 5 4-5 4 5"/></svg><span>Cartelera</span></a>
-  <a class="nav-i" data-sec="diario" href="#diario"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h11"/></svg><span>Diario</span></a>
-  <a class="nav-i" data-sec="top" href="#top"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20v-7h4v7M10 20V6h4v14M14 20v-9h4v9"/></svg><span>Rankings</span></a>
+  <a class="nav-i" data-sec="tejidos" href="#tejidos"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7c3-3 6 3 9 0s6-3 9 0"/><path d="M3 12c3-3 6 3 9 0s6-3 9 0"/><path d="M3 17c3-3 6 3 9 0s6-3 9 0"/></svg><span>Tejidos</span></a>
   <a class="nav-i" data-sec="ajustes" href="#ajustes"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h8M18 7h2M4 17h2M12 17h8"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg><span>Ajustes</span></a>
 </nav>
 <div id="toast" role="status" aria-live="polite"></div>
@@ -2215,7 +2243,7 @@ function diarioListaHTML() {
     if (estado.cargando && !estado.semillas.length) return '<div class="vacio-box"><strong>Cargando…</strong></div>';
     if (estado.semTipo) return '<div class="vacio-box"><strong>Nada de «' + esc(tipoDe(estado.semTipo).nombre) + '» todavía.</strong><span>Cambia el filtro o siembra algo nuevo.</span></div>';
     return estado.sesion
-      ? '<div class="vacio-box"><strong>Tu diario está esperando.</strong><span>Aquí van a vivir las cosas que siembres: ideas, días, momentos.</span><a class="btn prim" href="#inicio">Sembrar algo</a></div>'
+      ? '<div class="vacio-box"><strong>Lo personal está esperando.</strong><span>Aquí van a vivir las cosas que siembres: ideas, días, momentos.</span><a class="btn prim" href="#inicio">Sembrar algo</a></div>'
       : '<div class="vacio-box"><strong>Todavía no hay nada público.</strong><span>Vuelve pronto.</span></div>';
   }
   let h = '', dia = '';
@@ -2232,7 +2260,7 @@ function vistaDiario() {
   const chips = base.length > 1 ? '<div class="tabs" role="tablist" aria-label="Tipos">' +
     '<button class="tab" role="tab" aria-selected="' + !estado.semTipo + '" data-action="sem-filtro" data-t="">Todo<small>' + base.length + '</small></button>' +
     TIPOS.filter(t => cuenta[t.id]).map(t => '<button class="tab" role="tab" aria-selected="' + (estado.semTipo === t.id) + '" data-action="sem-filtro" data-t="' + t.id + '">' + esc(t.nombre) + '<small>' + cuenta[t.id] + '</small></button>').join('') + '</div>' : '';
-  return '<header class="cab"><h1 class="pag" style="margin:4px 0 0">Diario</h1><span class="cuenta">' + base.length + ' semilla' + (base.length === 1 ? '' : 's') + (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</span></header>' +
+  return barraTej('personal') + '<header class="cab"><h1 class="pag" style="margin:4px 0 0">Personal</h1><span class="cuenta">' + base.length + ' semilla' + (base.length === 1 ? '' : 's') + (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</span></header>' +
     (dueno && estado.semTabla === false ? '<div class="aviso"><span>Falta un paso para guardar el diario en la nube.</span><a class="btn" href="#ajustes">Ver cómo</a></div>' : '') +
     chips + '<div id="sem-lista">' + diarioListaHTML() + '</div>';
 }
@@ -2311,7 +2339,7 @@ function vistaSemilla() {
   const volver = '<a class="volver" href="' + atras + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>';
   if (!s || s.faltante) {
     if (estado.cargando && !estado.iniciado) return volver + '<p class="ayuda">Cargando…</p>';
-    return volver + '<div class="vacio-box"><strong>No encontré esa semilla.</strong><span>Puede que la hayan borrado o que ahora sea privada.</span><a class="btn prim" href="#diario">Ir al diario</a></div>';
+    return volver + '<div class="vacio-box"><strong>No encontré esa semilla.</strong><span>Puede que la hayan borrado o que ahora sea privada.</span><a class="btn prim" href="#diario">Ir a lo personal</a></div>';
   }
   const t = tipoDe(s.tipo);
   if (!dueno) {   // visitante: solo lee
@@ -2374,6 +2402,57 @@ async function borrarSemilla(id) {
   Copia.escribir(claveSem(), estado.semillas);
 }
 
+/* ---------- Tejidos: lo personal y las reseñas en un solo lugar ---------- */
+function barraTej(sel, sub) {
+  const t = function (id, href, txt) { return '<a class="tj-t" href="' + href + '"' + (sel === id ? ' aria-current="page"' : '') + '>' + txt + '</a>'; };
+  let h = '<div class="tj-bar" role="group" aria-label="Tejidos">' + t('todo', '#tejidos', 'Todo') + t('personal', '#diario', 'Personal') + t('resenas', '#cartelera', 'Reseñas') + '</div>';
+  if (sel === 'resenas') {
+    const c = function (id, href, txt) { return '<a class="tj-c" href="' + href + '"' + (sub === id ? ' aria-current="page"' : '') + '>' + txt + '</a>'; };
+    h += '<div class="tj-sub" role="group" aria-label="Dentro de reseñas">' + c('lista', '#cartelera', 'Reseñas') + c('ranking', '#top', 'Ranking') + '</div>';
+  }
+  return h;
+}
+function tjTitulo(s) {
+  if (s.titulo) return s.titulo;
+  const x = (s.contenido || '').replace(/\s+/g, ' ').trim();
+  if (!x) return 'Sin texto';
+  return x.length > 70 ? x.slice(0, x.lastIndexOf(' ', 66) > 30 ? x.lastIndexOf(' ', 66) : 66) + '…' : x;
+}
+function tjFila(f) {
+  const p = f.k === 'p', o = p ? f.s : f.i, nv = o.nota != null ? nivel(o.nota) : null;
+  const tipo = p ? 'Personal · ' + esc(tipoDe(o.tipo).nombre) : 'Reseña · ' + esc(catNombre(o.categoria));
+  return '<a class="tj-fila ' + (p ? 'tj-p' : 'tj-r') + '" href="' + (p ? '#semilla-' : '#r-') + o.id + '"' + (nv ? ' style="--vc:' + nv.color + '"' : '') + '>' +
+    '<span class="tj-ty">' + tipo + '</span><strong>' + esc(p ? tjTitulo(o) : o.titulo) + '</strong>' +
+    '<span class="tj-pie"><span class="tj-dia">' + esc(etiquetaDia(o.creado)) + '</span>' +
+    (nv ? plones(o.nota, 'chico') + '<span class="palabra">' + o.nota.toFixed(1) + '</span>' : '') +
+    (!o.publica ? '<span class="tag-priv sem-priv">Privada</span>' : '') + '</span></a>';
+}
+function vistaTejidos() {
+  const dueno = !!estado.sesion;
+  const sems = estado.semillas.filter(function (s) { return dueno || s.publica; });
+  const res = estado.items.slice();
+  const prom = res.length ? res.reduce(function (a, i) { return a + i.nota; }, 0) / res.length : 0;
+  const filas = sems.map(function (s) { return { k: 'p', t: s.creado, s: s }; })
+    .concat(res.map(function (i) { return { k: 'r', t: i.creado, i: i }; }))
+    .sort(function (a, b) { return b.t - a.t; }).slice(0, 40);
+  const hilo = function (k) {
+    return '<svg class="tj-hh" viewBox="0 0 120 40" aria-hidden="true"><path pathLength="1" d="M2 30C20 6 34 38 56 20S96 6 118 14"/></svg>';
+  };
+  const cargando = estado.cargando && !filas.length;
+  let h = barraTej('todo') +
+    '<header class="cab"><h1 class="pag" style="margin:4px 0 0">Tejidos</h1><span class="cuenta">' + (sems.length + res.length) + ' hilo' + (sems.length + res.length === 1 ? '' : 's') + (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</span></header>' +
+    '<p class="ayuda tj-ayuda">' + (dueno ? 'Todo lo que has sembrado y reseñado, hilo por hilo. Toca uno para entrar.' : 'Lo que está a la vista: toca un hilo para entrar.') + '</p>' +
+    (dueno && estado.semTabla === false ? '<div class="aviso"><span>Falta un paso para guardar lo personal en la nube.</span><a class="btn" href="#ajustes">Ver cómo</a></div>' : '') +
+    '<div class="tj-hilos">' +
+    '<a class="tj-hilo tj-hp" href="#diario">' + hilo('p') + '<span class="tj-n">' + sems.length + '</span><strong>Personal</strong><small>ideas, días y momentos</small></a>' +
+    '<a class="tj-hilo tj-hr" href="#cartelera">' + hilo('r') + '<span class="tj-n">' + res.length + '</span><strong>Reseñas</strong><small>' + (res.length ? 'promedio ' + prom.toFixed(1) + ' · con ranking' : 'películas, música y más') + '</small></a></div>';
+  if (cargando) return h + '<div class="vacio-box"><strong>Cargando…</strong></div>';
+  if (!filas.length) {
+    return h + '<div class="vacio-box"><strong>El tejido está vacío.</strong><span>' + (dueno ? 'Siembra algo o escribe una reseña y aquí empieza a tejerse.' : 'Todavía no hay nada público. Vuelve pronto.') + '</span>' + (dueno ? '<a class="btn prim" href="#inicio">Sembrar algo</a>' : '') + '</div>';
+  }
+  return h + '<h2 class="sec tj-sec">Lo último</h2><div class="tj-lista">' + filas.map(tjFila).join('') + '</div>';
+}
+
 /* ---------- Home ---------- */
 function vistaCartelera() {
   const n = estado.items.length;
@@ -2381,13 +2460,13 @@ function vistaCartelera() {
   const tabs = [{ id: 'todo', nombre: 'Todo', n: n }].concat(CATEGORIAS.map(c => ({ id: c.id, nombre: c.nombre, n: conteo(c.id) })))
     .map(t => '<button class="tab" role="tab" aria-selected="' + (estado.cat === t.id) + '" data-action="filtro" data-cat="' + t.id + '">' + t.nombre + '<small>' + t.n + '</small></button>').join('');
   const op = (v, t) => '<option value="' + v + '"' + (estado.orden === v ? ' selected' : '') + '>' + t + '</option>';
-  return '<h1 class="vh">Cartelera</h1>' +
-    '<header class="cab"><span class="logo">' + marcaMini(30) + 'Cartelera</span>' +
+  return barraTej('resenas', 'lista') + '<h1 class="vh">Reseñas</h1>' +
+    '<header class="cab"><span class="logo">' + marcaMini(30) + 'Reseñas</span>' +
     '<span class="cuenta">' + n + ' reseña' + (n === 1 ? '' : 's') + (estado.sesion ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</span></header>' +
     (estado.sinConexion && estado.items.length ? '<div class="aviso"><span>Sin conexión. Estás viendo la última copia guardada en este aparato.</span><button class="btn" data-action="reintentar">Reintentar</button></div>' : '') +
     '<div id="borradores">' + borradoresHTML() + '</div>' +
     '<div id="destacada">' + destacadaHTML() + '</div>' +
-    '<div class="marquesina"><h2 class="marq-t">En cartelera</h2><span class="bombillas" aria-hidden="true"></span></div>' +
+    '<div class="marquesina"><h2 class="marq-t">Todas las reseñas</h2><span class="bombillas" aria-hidden="true"></span></div>' +
     '<div class="buscar"><label class="vh" for="q">Buscar</label><input id="q" class="in" type="search" placeholder="Buscar por título, género o categoría" value="' + esc(estado.q) + '" autocomplete="off">' +
     '<label class="vh" for="orden">Ordenar</label><select id="orden" class="in">' + op('recientes', 'Recientes') + op('mejor', 'Mejor nota') + op('peor', 'Peor nota') + op('az', 'A – Z') + '</select></div>' +
     '<div class="tabs" role="tablist" aria-label="Categorías">' + tabs + '</div>' +
@@ -2400,7 +2479,7 @@ function vistaDetalle(id) {
   if (!it) {
     if (estado.cargando) return '<a class="volver" href="#cartelera"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a><p class="ayuda">Cargando…</p>';
     return '<a class="volver" href="#cartelera"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>' +
-      '<div class="vacio-box"><strong>No encontré esa reseña.</strong><span>Puede que la hayan borrado o que ahora sea privada.</span><a class="btn prim" href="#cartelera">Ir a la cartelera</a></div>';
+      '<div class="vacio-box"><strong>No encontré esa reseña.</strong><span>Puede que la hayan borrado o que ahora sea privada.</span><a class="btn prim" href="#cartelera">Ir a las reseñas</a></div>';
   }
   const nv = nivel(it.nota);
   const palabras = textoPlano(it.resenia).trim().split(/\s+/).filter(Boolean).length;
@@ -2691,7 +2770,7 @@ function vistaTop() {
       (l.length ? '<ol class="rk">' + l.map((it, i) => filaRank(it, i + 1, '')).join('') + '</ol>'
         : '<div class="vacio-box"><strong>Nada para mostrar.</strong><span>Prueba con otra categoría o género.</span></div>');
   }
-  return '<h1 class="pag">Rankings</h1><div class="sub" role="group" aria-label="Tipo de ranking">' + sub + '</div>' + cuerpo;
+  return barraTej('resenas', 'ranking') + '<h1 class="pag">Ranking</h1><div class="sub" role="group" aria-label="Tipo de ranking">' + sub + '</div>' + cuerpo;
 }
 
 /* ---------- Entrar y Ajustes ---------- */
@@ -2799,15 +2878,16 @@ function render(cambioDeRuta) {
   else if (h === 'inicio') {
     if (!estado.iniciado) html = '<p class="ayuda">Cargando…</p>';
     else if (!estado.sesion && estado.entrando) html = '<p class="ayuda">Cargando…</p>';
-    else if (!estado.sesion) { location.replace('#cartelera'); return; }
+    else if (!estado.sesion) { location.replace('#tejidos'); return; }
     else html = vistaSembrar();
     sec = 'inicio';
   }
-  else if (h === 'cartelera') { html = vistaCartelera(); sec = 'cartelera'; }
-  else if (h === 'diario') { html = vistaDiario(); sec = 'diario'; }
+  else if (h === 'tejidos') { html = vistaTejidos(); sec = 'tejidos'; }
+  else if (h === 'cartelera') { html = vistaCartelera(); sec = 'tejidos'; }
+  else if (h === 'diario') { html = vistaDiario(); sec = 'tejidos'; }
   else if (rutaSem && !estado.iniciado) { html = '<p class="ayuda">Cargando…</p>'; sec = 'inicio'; }
   else if (h.indexOf('sembrar-') === 0) { if (cambioDeRuta || !estado.sem) iniciarSemilla(h.slice(8)); html = vistaSemilla(); sec = 'inicio'; }
-  else if (h.indexOf('semilla-') === 0) { if (cambioDeRuta || !estado.sem) iniciarSemilla(null, h.slice(8)); html = vistaSemilla(); sec = 'diario'; }
+  else if (h.indexOf('semilla-') === 0) { if (cambioDeRuta || !estado.sem) iniciarSemilla(null, h.slice(8)); html = vistaSemilla(); sec = 'tejidos'; }
   else if (rutaEditor && !estado.iniciado) { html = '<p class="ayuda">Cargando…</p>'; sec = 'agregar'; }
   else if (h === 'agregar') { if (cambioDeRuta || !estado.ed) iniciarEditor(null); html = vistaEditor(); sec = 'agregar'; }
   else if (h.indexOf('editar-') === 0) { if (cambioDeRuta || !estado.ed) iniciarEditor(h.slice(7)); html = estado.ed && estado.ed.base ? vistaEditor() : vistaDetalle(''); sec = 'agregar'; }
@@ -2816,12 +2896,12 @@ function render(cambioDeRuta) {
     if (cambioDeRuta || !estado.ed) iniciarEditor(null, h.slice(9));
     html = vistaEditor(); sec = 'agregar';
   }
-  else if (h === 'top') { html = vistaTop(); sec = 'top'; }
+  else if (h === 'top') { html = vistaTop(); sec = 'tejidos'; }
   else if (h === 'ajustes') { html = vistaAjustes(); sec = 'ajustes'; }
   else if (h === 'entrar') { html = vistaEntrar(); sec = 'ajustes'; }
   else if (h === 'olvide') { if (cambioDeRuta && !avisoLink) estado.olvideEnviado = false; html = vistaOlvide(); sec = 'ajustes'; }
   else if (h === 'nueva-clave') { html = estado.iniciado ? vistaClave() : '<p class="ayuda">Cargando…</p>'; sec = 'ajustes'; }
-  else if (h.indexOf('r-') === 0) { html = vistaDetalle(h.slice(2)); sec = 'inicio'; }
+  else if (h.indexOf('r-') === 0) { html = vistaDetalle(h.slice(2)); sec = 'tejidos'; }
   else { location.hash = '#inicio'; return; }
   $('#vista').innerHTML = html;
   document.querySelectorAll('#nav .nav-i').forEach(a => {
