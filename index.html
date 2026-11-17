@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=29">
-<link rel="icon" href="favicon.svg?v=29" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=29" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=29">
+<link rel="manifest" href="manifest.webmanifest?v=30">
+<link rel="icon" href="favicon.svg?v=30" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=30" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=30">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1145,6 +1145,89 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .humo-p.humo-c{background:radial-gradient(circle at 35% 35%,rgba(255,226,180,.95),rgba(255,154,60,.8) 60%,rgba(255,106,19,.45))}
 .humo-aro{border:2px solid rgba(255,154,60,.85);box-shadow:0 0 14px rgba(255,154,60,.5)}
 @media(prefers-reduced-motion:reduce){.pl-pop{animation:none}.humo-p,.humo-aro{display:none}}
+/* ---------- El telar (v30) ---------- */
+.tl{max-width:720px}
+.tl-cab{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:2px 0 0}
+.tl-cab h1.pag{margin:0;font-size:clamp(1.7rem,7vw,2.1rem);line-height:1.05;color:var(--ink)}
+.tl-cab h1.pag span{color:#ff9a3c}
+.tl-sub{margin:4px 0 0;color:var(--ink-dim);font-size:.78rem}
+.tl-rkb{flex:none;display:inline-flex;align-items:center;min-height:34px;padding:0 14px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim);font-weight:600;font-size:.8rem;background:rgba(255,255,255,.04);transition:border-color .2s,color .2s}
+.tl-rkb:hover,.tl-rkb:focus-visible{border-color:#ff9a3c;color:var(--ink)}
+.tl-hilos{display:grid;margin:14px 0 0}
+.tl-fila{display:flex;align-items:center;gap:10px;min-height:48px;min-width:0;color:inherit;border-radius:12px;transition:background .2s}
+.tl-fila:hover,.tl-fila:focus-visible{background:rgba(255,255,255,.04)}
+.tl-apar{margin-top:6px}
+.tl-nom{flex:none;width:112px;display:grid;gap:2px}
+.tl-nom b{display:flex;align-items:center;gap:5px;font:600 .95rem/1.1 var(--display)}
+.tl-nom small{font-size:.7rem;color:var(--ink-dim)}
+.tl-lk{width:11px;height:11px;fill:none;stroke:var(--ink-faint);stroke-width:2.4;stroke-linecap:round}
+.tl-urd{position:relative;flex:1;height:24px;margin-right:10px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,transparent 1px 14px)}
+.tl-hilo,.tl-barra{background-color:var(--hc);background-image:repeating-linear-gradient(90deg,rgba(0,0,0,0) 0 5px,rgba(0,0,0,.32) 5px 8px),linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 45%,rgba(0,0,0,.28));transform-origin:left center;animation:tlEntra .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*45ms)}
+.tl-hilo{position:absolute;left:0;top:4px;height:16px;width:var(--w);border-radius:8px;overflow:hidden}
+.tl-brillo{position:absolute;top:0;bottom:0;left:0;width:34%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);animation:tlBrillo 3.6s ease-in-out infinite}
+.tl-perla{position:absolute;top:3px;left:var(--w);width:18px;height:18px;margin-left:-4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.55),var(--hc) 60%);box-shadow:0 0 12px var(--hc);animation:tlPerla .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*45ms)}
+@keyframes tlEntra{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes tlBrillo{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+@keyframes tlPerla{from{left:0;opacity:0}to{opacity:1}}
+.tl-sep{display:flex;align-items:center;gap:8px;height:26px;margin-top:6px;color:var(--ink-faint)}
+.tl-sep span{font:600 .62rem var(--display);letter-spacing:.16em;text-transform:uppercase}
+.tl-sep span:last-child{letter-spacing:0;text-transform:none;font-size:.66rem}
+.tl-sep i{flex:1;height:1px;background:var(--line)}
+.tl-sep:hover span{color:var(--ink-dim)}
+.tl-rec-t{margin:18px 0 8px;font:600 .62rem var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+.tl-rec{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tl-rec .tl-rc:nth-child(n+4){display:none}
+.tl-rc{display:flex;align-items:center;gap:8px;min-width:0;padding:6px;border-radius:12px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03);transition:border-color .2s,transform .2s}
+.tl-rc:hover,.tl-rc:focus-visible{border-color:var(--tc);transform:translateY(-2px)}
+.tl-rc-i,.tl-th{position:relative;flex:none;overflow:hidden;background:linear-gradient(160deg,transparent,rgba(0,0,0,.5)),var(--tc)}
+.tl-rc-i{width:28px;height:40px;border-radius:6px}
+.tl-rc-i img,.tl-th img,.tl-cu-i img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tl-rc-x{min-width:0;display:grid}
+.tl-rc-x b{font:600 .72rem/1.15 var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-rc-x small{font-size:.62rem;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* dentro de un tejido */
+.tl-cab-in{align-items:center}
+.tl-atras{flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);display:grid;place-items:center;color:var(--ink);transition:border-color .2s}
+.tl-atras:hover,.tl-atras:focus-visible{border-color:var(--hc)}
+.tl-atras svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.tl-tt{flex:1;min-width:0}
+.tl-cab-in .tl-sub{text-transform:uppercase;letter-spacing:.06em;font-size:.6rem}
+.btn.tl-sem{flex:none;min-height:34px;padding:0 13px;font-size:.8rem}
+.tl-col{position:relative;margin:14px 0 0}
+.tl-barra{position:absolute;left:0;right:0;top:0;height:12px;border-radius:6px;overflow:hidden;z-index:1}
+.tl-cuentas{display:flex;gap:12px;overflow-x:auto;padding:20px 2px 8px;scroll-snap-type:x proximity;scrollbar-width:none}
+.tl-cuentas::-webkit-scrollbar{display:none}
+.tl-cu{position:relative;flex:none;width:84px;padding-top:12px;scroll-snap-align:start;transition:transform .2s}
+.tl-cu::before{content:"";position:absolute;left:50%;top:-14px;width:1px;height:26px;background:var(--hc);opacity:.7}
+.tl-cu:hover,.tl-cu:focus-visible{transform:translateY(-4px)}
+.tl-cu-i{position:relative;display:block;aspect-ratio:7/10;border-radius:12px;overflow:hidden;box-shadow:0 10px 22px rgba(0,0,0,.4);background:linear-gradient(160deg,transparent,rgba(0,0,0,.55)),var(--tc)}
+.tl-cu-t{position:absolute;left:0;right:0;bottom:0;padding:18px 7px 6px;background:linear-gradient(180deg,transparent,rgba(0,0,0,.78));font:600 .68rem/1.1 var(--display);color:#fff;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tl-cu-n{position:absolute;left:6px;top:6px;z-index:1;display:flex;align-items:center;gap:3px;padding:2px 6px 2px 4px;border-radius:10px;background:rgba(4,20,26,.78);font:600 .68rem var(--display);color:var(--plon-on,#ff9a3c)}
+.tl-cu-n svg{width:13px;height:13px;fill:currentColor}
+.tj-fil.tl-chips{margin:8px 0 0}
+.tj-fil.tl-chips .chip{min-height:30px;padding:0 12px;font-size:.78rem}
+.tl-cuerpo{margin-top:6px}
+.tl-lista{display:grid}
+.tl-r{display:flex;align-items:center;gap:12px;min-height:60px;padding:6px 2px;border-bottom:1px solid rgba(255,255,255,.07);color:inherit;transition:background .2s}
+.tl-r:hover,.tl-r:focus-visible{background:rgba(255,255,255,.035)}
+.tl-rk{flex:none;width:22px;text-align:center;font:700 .9rem var(--display);color:var(--lilac)}
+.tl-th{width:34px;height:48px;border-radius:6px;display:grid;place-items:center}
+.tl-th em{font:600 1rem var(--display);font-style:normal;color:rgba(255,255,255,.8)}
+.tl-x{flex:1;min-width:0;display:grid;gap:2px}
+.tl-t{font-weight:600;font-size:.92rem;line-height:1.2;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tl-s{display:flex;flex-wrap:wrap;align-items:center;gap:3px 8px;font-size:.74rem;color:var(--ink-dim)}
+.tl-res,.tl-priv{padding:1px 6px;border-radius:999px;border:1px solid var(--line);font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+.tl-n{flex:none;display:grid;gap:1px;justify-items:end}
+.tl-nv{display:flex;align-items:center;gap:4px;font:600 .95rem var(--display);color:var(--plon-on,#ff9a3c)}
+.tl-nv svg{width:17px;height:17px;fill:currentColor}
+.tl-n small{font-size:.62rem;color:var(--ink-dim)}
+@media(min-width:700px){
+  .tl-rec{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .tl-rec .tl-rc:nth-child(n+4){display:flex}
+  .tl-nom{width:140px}
+}
+@media(min-width:900px){.tl-cu{width:112px}.tl-cu-t{font-size:.78rem}}
+@media(prefers-reduced-motion:reduce){.tl-hilo,.tl-barra,.tl-perla,.tl-brillo{animation:none}.tl-rc,.tl-cu,.tl-fila{transition:none}}
 </style>
 </head>
 <body>
@@ -3061,7 +3144,7 @@ function avisosSemillas() {
 }
 
 /* --- Pantalla principal de Tejidos --- */
-function vistaTejidos() {
+function vistaTejidos_v29() {
   const dueno = !!estado.sesion;
   const todos = estado.semillas.filter(function (s) { return dueno || s.publica; });
   const n = function (ids) { return todos.filter(function (s) { return ids.indexOf(s.tejido) >= 0; }).length; };
@@ -3108,7 +3191,7 @@ function modTarjeta(s, rank) {
     '<span class="mo-pie">' + (nv ? plones(nt, 'chico') + '<span class="palabra">' + nt.toFixed(1) + '</span>' : '<span class="mo-sn">Sin plones</span>') +
     (!s.publica ? '<span class="tag-priv sem-priv">Privada</span>' : '') + '</span></a>';
 }
-function vistaColeccion(scope) {
+function vistaColeccion_v29(scope) {
   const al = tjAlcance(scope);
   if (!al) return '<a class="volver" href="#tejidos">Tejidos</a><div class="vacio-box"><strong>Ese tejido no existe.</strong><a class="btn prim" href="#tejidos">Ir a los tejidos</a></div>';
   if (estado.tj.scope !== scope) estado.tj = { scope: scope, orden: al.rk ? 'mejores' : 'recientes', nivel: 0, etq: '', tipo: '' };
@@ -3172,6 +3255,141 @@ function vistaColeccion(scope) {
 const vistaTejido = id => vistaColeccion(id);
 const vistaEstante = id => vistaColeccion(id);
 const vistaRanking = () => vistaColeccion('todo');
+
+/* ---------- El telar (v30): los tejidos como hilos, y dentro de cada uno su carrusel y su lista compacta ---------- */
+const TL_LOCK = '<svg class="tl-lk" viewBox="0 0 24 24" aria-label="Solo tú" role="img"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>';
+const TL_NUBE = '<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#plon"/></svg>';
+const tlNota = s => { const n = notaDe(s); return n == null ? -1 : n; };
+function tlSub(s) {   // la segunda línea de una ficha: director · año, autor · año, plataforma…
+  const d = s.datos || {}, a = [];
+  (tipoDe(s.tipo).campos || []).forEach(function (c) { if (d[c.k] && a.length < 2) a.push(d[c.k]); });
+  if (!a.length && s.fecha) a.push(fechaFicha(s.fecha));
+  return a.join(' · ');
+}
+function tlMini(s) {   // «Recién tejido»
+  const u = fichaImgUrl(s, false), nt = notaDe(s);
+  return '<a class="tl-rc" href="' + hrefSem(s) + '" style="--tc:' + tejidoDe(s.tejido).color + '"><span class="tl-rc-i">' + (u ? '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async">' : '') + '</span>' +
+    '<span class="tl-rc-x"><b>' + esc(tjTitulo(s)) + '</b><small>' + esc(tejidoDe(s.tejido).nombre) + (nt != null ? ' · ' + nt.toFixed(1) : '') + '</small></span></a>';
+}
+
+/* --- Pantalla principal de Tejidos: cada tejido es un hilo, más largo mientras más fichas tiene --- */
+function vistaTejidos() {
+  const dueno = !!estado.sesion;
+  const todos = estado.semillas.filter(function (s) { return dueno || s.publica; });
+  const cuenta = function (id) { return todos.filter(function (s) { return s.tejido === id; }).length; };
+  let max = 1; TEJIDOS.forEach(function (t) { max = Math.max(max, cuenta(t.id)); });
+  let i = 0, hilos = 0;
+  const fila = function (id, aparte) {
+    const tj = tejidoDe(id), c = cuenta(id);
+    if (!dueno && !c) return '';
+    hilos++;
+    return '<a class="tl-fila' + (aparte ? ' tl-apar' : '') + '" href="#tejido-' + tj.id + '" style="--hc:' + tj.color + ';--w:' + Math.round(16 + c / max * 76) + '%;--i:' + (i++) + '">' +
+      '<span class="tl-nom"><b>' + esc(tj.nombre) + (tj.privado ? TL_LOCK : '') + '</b><small>' + c + (c === 1 ? ' ficha' : ' fichas') + '</small></span>' +
+      '<span class="tl-urd"><span class="tl-hilo"><i class="tl-brillo"></i></span><span class="tl-perla"></span></span></a>';
+  };
+  const est = ESTANTES[0], cEst = TEJIDOS.filter(function (t) { return t.est === est.id; }).reduce(function (a, t) { return a + cuenta(t.id); }, 0);
+  const sep = (dueno || cEst) ? '<a class="tl-sep" href="#estante-' + est.id + '"><span>' + esc(est.nombre) + '</span><i></i><span>estante ›</span></a>' : '';
+  const cuerpo = ['raiz', 'suenos', 'ideas', 'saber', 'experiencias', 'ruta'].map(function (id) { return fila(id); }).join('') + sep +
+    ['escena', 'capitulo', 'partida'].map(function (id) { return fila(id); }).join('') + fila('paginas', true);
+  const conNota = todos.some(function (s) { return notaDe(s) != null; });
+  const h = '<div class="tl"><header class="tl-cab"><div><h1 class="pag">' + (dueno ? 'Tus <span>tejidos</span>' : 'Tejidos') + '</h1><p class="tl-sub">' + hilos + (hilos === 1 ? ' hilo' : ' hilos') + ' · ' + todos.length + (todos.length === 1 ? ' ficha' : ' fichas') +
+    (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</p></div>' + (conNota ? '<a class="tl-rkb" href="#top">Ranking</a>' : '') + '</header>' + avisosSemillas();
+  if (estado.cargando && !todos.length) return h + '<div class="vacio-box"><strong>Cargando…</strong></div></div>';
+  if (!todos.length) {
+    return h + '<div class="vacio-box"><strong>El tejido está vacío.</strong><span>' + (dueno ? 'Siembra algo y aquí empieza a tejerse.' : 'Todavía no hay nada público. Vuelve pronto.') + '</span>' + (dueno ? '<a class="btn prim" href="#inicio">Sembrar algo</a>' : '') + '</div></div>';
+  }
+  const ult = todos.slice().sort(function (a, b) { return b.creado - a.creado; }).slice(0, 6);
+  return h + '<div class="tl-hilos">' + cuerpo + '</div><div class="tl-rec-t">Recién tejido</div><div class="tl-rec">' + ult.map(tlMini).join('') + '</div></div>';
+}
+
+/* --- Una ficha en la lista: póster, título, datos y plones --- */
+function tlFila(s, rank) {
+  const nt = notaDe(s), nv = nt != null ? nivel(nt) : null, u = fichaImgUrl(s, false), t = tipoDe(s.tipo), sub = tlSub(s);
+  return '<a class="tl-r" href="#modulo-' + s.id + '" style="--tc:' + tejidoDe(s.tejido).color + (nv ? ';--vc:' + nv.color : '') + '">' +
+    (rank ? '<span class="tl-rk">' + rank + '</span>' : '') +
+    '<span class="tl-th">' + (u ? '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async">' : '<em>' + esc(t.nombre.slice(0, 1)) + '</em>') + '</span>' +
+    '<span class="tl-x"><strong class="tl-t">' + esc(s.titulo || 'Sin título') + '</strong><span class="tl-s">' + (sub ? '<span>' + esc(sub) + '</span>' : '') +
+    (tieneResena(s) ? '<b class="tl-res">Reseña</b>' : '') + (!s.publica ? '<b class="tl-priv">Privada</b>' : '') + '</span></span>' +
+    '<span class="tl-n">' + (nv ? '<span class="tl-nv">' + TL_NUBE + nt.toFixed(1) + '</span><small>' + esc(nv.nombre) + '</small>' : '<small>Sin plones</small>') + '</span></a>';
+}
+/* --- Los pósters colgando del hilo (lo mejor del tejido) --- */
+function tlColgante(base, color) {
+  const top = base.filter(function (s) { return tipoDe(s.tipo).ficha; })
+    .sort(function (a, b) { return tlNota(b) - tlNota(a) || b.creado - a.creado; }).slice(0, 10);
+  if (top.length < 2) return '';
+  return '<div class="tl-col" style="--hc:' + color + '"><div class="tl-barra"><i class="tl-brillo"></i></div><div class="tl-cuentas">' + top.map(function (s, i) {
+    const u = fichaImgUrl(s, false), nt = notaDe(s);
+    return '<a class="tl-cu" href="#modulo-' + s.id + '" style="--tc:' + tejidoDe(s.tejido).color + ';--i:' + i + '"><span class="tl-cu-i">' + (u ? '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async">' : '') +
+      (nt != null ? '<span class="tl-cu-n">' + TL_NUBE + nt.toFixed(1) + '</span>' : '') + '<span class="tl-cu-t">' + esc(s.titulo || 'Sin título') + '</span></span></a>';
+  }).join('') + '</div></div>';
+}
+
+/* --- Una colección: un tejido, un estante o todo (con filtros y ranking) --- */
+function vistaColeccion(scope) {
+  const al = tjAlcance(scope);
+  if (!al) return '<a class="volver" href="#tejidos">Tejidos</a><div class="vacio-box"><strong>Ese tejido no existe.</strong><a class="btn prim" href="#tejidos">Ir a los tejidos</a></div>';
+  if (estado.tj.scope !== scope) estado.tj = { scope: scope, orden: al.rk ? 'mejores' : 'recientes', nivel: 0, etq: '', tipo: '' };
+  const f = estado.tj, dueno = !!estado.sesion;
+  const base = estado.semillas.filter(function (s) { return (dueno || s.publica) && (!al.ids || al.ids.indexOf(s.tejido) >= 0); });
+  const cargando = estado.cargando && !estado.semillas.length;
+  const tipos = {}, etqs = {}; let conNota = 0;
+  base.forEach(function (s) { tipos[s.tipo] = (tipos[s.tipo] || 0) + 1; s.etiquetas.forEach(function (e) { etqs[e] = (etqs[e] || 0) + 1; }); if (notaDe(s) != null) conNota++; });
+  let l = base;
+  if (f.tipo) l = l.filter(function (s) { return s.tipo === f.tipo; });
+  if (f.etq) l = l.filter(function (s) { return s.etiquetas.indexOf(f.etq) >= 0; });
+  if (f.nivel) l = l.filter(function (s) { const x = notaDe(s); return x != null && nivel(x) === NIVELES[f.nivel]; });
+  const rk = f.orden === 'mejores' || f.orden === 'peores';
+  if (rk) {
+    l = l.filter(function (s) { return notaDe(s) != null; });
+    l.sort(function (a, b) { return (f.orden === 'mejores' ? notaDe(b) - notaDe(a) : notaDe(a) - notaDe(b)) || b.creado - a.creado; });
+  } else l = l.slice().sort(function (a, b) { return b.creado - a.creado; });
+
+  const chip = function (accion, dato, txt, activo, extra) { return '<button type="button" class="chip" aria-pressed="' + (!!activo) + '" data-action="' + accion + '" ' + dato + (extra || '') + '>' + txt + '</button>'; };
+  const tk = Object.keys(tipos), ek = Object.keys(etqs).sort(function (a, b) { return etqs[b] - etqs[a] || a.localeCompare(b); }).slice(0, 12);
+  let ctl = '';
+  if (tk.length > 1 || ek.length) {
+    ctl += '<div class="tj-fil tl-chips" role="group" aria-label="Filtros">' + chip('tj-todas', '', 'Todas', !f.tipo && !f.etq && !f.nivel) +
+      (tk.length > 1 ? tk.map(function (k) { return chip('tj-tipo', 'data-t="' + k + '"', esc(tipoDe(k).nombre) + ' <small>' + tipos[k] + '</small>', f.tipo === k); }).join('') : '') +
+      ek.map(function (e) { return chip('tj-etq', 'data-e="' + esc(e) + '"', '#' + esc(e), f.etq === e); }).join('') + '</div>';
+  }
+  if (conNota) {
+    ctl += '<div class="tj-fil tl-chips" role="group" aria-label="Orden y nivel">' + chip('tj-orden', 'data-o="recientes"', 'Recientes', f.orden === 'recientes') + chip('tj-orden', 'data-o="mejores"', 'Las mejores', f.orden === 'mejores') + chip('tj-orden', 'data-o="peores"', 'Las peores', f.orden === 'peores') +
+      [5, 4, 3, 2, 1].map(function (i) { return chip('tj-nivel', 'data-n="' + i + '"', esc(NIVELES[i].nombre), f.nivel === i, ' style="--vc:' + NIVELES[i].color + '"'); }).join('') + '</div>';
+  }
+
+  let cuerpo;
+  if (cargando) cuerpo = '<div class="vacio-box"><strong>Cargando…</strong></div>';
+  else if (!l.length) {
+    cuerpo = base.length ? '<div class="vacio-box"><strong>Nada con ese filtro.</strong><span>Cambia o quita el filtro.</span></div>'
+      : '<div class="vacio-box"><strong>' + (dueno ? 'Aquí todavía no hay nada.' : 'Todavía no hay nada público aquí.') + '</strong><span>' + (dueno ? 'Lo que siembres en este tejido aparece aquí.' : 'Vuelve pronto.') + '</span></div>';
+  } else {
+    const conFicha = l.some(function (s) { return tipoDe(s.tipo).ficha; });
+    if (!conFicha && !rk) {   // solo textos: se agrupan por día, como un diario
+      let h = '', dia = '';
+      l.forEach(function (s) {
+        const k = diaClave(s.creado);
+        if (k !== dia) { if (dia) h += '</div>'; dia = k; h += '<h2 class="sec sem-dia">' + esc(etiquetaDia(s.creado)) + '</h2><div class="sem-grid">'; }
+        h += semTarjeta(s);
+      });
+      cuerpo = h + '</div>';
+    } else {
+      cuerpo = '<div class="tl-lista">' + l.map(function (s, i) { return tipoDe(s.tipo).ficha ? tlFila(s, rk ? i + 1 : 0) : tjFila(s); }).join('') + '</div>';
+    }
+  }
+  let sembrar = '';
+  if (dueno && al.tejido) {
+    const tp = TIPOS.filter(function (t) { return t.tejido === al.tejido.id; });
+    sembrar = '<a class="btn prim tl-sem" href="' + (tp.length === 1 ? '#sembrar-' + tp[0].id : '#inicio') + '">+ Sembrar</a>';
+  }
+  const tabsEst = al.estante ? '<div class="tj-fil tj-tabs tl-chips" role="group" aria-label="Tejidos del estante"><a class="chip" aria-pressed="true" href="#estante-' + al.id + '">Todo</a>' +
+    al.ids.map(function (id) { return '<a class="chip" aria-pressed="false" href="#tejido-' + id + '">' + esc(tejidoDe(id).nombre) + '</a>'; }).join('') + '</div>' : '';
+  const sub = [al.desc, base.length + (base.length === 1 ? ' ficha' : ' fichas')];
+  if (al.tejido && al.tejido.est) sub.push('estante ' + estanteDe(al.tejido.est).nombre);
+  if (al.tejido && al.tejido.privado) sub.push('solo tú');
+  return '<div class="tl"><header class="tl-cab tl-cab-in" style="--hc:' + al.color + '"><a class="tl-atras" href="#tejidos" aria-label="Volver a Tejidos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>' +
+    '<div class="tl-tt"><h1 class="pag">' + esc(al.nombre) + '</h1><p class="tl-sub">' + esc(sub.join(' · ')) + '</p></div>' + sembrar + '</header>' +
+    avisosSemillas() + (al.rk || cargando ? '' : tlColgante(base, al.color)) + tabsEst + ctl + '<div class="tl-cuerpo">' + cuerpo + '</div></div>';
+}
 
 /* --- Un módulo: la ficha completa y su reseña --- */
 function vistaModulo(id) {
@@ -6500,6 +6718,7 @@ document.addEventListener('click', function (e) {
     case 'sem-filtro': estado.semTipo = b.dataset.t || ''; render(false); break;
     case 'tj-orden': estado.tj.orden = b.dataset.o; render(false); break;
     case 'tj-nivel': { const n0 = parseInt(b.dataset.n, 10); estado.tj.nivel = estado.tj.nivel === n0 ? 0 : n0; render(false); break; }
+    case 'tj-todas': estado.tj.tipo = ''; estado.tj.etq = ''; estado.tj.nivel = 0; render(false); break;
     case 'tj-etq': estado.tj.etq = estado.tj.etq === b.dataset.e ? '' : b.dataset.e; render(false); break;
     case 'tj-tipo': estado.tj.tipo = estado.tj.tipo === b.dataset.t ? '' : b.dataset.t; render(false); break;
     case 'mod-leer': estado.moLeer = estado.moLeer === id ? '' : id; render(false); break;
