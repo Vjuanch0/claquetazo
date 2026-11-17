@@ -5,6 +5,12 @@ Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
 Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
 Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube el número de VERSION en sw.js).
 
+NOVEDAD v29 - Plones en nubecitas con estallido de humo:
+ - Los plones ahora son nubecitas naranja en toda la app (calificar, ficha, listas y rankings).
+ - Al calificar, cada vez que se llena una nubecita sale un estallido de humo. Si tu aparato tiene "reducir movimiento", no sale.
+ - En tablet y PC la cajita de calificación aprovecha todo el ancho: nubes grandes a la izquierda y número con - / + a la derecha.
+ (No hay que correr ningún SQL nuevo.)
+
 NOVEDAD v28 - Tarjetas de Inicio más bajitas y plones a la derecha:
  - Película, Serie, Juego y Libro en Inicio ahora son tarjetas compactas (ícono a la izquierda, nombre y pregunta al lado), en celular, tablet y PC.
  - En tablet y PC, el pop-up pone la calificación en plones en la columna derecha, debajo de las etiquetas, todo junto. El celular queda igual.
