@@ -5,6 +5,17 @@ Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
 Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
 Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube el número de VERSION en sw.js).
 
+NOVEDAD v24 - Tejidos, fichas y ranking:
+ - Inicio sigue con "¿Qué quieres sembrar hoy?", pero con tipos nuevos: ¿Qué película viste? / serie / juego / libro. Se quitó Gratitud y "Hablar de algo…".
+ - Cada cosa va a un TEJIDO: Raíz (tu día, momentos, charlas, desahogo, planes), Sueños, Ideas, Saber, Experiencias (comida), Ruta (lugares),
+   el estante Pantalla (Escena = películas, Capítulo = series, Partida = juegos) y Páginas (libros).
+ - Raíz y Sueños son siempre privados (la base de datos misma lo impide). En los demás eliges "¿Pública o privada?".
+ - Película, serie, juego, libro, comida y lugar llevan FICHA (imagen, datos, fecha, etiquetas, florecitas). Al guardarla te pregunta si quieres agregar una reseña (un cuaderno).
+ - Cada tejido y el estante Pantalla tienen ranking: las mejores, las peores, por nivel (re paila ... re makia) y por etiqueta. "Ranking de todo" en Tejidos.
+ - Las reseñas viejas ya no existen como pantalla aparte: pasan a ser fichas (tu reseña de cine queda en Escena).
+ PASO OBLIGATORIO: pega UNA sola vez el contenido de supabase-tejidos.sql en Supabase (SQL Editor -> New query -> pegar -> Run).
+ No borra nada. Si abres la app antes de hacerlo, te avisa en Tejidos y en Ajustes (y ahí mismo trae el SQL para copiar).
+
 NOVEDAD v23 - La Hoja nueva:
  - Al crear una semilla te pregunta "¿A mano o con teclado?" (también puedes elegir solo un texto sencillo).
  - La hoja tiene tamaño fijo (como una hoja de cuaderno). Si necesitas más espacio, agregas otra página (hasta 8).
