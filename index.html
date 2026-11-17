@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=24">
-<link rel="icon" href="favicon.svg?v=24" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=24" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=24">
+<link rel="manifest" href="manifest.webmanifest?v=25">
+<link rel="icon" href="favicon.svg?v=25" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=25" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=25">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -659,7 +659,7 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .hj-solo{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;color:var(--ink-dim);min-height:40px}
 .hj-solo input{width:20px;height:20px;accent-color:var(--accent)}
 .hj-m{font-size:1.4rem;line-height:1;padding:0}
-.hj-tools{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;padding:6px 8px 8px;border-top:1px solid var(--line);background:var(--nav-bg)}
+.hj-tools{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:6px 8px 8px;border-top:1px solid var(--line);background:var(--nav-bg)}
 .hj-tool{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:56px;border:1px solid transparent;border-radius:12px;background:transparent;font-size:.74rem;font-weight:600;color:var(--ink-dim)}
 .hj-tool[aria-pressed="true"]{background:var(--surface-2);color:#fff;border-color:var(--accent)}
 .hj-tool:hover{background:var(--surface-2)}
@@ -711,7 +711,12 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .hj [hidden],.hj-vel[hidden]{display:none!important}
 
 /* ===== Hoja v2: páginas, cápsulas, capas ===== */
-.hj-lienzo{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:10px;background:radial-gradient(ellipse at center,#0b2a2c 0%,#04130f 80%);overflow:hidden}
+.hj-lienzo{flex:1;min-height:0;display:block;padding:0;background:radial-gradient(ellipse at center,#0b2a2c 0%,#04130f 80%);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;scrollbar-width:thin}
+.hj-pila{position:relative;display:flex;flex-direction:column;align-items:center;gap:18px;padding:12px 0 28px}
+.hj-editando .hj-pila{padding-bottom:75vh}
+.hj-mas{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:min(86%,340px);min-height:52px;border:2px dashed var(--line);border-radius:14px;background:transparent;color:var(--ink-dim);font-size:.95rem;font-weight:600}
+.hj-mas:hover{border-color:var(--accent);color:var(--ink)}
+.hj-mas[disabled]{opacity:.4}
 .hj-esc{position:relative;isolation:isolate;z-index:0;flex:none;touch-action:none;outline:none;box-shadow:0 10px 36px rgba(0,0,0,.55);border-radius:3px;overflow:hidden;background:#f4efe4;cursor:crosshair}
 .hj-esc:focus-visible{outline:3px solid var(--lilac);outline-offset:3px}
 .hj-pag{position:absolute;left:0;top:0;width:800px;height:1000px;transform-origin:0 0;--hj-tinta:#2b1203}
@@ -745,7 +750,7 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .hj-h-e{left:100%;top:50%;border-radius:6px;width:14px;height:30px;margin:-15px 0 0 -7px;cursor:ew-resize}
 .hj-h-rot{left:50%;top:-34px;background:var(--accent);cursor:grab}
 .hj-h-lin{position:absolute;left:50%;top:-24px;width:0;height:24px;border-left:2px solid var(--accent);pointer-events:none}
-.hj-pgs{display:flex;align-items:center;gap:0}
+.hj-pgs{display:flex;align-items:center;gap:2px;padding:2px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
 .hj-pg{min-width:64px;font-variant-numeric:tabular-nums}
 .hj-pinc,.hj-fila{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center}
 .hj-col-x{overflow:hidden;display:inline-block;background:conic-gradient(#ff5a5a,#ffd24d,#5adf7a,#4dc7ff,#b06bff,#ff5a5a)}
@@ -826,7 +831,6 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .hj-ver [hidden]{display:none!important}
 .hj-cutter{background:#04130f}
 .prosa img,.rte img{display:block;max-width:100%;max-height:440px;width:auto;height:auto;margin:1em auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
-.hj-editando .hj-lienzo{align-items:flex-start}
 @media (max-width:560px){
   .hj-hide-m{display:none}
   .hj-top{gap:2px;padding:6px 6px}
@@ -835,6 +839,45 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
   .hj-ok{padding:0 16px}
 }
 @media (max-width:560px){.hj-sheet .hj-tb{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}.hj-sheet .hj-tb>*{flex:none}.hj-ed-w{max-height:22vh}}
+
+/* ===== v25: Insertar, plantillas, notas adhesivas ===== */
+.hj-ins{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.hj-ins-b{display:grid;grid-template-columns:30px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;padding:12px;min-height:68px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);color:var(--ink);cursor:pointer}
+.hj-ins-b:hover,.hj-ins-b:focus-visible{border-color:var(--accent)}
+.hj-ins-b .hj-i{grid-row:1/3;width:28px;height:28px;color:var(--lilac)}
+.hj-ins-b b{font-size:.95rem}.hj-ins-b span{color:var(--ink-dim);font-size:.8rem;line-height:1.25}
+.hj-plans{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.hj-plan{display:flex;flex-direction:column;gap:2px;text-align:left;padding:12px;min-height:68px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);color:var(--ink)}
+.hj-plan:hover,.hj-plan:focus-visible{border-color:var(--accent)}
+.hj-plan b{font-family:var(--display);font-size:1.02rem;font-weight:600}.hj-plan span{color:var(--ink-dim);font-size:.82rem;line-height:1.3}
+.hj-tx.hj-fo-amarillo,.hj-tx.hj-fo-rosa,.hj-tx.hj-fo-verde{font-family:'Patrick Hand','Caveat',cursive;font-size:34px;padding:14px 16px}
+@media (max-width:420px){.hj-ins,.hj-plans{grid-template-columns:1fr}}
+
+/* ===== v25: modo libro ===== */
+.hj-libro{position:fixed;inset:0;z-index:950;display:flex;flex-direction:column;background:radial-gradient(ellipse at center,#0b2a2c 0%,#04130f 80%);color:var(--ink);padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
+.hj-libro button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hj-libro [hidden]{display:none!important}
+.hj-lb-top{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--nav-bg)}
+.hj-lb-t{font-family:var(--display);font-weight:600}
+.hj-lb-c{color:var(--ink-dim);font-size:.88rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hj-lb-b{min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);font-size:.9rem;font-weight:600}
+.hj-lb-b:hover{border-color:var(--accent)}
+.hj-lb-esc{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:6px 8px;overflow:hidden}
+.hj-lb-libro{position:relative;flex:none;perspective:1800px;touch-action:pan-y;outline:none;cursor:pointer;-webkit-user-select:none;user-select:none}
+.hj-lb-libro:focus-visible{outline:3px solid var(--lilac);outline-offset:4px}
+.hj-lb-pg{position:absolute;inset:0;overflow:hidden;background:#f4efe4;border-radius:3px 6px 6px 3px;box-shadow:0 10px 36px rgba(0,0,0,.55);transform-origin:left center;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.hj-lb-pg::after{content:"";position:absolute;left:0;top:0;bottom:0;width:22px;background:linear-gradient(90deg,rgba(0,0,0,.26),rgba(0,0,0,0));pointer-events:none;z-index:2}
+.hj-lb-sombra{position:absolute;inset:0;border-radius:3px 6px 6px 3px;background:linear-gradient(90deg,rgba(0,0,0,.65),rgba(0,0,0,.05) 75%);pointer-events:none}
+.hj-lb-fl{position:absolute;top:50%;transform:translateY(-50%);z-index:3;display:flex;align-items:center;justify-content:center;width:40px;height:60px;padding:0;border:1px solid var(--line);border-radius:12px;background:rgba(5,24,28,.72)}
+.hj-lb-fl:hover{border-color:var(--accent)}
+.hj-lb-fl[disabled]{opacity:.22;cursor:default}
+.hj-lb-izq{left:6px}.hj-lb-der{right:6px}
+.hj-lb-uno .hj-lb-fl{display:none}
+.hj-lb-pie{display:flex;gap:7px;justify-content:center;padding:4px 0 12px;min-height:11px}
+.hj-lb-pie i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.hj-lb-pie i.on{background:var(--accent);transform:scale(1.25)}
+.hj-lb-txt{flex:1;overflow:auto;padding:18px 16px 44px}
+.hj-lb-txt .hj-lec{max-width:680px;margin:0 auto}
 /* ---------- v24: tejidos, módulos y fichas ---------- */
 .tj-fila{border-left-color:var(--tc,#ff9a3c)}
 .tj-hilos{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -921,6 +964,11 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .fi-tej b{font-weight:700}
 .fi-resalta{border-color:var(--lilac);box-shadow:0 0 0 3px rgba(255,154,60,.25);transition:box-shadow .4s}
 @media(prefers-reduced-motion:reduce){.mo-img,.tj-mini{transition:none}}
+/* ===== v25: portada del cuaderno en la ficha ===== */
+.mo-cuaderno{border-radius:6px 14px 14px 6px;box-shadow:0 8px 22px rgba(0,0,0,.4),inset 10px 0 14px -8px rgba(0,0,0,.5)}
+.mo-cuaderno::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;z-index:2;background:linear-gradient(90deg,rgba(0,0,0,.5),rgba(255,255,255,.08) 55%,rgba(0,0,0,.18));pointer-events:none}
+.mo-txt-b{display:inline-block;margin:10px 0 0;min-height:40px}
+.mo-lee .hj-ver-b{display:none}
 </style>
 </head>
 <body>
@@ -2940,7 +2988,8 @@ function vistaModulo(id) {
   let res = '';
   if (hoja) {
     res = '<section class="mo-res-s" aria-label="Reseña"><h2 class="sec">Reseña</h2>' +
-      '<button type="button" class="mo-cuaderno" data-action="mod-leer" data-id="' + b.id + '" aria-expanded="' + (estado.moLeer === b.id) + '">' + (hjUrlOk(mini) ? '<img src="' + mini + '" alt="Primera página de la reseña">' : '<span class="mo-cv">Cuaderno</span>') + '<span class="mo-cv-b">' + (estado.moLeer === b.id ? 'Cerrar' : 'Toca para leer') + '</span></button>' +
+      '<button type="button" class="mo-cuaderno" data-action="mod-libro" data-id="' + b.id + '" aria-label="Abrir la reseña como un libro">' + (hjUrlOk(mini) ? '<img src="' + mini + '" alt="Primera página de la reseña">' : '<span class="mo-cv">Cuaderno</span>') + '<span class="mo-cv-b">Abrir el cuaderno</span></button>' +
+      '<button type="button" class="link-b mo-txt-b" data-action="mod-leer" data-id="' + b.id + '" aria-expanded="' + (estado.moLeer === b.id) + '">' + (estado.moLeer === b.id ? 'Ocultar el texto' : 'Leer como texto') + '</button>' +
       (estado.moLeer === b.id ? '<div class="mo-lee">' + hojaLecturaHTML('semilla', b.id) + '</div>' : '') + '</section>';
   } else if (texto) {
     res = '<section class="mo-res-s" aria-label="Reseña"><h2 class="sec">Reseña</h2><div class="prosa">' + texto.split(/\n{2,}/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join('') + '</div></section>';
@@ -2960,7 +3009,7 @@ function vistaModulo(id) {
    Una "hoja" tiene hasta 8 páginas. Cada página tiene objetos en capas (el último queda arriba).
    Objetos: tr (trazo), tx (cápsula de texto con formato), im (recorte de foto).
    ===================================================================== */
-const HJ_W = 800, HJ_H = 1000, HJ_MAX_PAGS = 8, HJ_MAX_OBJ = 400, HJ_MAX_DATA = 2600000;   // lo que aún no sube a la nube no debe pasar de ~2.6 MB
+const HJ_W = 800, HJ_H = 1000, HJ_MAX_PAGS = 12, HJ_MAX_OBJ = 400, HJ_MAX_DATA = 2600000;   // lo que aún no sube a la nube no debe pasar de ~2.6 MB
 const HJ_PAPELES = [['liso', 'Liso'], ['cuadro', 'Cuadros'], ['raya', 'Rayas'], ['kraft', 'Kraft'], ['diario', 'Periódico'], ['noche', 'Noche']];
 const HJ_TINTAS = ['#2b1203', '#ff7a1a', '#e0359b', '#3ccf8e', '#1f6fe0', '#f6f1e6', '#ffc83a'];
 const HJ_FILTROS = [['color', 'Color'], ['copia', 'Fotocopia'], ['aluna', 'Aluna']];
@@ -3034,7 +3083,7 @@ function hjNormObj(o) {
   if (!o || typeof o !== 'object') return null;
   const id = String(o.id || hjId()).slice(0, 24).replace(/[^\w-]/g, '') || hjId();
   const base = { id: id, x: hjNum(o.x, 400), y: hjNum(o.y, 500), r: hjNum(o.r, 0), s: hjLim(hjNum(o.s, 1), .05, 10) };
-  if (o.dec) base.dec = true; if (o.oc) base.oc = true; if (o.bl) base.bl = true;
+  if (o.dec) base.dec = true;   // (ocultar y bloquear se quitaron en la v25: lo que estaba oculto vuelve a verse)
   if (o.t === 'tr' && Array.isArray(o.p) && o.p.length) {
     base.t = 'tr'; base.b = HJ_PINCELES[o.b] ? o.b : 'lap'; base.c = /^#[0-9a-f]{3,8}$/i.test(o.c) ? o.c : '#2b1203'; base.w = hjLim(hjNum(o.w, 6), 1, 80); base.op = hjLim(hjNum(o.op, 1), .1, 1);
     let p = o.p.slice(0, 4000).map(q => [hjNum(q[0], 0), hjNum(q[1], 0), hjLim(hjNum(q[2], .5), 0, 1)]);
@@ -3073,7 +3122,6 @@ function hjNormal(h) {
     if (!p || typeof p !== 'object') return;
     const obj = []; (Array.isArray(p.obj) ? p.obj : []).slice(0, HJ_MAX_OBJ).forEach(function (o) { const n = hjNormObj(o); if (n) obj.push(n); });
     const pg = { papel: HJ_PAPELES.some(q => q[0] === p.papel) ? p.papel : 'liso', obj: obj };
-    if (Array.isArray(p.ord)) pg.ord = p.ord.filter(i => typeof i === 'string').slice(0, HJ_MAX_OBJ);
     pags.push(pg);
   });
   if (!pags.length) pags.push(hjVaciaPag());
@@ -3085,10 +3133,10 @@ function hjVacio(h) {
   return !h.pags.some(p => p.obj.some(o => o.t !== 'tx' || hjTextoDe(o.html).length > 0));
 }
 function hjLimpia(h) {   // copia sin memorias temporales (las que empiezan con _) y sin cápsulas vacías
-  return { v: 2, pags: h.pags.map(p => { const c = { papel: p.papel, obj: p.obj.filter(o => o.t !== 'tx' || hjTextoDe(o.html)).map(o => { const k = {}; Object.keys(o).forEach(n => { if (n[0] !== '_') k[n] = o[n]; }); return k; }) }; if (p.ord && p.ord.length) c.ord = p.ord.slice(); return c; }) };
+  return { v: 2, pags: h.pags.map(p => { const c = { papel: p.papel, obj: p.obj.filter(o => o.t !== 'tx' || hjTextoDe(o.html)).map(o => { const k = {}; Object.keys(o).forEach(n => { if (n[0] !== '_') k[n] = o[n]; }); return k; }) }; return c; }) };
 }
 function hjClon(h) {   // copia para deshacer: comparte los textos largos (fotos) en vez de duplicarlos
-  return { v: 2, pags: h.pags.map(p => { const c = { papel: p.papel, obj: p.obj.map(o => { const k = {}; Object.keys(o).forEach(n => { if (n[0] === '_') return; const v = o[n]; k[n] = Array.isArray(v) ? v.map(q => Array.isArray(q) ? q.slice() : q) : v; }); return k; }) }; if (p.ord) c.ord = p.ord.slice(); return c; }) };
+  return { v: 2, pags: h.pags.map(p => { const c = { papel: p.papel, obj: p.obj.map(o => { const k = {}; Object.keys(o).forEach(n => { if (n[0] === '_') return; const v = o[n]; k[n] = Array.isArray(v) ? v.map(q => Array.isArray(q) ? q.slice() : q) : v; }); return k; }) }; return c; }) };
 }
 function hjPeso(h) { let n = 0; h.pags.forEach(p => p.obj.forEach(o => { n += o.t === 'im' ? (hjEsData(o.src) ? o.src.length : 200) : o.t === 'tr' ? o.p.length * 14 : (o.html || '').length + 60; })); return n; }
 function hjDatosPendientes(h) { let n = 0; h.pags.forEach(p => p.obj.forEach(o => { if (o.t === 'im' && hjEsData(o.src)) n += o.src.length; })); return n; }
@@ -3098,11 +3146,8 @@ function hjFotos(h) { const l = []; (h && h.pags || []).forEach(p => p.obj.forEa
 function hjOrdenLectura(p) {
   const top = o => o.y - (o.t === 'tx' ? (o.h || 60) : o.t === 'im' ? o.h : 0) * o.s / 2;
   let l = p.obj.filter(o => !o.dec && !o.oc);
-  const pos = new Map(); (p.ord || []).forEach((id, i) => pos.set(id, i));
   l = l.map((o, i) => ({ o: o, i: i }));
   l.sort(function (a, b) {
-    const pa = pos.has(a.o.id), pb = pos.has(b.o.id);
-    if (pa && pb) return pos.get(a.o.id) - pos.get(b.o.id);
     const dy = top(a.o) - top(b.o); if (Math.abs(dy) > 36) return dy; return (a.o.x - b.o.x) || (a.i - b.i);
   });
   return l.map(q => q.o);
@@ -3486,7 +3531,11 @@ const HJ_IC = {
   frente: '<path d="M12 20V9M6 14l6-6 6 6M6 5h12"/>',
   fondo: '<path d="M12 4v11M6 10l6 6 6-6M6 19h12"/>',
   deco: '<path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"/>',
-  mas: '<path d="M12 5v14M5 12h14"/>'
+  mas: '<path d="M12 5v14M5 12h14"/>',
+  nota: '<path d="M5 4h14v11l-5 5H5z"/><path d="M14 20v-5h5"/>',
+  plantilla: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M10 9v11"/>',
+  galeria: '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5-5 4 4 3-3 4 4"/>',
+  ins: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/>'
 };
 const hjSvg = n => '<svg class="hj-i" viewBox="0 0 24 24" aria-hidden="true">' + HJ_IC[n] + '</svg>';
 const hjBtn = (a, ic, tx, extra) => '<button type="button" class="hj-b' + (extra || '') + '" data-hj="' + a + '" aria-label="' + tx + '" title="' + tx + '">' + hjSvg(ic) + '</button>';
@@ -3495,22 +3544,23 @@ const hjEtiq = o => o.t === 'tx' ? 'Texto: «' + (hjTextoDe(o.html).slice(0, 26)
 function hjAbrir(opt) {
   if (HJ.abierta) return;
   hjDefs();
-  const E = { h: hjNormal(opt.datos) || hjVacia(), pi: 0, tool: opt.herramienta || 'lap', sel: null, pincel: 'lap', tinta: HJ_TINTAS[0], grosor: 6, op: 1, soloLapiz: false, hist: [], fut: [], ptrs: new Map(), g: null, k: 1, opt: opt, panel: null, cambiado: false, els: {}, ult: null };
+  const E = { h: hjNormal(opt.datos) || hjVacia(), pi: 0, tool: opt.herramienta || 'lap', sel: null, pincel: 'lap', tinta: HJ_TINTAS[0], grosor: 6, op: 1, soloLapiz: false, hist: [], fut: [], ptrs: new Map(), g: null, k: 1, opt: opt, panel: null, cambiado: false, els: {}, ult: null, pg: [], fling: 0, scrollRaf: 0 };
   HJ.abierta = E;
   const pag = () => E.h.pags[E.pi], obj = id => pag().obj.find(o => o.id === id) || null, sel = () => E.sel ? obj(E.sel) : null;
 
-  /* --- pantalla --- */
-  const el = document.createElement('div'); el.className = 'hj'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Hoja');
+  /* --- pantalla: barra de arriba, páginas apiladas (se desplazan), ayuda contextual y UNA barra de herramientas --- */
+  const el = document.createElement('div'); el.className = 'hj'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Cuaderno');
   el.innerHTML =
     '<div class="hj-top"><button type="button" class="hj-t" data-hj="ayuda" aria-label="Cómo se usa">?</button>' + hjBtn('undo', 'undo', 'Deshacer (Ctrl+Z)') + hjBtn('redo', 'redo', 'Rehacer (Ctrl+Y)') +
-    '<button type="button" class="hj-t" data-hj="papel">' + hjSvg('papel') + '<span class="hj-hide-m">Papel</span></button>' +
-    '<div class="hj-pgs" role="group" aria-label="Páginas">' + hjBtn('pag-ant', 'izq', 'Página anterior') + '<button type="button" class="hj-t hj-pg" data-hj="pags" aria-label="Todas las páginas"></button>' + hjBtn('pag-sig', 'der', 'Página siguiente') + '</div>' +
-    '<span class="hj-sp"></span><button type="button" class="hj-ok" data-hj="listo">Listo</button></div>' +
-    '<div class="hj-lienzo"><div class="hj-esc" tabindex="0" aria-label="Hoja para escribir, dibujar y pegar recortes"><svg class="hj-vivo" viewBox="0 0 ' + HJ_W + ' ' + HJ_H + '" aria-hidden="true"></svg><div class="hj-sel" hidden></div></div></div>' +
+    '<span class="hj-sp"></span><div class="hj-pgs" role="group" aria-label="Páginas"><button type="button" class="hj-t hj-pg" data-hj="pags" aria-label="Ver todas las páginas"></button>' + hjBtn('pag-mas', 'mas', 'Agregar una página') + '</div><span class="hj-sp"></span>' +
+    '<button type="button" class="hj-ok" data-hj="listo">Listo</button></div>' +
+    '<div class="hj-lienzo"><div class="hj-pila"></div></div>' +
     '<div class="hj-sub"></div><div class="hj-tools" role="toolbar" aria-label="Herramientas"></div><div class="hj-vel" hidden></div>';
   document.body.appendChild(el); document.documentElement.classList.add('hj-abierto');
-  const lienzo = el.querySelector('.hj-lienzo'), esc = el.querySelector('.hj-esc'), vivo = el.querySelector('.hj-vivo'), selEl = el.querySelector('.hj-sel'), sub = el.querySelector('.hj-sub'), tools = el.querySelector('.hj-tools'), vel = el.querySelector('.hj-vel'), pgBtn = el.querySelector('.hj-pg');
-  let pagEl = null;
+  const lienzo = el.querySelector('.hj-lienzo'), pila = el.querySelector('.hj-pila'), sub = el.querySelector('.hj-sub'), tools = el.querySelector('.hj-tools'), vel = el.querySelector('.hj-vel'), pgBtn = el.querySelector('.hj-pg');
+  const vivo = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); vivo.setAttribute('class', 'hj-vivo'); vivo.setAttribute('viewBox', '0 0 ' + HJ_W + ' ' + HJ_H); vivo.setAttribute('aria-hidden', 'true');
+  const selEl = document.createElement('div'); selEl.className = 'hj-sel'; selEl.hidden = true;
+  let esc = null, pagEl = null;   // la página que se está tocando ahora (la de arriba y su lienzo)
 
   /* --- botón Atrás del celular: cierra lo de encima antes que la hoja --- */
   const nav = {
@@ -3525,38 +3575,71 @@ function hjAbrir(opt) {
 
   /* --- tamaño y posición (también cuando sale el teclado del celular) --- */
   function vv() { const v = window.visualViewport; if (!v) return; el.style.top = v.offsetTop + 'px'; el.style.left = v.offsetLeft + 'px'; el.style.width = v.width + 'px'; el.style.height = v.height + 'px'; el.style.right = 'auto'; el.style.bottom = 'auto'; }
+  function calcK() {   // las páginas se ajustan al ancho; en pantallas grandes se ve una página entera
+    const w = lienzo.clientWidth, h = lienzo.clientHeight; if (!w || !h) return;
+    if (el.classList.contains('hj-editando') && E.w0 === w) return;   // mientras se escribe no se achica ni se agranda la hoja
+    E.w0 = w; const kW = (w - 24) / HJ_W, kH = (h - 24) / HJ_H;
+    E.k = Math.max(.08, Math.min(kW, Math.max(kH, .55)));
+  }
   function ajustar() {
-    vv();
-    const r = lienzo.getBoundingClientRect(), k = Math.max(.08, Math.min((r.width - 20) / HJ_W, (r.height - 20) / HJ_H));
-    E.k = k; esc.style.width = Math.floor(HJ_W * k) + 'px'; esc.style.height = Math.floor(HJ_H * k) + 'px';
-    if (pagEl) pagEl.style.transform = 'scale(' + k + ')';
+    vv(); calcK();
+    E.pg.forEach(function (c) { c.esc.style.width = Math.floor(HJ_W * E.k) + 'px'; c.esc.style.height = Math.floor(HJ_H * E.k) + 'px'; c.pagEl.style.transform = 'scale(' + E.k + ')'; });
     mostrarSel(); alzarSobrePanel();
   }
-  function alzarSobrePanel() {   // mientras se escribe, la hoja sube un poco para que el texto no quede tapado por el panel
-    esc.style.transform = '';
+  function alzarSobrePanel() {   // mientras se escribe, la hoja sube para que el texto no quede tapado por el panel
     const o = sel(), pn = E.panel; if (!o || !pn || !pn.classList.contains('hj-sheet')) return;
     const e2 = E.els[o.id], c = e2 && e2.firstChild; if (!c) return;
-    const r = c.getBoundingClientRect(), pr = pn.getBoundingClientRect(), falta = r.bottom + 14 - pr.top;
-    if (falta <= 0) return;
-    const libre = esc.getBoundingClientRect().top - el.querySelector('.hj-top').getBoundingClientRect().bottom - 4;
-    esc.style.transform = 'translateY(' + (-Math.min(falta, Math.max(0, libre))) + 'px)';
+    const r = c.getBoundingClientRect(), pr = pn.getBoundingClientRect(), tr = lienzo.getBoundingClientRect(), falta = r.bottom + 14 - pr.top;
+    if (falta > 0) lienzo.scrollTop += Math.min(falta, Math.max(0, r.top - (tr.top + 6)));
   }
   const onResize = function () { ajustar(); };
   window.addEventListener('resize', onResize); window.addEventListener('orientationchange', onResize);
   if (window.visualViewport) { window.visualViewport.addEventListener('resize', onResize); window.visualViewport.addEventListener('scroll', onResize); }
 
-  /* --- la página en pantalla --- */
+  /* --- las páginas en pantalla (una debajo de otra) --- */
   function medir() {
     let cambioAlgo = false;
-    pag().obj.forEach(function (o) { if (o.t !== 'tx') return; const e = E.els[o.id], c = e && e.firstChild; if (c && c.offsetHeight && Math.abs(c.offsetHeight - (o.h || 0)) > 1) { o.h = c.offsetHeight; cambioAlgo = true; } });
+    E.h.pags.forEach(p => p.obj.forEach(function (o) { if (o.t !== 'tx') return; const e = E.els[o.id], c = e && e.firstChild; if (c && c.offsetHeight && Math.abs(c.offsetHeight - (o.h || 0)) > 1) { o.h = c.offsetHeight; cambioAlgo = true; } }));
     return cambioAlgo;
   }
-  function reconstruir() {
-    if (pagEl) pagEl.remove();
-    pagEl = hjPagDom(pag()); pagEl.style.transform = 'scale(' + E.k + ')'; esc.insertBefore(pagEl, esc.firstChild);
-    E.els = {}; pagEl.querySelectorAll('.hj-o').forEach(e => { E.els[e.dataset.id] = e; });
-    medir(); mostrarSel(); pintarUI();
+  function reindexar() { E.els = {}; E.pg.forEach(c => c.pagEl.querySelectorAll('.hj-o').forEach(e => { E.els[e.dataset.id] = e; })); }
+  function nuevaCtx(i) {
+    const es = document.createElement('div'); es.className = 'hj-esc'; es.tabIndex = 0; es.setAttribute('aria-label', 'Página ' + (i + 1) + ': para escribir, dibujar y pegar recortes');
+    es.style.width = Math.floor(HJ_W * E.k) + 'px'; es.style.height = Math.floor(HJ_H * E.k) + 'px';
+    const pg = hjPagDom(E.h.pags[i]); pg.style.transform = 'scale(' + E.k + ')'; es.appendChild(pg);
+    es.addEventListener('pointerdown', onDown); es.addEventListener('pointermove', onMove); es.addEventListener('pointerup', soltar); es.addEventListener('pointercancel', soltar);
+    es.addEventListener('wheel', onWheel, { passive: false }); es.addEventListener('dblclick', onDbl);
+    return { esc: es, pagEl: pg };
   }
+  function armarPila() {   // arma todas las páginas otra vez (al abrir, deshacer, mover o borrar páginas)
+    pila.innerHTML = ''; E.pg = [];
+    E.h.pags.forEach(function (p, i) { const c = nuevaCtx(i); E.pg.push(c); pila.appendChild(c.esc); });
+    const mas = document.createElement('button'); mas.type = 'button'; mas.className = 'hj-mas'; mas.dataset.hj = 'pag-mas'; mas.innerHTML = hjSvg('mas') + '<span>Nueva página</span>'; pila.appendChild(mas);
+    arreglarPi(); activar(E.pi); reindexar(); medir(); mostrarSel(); pintarUI();
+  }
+  function activar(i) {   // la página «en uso»: aquí se dibuja, se elige y se pega
+    E.pi = hjLim(i, 0, E.h.pags.length - 1); const c = E.pg[E.pi]; if (!c) return;
+    esc = c.esc; pagEl = c.pagEl; esc.appendChild(vivo); esc.appendChild(selEl);
+  }
+  function reconstruir() {   // arma otra vez solo la página en uso
+    const c = E.pg[E.pi]; if (!c) return;
+    const nuevo = hjPagDom(pag()); nuevo.style.transform = 'scale(' + E.k + ')'; c.pagEl.replaceWith(nuevo); c.pagEl = nuevo; pagEl = nuevo;
+    reindexar(); medir(); mostrarSel(); pintarUI();
+  }
+  function scrollAPag(i, suave) {
+    const c = E.pg[i]; if (!c) return;
+    const quieto = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    lienzo.scrollTo({ top: Math.max(0, c.esc.offsetTop - 12), behavior: suave && !quieto ? 'smooth' : 'auto' });
+  }
+  function marcarVis() {   // al deslizar, la página que está en el centro pasa a ser la «actual»
+    E.scrollRaf = 0;
+    if (E.panel || (E.g && E.g.t !== 'pan') || !E.pg.length) return;
+    const cy = lienzo.scrollTop + lienzo.clientHeight * .45; let mejor = 0, dmin = 1e9;
+    E.pg.forEach(function (c, i) { const t = c.esc.offsetTop, b = t + c.esc.offsetHeight, d = cy < t ? t - cy : cy > b ? cy - b : 0; if (d < dmin) { dmin = d; mejor = i; } });
+    if (mejor !== E.pi) { activar(mejor); if (E.sel) { E.sel = null; mostrarSel(); } pintarUI(); }
+  }
+  el.addEventListener('pointerdown', function () { if (E.fling) { cancelAnimationFrame(E.fling); E.fling = 0; } }, true);
+  lienzo.addEventListener('scroll', function () { if (!E.scrollRaf) E.scrollRaf = requestAnimationFrame(marcarVis); }, { passive: true });
   function refrescar(o) { const e = E.els[o.id]; if (!e) return; hjRellenar(e, o); hjPonerT(e, o); if (o.t === 'tx') medir(); mostrarSel(); }
   let tCambio = 0;
   function cambio() {
@@ -3566,8 +3649,8 @@ function hjAbrir(opt) {
   }
   function guardarH() { E.hist.push(hjClon(E.h)); if (E.hist.length > 60) E.hist.shift(); E.fut = []; }
   function arreglarPi() { E.pi = hjLim(E.pi, 0, E.h.pags.length - 1); }
-  function deshacer() { if (!E.hist.length) return; E.fut.push(hjClon(E.h)); E.h = E.hist.pop(); arreglarPi(); if (!sel()) E.sel = null; reconstruir(); cambio(); }
-  function rehacer() { if (!E.fut.length) return; E.hist.push(hjClon(E.h)); E.h = E.fut.pop(); arreglarPi(); if (!sel()) E.sel = null; reconstruir(); cambio(); }
+  function deshacer() { if (!E.hist.length) return; E.fut.push(hjClon(E.h)); E.h = E.hist.pop(); arreglarPi(); if (!sel()) E.sel = null; armarPila(); cambio(); }
+  function rehacer() { if (!E.fut.length) return; E.hist.push(hjClon(E.h)); E.h = E.fut.pop(); arreglarPi(); if (!sel()) E.sel = null; armarPila(); cambio(); }
 
   /* --- medidas y selección --- */
   function cajaObj(o) {
@@ -3608,13 +3691,13 @@ function hjAbrir(opt) {
   }
 
   /* --- barras de abajo --- */
-  const SUBACC = [['edit', 'edit', 'Editar texto'], ['rotIzq', 'rotIzq', 'Girar a la izquierda'], ['rotDer', 'rotDer', 'Girar a la derecha'], ['menos', null, 'Más pequeño (-)'], ['mas', null, 'Más grande (+)'], ['frente', 'frente', 'Traer al frente de todo'], ['fondo', 'fondo', 'Mandar al fondo de todo'], ['sube', 'sube', 'Subir una capa (por encima de lo siguiente)'], ['baja', 'baja', 'Bajar una capa'], ['dup', 'dup', 'Duplicar'], ['filtro', 'filtro', 'Cambiar el filtro'], ['fondoC', 'papel', 'Fondo de la nota'], ['dec', 'deco', 'Decoración: no sale en Lectura'], ['borra', 'borra', 'Borrar']];
+  const SUBACC = [['edit', 'edit', 'Editar texto'], ['rotIzq', 'rotIzq', 'Girar a la izquierda'], ['rotDer', 'rotDer', 'Girar a la derecha'], ['menos', null, 'Más pequeño (-)'], ['mas', null, 'Más grande (+)'], ['frente', 'frente', 'Traer al frente'], ['fondo', 'fondo', 'Mandar al fondo'], ['dup', 'dup', 'Duplicar'], ['filtro', 'filtro', 'Cambiar el filtro'], ['fondoC', 'papel', 'Fondo de la nota'], ['dec', 'deco', 'Decoración: se ve en el cuaderno pero no sale al leer'], ['borra', 'borra', 'Borrar']];
   function pintarUI() {
     const n = E.h.pags.length; pgBtn.textContent = (E.pi + 1) + ' / ' + n;
-    el.querySelector('[data-hj=pag-ant]').disabled = E.pi === 0; el.querySelector('[data-hj=pag-sig]').disabled = E.pi >= n - 1;
+    el.querySelector('[data-hj=pag-mas]').disabled = n >= HJ_MAX_PAGS;
     el.querySelector('[data-hj=undo]').disabled = !E.hist.length; el.querySelector('[data-hj=redo]').disabled = !E.fut.length;
     const T = (id, ic, tx) => '<button type="button" class="hj-tool" data-hj="tool-' + id + '" aria-pressed="' + (E.tool === id) + '">' + hjSvg(ic) + '<span>' + tx + '</span></button>';
-    tools.innerHTML = T('sel', 'mover', 'Mover') + T('lap', 'lap', 'Lápiz') + T('bor', 'bor', 'Borrador') + T('txt', 'txt', 'Texto') + '<button type="button" class="hj-tool" data-hj="foto">' + hjSvg('foto') + '<span>Foto</span></button><button type="button" class="hj-tool" data-hj="capas">' + hjSvg('capas') + '<span>Capas</span></button>';
+    tools.innerHTML = T('sel', 'mover', 'Mover') + T('lap', 'lap', 'Lápiz') + T('bor', 'bor', 'Borrador') + T('txt', 'txt', 'Texto') + '<button type="button" class="hj-tool" data-hj="insertar">' + hjSvg('ins') + '<span>Insertar</span></button>';
     const s = sel();
     if (E.tool === 'sel' && s) {
       sub.innerHTML = '<div class="hj-acc" role="group" aria-label="Lo seleccionado">' + SUBACC.filter(a => !(a[0] === 'edit' && s.t !== 'tx') && !(a[0] === 'filtro' && s.t !== 'im') && !(a[0] === 'fondoC' && s.t !== 'tx')).map(function (a) {
@@ -3630,7 +3713,7 @@ function hjAbrir(opt) {
         '<label class="hj-solo" title="Útil con S Pen o Apple Pencil: el dedo no dibuja, así no marca la palma"><input type="checkbox" data-hj="solo"' + (E.soloLapiz ? ' checked' : '') + '> Solo lápiz</label></div>';
       return;
     }
-    const pista = { sel: 'Toca algo para elegirlo y moverlo. Para elegir lo que está tapado, usa «Capas». Con dos dedos lo agrandas y lo giras.', bor: 'Pasa el borrador por encima de un trazo para quitarlo.', txt: 'Toca la hoja donde quieras escribir. Toca un texto para cambiarlo.' }[E.tool] || '';
+    const pista = { sel: 'Toca algo para elegirlo y moverlo. Si hay cosas una encima de otra, toca otra vez para elegir la de abajo. Con dos dedos lo agrandas y lo giras.', bor: 'Pasa el borrador por encima de un trazo para quitarlo.', txt: 'Toca la hoja donde quieras escribir. Toca un texto para cambiarlo.' }[E.tool] || '';
     sub.innerHTML = '<p class="hj-pista">' + pista + '</p>';
   }
   function herramienta(t) { E.tool = t; if (t !== 'sel') E.sel = null; mostrarSel(); pintarUI(); }
@@ -3660,31 +3743,52 @@ function hjAbrir(opt) {
     const o = { b: E.pincel, c: E.tinta, w: E.grosor, op: E.op, p: g.pts };
     const B = HJ_PINCELES[o.b]; vivo.innerHTML = '<g' + (B.mix ? ' style="mix-blend-mode:multiply"' : '') + '>' + hjSvgTrazo(o) + '</g>';
   }
-  esc.addEventListener('pointerdown', function (e) {
-    if (E.panel) return;
+  function iniciarPan(e) {   // deslizar la lista de páginas con el dedo (el navegador no lo hace solo en las hojas)
+    if (E.g && E.g.t === 'pan') return;
+    E.g = { t: 'pan', ly: E.ptrs.size >= 2 ? medio()[1] : e.clientY, vel: 0, lt: performance.now(), mov: false };
+  }
+  function panMover(e, g) {
+    const y = E.ptrs.size >= 2 ? medio()[1] : (E.ptrs.has(e.pointerId) ? e.clientY : g.ly), d = g.ly - y; if (!d) return;
+    lienzo.scrollTop += d; const t = performance.now(), dt = Math.max(1, t - g.lt);
+    g.vel = g.vel * .6 + (d / dt) * .4; g.lt = t; g.ly = y; g.mov = true;
+  }
+  function flingPan(g) {   // el empujón: sigue deslizando un poquito después de soltar
+    let v = hjLim(g.vel, -3, 3); if (!g.mov || Math.abs(v) < .25) return; let t0 = performance.now();
+    const paso = function (t) { const dt = Math.min(40, t - t0); t0 = t; const antes = lienzo.scrollTop; lienzo.scrollTop += v * dt; v *= Math.pow(.94, dt / 16); if (Math.abs(v) < .02 || lienzo.scrollTop === antes) { E.fling = 0; marcarVis(); return; } E.fling = requestAnimationFrame(paso); };
+    E.fling = requestAnimationFrame(paso);
+  }
+  function onDown(e) {
+    const touch = e.pointerType === 'touch';
+    if (E.fling) { cancelAnimationFrame(E.fling); E.fling = 0; }
+    if (E.panel) { if (touch) { E.ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY }); try { e.currentTarget.setPointerCapture(e.pointerId); } catch (er) { /* nada */ } e.preventDefault(); iniciarPan(e); } return; }
     if (e.pointerType === 'pen') E.vioLapiz = true;
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     if (e.isPrimary && E.ptrs.size) { E.ptrs.clear(); if (E.g && E.g.t === 'dib') vivo.innerHTML = ''; E.g = null; }
-    try { esc.setPointerCapture(e.pointerId); } catch (er) { /* nada */ }
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch (er) { /* nada */ }
     E.ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    e.preventDefault(); esc.focus({ preventScroll: true });
+    e.preventDefault(); e.currentTarget.focus({ preventScroll: true });
+    if (E.ptrs.size === 1) { const ix = E.pg.findIndex(c => c.esc === e.currentTarget); if (ix >= 0 && ix !== E.pi) { activar(ix); E.sel = null; mostrarSel(); pintarUI(); } }
     const s = sel();
     if (E.ptrs.size === 2 && s && E.tool === 'sel') { const m = medio(); E.g = { t: 'pin', id: s.id, d0: m[2] || 1, a0: m[3], s0: s.s, r0: s.r, gh: false }; return; }
-    if (E.ptrs.size > 1) return;
+    if (E.ptrs.size > 1) {
+      if (E.g && (E.g.t === 'pin' || E.g.t === 'pan')) return;
+      if (E.g && E.g.t === 'dib') { vivo.innerHTML = ''; if (E.g.raf) cancelAnimationFrame(E.g.raf); }
+      E.g = null; iniciarPan(e); return;
+    }
     const p = xy(e), asa = e.target.closest && e.target.closest('[data-h]');
     if (asa && s) { asir(asa.dataset.h, s, p); return; }
     if (E.tool === 'lap') {
-      if (e.pointerType === 'touch' && E.soloLapiz) return;
+      if (touch && E.soloLapiz) { iniciarPan(e); return; }
       E.g = { t: 'dib', id: e.pointerId, pts: [[+p[0].toFixed(1), +p[1].toFixed(1), e.pointerType === 'pen' ? (e.pressure || .5) : .5]], raf: 0 };
       E.sel = null; mostrarSel(); pintarVivo(); return;
     }
     if (E.tool === 'bor') { guardarH(); E.g = { t: 'bor', id: e.pointerId, hubo: false }; borrarEn(p[0], p[1]); return; }
     if (E.tool === 'txt') { E.g = { t: 'txt', x: p[0], y: p[1], mov: false, id: e.pointerId }; return; }
     const hits = golpes(p[0], p[1]), o = hits[0];
-    if (!o) { if (E.sel) { E.sel = null; mostrarSel(); pintarUI(); } E.g = null; return; }
+    if (!o) { if (E.sel) { E.sel = null; mostrarSel(); pintarUI(); } E.g = null; if (touch) iniciarPan(e); return; }
     E.g = { t: 'mov', id: e.pointerId, oid: o.id, dx: p[0] - o.x, dy: p[1] - o.y, gh: false, repite: E.sel === o.id, hits: hits, p0: p, ptr: e.pointerId };
     if (E.sel !== o.id) { E.sel = o.id; mostrarSel(); pintarUI(); }
-  });
+  }
   function asir(h, o, p) {
     const c = centro(o);
     if (h === 'rot') E.g = { t: 'gir', id: E.ptrsPrimero(), oid: o.id, a0: Math.atan2(p[1] - c.y, p[0] - c.x), r0: o.r, c: { x: c.x, y: c.y }, gh: false };
@@ -3692,9 +3796,10 @@ function hjAbrir(opt) {
     else E.g = { t: 'esc', id: E.ptrsPrimero(), oid: o.id, d0: Math.hypot(p[0] - c.x, p[1] - c.y) || 1, s0: o.s, c: { x: c.x, y: c.y }, gh: false };
   }
   E.ptrsPrimero = () => [...E.ptrs.keys()][0];
-  esc.addEventListener('pointermove', function (e) {
+  function onMove(e) {
     if (E.ptrs.has(e.pointerId)) E.ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
     const g = E.g; if (!g) return;
+    if (g.t === 'pan') { panMover(e, g); return; }
     if (g.t === 'pin' && E.ptrs.size >= 2) {
       const o = obj(g.id); if (!o) return; const m = medio();
       if (!g.gh) { guardarH(); g.gh = true; }
@@ -3709,7 +3814,7 @@ function hjAbrir(opt) {
     }
     const p = xy(e);
     if (g.t === 'bor') borrarEn(p[0], p[1]);
-    else if (g.t === 'txt') { if (Math.hypot(p[0] - g.x, p[1] - g.y) > 14) g.mov = true; }
+    else if (g.t === 'txt') { if (Math.hypot(p[0] - g.x, p[1] - g.y) > 14) { g.mov = true; if (e.pointerType === 'touch') E.g = { t: 'pan', ly: e.clientY, vel: 0, lt: performance.now(), mov: true }; } }
     else if (g.t === 'mov' && o) {
       if (!g.gh) { if (Math.hypot(p[0] - g.p0[0], p[1] - g.p0[1]) < 5) return; guardarH(); g.gh = true; }
       o.x = hjLim(p[0] - g.dx, -200, HJ_W + 200); o.y = hjLim(p[1] - g.dy, -200, HJ_H + 200); hjPonerT(E.els[o.id], o); mostrarSel();
@@ -3726,10 +3831,11 @@ function hjAbrir(opt) {
       o.w = Math.round(nw); o.x = g.x0 + Math.cos(a) * cd; o.y = g.y0 + Math.sin(a) * cd;
       const c = E.els[o.id].firstChild; c.style.width = o.w + 'px'; hjPonerT(E.els[o.id], o); medir(); mostrarSel();
     }
-  });
+  }
   function soltar(e) {
     E.ptrs.delete(e.pointerId);
     const g = E.g; if (!g) return;
+    if (g.t === 'pan') { if (E.ptrs.size) { g.ly = [...E.ptrs.values()][0].y; return; } E.g = null; flingPan(g); marcarVis(); return; }
     if (g.t === 'pin') { if (E.ptrs.size < 2) { E.g = null; cambio(); } return; }
     if (g.id !== undefined && g.id !== e.pointerId) return;
     E.g = null;
@@ -3747,14 +3853,18 @@ function hjAbrir(opt) {
       }
     } else if (g.t === 'esc' || g.t === 'gir' || g.t === 'anc') { if (g.gh) cambio(); }
   }
-  esc.addEventListener('pointerup', soltar); esc.addEventListener('pointercancel', soltar);
-  esc.addEventListener('wheel', function (e) {   // mouse: rueda agranda, Shift + rueda gira
+  function onWheel(e) {   // mouse: la rueda desliza las páginas; con Ctrl agranda lo elegido y con Alt lo gira
+    if (!(e.ctrlKey || e.altKey)) return;
     const o = sel(); if (!o) return; e.preventDefault();
     guardarH(); const c = centro(o);
-    if (e.shiftKey) o.r = Math.round((o.r + (e.deltaY > 0 ? 5 : -5)) * 10) / 10; else o.s = hjLim(o.s * (e.deltaY > 0 ? .94 : 1.06), .05, 10);
+    if (e.altKey) o.r = Math.round((o.r + (e.deltaY > 0 ? 5 : -5)) * 10) / 10; else o.s = hjLim(o.s * (e.deltaY > 0 ? .94 : 1.06), .05, 10);
     fijarCentro(o, c); hjPonerT(E.els[o.id], o); mostrarSel(); cambio();
-  }, { passive: false });
-  esc.addEventListener('dblclick', function (e) { if (E.tool !== 'sel') return; const p = xy(e), h = golpes(p[0], p[1])[0]; if (h && h.t === 'tx') abrirTexto(h); });
+  }
+  function onDbl(e) {
+    if (E.tool !== 'sel') return;
+    const ix = E.pg.findIndex(c => c.esc === e.currentTarget); if (ix >= 0 && ix !== E.pi) { activar(ix); E.sel = null; }
+    const p = xy(e), h = golpes(p[0], p[1])[0]; if (h && h.t === 'tx') abrirTexto(h);
+  }
 
   function crearTrazo(pts) {
     let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; pts.forEach(q => { x0 = Math.min(x0, q[0]); y0 = Math.min(y0, q[1]); x1 = Math.max(x1, q[0]); y1 = Math.max(y1, q[1]); });
@@ -3791,7 +3901,7 @@ function hjAbrir(opt) {
     if (mod && (k === 'y' || k === 'Y')) { e.preventDefault(); rehacer(); return; }
     if (mod) return;
     const lk = k.toLowerCase();
-    if (lk === 'v') herramienta('sel'); else if (lk === 'p') herramienta('lap'); else if (lk === 'e') herramienta('bor'); else if (lk === 't') herramienta('txt'); else if (lk === 'f') abrirFoto(); else if (lk === 'c') abrirCapas();
+    if (lk === 'v') herramienta('sel'); else if (lk === 'p') herramienta('lap'); else if (lk === 'e') herramienta('bor'); else if (lk === 't') herramienta('txt'); else if (lk === 'f') abrirFoto(); else if (lk === 'i') abrirInsertar();
     else if (k === 'PageUp' && !s) { irPag(E.pi - 1); } else if (k === 'PageDown' && !s) { irPag(E.pi + 1); }
     else if (!s) return;
     else if (k === 'Delete' || k === 'Backspace') { e.preventDefault(); accion('borra'); }
@@ -3799,7 +3909,7 @@ function hjAbrir(opt) {
     else if (lk === 'd') accion('dup');
     else if (k === '+' || k === '=') accion('mas'); else if (k === '-' || k === '_') accion('menos');
     else if (k === '[') accion('rotIzq'); else if (k === ']') accion('rotDer');
-    else if (k === 'PageUp') { e.preventDefault(); accion(e.shiftKey ? 'frente' : 'sube'); } else if (k === 'PageDown') { e.preventDefault(); accion(e.shiftKey ? 'fondo' : 'baja'); }
+    else if (k === 'PageUp') { e.preventDefault(); irPag(E.pi - 1); } else if (k === 'PageDown') { e.preventDefault(); irPag(E.pi + 1); }
     else if (k.indexOf('Arrow') === 0) { e.preventDefault(); guardarH(); const d = e.shiftKey ? 24 : 4; if (k === 'ArrowLeft') s.x -= d; else if (k === 'ArrowRight') s.x += d; else if (k === 'ArrowUp') s.y -= d; else s.y += d; hjPonerT(E.els[s.id], s); mostrarSel(); cambio(); }
   };
   document.addEventListener('keydown', tecla);
@@ -3814,22 +3924,27 @@ function hjAbrir(opt) {
     if (a === 'borra') { guardarH(); pag().obj = pag().obj.filter(x => x !== o); E.sel = null; reconstruir(); cambio(); return; }
     if (a === 'edit') { abrirTexto(o); return; }
     if (a === 'frente' || a === 'fondo') { mover(o, 0, a); return; }
-    if (a === 'sube') { mover(o, 1); return; } if (a === 'baja') { mover(o, -1); return; }
     if (a === 'dup') { guardarH(); const c = JSON.parse(JSON.stringify(Object.assign({}, o, o.t === 'im' ? { src: '' } : {}))); if (o.t === 'im') c.src = o.src; c.id = hjId(); c.x += 26; c.y += 26; delete c._d; pag().obj.push(c); E.sel = c.id; reconstruir(); cambio(); return; }
     guardarH(); const c = centro(o);
     if (a === 'rotIzq') o.r -= 15; else if (a === 'rotDer') o.r += 15;
     else if (a === 'mas') o.s = hjLim(o.s * 1.12, .05, 10); else if (a === 'menos') o.s = hjLim(o.s / 1.12, .05, 10);
     else if (a === 'filtro') { const i = HJ_FILTROS.findIndex(f => f[0] === o.fl); o.fl = HJ_FILTROS[(i + 1) % HJ_FILTROS.length][0]; toast('Filtro: ' + HJ_FILTROS.find(f => f[0] === o.fl)[1]); }
-    else if (a === 'dec') { o.dec = !o.dec; toast(o.dec ? 'Es decoración: se ve en la hoja pero no en Lectura' : 'Ahora también sale en Lectura'); }
+    else if (a === 'dec') { o.dec = !o.dec; toast(o.dec ? 'Es decoración: se ve en el cuaderno pero no sale al leer' : 'Ahora también sale al leer'); }
     else if (a === 'fondoC') { const i = HJ_FONDOS.findIndex(f => f[0] === (o.fo || '')); o.fo = HJ_FONDOS[(i + 1) % HJ_FONDOS.length][0]; toast('Fondo: ' + HJ_FONDOS.find(f => f[0] === (o.fo || ''))[1]); }
     fijarCentro(o, c); refrescar(o); cambio();
   }
 
   /* --- páginas --- */
-  function irPag(i) { if (i < 0 || i >= E.h.pags.length) return; E.pi = i; E.sel = null; reconstruir(); }
-  function nuevaPag() {
-    if (E.h.pags.length >= HJ_MAX_PAGS) { toast('Máximo ' + HJ_MAX_PAGS + ' páginas por hoja.'); return false; }
-    guardarH(); E.h.pags.splice(E.pi + 1, 0, hjVaciaPag(pag().papel)); E.pi++; E.sel = null; reconstruir(); cambio(); return true;
+  function irPag(i, suave) {
+    if (i < 0 || i >= E.h.pags.length) return;
+    if (i !== E.pi) { activar(i); E.sel = null; }
+    mostrarSel(); pintarUI(); scrollAPag(i, suave !== false);
+  }
+  function nuevaPag(alFinal) {
+    if (E.h.pags.length >= HJ_MAX_PAGS) { toast('Máximo ' + HJ_MAX_PAGS + ' páginas por cuaderno.'); return false; }
+    guardarH();
+    const i = alFinal ? E.h.pags.length : E.pi + 1;
+    E.h.pags.splice(i, 0, hjVaciaPag(pag().papel)); E.pi = i; E.sel = null; armarPila(); scrollAPag(i, true); cambio(); return true;
   }
   function abrirPaginas() {
     const p = panel('<h2>Páginas</h2><div class="hj-pgl"></div><div class="hj-pb"><button type="button" class="btn" data-hj="p-cerrar">Cerrar</button><button type="button" class="btn prim" data-hj="pag-nueva">' + hjSvg('mas') + 'Nueva página</button></div>', 'hj-p-pgs');
@@ -3843,41 +3958,64 @@ function hjAbrir(opt) {
     pintar(); p._pintar = pintar;
   }
 
-  /* --- capas y orden de lectura --- */
-  function abrirCapas(tab) {
-    tab = tab || 'capas';
-    const p = panel('<h2>Capas</h2><div class="hj-tabs" role="tablist"><button type="button" class="hj-chip" role="tab" data-hj="capas-tab" data-t="capas" aria-pressed="' + (tab === 'capas') + '">Capas</button><button type="button" class="hj-chip" role="tab" data-hj="capas-tab" data-t="lectura" aria-pressed="' + (tab === 'lectura') + '">Orden de lectura</button></div><p class="hj-ayuda"></p><div class="hj-capl"></div><div class="hj-pb"><button type="button" class="btn prim" data-hj="p-cerrar">Listo</button></div>', 'hj-p-capas');
-    p._tab = tab; pintarCapas();
+  /* --- Insertar: foto, nota adhesiva, plantilla, papel y página nueva --- */
+  function abrirInsertar() {
+    const B = (a, ic, t, d) => '<button type="button" class="hj-ins-b" data-hj="' + a + '">' + hjSvg(ic) + '<b>' + t + '</b><span>' + d + '</span></button>';
+    const F = (cam, ic, t, d) => '<label class="hj-ins-b"><input type="file" accept="image/*"' + (cam ? ' capture="environment"' : '') + ' hidden data-hj-file>' + hjSvg(ic) + '<b>' + t + '</b><span>' + d + '</span></label>';
+    panel('<h2>Insertar</h2><div class="hj-ins">' + F(true, 'foto', 'Foto con la cámara', 'Y la recortas') + F(false, 'galeria', 'Foto de la galería', 'Rasgada, con tijera o al azar') + B('ins-nota', 'nota', 'Nota adhesiva', 'Un papelito de color') + B('ins-plantilla', 'plantilla', 'Plantilla', 'Reseña, diario, lista…') + B('ins-papel', 'papel', 'Papel', 'Liso, cuadros, rayas…') + B('ins-pagina', 'pags', 'Página nueva', 'Después de esta') + '</div>' +
+      '<div class="hj-pb"><button type="button" class="btn" data-hj="p-cerrar">Cerrar</button></div>', 'hj-p-ins');
   }
-  function pintarCapas() {
-    const p = E.panel; if (!p || !p.classList.contains('hj-p-capas')) return; const l = p.querySelector('.hj-capl'), ay = p.querySelector('.hj-ayuda');
-    p.querySelectorAll('[data-hj=capas-tab]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.t === p._tab)));
-    const mini = o => o.t === 'im' ? '<img src="' + o.src + '" alt="">' : o.t === 'tr' ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17c3-9 6 4 9-4s6-4 9-4" fill="none" stroke="' + o.c + '" stroke-width="2.4" stroke-linecap="round"/></svg>' : '<span>Aa</span>';
-    if (p._tab === 'capas') {
-      ay.textContent = 'De arriba hacia abajo. Toca una para elegirla, aunque esté tapada.';
-      const os = pag().obj.slice().reverse();
-      l.innerHTML = os.length ? os.map((o, i) => '<div class="hj-cap' + (o.id === E.sel ? ' hj-on' : '') + (o.oc ? ' hj-apag' : '') + '"><button type="button" class="hj-capn" data-hj="capa-ir" data-id="' + o.id + '"><i class="hj-capm">' + mini(o) + '</i><span>' + hjEsc(hjEtiq(o)) + (o.dec ? ' · decoración' : '') + '</span></button><span class="hj-capa-b">' +
-        '<button type="button" class="hj-b" data-hj="capa-sube" data-id="' + o.id + '" aria-label="Subir una capa"' + (i === 0 ? ' disabled' : '') + '>' + hjSvg('sube') + '</button><button type="button" class="hj-b" data-hj="capa-baja" data-id="' + o.id + '" aria-label="Bajar una capa"' + (i === os.length - 1 ? ' disabled' : '') + '>' + hjSvg('baja') + '</button>' +
-        '<button type="button" class="hj-b' + (o.oc ? ' hj-on' : '') + '" data-hj="capa-ojo" data-id="' + o.id + '" aria-label="' + (o.oc ? 'Mostrar' : 'Ocultar') + '">' + hjSvg(o.oc ? 'ojoNo' : 'ojo') + '</button><button type="button" class="hj-b' + (o.bl ? ' hj-on' : '') + '" data-hj="capa-bl" data-id="' + o.id + '" aria-label="' + (o.bl ? 'Desbloquear' : 'Bloquear') + '">' + hjSvg(o.bl ? 'candado' : 'abre') + '</button><button type="button" class="hj-b' + (o.dec ? ' hj-on' : '') + '" data-hj="capa-dec" data-id="' + o.id + '" aria-label="Decoración" title="Decoración: no sale en Lectura">✦</button></span></div>').join('') : '<p class="hj-ayuda">Esta página está vacía.</p>';
-    } else {
-      ay.textContent = 'Así se leerá en la app (sin la decoración). Ordénalo con las flechas.';
-      const os = hjOrdenLectura(pag());
-      l.innerHTML = os.length ? os.map((o, i) => '<div class="hj-cap"><span class="hj-capn hj-capn-s"><i class="hj-capm">' + mini(o) + '</i><span>' + (i + 1) + '. ' + hjEsc(hjEtiq(o)) + '</span></span><span class="hj-capa-b"><button type="button" class="hj-b" data-hj="ord-sube" data-id="' + o.id + '" aria-label="Antes"' + (i === 0 ? ' disabled' : '') + '>' + hjSvg('sube') + '</button><button type="button" class="hj-b" data-hj="ord-baja" data-id="' + o.id + '" aria-label="Después"' + (i === os.length - 1 ? ' disabled' : '') + '>' + hjSvg('baja') + '</button></span></div>').join('') : '<p class="hj-ayuda">No hay nada para leer en esta página.</p>';
-    }
+  function centroVista() {   // un punto de la página en uso que se vea en pantalla, para poner cosas nuevas ahí
+    const c = E.pg[E.pi], y = (lienzo.scrollTop + lienzo.clientHeight / 2 - c.esc.offsetTop) / E.k;
+    return { x: 400 + (Math.random() - .5) * 120, y: hjLim(y, 170, HJ_H - 170) };
   }
-  function capaAccion(a, id) {
-    const o = obj(id); if (!o) return;
-    if (a === 'capa-ir') { cerrarPanel(); seleccionar(id); return; }
-    guardarH();
-    if (a === 'capa-sube') mover(o, 1); else if (a === 'capa-baja') mover(o, -1);
-    else if (a === 'capa-ojo') { o.oc = !o.oc; if (o.oc && E.sel === o.id) E.sel = null; reconstruir(); cambio(); }
-    else if (a === 'capa-bl') { o.bl = !o.bl; if (o.bl && E.sel === o.id) E.sel = null; cambio(); }
-    else if (a === 'capa-dec') { o.dec = !o.dec; reconstruir(); cambio(); }
-    else if (a === 'ord-sube' || a === 'ord-baja') {
-      const l = hjOrdenLectura(pag()).map(x => x.id), i = l.indexOf(id), j = i + (a === 'ord-sube' ? -1 : 1); if (j < 0 || j >= l.length) return;
-      l.splice(i, 1); l.splice(j, 0, id); pag().ord = l; cambio();
-    }
-    pintarCapas();
+  function notaAdhesiva() {
+    if (hjPeso(E.h) > 1500000) { toast('El cuaderno ya tiene mucho. Quita algo antes de agregar más.'); return; }
+    if (pag().obj.length >= HJ_MAX_OBJ) { toast('Esta página está llena.'); return; }
+    cerrarPanel(); guardarH();
+    const c = centroVista(), col = ['amarillo', 'rosa', 'verde'][Math.floor(Math.random() * 3)];
+    const o = { id: hjId(), t: 'tx', x: c.x, y: c.y, r: Math.round((Math.random() - .5) * 8 * 10) / 10, s: 1, w: 320, h: 150, html: '', fo: col, lh: 1.25 };
+    pag().obj.push(o); reconstruir(); abrirTexto(o, true);
+  }
+  const hoyLargo = () => { const t = new Date().toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); return t.charAt(0).toUpperCase() + t.slice(1); };
+  const HJ_PLANTILLAS = [
+    { id: 'resena', n: 'Reseña', d: 'Lo que me gustó, lo que no y mi veredicto', papel: 'liso', obj: () => [
+      { w: 660, html: '<h2>Mi reseña</h2>' },
+      { w: 640, html: '<div><b>Lo que más me gustó</b></div><div><br></div>' },
+      { w: 640, html: '<div><b>Lo que no me convenció</b></div><div><br></div>' },
+      { w: 560, r: -2, fo: 'amarillo', html: '<div><b>Mi veredicto</b></div><div><br></div>' }] },
+    { id: 'diario', n: 'Querido diario', d: 'Hoja de rayas con la fecha de hoy', papel: 'raya', obj: () => [
+      { w: 600, x: 440, top: 56, html: '<h2>Querido diario</h2>' },
+      { w: 600, x: 440, html: '<div>' + hjEsc(hoyLargo()) + '</div>' }] },
+    { id: 'lista', n: 'Lista', d: 'Cuadros y viñetas para tachar', papel: 'cuadro', obj: () => [
+      { w: 620, html: '<h2>Mi lista</h2>' },
+      { w: 620, html: '<ul><li>Primero</li><li>Segundo</li><li>Tercero</li><li>Cuarto</li></ul>' }] },
+    { id: 'pros', n: 'Lo bueno y lo malo', d: 'Dos notas, una al lado de la otra', papel: 'liso', obj: () => [
+      { w: 330, x: 215, top: 150, r: -2, fo: 'verde', html: '<div><b>Lo bueno</b></div><ul><li><br></li></ul>' },
+      { w: 330, x: 585, top: 150, r: 2, fo: 'rosa', html: '<div><b>Lo malo</b></div><ul><li><br></li></ul>' }] },
+    { id: 'frase', n: 'Frase para guardar', d: 'Una cita grande sobre papel noche', papel: 'noche', obj: () => [
+      { w: 620, top: 300, html: '<div style="text-align:center;font-size:56px;font-family:\'Playfair Display\',Georgia,serif">“Una frase que me quedó”</div>' },
+      { w: 620, html: '<div style="text-align:center;font-size:28px">— quién la dijo</div>' }] },
+    { id: 'collage', n: 'Collage', d: 'Papel kraft con título de letras recortadas', papel: 'kraft', obj: () => [
+      { w: 640, top: 60, rec: true, html: '<h2>Mi collage</h2>' },
+      { w: 400, x: 540, top: 720, r: 3, fo: 'blanco', dec: true, html: '<div>Pega tus fotos con Insertar → Foto. Esta nota es decoración: no sale al leer.</div>' }] }
+  ];
+  function abrirPlantillas() {
+    panel('<h2>Plantilla</h2><p class="hj-ayuda">Se pone en esta página. Toca cada texto para escribir lo tuyo.</p><div class="hj-plans">' + HJ_PLANTILLAS.map(q => '<button type="button" class="hj-plan" data-hj="plan-' + q.id + '"><b>' + hjEsc(q.n) + '</b><span>' + hjEsc(q.d) + '</span></button>').join('') + '</div><div class="hj-pb"><button type="button" class="btn" data-hj="p-cerrar">Cancelar</button></div>', 'hj-p-plans');
+  }
+  function aplicarPlantilla(id) {
+    const q = HJ_PLANTILLAS.find(x => x.id === id); if (!q) return;
+    const lista = q.obj();
+    if (hjPeso(E.h) > 1500000) { toast('El cuaderno ya tiene mucho. Quita algo antes de agregar más.'); return; }
+    if (pag().obj.length + lista.length > HJ_MAX_OBJ) { toast('Esta página está llena.'); return; }
+    cerrarPanel(); guardarH();
+    if (!pag().obj.length) pag().papel = q.papel;   // en una página vacía también cambia el papel
+    const nuevos = lista.map(function (d) { return { id: hjId(), t: 'tx', x: d.x || 400, y: 200, r: d.r || 0, s: 1, w: d.w, h: 60, html: hjSanea(d.html), fo: d.fo || '', lh: 1.35, rec: d.rec || undefined, dec: d.dec || undefined, _top: d.top }; });
+    nuevos.forEach(o => { pag().obj.push(o); });
+    reconstruir();   // al armarse se miden las alturas reales
+    let y = 70;
+    nuevos.forEach(function (o) { const h = (o.h || 60) * o.s; if (o._top != null) y = o._top; o.y = y + h / 2; y += h + 30; delete o._top; });
+    reconstruir(); cambio(); toast('Plantilla puesta. Toca un texto para escribir.');
   }
 
   /* --- panel de Papel, Foto y Ayuda --- */
@@ -3886,15 +4024,14 @@ function hjAbrir(opt) {
     p.querySelectorAll('canvas[data-p]').forEach(cv => { cv.getContext('2d').drawImage(hjPapelCv(cv.dataset.p), 0, 0, 64, 80); });
   }
   function abrirFoto() {
-    if (hjDatosPendientes(E.h) > HJ_MAX_DATA * .92) { toast('La hoja ya pesa mucho. Quita algún recorte antes de pegar otro.'); return; }
     panel('<h2>Pegar una foto</h2><p class="hj-ayuda">Elige la foto y luego la recortas: rasgada a mano, con tijera o un pedazo al azar.</p>' +
       '<div class="hj-fotos"><label class="btn prim hj-lab"><input type="file" accept="image/*" capture="environment" hidden data-hj-file>' + hjSvg('foto') + 'Tomar con la cámara</label>' +
       '<label class="btn hj-lab"><input type="file" accept="image/*" hidden data-hj-file>Elegir de la galería</label></div>' +
       '<div class="hj-pb"><button type="button" class="btn" data-hj="p-cerrar">Cancelar</button></div>');
   }
   function abrirAyuda() {
-    panel('<h2>Cómo se usa</h2><div class="hj-ay"><h3>Con el dedo o el S Pen</h3><ul><li><b>Lápiz</b>: dibuja. Hay 5 pinceles y el S Pen responde a la presión.</li><li><b>Mover</b>: toca algo para elegirlo y arrastrarlo. Con <b>dos dedos</b> lo agrandas y lo giras.</li><li>Las <b>esquinas</b> agrandan, el <b>círculo de arriba</b> gira y los <b>lados</b> de un texto cambian su ancho.</li><li><b>Texto</b>: toca la hoja y escribe. Cada texto es una cápsula que puedes editar por partes.</li><li><b>Capas</b>: elige algo que esté tapado, ocúltalo, bloquéalo o cambia su orden.</li></ul>' +
-      '<h3>Con teclado y mouse</h3><ul class="hj-teclas"><li><kbd>V</kbd> Mover</li><li><kbd>P</kbd> Lápiz</li><li><kbd>E</kbd> Borrador</li><li><kbd>T</kbd> Texto</li><li><kbd>F</kbd> Foto</li><li><kbd>C</kbd> Capas</li><li><kbd>Ctrl</kbd>+<kbd>Z</kbd> Deshacer</li><li><kbd>Ctrl</kbd>+<kbd>Y</kbd> Rehacer</li><li>Flechas: mover (<kbd>Shift</kbd> más)</li><li><kbd>+</kbd> <kbd>-</kbd> Tamaño</li><li><kbd>[</kbd> <kbd>]</kbd> Girar</li><li><kbd>PgUp</kbd> <kbd>PgDn</kbd> Capa (con <kbd>Shift</kbd> al frente/fondo)</li><li><kbd>D</kbd> Duplicar</li><li><kbd>Supr</kbd> Borrar</li><li><kbd>Enter</kbd> Editar texto</li><li><kbd>Esc</kbd> Cerrar</li></ul>' +
+    panel('<h2>Cómo se usa</h2><div class="hj-ay"><h3>Con el dedo o el S Pen</h3><ul><li><b>Desliza</b> hacia arriba o abajo para pasar de página. Con el <b>lápiz</b> se dibuja; si activas «Solo lápiz», el dedo solo desliza. Con <b>dos dedos</b> siempre deslizas.</li><li><b>Lápiz</b>: dibuja. Hay 5 pinceles y el S Pen responde a la presión.</li><li><b>Mover</b>: toca algo para elegirlo y arrastrarlo. Con dos dedos lo agrandas y lo giras. Si hay cosas una encima de otra, toca varias veces para elegir la de abajo.</li><li>Las <b>esquinas</b> agrandan, el <b>círculo de arriba</b> gira y los <b>lados</b> de un texto cambian su ancho.</li><li><b>Texto</b>: toca la hoja y escribe. Cada texto es una cápsula que puedes editar por partes.</li><li><b>Insertar</b>: fotos, notas adhesivas, plantillas, papel y páginas nuevas. El <b>+</b> de arriba también agrega una página.</li></ul>' +
+      '<h3>Con teclado y mouse</h3><ul class="hj-teclas"><li><kbd>V</kbd> Mover</li><li><kbd>P</kbd> Lápiz</li><li><kbd>E</kbd> Borrador</li><li><kbd>T</kbd> Texto</li><li><kbd>I</kbd> Insertar</li><li><kbd>F</kbd> Foto</li><li><kbd>Ctrl</kbd>+<kbd>Z</kbd> Deshacer</li><li><kbd>Ctrl</kbd>+<kbd>Y</kbd> Rehacer</li><li>Flechas: mover (<kbd>Shift</kbd> más)</li><li><kbd>+</kbd> <kbd>-</kbd> Tamaño</li><li><kbd>[</kbd> <kbd>]</kbd> Girar</li><li><kbd>PgUp</kbd> <kbd>PgDn</kbd> Página anterior o siguiente</li><li><kbd>D</kbd> Duplicar</li><li><kbd>Supr</kbd> Borrar</li><li><kbd>Enter</kbd> Editar texto</li><li><kbd>Esc</kbd> Cerrar</li><li><kbd>Ctrl</kbd>+rueda: tamaño · <kbd>Alt</kbd>+rueda: girar</li></ul>' +
       '<p class="hj-ayuda">Todo se guarda solo mientras trabajas.</p></div><div class="hj-pb"><button type="button" class="btn prim" data-hj="p-cerrar">Entendido</button></div>', 'hj-p-ay');
   }
   function abrirTexto(o, nueva) {
@@ -3911,19 +4048,20 @@ function hjAbrir(opt) {
     if (a.indexOf('tool-') === 0) herramienta(a.slice(5));
     else if (a === 'listo') cerrar();
     else if (a === 'undo') deshacer(); else if (a === 'redo') rehacer();
-    else if (a === 'papel') abrirPapel(); else if (a === 'ayuda') abrirAyuda(); else if (a === 'foto') abrirFoto(); else if (a === 'capas') abrirCapas();
-    else if (a === 'pags') abrirPaginas(); else if (a === 'pag-ant') irPag(E.pi - 1); else if (a === 'pag-sig') irPag(E.pi + 1);
+    else if (a === 'insertar') abrirInsertar(); else if (a === 'ayuda') abrirAyuda(); else if (a === 'foto') abrirFoto();
+    else if (a === 'ins-nota') notaAdhesiva(); else if (a === 'ins-plantilla') abrirPlantillas(); else if (a === 'ins-papel') abrirPapel();
+    else if (a === 'ins-pagina') { cerrarPanel(); nuevaPag(); }
+    else if (a.indexOf('plan-') === 0) aplicarPlantilla(a.slice(5));
+    else if (a === 'pags') abrirPaginas(); else if (a === 'pag-mas') nuevaPag(true);
     else if (a === 'p-cerrar') cerrarPanel();
     else if (a === 'pag-nueva') { if (nuevaPag() && E.panel && E.panel._pintar) E.panel._pintar(); }
-    else if (a === 'pag-ir') { irPag(+b.dataset.i); cerrarPanel(); }
-    else if (a === 'pag-izq' || a === 'pag-der') { const i = +b.dataset.i, j = i + (a === 'pag-izq' ? -1 : 1); if (j >= 0 && j < E.h.pags.length) { guardarH(); const q = E.h.pags[i]; E.h.pags.splice(i, 1); E.h.pags.splice(j, 0, q); if (E.pi === i) E.pi = j; else if (E.pi === j) E.pi = i; cambio(); E.panel._pintar(); pintarUI(); } }
-    else if (a === 'pag-borra') { if (!b.classList.contains('sure')) { b.classList.add('sure'); setTimeout(function () { b.classList.remove('sure'); }, 3000); toast('Toca otra vez para borrar la página'); return; } guardarH(); E.h.pags.splice(+b.dataset.i, 1); arreglarPi(); E.sel = null; reconstruir(); cambio(); E.panel._pintar(); }
+    else if (a === 'pag-ir') { cerrarPanel(); irPag(+b.dataset.i); }
+    else if (a === 'pag-izq' || a === 'pag-der') { const i = +b.dataset.i, j = i + (a === 'pag-izq' ? -1 : 1); if (j >= 0 && j < E.h.pags.length) { guardarH(); const q = E.h.pags[i]; E.h.pags.splice(i, 1); E.h.pags.splice(j, 0, q); if (E.pi === i) E.pi = j; else if (E.pi === j) E.pi = i; E.sel = null; armarPila(); cambio(); E.panel._pintar(); } }
+    else if (a === 'pag-borra') { if (!b.classList.contains('sure')) { b.classList.add('sure'); setTimeout(function () { b.classList.remove('sure'); }, 3000); toast('Toca otra vez para borrar la página'); return; } guardarH(); E.h.pags.splice(+b.dataset.i, 1); arreglarPi(); E.sel = null; armarPila(); cambio(); E.panel._pintar(); }
     else if (a.indexOf('papel-') === 0) { guardarH(); pag().papel = a.slice(6); hjCambiarPapel(pagEl, pag().papel); cambio(); abrirPapel(); }
     else if (a === 'pincel') { E.pincel = b.dataset.p; pintarUI(); }
     else if (a === 'tinta') { E.tinta = b.dataset.c; pintarUI(); }
     else if (a === 'gros') { E.grosor = +b.dataset.g; pintarUI(); }
-    else if (a === 'capas-tab') { E.panel._tab = b.dataset.t; pintarCapas(); }
-    else if (/^(capa|ord)-/.test(a)) capaAccion(a, b.dataset.id);
     else accion(a);
   });
   el.addEventListener('change', function (e) {
@@ -3932,6 +4070,7 @@ function hjAbrir(opt) {
     if (e.target.matches('[data-hj-file]')) {
       const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
       cerrarPanel();
+      if (hjDatosPendientes(E.h) > HJ_MAX_DATA * .92) { toast('El cuaderno ya pesa mucho. Quita algún recorte antes de pegar otro.'); return; }
       hjCortar(el, f, function (r) {
         guardarH();
         const sc = hjLim(380 / Math.max(r.w, r.h), .1, 2), n = { id: hjId(), t: 'im', x: 400, y: 470, r: Math.round((Math.random() - .5) * 8 * 10) / 10, s: +sc.toFixed(3), src: r.src, w: r.w, h: r.h, fl: 'color' };
@@ -3959,13 +4098,13 @@ function hjAbrir(opt) {
   /* --- arranque --- */
   hjCargarImgsTodas(E.h);
   E.tool = E.tool === 'txt' && opt.capsulaNueva ? 'sel' : E.tool;
-  reconstruir(); ajustar(); setTimeout(ajustar, 60);
+  ajustar(); armarPila(); ajustar(); setTimeout(ajustar, 60);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (HJ.abierta === E && medir()) mostrarSel(); }, function () { /* nada */ });
   if (opt.capsulaNueva && !E.h.pags[0].obj.some(o => o.t === 'tx')) {   // «Con teclado»: arranca con una cápsula lista para escribir
     const o = { id: hjId(), t: 'tx', x: 400, y: 150, r: 0, s: 1, w: 640, h: 60, html: opt.textoInicial ? '<div>' + hjEsc(opt.textoInicial).replace(/\n/g, '</div><div>') + '</div>' : '', fo: '', lh: 1.35 };
     E.h.pags[0].obj.push(o); reconstruir(); setTimeout(function () { if (HJ.abierta === E) abrirTexto(o, true); }, 150);
   }
-  el.querySelector('.hj-esc').focus({ preventScroll: true });
+  if (E.pg[0]) E.pg[0].esc.focus({ preventScroll: true });
 }
 function hjCargarImgsTodas(h) { h.pags.forEach(p => p.obj.forEach(o => { if (o.t === 'im') hjImg(o.src); })); }
 
@@ -4223,35 +4362,94 @@ function hjLecturaHTML(h) {
   });
   return partes.join('<hr class="hj-l-sep">');
 }
-// «Ver la hoja tal cual»: las páginas como quedaron, una debajo de otra
-function hjVerHoja(h) {
-  if (!h || document.querySelector('.hj-ver')) return;
-  const el = document.createElement('div'); el.className = 'hj-ver'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Hoja tal cual');
-  el.innerHTML = '<div class="hj-ver-top"><span>Hoja tal cual</span><button type="button" class="hj-ok" data-v="cerrar">Cerrar</button></div><div class="hj-ver-cuerpo"></div>';
-  const cuerpo = el.querySelector('.hj-ver-cuerpo');
+// Modo libro: las páginas del cuaderno como quedaron, de una en una, con la vuelta de página
+function hjVerHoja(h) { hjLibro(h); }
+function hjLibro(h) {
+  if (!h || !h.pags || !h.pags.length || document.querySelector('.hj-libro')) return;
+  hjDefs();
+  const n = h.pags.length, reducido = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const el = document.createElement('div'); el.className = 'hj-libro'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Cuaderno');
+  el.innerHTML =
+    '<div class="hj-lb-top"><span class="hj-lb-t">Cuaderno</span><span class="hj-lb-c" role="status" aria-live="polite"></span><span class="hj-sp"></span>' +
+    '<button type="button" class="hj-lb-b" data-l="texto">Ver texto</button><button type="button" class="hj-ok" data-l="cerrar">Cerrar</button></div>' +
+    '<div class="hj-lb-esc"><button type="button" class="hj-lb-fl hj-lb-izq" data-l="ant" aria-label="Página anterior">' + hjSvg('izq') + '</button>' +
+    '<div class="hj-lb-libro" tabindex="0" aria-label="Páginas del cuaderno: desliza o usa las flechas"></div>' +
+    '<button type="button" class="hj-lb-fl hj-lb-der" data-l="sig" aria-label="Página siguiente">' + hjSvg('der') + '</button></div>' +
+    '<div class="hj-lb-pie" aria-hidden="true"></div><div class="hj-lb-txt" hidden></div>';
   document.body.appendChild(el); document.documentElement.classList.add('hj-abierto');
-  const ancho = () => Math.max(240, Math.min(cuerpo.clientWidth - 24, 720));
-  function armar() {
-    const w = ancho(), k = w / HJ_W; cuerpo.innerHTML = '';
-    h.pags.forEach(function (p, i) {
-      const caja = document.createElement('div'); caja.className = 'hj-ver-p'; caja.style.width = w + 'px'; caja.style.height = (HJ_H * k) + 'px';
-      const pg = hjPagDom(p, { sinOcultos: true }); pg.style.transform = 'scale(' + k + ')'; caja.appendChild(pg); cuerpo.appendChild(caja);
-      if (h.pags.length > 1) { const n = document.createElement('p'); n.className = 'hj-ver-n'; n.textContent = 'Página ' + (i + 1) + ' de ' + h.pags.length; cuerpo.appendChild(n); }
-    });
+  const esc = el.querySelector('.hj-lb-esc'), libro = el.querySelector('.hj-lb-libro'), cont = el.querySelector('.hj-lb-c'), pie = el.querySelector('.hj-lb-pie'), txt = el.querySelector('.hj-lb-txt'), bTxt = el.querySelector('[data-l=texto]');
+  let i = 0, k = 1, anim = false, enTexto = false;
+
+  function medir() {
+    const w = esc.clientWidth, hh = esc.clientHeight;
+    k = Math.max(.1, Math.min((w - 16) / HJ_W, (hh - 12) / HJ_H));
+    libro.style.width = Math.floor(HJ_W * k) + 'px'; libro.style.height = Math.floor(HJ_H * k) + 'px';
   }
-  armar(); window.addEventListener('resize', armar);
+  function pagina(j) {
+    const c = document.createElement('div'); c.className = 'hj-lb-pg';
+    const pg = hjPagDom(h.pags[j], { sinOcultos: true }); pg.style.transform = 'scale(' + k + ')'; c.appendChild(pg); return c;
+  }
+  function pinta() {
+    libro.replaceChildren(pagina(i));
+    cont.textContent = n > 1 ? 'Página ' + (i + 1) + ' de ' + n : '';
+    pie.innerHTML = n > 1 ? h.pags.map((p, j) => '<i' + (j === i ? ' class="on"' : '') + '></i>').join('') : '';
+    el.querySelector('[data-l=ant]').disabled = i === 0; el.querySelector('[data-l=sig]').disabled = i >= n - 1;
+    el.classList.toggle('hj-lb-uno', n < 2);
+  }
+  function ir(j) {   // la hoja gira alrededor del lomo: al avanzar se levanta la actual, al volver cae la anterior
+    if (anim || j < 0 || j >= n || j === i) return;
+    if (reducido || !libro.animate) { i = j; pinta(); return; }
+    anim = true;
+    const ade = j > i, base = pagina(ade ? j : i), hoja = pagina(ade ? i : j), sombra = document.createElement('div'); sombra.className = 'hj-lb-sombra';
+    libro.replaceChildren(base, sombra, hoja);
+    const dur = 620, fac = 'cubic-bezier(.5,.05,.25,1)';
+    const giro = ade ? [{ transform: 'rotateY(0deg)', opacity: 1 }, { transform: 'rotateY(-80deg)', opacity: 1, offset: .72 }, { transform: 'rotateY(-100deg)', opacity: 0 }]
+                     : [{ transform: 'rotateY(-100deg)', opacity: 0 }, { transform: 'rotateY(-80deg)', opacity: 1, offset: .28 }, { transform: 'rotateY(0deg)', opacity: 1 }];
+    sombra.animate(ade ? [{ opacity: 0 }, { opacity: .55 }] : [{ opacity: .55 }, { opacity: 0 }], { duration: dur, easing: fac, fill: 'forwards' });
+    const an = hoja.animate(giro, { duration: dur, easing: fac, fill: 'forwards' });
+    const fin = function () { i = j; anim = false; pinta(); };
+    an.finished.then(fin, fin);
+  }
+  function modoTexto(si) {
+    enTexto = si; txt.hidden = !si; esc.hidden = si; pie.hidden = si; bTxt.textContent = si ? 'Ver libro' : 'Ver texto';
+    if (si && !txt._ok) { txt._ok = true; txt.innerHTML = '<div class="hj-lec">' + (hjLecturaHTML(h) || '<p class="ayuda">Este cuaderno solo tiene dibujos y decoración.</p>') + '</div>'; }
+    if (!si) { medir(); pinta(); }
+  }
+  // desliza el dedo (o arrastra) para pasar la página; un toque en el borde derecho o izquierdo también la pasa
+  let d0 = null;
+  libro.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse' && e.button !== 0) return; d0 = { x: e.clientX, y: e.clientY, t: Date.now() }; });
+  libro.addEventListener('pointerup', function (e) {
+    if (!d0) return; const dx = e.clientX - d0.x, dy = e.clientY - d0.y, tt = Date.now() - d0.t; d0 = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) { ir(i + (dx < 0 ? 1 : -1)); return; }
+    if (Math.abs(dx) < 10 && Math.abs(dy) < 10 && tt < 500) { const r = libro.getBoundingClientRect(), f = (e.clientX - r.left) / r.width; if (f > .62) ir(i + 1); else if (f < .38) ir(i - 1); }
+  });
+  libro.addEventListener('pointercancel', function () { d0 = null; });
+  const onResize = function () { if (enTexto || anim) return; medir(); pinta(); };
+  window.addEventListener('resize', onResize);
   let empujado = false, ignorar = false;
   try { history.pushState({ hjv: 1 }, ''); empujado = true; } catch (e) { /* nada */ }
   function cerrar(deAtras) {
-    window.removeEventListener('resize', armar); window.removeEventListener('popstate', atras); document.removeEventListener('keydown', tecla);
+    window.removeEventListener('resize', onResize); window.removeEventListener('popstate', atras); document.removeEventListener('keydown', tecla);
     el.remove(); document.documentElement.classList.remove('hj-abierto');
     if (!deAtras && empujado) { ignorar = true; try { history.back(); } catch (e) { /* nada */ } }
   }
   function atras() { if (ignorar) { ignorar = false; return; } cerrar(true); }
-  function tecla(e) { if (e.key === 'Escape') cerrar(); }
+  function tecla(e) {
+    const k0 = e.key;
+    if (k0 === 'Escape') { cerrar(); e.preventDefault(); return; }
+    if (enTexto) return;
+    if (k0 === 'ArrowRight' || k0 === 'PageDown' || k0 === ' ') { ir(i + 1); e.preventDefault(); }
+    else if (k0 === 'ArrowLeft' || k0 === 'PageUp') { ir(i - 1); e.preventDefault(); }
+    else if (k0 === 'Home') { ir(0); e.preventDefault(); } else if (k0 === 'End') { ir(n - 1); e.preventDefault(); }
+  }
   window.addEventListener('popstate', atras); document.addEventListener('keydown', tecla);
-  el.addEventListener('click', function (e) { if (e.target.closest('[data-v=cerrar]')) cerrar(); });
-  el.querySelector('[data-v=cerrar]').focus();
+  el.addEventListener('click', function (e) {
+    const b = e.target.closest('[data-l]'); if (!b) return; const a = b.dataset.l;
+    if (a === 'cerrar') cerrar(); else if (a === 'ant') ir(i - 1); else if (a === 'sig') ir(i + 1); else if (a === 'texto') modoTexto(!enTexto);
+  });
+  medir(); pinta();
+  if (!reducido && libro.animate) libro.animate([{ opacity: 0, transform: 'scale(.93) translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 360, easing: 'cubic-bezier(.2,.8,.3,1)' });
+  setTimeout(function () { if (document.body.contains(el)) { medir(); pinta(); libro.focus({ preventScroll: true }); } }, 60);
 }
 
 /* --- Personal: la hoja dentro del editor de semillas --- */
@@ -4336,7 +4534,7 @@ function quitarHojaResena(id, b) {
 /* --- Leer: semilla pública (visitantes), reseñas y miniaturas --- */
 function hojaLecturaHTML(t, id) {
   if (!estado.minis[hjClave(t, id)]) return '';
-  return '<div class="hj-lect"><div class="hj-lec" data-t="' + t + '" data-id="' + id + '"><p class="ayuda">Cargando la hoja…</p></div><button type="button" class="btn hj-ver-b" data-action="hoja-ver" data-t="' + t + '" data-id="' + id + '" hidden>Ver la hoja tal cual</button></div>';
+  return '<div class="hj-lect"><div class="hj-lec" data-t="' + t + '" data-id="' + id + '"><p class="ayuda">Cargando la hoja…</p></div><button type="button" class="btn hj-ver-b" data-action="hoja-ver" data-t="' + t + '" data-id="' + id + '" hidden>Abrir como libro</button></div>';
 }
 function hjMiniHTML(t, id) {
   const m = estado.minis[hjClave(t, id)];
@@ -5826,6 +6024,7 @@ document.addEventListener('click', function (e) {
     case 'tj-etq': estado.tj.etq = estado.tj.etq === b.dataset.e ? '' : b.dataset.e; render(false); break;
     case 'tj-tipo': estado.tj.tipo = estado.tj.tipo === b.dataset.t ? '' : b.dataset.t; render(false); break;
     case 'mod-leer': estado.moLeer = estado.moLeer === id ? '' : id; render(false); break;
+    case 'mod-libro': abrirVerHoja('semilla', id); break;
     case 'mod-resena': estado.pedirResena = id; break;
     case 'resena-si': cerrarHoja('hoja-resena'); estado.pedirResena = id; location.hash = '#semilla-' + id; break;
     case 'resena-no': cerrarHoja('hoja-resena'); break;

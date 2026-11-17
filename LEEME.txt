@@ -5,6 +5,17 @@ Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
 Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
 Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube el número de VERSION en sw.js).
 
+NOVEDAD v25 - El cuaderno nuevo (estilo Samsung Notes):
+ - Las páginas ahora van una debajo de otra y se desliza para pasar de una a otra. Arriba hay un contador (1 / 3) y un "+" para agregar páginas (hasta 12).
+   Toca el contador para ver todas las páginas: moverlas, ir a una o borrarla.
+ - Con el dedo se desliza; con el lápiz (S Pen) se dibuja. Con "Solo lápiz" el dedo solo desliza. Con dos dedos siempre deslizas.
+ - Una sola barra de herramientas: Mover, Lápiz, Borrador, Texto e Insertar. Se quitaron las Capas (para elegir lo que está tapado, toca varias veces).
+ - Insertar: foto con la cámara, foto de la galería (se recorta), NOTA ADHESIVA, PLANTILLA (reseña, querido diario, lista, lo bueno y lo malo,
+   frase para guardar, collage), papel y página nueva.
+ - MODO LIBRO: al tocar la portada del cuaderno en una ficha se abre como un libro, página por página, con vuelta de página.
+   Se pasa con las flechas, deslizando o tocando el borde. "Ver texto" muestra todo como texto normal.
+ - No hay que correr ningún SQL nuevo. Tus hojas anteriores se abren igual (lo que tenías oculto o bloqueado en Capas vuelve a verse).
+
 NOVEDAD v24 - Tejidos, fichas y ranking:
  - Inicio sigue con "¿Qué quieres sembrar hoy?", pero con tipos nuevos: ¿Qué película viste? / serie / juego / libro. Se quitó Gratitud y "Hablar de algo…".
  - Cada cosa va a un TEJIDO: Raíz (tu día, momentos, charlas, desahogo, planes), Sueños, Ideas, Saber, Experiencias (comida), Ruta (lugares),
@@ -18,7 +29,7 @@ NOVEDAD v24 - Tejidos, fichas y ranking:
 
 NOVEDAD v23 - La Hoja nueva:
  - Al crear una semilla te pregunta "¿A mano o con teclado?" (también puedes elegir solo un texto sencillo).
- - La hoja tiene tamaño fijo (como una hoja de cuaderno). Si necesitas más espacio, agregas otra página (hasta 8).
+ - La hoja tiene tamaño fijo (como una hoja de cuaderno). Si necesitas más espacio, agregas otra página (hasta 12).
  - Texto en cápsulas con formato (letra, tamaño, negrita, color, listas...), 5 pinceles, recortes, esquinas y lados arrastrables, y panel de Capas.
  - Se ve integrada a la app: el texto como texto normal, los recortes como figuras y un botón "Ver la hoja tal cual".
  - Las fotos recortadas se guardan aparte en el almacenamiento (Storage) de Supabase, no dentro de la hoja.
