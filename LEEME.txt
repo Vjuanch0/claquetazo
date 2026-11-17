@@ -5,6 +5,13 @@ Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
 Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
 Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube el número de VERSION en sw.js).
 
+NOVEDAD v27 - Pop-up para sembrar y los plones:
+ - Película, serie, juego, libro, comida y lugar se abren en un pop-up compacto (sin scroll): póster grande a la izquierda con Galería/Cámara abajo, nombre, director + año, fecha, etiquetas, calificación y "¿Escribir reseña?" Sí/No.
+ - Con "Sí" el botón dice "Guardar y escribir" y te lleva directo a la reseña.
+ - Ya no se elige tejido ni quién la ve al sembrar: las fichas quedan privadas. Desde la ficha puedes "Hacer pública" o "Mover de tejido".
+ - Las florecitas ahora son plones: 1-2 re paila, 2-3 paila, 3-4 suave, 4-5 melo, 5 re makia. Toca para número entero, arrastra o usa - / + para decimales.
+ (No hay que correr ningún SQL nuevo.)
+
 NOVEDAD v26 - Inicio y ficha más bonitos y compactos, y mejor uso del ancho en PC y tablet:
  - Inicio: Película, Serie, Juego y Libro van arriba, en tarjetas grandes. Lo demás queda debajo.
  - La ficha ahora es compacta: póster grande a la izquierda (con Galería y Cámara pequeños debajo) y a la derecha nombre, director/autor/plataforma, año y fecha.

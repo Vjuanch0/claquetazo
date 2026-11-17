@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=26">
-<link rel="icon" href="favicon.svg?v=26" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=26" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=26">
+<link rel="manifest" href="manifest.webmanifest?v=27">
+<link rel="icon" href="favicon.svg?v=27" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=27" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=27">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1060,6 +1060,58 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .fx-datos{align-items:end}
 .fx-datos .fx-c{align-content:end}
 .fx-datos .fx-h .fi-l{font-size:.66rem;letter-spacing:.09em}
+/* ---------- v27: pop-up compacto de la ficha, plones y controles de la ficha ---------- */
+.hoja-pop{align-items:flex-end}
+.hoja-c.pop{display:block;max-width:600px;max-height:96dvh;overflow:auto;padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));border:1px solid var(--line);border-bottom:0;border-radius:20px 20px 0 0;overscroll-behavior:contain}
+@media(min-width:700px){.hoja-pop{align-items:center}.hoja-c.pop{max-width:680px;border-bottom:1px solid var(--line);border-radius:22px;padding:16px 20px 18px}}
+.pop-cab{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 8px}
+.pop-t{margin:0;font:600 clamp(1.3rem,5vw,1.6rem)/1.15 var(--display);letter-spacing:-.01em}
+.pop-t b{color:var(--lilac);font-weight:600}
+.pop-x{display:grid;place-items:center;flex:none;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);color:var(--ink-dim)}
+.pop-x:hover,.pop-x:focus-visible{color:var(--ink);border-color:var(--lilac)}
+.pop-x .ic{width:18px;height:18px}
+.pop .aviso{margin:0 0 8px}
+.pop-form{display:grid;gap:10px}
+.pop-cuerpo{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 14px;align-items:start}
+.pop .fx-poster{width:clamp(108px,31vw,126px)}
+@media(min-width:700px){.pop .fx-poster{width:176px}.pop-cuerpo{gap:14px 20px}}
+.pop-datos{display:grid;gap:8px;min-width:0;align-content:start}
+.pop-a{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:8px}
+.pop-a-n{grid-template-columns:minmax(0,1fr) 72px}
+.pop-par{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pop .fx-c{grid-column:auto;gap:4px}
+.pop .fi-l{font-size:.66rem;letter-spacing:.09em}
+.pop .in{width:100%;min-width:0;min-height:38px;padding:0 9px;font-size:.9rem}
+.pop .fx-ti .sem-tit{font-size:1.1rem;font-weight:600;padding:5px 2px}
+.pop .fx-multi{min-height:40px;padding:3px 5px}
+.pop .fx-mas{min-height:32px;padding:0 8px;font-size:.84rem}
+.pop .fi-etq{font-size:.8rem}
+.pop-nota{min-width:0}
+.pop-pie{display:flex;align-items:center;gap:10px;margin-top:2px}
+.pop-res{display:flex;align-items:center;gap:8px;flex:none}
+.pop-res-l{font-size:.8rem;color:var(--ink-dim);line-height:1.15;max-width:5.5rem}
+.pop .fx-seg{width:auto;min-width:96px}
+.pop-g{flex:1;min-height:44px}
+.pop-b{min-height:44px}
+/* los plones: una sola fila */
+.pn{display:grid;gap:3px}
+.pn-l{margin:0}
+.pn-fila{display:flex;align-items:center;gap:8px}
+.pn-ctl{flex:none;touch-action:none;cursor:pointer;padding:3px 4px;border-radius:12px;user-select:none;-webkit-user-select:none}
+.pn-ctl:focus-visible{outline:2px solid var(--lilac);outline-offset:1px}
+.pn-ctl .plones{--pl:1.7rem;gap:2px}
+.pn-num{display:flex;align-items:center;gap:3px;margin-left:auto;min-width:0}
+.pn-b,.pn-q{display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:1.05rem;line-height:1}
+.pn-b:hover,.pn-b:focus-visible{border-color:var(--lilac)}
+.pn-q{width:24px;height:24px;border-color:transparent;background:transparent;color:var(--ink-faint);font-size:1rem}
+.pn-v{display:grid;justify-items:center;min-width:54px;line-height:1.05}
+.pn-v b{font:600 1.3rem var(--display);color:var(--vc)}
+.pn-v small{font-size:.66rem;color:var(--vc);font-weight:600;white-space:nowrap}
+/* la página de la ficha */
+.mo-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.mo-c{display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:0 12px;font-size:.86rem}
+.mo-c small{color:var(--ink-faint);font-size:.72rem;font-weight:500}
+.mo-mv{margin-top:2px}
 </style>
 </head>
 <body>
@@ -1817,7 +1869,7 @@ function nivel(nota) { return NIVELES[Math.max(1, Math.min(5, Math.floor(nota + 
 // Dibuja los 5 ploncitos. Cada uno se llena según lo que falte de la nota (ej: 4.7 = 4 llenos + uno al 70%).
 function plones(nota, clase) {
   const nv = nivel(nota);
-  let h = '<span class="plones ' + (clase || '') + '" style="--vc:' + nv.color + '" role="img" aria-label="' + nota.toFixed(1) + ' de 5 florecitas">';
+  let h = '<span class="plones ' + (clase || '') + '" style="--vc:' + nv.color + '" role="img" aria-label="' + nota.toFixed(1) + ' de 5 plones">';
   for (let i = 0; i < 5; i++) {
     const f = Math.max(0, Math.min(1, nota - i));
     h += '<span class="pl"><svg class="pl-off" viewBox="0 0 24 24"><use href="#plon"/></svg>' +
@@ -2285,7 +2337,7 @@ function bvEscena(sec) {
     }
     return { x: x, y: y - alz };
   }
-  // ---- hojitas, pétalos y florecitas que suelta la punta y se lleva el viento
+  // ---- hojitas, pétalos y plones que suelta la punta y se lleva el viento
   const COL = {
     hoja: ['#3ccf8e', '#22a876', '#7ad66a', '#178a5f', '#ff9a45'],
     hoja2: ['#ff9a45', '#ffc83a', '#e0359b', '#e63946', '#8e2bd0']
@@ -2424,9 +2476,9 @@ function iniciarBienvenida() {
 }
 
 /* =====================================================================
-   ALUNA: sembrar (diario), florecitas-orquídea y el viento
+   ALUNA: sembrar (diario), plones-orquídea y el viento
    ===================================================================== */
-// Lo que se puede sembrar. Cada tipo sabe a qué tejido va, si lleva ficha (imagen, datos, etiquetas) y si se califica con florecitas.
+// Lo que se puede sembrar. Cada tipo sabe a qué tejido va, si lleva ficha (imagen, datos, etiquetas) y si se califica con plones.
 const TIPOS = [
   { id: 'dia', nombre: 'Mi día', desc: 'El resumen del día completo', ask: '¿Cómo te fue <b>hoy</b>?', ph: 'Cuéntalo como si se lo contaras a alguien de confianza…', tejido: 'raiz' },
   { id: 'momento', nombre: 'Momento', desc: 'Algo puntual que pasó', ask: '¿Qué pasó que quieres <b>guardar</b>?', ph: 'Qué pasó, dónde, con quién…', tejido: 'raiz' },
@@ -2439,42 +2491,42 @@ const TIPOS = [
   {
     id: 'comida', nombre: 'Comida', desc: 'Lo que probaste', ask: '¿Qué <b>probaste</b>?', ph: 'El sabor, el sitio, la vuelta…', tejido: 'experiencias',
     ficha: true, nota: true, imgL: 'Foto', tituloL: '¿Cómo se llama?', tituloPh: 'Ej: Bandeja paisa', fechaL: '¿Cuándo la probaste?',
-    calQ: '¿Cuántas <b class="resalta">florecitas</b> le das a la comida?',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das a la comida?',
     campos: [{ k: 'lugar', l: '¿Dónde?', ph: 'Restaurante, puesto, casa…' }, { k: 'ciudad', l: 'Ciudad', ph: 'Ej: Medellín', h: 1 }],
     etq: ['Desayuno', 'Almuerzo', 'Cena', 'Postre', 'Callejera', 'Casera', 'Café', 'Típica']
   },
   {
     id: 'lugar', nombre: 'Lugar', desc: 'Dónde fuiste', ask: '¿A dónde <b>fuiste</b>?', ph: 'El sitio, la vuelta, lo que viste…', tejido: 'ruta',
     ficha: true, nota: true, imgL: 'Foto', tituloL: 'Nombre del lugar', tituloPh: 'Ej: Guatapé', fechaL: '¿Cuándo fuiste?',
-    calQ: '¿Cuántas <b class="resalta">florecitas</b> le das al lugar?',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das al lugar?',
     campos: [{ k: 'ciudad', l: 'Ciudad o país', ph: 'Ej: Antioquia, Colombia' }, { k: 'ref', l: 'Referencia', ph: 'Dirección, vereda, cómo llegar…' }],
     etq: ['Playa', 'Montaña', 'Ciudad', 'Pueblo', 'Parque', 'Museo', 'Mirador', 'Restaurante']
   },
   {
-    id: 'pelicula', nombre: 'Película', inicio: '¿Qué película viste?', desc: 'Ficha, florecitas y reseña', ask: '¿Qué película <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'escena',
+    id: 'pelicula', nombre: 'Película', inicio: '¿Qué película viste?', desc: 'Ficha, plones y reseña', ask: '¿Qué película <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'escena',
     ficha: true, nota: true, imgL: 'Póster', tituloL: 'Nombre de la película', tituloPh: 'Ej: El padrino', fechaL: '¿Cuándo la viste?',
-    calQ: '¿Cuántas <b class="resalta">florecitas</b> le das a la película?',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das a la película?',
     campos: [{ k: 'director', l: 'Director', ph: 'Ej: Francis Ford Coppola', sug: 'director' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 1972', num: true, h: 1 }],
     etq: ['Acción', 'Comedia', 'Drama', 'Terror', 'Ciencia ficción', 'Animación', 'Suspenso', 'Romance', 'Documental', 'Fantasía', 'Colombiana']
   },
   {
-    id: 'serie', nombre: 'Serie', inicio: '¿Qué serie viste?', desc: 'Ficha, florecitas y reseña', ask: '¿Qué serie <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'capitulo',
+    id: 'serie', nombre: 'Serie', inicio: '¿Qué serie viste?', desc: 'Ficha, plones y reseña', ask: '¿Qué serie <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'capitulo',
     ficha: true, nota: true, imgL: 'Póster', tituloL: 'Nombre de la serie', tituloPh: 'Ej: Breaking Bad', fechaL: '¿Cuándo la viste?',
-    calQ: '¿Cuántas <b class="resalta">florecitas</b> le das a la serie?',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das a la serie?',
     campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: Netflix', sug: 'plat_serie' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 2008', num: true, h: 1 }, { k: 'temporadas', l: 'Temporadas vistas', ph: 'Ej: 1 a 3', h: 1 }],
     etq: ['Drama', 'Comedia', 'Policial', 'Ciencia ficción', 'Terror', 'Miniserie', 'Anime', 'Documental', 'Fantasía']
   },
   {
-    id: 'juego', nombre: 'Juego', inicio: '¿Qué juego jugaste?', desc: 'Ficha, florecitas y reseña', ask: '¿Qué juego <b>jugaste</b>?', ph: 'Lo que te dejó…', tejido: 'partida',
+    id: 'juego', nombre: 'Juego', inicio: '¿Qué juego jugaste?', desc: 'Ficha, plones y reseña', ask: '¿Qué juego <b>jugaste</b>?', ph: 'Lo que te dejó…', tejido: 'partida',
     ficha: true, nota: true, imgL: 'Portada', tituloL: 'Nombre del juego', tituloPh: 'Ej: The Last of Us', fechaL: '¿Cuándo lo jugaste?',
-    calQ: '¿Cuántas <b class="resalta">florecitas</b> le das al juego?',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das al juego?',
     campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: PlayStation, PC, celular', sug: 'plat_juego' }, { k: 'estreno', l: 'Año de lanzamiento', ph: 'Ej: 2013', num: true, h: 1 }],
     etq: ['Aventura', 'Acción', 'RPG', 'Terror', 'Estrategia', 'Deportes', 'Indie', 'Mundo abierto', 'Cooperativo']
   },
   {
-    id: 'libro', nombre: 'Libro', inicio: '¿Qué libro leíste?', desc: 'Ficha, florecitas y reseña', ask: '¿Qué libro <b>leíste</b>?', ph: 'Lo que te dejó…', tejido: 'paginas',
-    ficha: true, nota: true, imgL: 'Portada', tituloL: 'Título del libro', tituloPh: 'Ej: Cien años de soledad', fechaL: '¿Cuándo lo terminaste?',
-    calQ: '¿Cuántas <b class="resalta">florecitas</b> le das al libro?',
+    id: 'libro', nombre: 'Libro', inicio: '¿Qué libro leíste?', desc: 'Ficha, plones y reseña', ask: '¿Qué libro <b>leíste</b>?', ph: 'Lo que te dejó…', tejido: 'paginas',
+    ficha: true, nota: true, imgL: 'Portada', tituloL: 'Título del libro', tituloPh: 'Ej: Cien años de soledad', fechaL: '¿Cuándo lo leíste?',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das al libro?',
     campos: [{ k: 'autor', l: 'Autor', ph: 'Ej: Gabriel García Márquez', sug: 'autor' }, { k: 'estreno', l: 'Año de publicación', ph: 'Ej: 1967', num: true, h: 1 }],
     etq: ['Novela', 'Cuento', 'Poesía', 'Ensayo', 'Ciencia ficción', 'Fantasía', 'Historia', 'Biografía', 'Colombiano']
   },
@@ -2500,7 +2552,7 @@ const ESTANTES = [{ id: 'pantalla', nombre: 'Pantalla', desc: 'Películas, serie
 const tejidoOk = id => TEJIDOS.some(t => t.id === id);
 const tejidoDe = id => TEJIDOS.find(t => t.id === id) || TEJIDOS[0];
 const estanteDe = id => ESTANTES.find(e => e.id === id) || null;
-// La nota solo cuenta en los tipos que se califican con florecitas
+// La nota solo cuenta en los tipos que se califican con plones
 const notaDe = s => (tipoDe(s.tipo).nota && s.nota != null) ? s.nota : null;
 
 // Sugerencias para los campos de la ficha. Lo que escribas además se va guardando solo (sale de tus propias fichas).
@@ -2569,18 +2621,18 @@ const SQL_SEMILLAS =
   'grant select on public.semillas to anon;\n' +
   'grant select, insert, update, delete on public.semillas to authenticated;\n\n' + SQL_V24;
 
-/* ---------- Florecitas-orquídea: el widget para poner la nota ---------- */
+/* ---------- Plones-orquídea: el widget para poner la nota ---------- */
 const VB_ETAPA = [null, '-26 -36 52 44', '-46 -84 92 92', '-80 -150 160 160', '-90 -180 180 215', '-90 -180 180 215'];
 function notaWHTML(n, pfx) {
   const vacio = n == null, v = vacio ? 3 : n, nv = nivel(v), act = Math.floor(v + 1e-9);
   return '<div class="nw' + (vacio ? ' nw-vacio' : '') + '" id="' + pfx + '-nw" data-v="' + v + '" style="--vc:' + nv.color + '">' +
     '<div class="nw-arriba"><svg class="nw-orq" viewBox="-90 -180 180 215" aria-hidden="true"><g>' + orq(v) + '</g></svg>' +
-    '<div class="nw-num" role="status" aria-live="polite"><b>' + (vacio ? '–' : v.toFixed(1)) + '</b><span>' + (vacio ? 'sin florecitas' : nv.nombre) + '</span></div></div>' +
+    '<div class="nw-num" role="status" aria-live="polite"><b>' + (vacio ? '–' : v.toFixed(1)) + '</b><span>' + (vacio ? 'sin plones' : nv.nombre) + '</span></div></div>' +
     '<div class="nw-fino"><button type="button" class="nota-aj" data-action="' + pfx + '-nota-menos" aria-label="Bajar 0.1">−</button>' +
-    '<input type="range" class="nw-rango" data-pfx="' + pfx + '" min="1" max="5" step="0.1" value="' + v + '" aria-label="Florecitas, de 1 a 5">' +
+    '<input type="range" class="nw-rango" data-pfx="' + pfx + '" min="1" max="5" step="0.1" value="' + v + '" aria-label="Plones, de 1 a 5">' +
     '<button type="button" class="nota-aj" data-action="' + pfx + '-nota-mas" aria-label="Subir 0.1">+</button></div>' +
     '<div class="nw-et" role="group" aria-label="Etapas de la orquídea">' + [1, 2, 3, 4, 5].map(function (i) {
-      return '<button type="button" class="nw-e" data-action="' + pfx + '-nota-set" data-n="' + i + '" aria-pressed="' + (!vacio && act === i) + '" style="--vc:' + NIVELES[i].color + '" aria-label="Poner ' + i + (i === 1 ? ' florecita' : ' florecitas') + ', ' + NIVELES[i].nombre + '">' +
+      return '<button type="button" class="nw-e" data-action="' + pfx + '-nota-set" data-n="' + i + '" aria-pressed="' + (!vacio && act === i) + '" style="--vc:' + NIVELES[i].color + '" aria-label="Poner ' + i + (i === 1 ? ' plón' : ' plones') + ', ' + NIVELES[i].nombre + '">' +
         '<svg viewBox="' + VB_ETAPA[i] + '" aria-hidden="true">' + orq(i, { sinBrillo: true }) + '</svg><small>' + NIVELES[i].nombre + '</small></button>';
     }).join('') + '</div></div>';
 }
@@ -2590,7 +2642,7 @@ function pintarNW(pfx, n, animar) {
   el.classList.toggle('nw-vacio', vacio);
   el.style.setProperty('--vc', nv.color);
   el.querySelector('.nw-num b').textContent = vacio ? '–' : v.toFixed(1);
-  el.querySelector('.nw-num span').textContent = vacio ? 'sin florecitas' : nv.nombre;
+  el.querySelector('.nw-num span').textContent = vacio ? 'sin plones' : nv.nombre;
   const rg = el.querySelector('.nw-rango'); if (rg && parseFloat(rg.value) !== v) rg.value = v;
   el.querySelectorAll('.nw-e').forEach(function (b, i) { b.setAttribute('aria-pressed', String(!vacio && act === i + 1)); });
   const g = el.querySelector('.nw-orq g'); if (!g) return;
@@ -2820,7 +2872,7 @@ async function restaurarSemilla() {
   s.titulo = d.titulo || ''; s.contenido = d.contenido || ''; s.nota = d.nota == null ? null : Number(d.nota); s.publica = !!d.publica; s.abierta = s.nota != null; s.recuperado = reg.hora;
   if (d.tejido && tejidoOk(d.tejido)) { s.tejido = d.tejido; s.datos = d.datos || {}; s.etiquetas = d.etiquetas || []; s.fecha = d.fecha || s.fecha; s.quiereResena = !!d.quiere; }
   if (d.hoja && !s.hojaTocada) { s.hoja = hjNormal(d.hoja); s.hojaMini = d.hojaMini || ''; s.hojaTocada = true; s.hojaCargada = true; }
-  if (location.hash.slice(1) === s.ruta) render(false);
+  if (location.hash.slice(1) === s.ruta) { s.refrescarPop = true; render(false); }
 }
 function recogerSem() {
   const s = estado.sem, t = $('#s-titulo'), x = $('#s-texto');
@@ -2856,13 +2908,13 @@ function visSemHTML_v0() {
 function notaSecHTML_v0() {
   const s = estado.sem, t = tipoDe(s.tipo);
   if (t.nota) {
-    return '<h2 class="mod-t">¿Cuántas <b class="resalta">florecitas</b> le das a tu día?' + (s.nota != null ? ' <button type="button" class="link-b" data-action="sem-nota-quitar">Quitar</button>' : '') + '</h2>' + notaWHTML(s.nota, 'sem');
+    return '<h2 class="mod-t">¿Cuántos <b class="resalta">plones</b> le das a tu día?' + (s.nota != null ? ' <button type="button" class="link-b" data-action="sem-nota-quitar">Quitar</button>' : '') + '</h2>' + notaWHTML(s.nota, 'sem');
   }
-  if (!s.abierta) return '<button type="button" class="btn" data-action="sem-nota-abrir">+ Ponerle florecitas</button>';
-  return '<h2 class="mod-t">Florecitas <button type="button" class="link-b" data-action="sem-nota-quitar">Quitar</button></h2>' + notaWHTML(s.nota, 'sem');
+  if (!s.abierta) return '<button type="button" class="btn" data-action="sem-nota-abrir">+ Ponerle plones</button>';
+  return '<h2 class="mod-t">Plones <button type="button" class="link-b" data-action="sem-nota-quitar">Quitar</button></h2>' + notaWHTML(s.nota, 'sem');
 }
 function pintarSecNota() { const e = $('#s-nota'); if (e) e.innerHTML = notaSecHTML(); }
-function cambiarNotaSem(n, directo) {
+function cambiarNotaSem_v0(n, directo) {
   const s = estado.sem; if (!s || s.faltante) return;
   const habia = s.nota != null;
   s.nota = redondear(Math.max(1, Math.min(5, n))); s.abierta = true;
@@ -3020,7 +3072,7 @@ function modTarjeta(s, rank) {
     '<span class="mo-img">' + (u ? '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async">' : '<span class="mo-sin">' + esc(t.nombre) + '</span>') +
     (rank ? '<span class="mo-rk">' + rank + '</span>' : '') + (tieneResena(s) ? '<span class="mo-res" title="Tiene reseña">Reseña</span>' : '') + '</span>' +
     '<span class="mo-t">' + esc(s.titulo || 'Sin título') + '</span>' +
-    '<span class="mo-pie">' + (nv ? plones(nt, 'chico') + '<span class="palabra">' + nt.toFixed(1) + '</span>' : '<span class="mo-sn">Sin florecitas</span>') +
+    '<span class="mo-pie">' + (nv ? plones(nt, 'chico') + '<span class="palabra">' + nt.toFixed(1) + '</span>' : '<span class="mo-sn">Sin plones</span>') +
     (!s.publica ? '<span class="tag-priv sem-priv">Privada</span>' : '') + '</span></a>';
 }
 function vistaColeccion(scope) {
@@ -3118,7 +3170,7 @@ function vistaModulo(id) {
     (b.etiquetas.length ? '<div class="chips-ro">' + b.etiquetas.map(function (e) { return '<span>#' + esc(e) + '</span>'; }).join('') + '</div>' : '') +
     (nv ? '<div class="mo-nota">' + plones(nt, 'grande') + '<span class="vb-pal">' + nt.toFixed(1) + ' · ' + esc(nv.nombre) + '</span></div>' : '') +
     (t.sueno && b.datos.sueno ? '<p class="mo-sueno">' + (b.datos.sueno === 'pesadilla' ? 'Fue una pesadilla' : 'Fue un sueño dulce') + '</p>' : '') +
-    (dueno ? '<p class="mo-vis">' + (b.publica ? 'Pública: cualquiera con el link la puede ver.' : 'Privada: solo tú la ves.') + '</p>' : '') + '</div></div>' + res + acc + '</article>';
+    (dueno ? modControlesHTML(b) : '') + '</div></div>' + res + acc + '</article>';
 }
 /* =====================================================================
    HOJA v2: hojas de tamaño fijo (800 x 1000) con cápsulas de texto, dibujos y recortes.
@@ -4888,17 +4940,6 @@ function visSemHTML() {
 }
 
 /* ---------- Reseña: Sí o No en el mismo formulario ---------- */
-function resenaSiNoHTML() {
-  const q = !!estado.sem.quiereResena;
-  return '<div class="fx-res-t"><span class="fi-l">Reseña</span><b>¿Quieres escribir la reseña?</b></div>' +
-    '<div class="seg fx-seg" role="group" aria-label="Escribir la reseña"><button type="button" aria-pressed="' + (!q) + '" data-action="sem-res" data-v="0">No</button><button type="button" aria-pressed="' + q + '" data-action="sem-res" data-v="1">Sí</button></div>';
-}
-function textoGuardar() {
-  const s = estado.sem; if (!s) return 'Guardar';
-  if (s.base) return 'Guardar cambios';
-  const t = tipoDe(s.tipo);
-  return t.ficha ? (s.quiereResena ? 'Guardar y escribir la reseña' : 'Guardar ficha') : 'Sembrar';
-}
 
 /* ---------- Sugerencias para director, autor y plataforma: las de la lista + las que ya escribiste ---------- */
 function sugerenciasCampo(t, c) {
@@ -4911,50 +4952,123 @@ function sugerenciasCampo(t, c) {
 }
 
 /* ---------- La ficha / el formulario de una semilla ---------- */
-function camposHTML(t, s) {
-  const dl = [], campos = t.campos || [];
-  const mitades = campos.filter(function (c) { return c.h; }).length;
-  let h = campos.map(function (c) {
-    const lista = sugerenciasCampo(t, c);
-    if (lista.length) dl.push('<datalist id="dl-' + c.k + '">' + lista.map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>');
-    return '<label class="fx-c' + (c.h ? ' fx-h' : '') + '"><span class="fi-l">' + esc(c.l) + '</span><input class="in" type="text" data-campo="' + c.k + '"' + (lista.length ? ' list="dl-' + c.k + '"' : '') + (c.num ? ' inputmode="numeric" maxlength="4"' : ' maxlength="80"') + ' placeholder="' + esc(c.ph || '') + '" value="' + esc(s.datos[c.k] || '') + '" autocomplete="off"></label>';
-  }).join('');
-  h += '<label class="fx-c' + (mitades % 2 === 1 ? ' fx-h' : '') + '"><span class="fi-l">' + esc(t.fechaL) + '</span><input class="in" type="date" id="s-fecha" value="' + esc(s.fecha || '') + '"></label>';
-  return h + dl.join('');
+
+/* ---------- v27: la ficha es un pop-up compacto ---------- */
+// Pop-up solo para los tipos con ficha. Los de texto (Mi día, Idea…) siguen en pantalla completa.
+function esPop(s) {
+  return !!s && !s.faltante && !!estado.sesion && !!tipoDe(s.tipo).ficha && !s.paginaCompleta && !(s.base && estado.pedirResena === s.id);
 }
-function formSemillaHTML(s) {
-  const t = tipoDe(s.tipo), nueva = !s.base;
-  const atras = nueva ? '#inicio' : (t.ficha ? '#modulo-' + s.id : '#tejido-' + s.tejido);
-  const volver = '<a class="volver" href="' + atras + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>';
-  const nota = (t.nota || t.sueno) ? '<section class="mod sem-nota fx-nota" id="s-nota">' + notaSecHTML() + '</section>' : '';
-  const fila = '<div class="fx-fila"><div class="fx-c" id="s-tej">' + tejSecHTML() + '</div><div class="fx-c" id="s-vis">' + visSemHTML() + '</div></div><div id="s-tej-p">' + tejPanelHTML() + '</div>';
-  let cuerpo;
-  if (t.ficha) {
-    cuerpo = '<div class="fx-cols"><div class="fx-izq"><div class="fx-top"><div class="fx-poster" id="s-img">' + imgHTML() + '</div>' +
-      '<div class="fx-datos"><label class="fx-c fx-ti"><span class="fi-l">' + esc(t.tituloL) + '</span>' +
+function vistaSemilla() {
+  const s = estado.sem;
+  if (s && !s.faltante && estado.sesion) {
+    if (esPop(s)) return s.base ? vistaModulo(s.id) : vistaSembrar();   // por detrás se ve de dónde vienes
+    return formSemillaHTML(s);
+  }
+  if (s && s.base && !estado.sesion && tipoDe(s.tipo).ficha) return vistaModulo(s.id);
+  return vistaSemillaBase();
+}
+function campoHTML(t, s, c, dl) {
+  const lista = sugerenciasCampo(t, c);
+  if (lista.length) dl.push('<datalist id="dl-' + c.k + '">' + lista.map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>');
+  return '<label class="fx-c"><span class="fi-l">' + esc(c.num ? 'Año' : c.l) + '</span><input class="in" type="text" data-campo="' + c.k + '"' + (lista.length ? ' list="dl-' + c.k + '"' : '') +
+    (c.num ? ' inputmode="numeric" maxlength="4"' : ' maxlength="80"') + ' placeholder="' + esc(c.ph || '') + '" value="' + esc(s.datos[c.k] || '') + '" autocomplete="off"></label>';
+}
+const ICO_X = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+function popHTML(s) {
+  const t = tipoDe(s.tipo), nueva = !s.base, camp = t.campos || [], dl = [];
+  const c0 = camp[0] || null, cB = camp.filter(function (c) { return c.num; })[0] || camp[1] || null;
+  const resto = camp.filter(function (c) { return c !== c0 && c !== cB; });
+  const fecha = '<label class="fx-c"><span class="fi-l">' + esc(t.fechaL) + '</span><input class="in" type="date" id="s-fecha" value="' + esc(s.fecha || '') + '"></label>';
+  const items = resto.map(function (c) { return campoHTML(t, s, c, dl); }).concat([fecha]);
+  let filas = '';
+  for (let i = 0; i < items.length; i += 2) filas += (i + 1 < items.length) ? '<div class="pop-par">' + items[i] + items[i + 1] + '</div>' : items[i];
+  const a = c0 ? '<div class="pop-a' + (cB && cB.num ? ' pop-a-n' : '') + '">' + campoHTML(t, s, c0, dl) + (cB ? campoHTML(t, s, cB, dl) : '') + '</div>' : '';
+  const atras = nueva ? '#inicio' : '#modulo-' + s.id;
+  return '<div class="pop-cab"><h2 class="pop-t">' + t.ask + '</h2><a class="pop-x" href="' + atras + '" aria-label="Cerrar">' + ICO_X + '</a></div>' +
+    (s.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin guardar (' + hace(s.recuperado) + ').</span><button type="button" class="btn" data-action="sem-descartar">Descartar</button></div>' : '') +
+    '<form id="fs" class="pop-form" novalidate>' +
+      '<div class="pop-cuerpo"><div class="fx-poster" id="s-img">' + imgHTML() + '</div>' +
+      '<div class="pop-datos"><label class="fx-c fx-ti"><span class="fi-l">' + esc(t.tituloL) + '</span>' +
       '<input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="' + esc(t.tituloPh) + '" value="' + esc(s.titulo) + '" autocomplete="off" required></label>' +
-      camposHTML(t, s) + '</div><div class="fx-fp">' + fila + '</div></div></div>' +
-      '<div class="fx-der"><section class="fx-c fx-etqs"><span class="fi-l">Etiquetas</span><div class="fx-multi" id="s-etq-chips">' + etqChipsHTML() + '</div></section>' +
-      nota +
-      (nueva ? '<section class="mod fx-res" id="s-res">' + resenaSiNoHTML() + '</section>' : '<section class="mod fi-resena"><h2 class="mod-t">Reseña</h2><div id="s-cuerpo">' + cuerpoSemHTML() + '</div></section>') +
-      '</div></div>';
+      a + filas + dl.join('') +
+      '<section class="fx-c fx-etqs"><span class="fi-l">Etiquetas</span><div class="fx-multi" id="s-etq-chips">' + etqChipsHTML() + '</div></section></div></div>' +
+      '<section class="pop-nota" id="s-nota">' + notaSecHTML() + '</section>' +
+      '<p class="error" id="s-error" role="alert" hidden></p>' +
+      '<div class="pop-pie">' +
+        (nueva ? '<div class="pop-res" id="s-res">' + resenaSiNoHTML() + '</div>' : '<button type="button" class="btn peligro pop-b" data-action="sem-borrar">Borrar</button>') +
+        '<button type="submit" id="s-guardar" class="btn prim pop-g">' + textoGuardar() + '</button></div>' +
+    '</form>';
+}
+function abrirPop() {
+  const s = estado.sem;
+  if (!s || !esPop(s)) { cerrarHoja('hoja-ficha'); return; }
+  const ya = document.getElementById('hoja-ficha');
+  if (ya && ya.dataset.sid === s.id && !s.refrescarPop) return;
+  s.refrescarPop = false;
+  const h = abrirHoja('hoja-ficha', '<div class="hoja-c pop">' + popHTML(s) + '</div>');
+  h.dataset.sid = s.id; h.classList.add('hoja-pop'); h.setAttribute('aria-label', tipoDe(s.tipo).nombre);
+  if (!s.base && window.matchMedia && matchMedia('(pointer:fine)').matches) setTimeout(function () { const x = $('#s-titulo'); if (x && document.activeElement !== x) { try { x.focus({ preventScroll: true }); } catch (e) { /* nada */ } } }, 80);
+}
+
+/* ---------- La pantalla completa: textos, y la página de la reseña de una ficha ---------- */
+function formSemillaHTML(s) {
+  const t = tipoDe(s.tipo);
+  const atras = !s.base ? '#inicio' : (t.ficha ? '#modulo-' + s.id : '#tejido-' + s.tejido);
+  const volver = '<a class="volver" href="' + atras + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>';
+  let cuerpo, cabeza;
+  if (t.ficha) {
+    cabeza = '<p class="sem-ey">' + esc(t.nombre) + ' · reseña</p><h1 class="sem-ask">Tu reseña de <b>' + esc(s.titulo || t.nombre) + '</b></h1>';
+    cuerpo = '<input type="hidden" id="s-titulo" value="' + esc(s.titulo) + '"><section class="mod fi-resena"><div id="s-cuerpo">' + cuerpoSemHTML() + '</div></section>';
   } else {
+    const nota = t.sueno ? '<section class="mod sem-nota fx-nota" id="s-nota">' + notaSecHTML() + '</section>' : '';
+    const fila = '<div class="fx-fila"><div class="fx-c" id="s-tej">' + tejSecHTML() + '</div><div class="fx-c" id="s-vis">' + visSemHTML() + '</div></div><div id="s-tej-p">' + tejPanelHTML() + '</div>';
+    cabeza = '<p class="sem-ey">' + esc(t.nombre) + ' · ' + esc(fechaLarga(s.base ? s.base.creado : Date.now())) + '</p><h1 class="sem-ask">' + t.ask + '</h1>';
     cuerpo = '<label class="vh" for="s-titulo">Nombre (opcional)</label>' +
       '<input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="Ponle nombre (opcional)" value="' + esc(s.titulo) + '" autocomplete="off">' +
       '<div id="s-cuerpo">' + cuerpoSemHTML() + '</div>' + nota + fila;
   }
   return '<div class="ed-top">' + volver +
     (s.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin sembrar (' + hace(s.recuperado) + ').</span><button type="button" class="btn" data-action="sem-descartar">Descartar</button></div>' : '') + '</div>' +
-    '<form id="fs" class="sem-form' + (t.ficha ? ' sem-ficha fx' : '') + '" novalidate>' +
-      '<p class="sem-ey">' + esc(t.nombre) + ' · ' + esc(fechaLarga(s.base ? s.base.creado : Date.now())) + '</p>' +
-      '<h1 class="sem-ask">' + t.ask + '</h1>' + cuerpo +
+    '<form id="fs" class="sem-form" novalidate>' + cabeza + cuerpo +
       '<p class="error" id="s-error" role="alert" hidden></p>' +
       '<div class="ed-bar"><button type="submit" id="s-guardar" class="btn prim">' + textoGuardar() + '</button>' +
         (s.base ? '<button type="button" class="btn peligro" data-action="sem-borrar">Borrar</button>' : '') + '</div>' +
     '</form>';
 }
+function resenaSiNoHTML() {
+  const q = !!estado.sem.quiereResena;
+  return '<span class="pop-res-l">¿Escribir reseña?</span><div class="seg fx-seg" role="group" aria-label="Escribir la reseña"><button type="button" aria-pressed="' + (!q) + '" data-action="sem-res" data-v="0">No</button><button type="button" aria-pressed="' + q + '" data-action="sem-res" data-v="1">Sí</button></div>';
+}
+function textoGuardar() {
+  const s = estado.sem; if (!s) return 'Guardar';
+  if (s.base) return 'Guardar cambios';
+  const t = tipoDe(s.tipo);
+  return t.ficha ? (s.quiereResena ? 'Guardar y escribir' : 'Guardar') : 'Sembrar';
+}
 
-/* ---------- Calificación: florecitas (o dulce / pesadilla en los sueños) ---------- */
+/* ---------- Calificación: los plones (o dulce / pesadilla en los sueños) ---------- */
+function pnHTML(n) {
+  const vacio = n == null, nv = vacio ? null : nivel(n);
+  return '<div class="pn" id="sem-pn" style="--vc:' + (nv ? nv.color : 'var(--ink-faint)') + '">' +
+    '<span class="fi-l pn-l">¿Cuántos <b class="resalta">plones</b> le das?</span>' +
+    '<div class="pn-fila"><div class="pn-ctl" id="sem-pn-ctl" role="slider" tabindex="0" aria-label="Plones, de 1 a 5" aria-valuemin="1" aria-valuemax="5" aria-valuenow="' + (vacio ? '' : n) + '" aria-valuetext="' + (vacio ? 'sin plones' : n.toFixed(1) + ' plones, ' + nv.nombre) + '">' + plones(vacio ? 0 : n) + '</div>' +
+    '<div class="pn-num"><button type="button" class="pn-b" data-action="sem-nota-menos" aria-label="Bajar 0.1">−</button>' +
+    '<span class="pn-v" role="status" aria-live="polite"><b>' + (vacio ? '–' : n.toFixed(1)) + '</b><small>' + (vacio ? 'sin plones' : nv.nombre) + '</small></span>' +
+    '<button type="button" class="pn-b" data-action="sem-nota-mas" aria-label="Subir 0.1">+</button>' +
+    '<button type="button" class="pn-q" data-action="sem-nota-quitar" aria-label="Quitar los plones"' + (vacio ? ' hidden' : '') + '>×</button></div></div></div>';
+}
+function pintarPN() {
+  const s = estado.sem, el = document.getElementById('sem-pn'); if (!s) return;
+  if (!el) { pintarSecNota(); return; }
+  const n = s.nota, vacio = n == null, nv = vacio ? null : nivel(n);
+  el.style.setProperty('--vc', nv ? nv.color : 'var(--ink-faint)');
+  const c = el.querySelector('.pn-ctl');
+  c.innerHTML = plones(vacio ? 0 : n);
+  c.setAttribute('aria-valuenow', vacio ? '' : n); c.setAttribute('aria-valuetext', vacio ? 'sin plones' : n.toFixed(1) + ' plones, ' + nv.nombre);
+  el.querySelector('.pn-v b').textContent = vacio ? '–' : n.toFixed(1);
+  el.querySelector('.pn-v small').textContent = vacio ? 'sin plones' : nv.nombre;
+  el.querySelector('.pn-q').hidden = vacio;
+}
 function notaSecHTML() {
   const s = estado.sem, t = tipoDe(s.tipo);
   if (t.sueno) {
@@ -4964,16 +5078,76 @@ function notaSecHTML() {
       '<button type="button" aria-pressed="' + (v === 'pesadilla') + '" data-action="sem-sueno" data-v="pesadilla">Pesadilla</button></div>';
   }
   if (!t.nota) return '';
-  return '<h2 class="mod-t">' + t.calQ + (s.nota != null ? ' <button type="button" class="link-b" data-action="sem-nota-quitar">Quitar</button>' : '') + '</h2>' + notaWHTML(s.nota, 'sem');
+  return pnHTML(s.nota);
+}
+function cambiarNotaSem(n) {
+  const s = estado.sem; if (!s || s.faltante) return;
+  s.nota = redondear(Math.max(1, Math.min(5, n))); s.abierta = true;
+  marcarSem(); pintarPN();
+}
+// Tocar un plón pone ese número entero; arrastrar afina de a 0.1
+let pnDrag = null;
+function pnValor(x, r, fino) {
+  const f = Math.max(0, Math.min(1, (x - r.left) / (r.width || 1)));
+  return Math.max(1, Math.min(5, fino ? redondear(f * 5) : (Math.ceil(f * 5 - 1e-9) || 1)));
+}
+document.addEventListener('pointerdown', function (e) {
+  const c = e.target && e.target.closest ? e.target.closest('#sem-pn-ctl') : null; if (!c || !estado.sem) return;
+  e.preventDefault();
+  const r = c.getBoundingClientRect(); pnDrag = { id: e.pointerId, x0: e.clientX, r: r, fino: false };
+  try { c.setPointerCapture(e.pointerId); } catch (x) { /* nada */ }
+  cambiarNotaSem(pnValor(e.clientX, r, false));
+});
+document.addEventListener('pointermove', function (e) {
+  if (!pnDrag || e.pointerId !== pnDrag.id) return;
+  if (!pnDrag.fino && Math.abs(e.clientX - pnDrag.x0) > 5) pnDrag.fino = true;
+  if (pnDrag.fino) cambiarNotaSem(pnValor(e.clientX, pnDrag.r, true));
+});
+const pnFin = function (e) { if (pnDrag && e.pointerId === pnDrag.id) pnDrag = null; };
+document.addEventListener('pointerup', pnFin); document.addEventListener('pointercancel', pnFin);
+document.addEventListener('keydown', function (e) {
+  if (e.target && e.target.id === 'sem-pn-ctl' && estado.sem) {
+    const d = (e.key === 'ArrowRight' || e.key === 'ArrowUp') ? .1 : (e.key === 'ArrowLeft' || e.key === 'ArrowDown') ? -.1 : 0;
+    if (d) { e.preventDefault(); cambiarNotaSem((estado.sem.nota == null ? 3 : estado.sem.nota) + d); }
+    return;
+  }
+  if (e.key === 'Escape') {
+    if (document.getElementById('hoja-etq')) { cerrarHoja('hoja-etq'); return; }
+    if (document.getElementById('hoja-ficha') && !document.getElementById('hoja-enc') && estado.sem) { e.preventDefault(); location.hash = estado.sem.base ? '#modulo-' + estado.sem.id : '#inicio'; }
+  }
+});
+
+/* ---------- La página de la ficha: hacerla pública y moverla de tejido ---------- */
+estado.moMover = '';
+function modControlesHTML(b) {
+  const tj = tejidoDe(b.tejido);
+  let h = '<div class="mo-ctl">';
+  if (tj.privado) h += '<span class="mo-vis">Solo tú. Aquí nada se publica.</span>';
+  else h += '<button type="button" class="chip mo-c" data-action="mod-pub" data-id="' + b.id + '" aria-pressed="' + !!b.publica + '">' + (b.publica ? 'Pública' : 'Privada') + '<small>' + (b.publica ? 'Volver privada' : 'Hacer pública') + '</small></button>';
+  h += '<button type="button" class="chip mo-c" data-action="mod-mover" data-id="' + b.id + '" aria-expanded="' + (estado.moMover === b.id) + '"><i class="fx-dot" style="background:' + tj.color + '"></i>' + esc(tj.nombre) + '<small>Mover de tejido</small></button></div>';
+  if (estado.moMover === b.id) h += '<div class="chips sm mo-mv">' + TEJIDOS.map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x.id === b.tejido) + '" data-action="mod-tej" data-id="' + b.id + '" data-t="' + x.id + '">' + esc(x.nombre) + '</button>'; }).join('') + '</div>';
+  return h;
+}
+async function modCambiar(id, campos, msg) {
+  if (!estado.sesion || !sb) return;
+  const r = await sb.from('semillas').update(campos).eq('id', id);
+  if (r.error) { toast('No se pudo cambiar. Revisa tu internet e intenta otra vez.'); return; }
+  try { await cargarSemillas(); } catch (e) { /* se verá al recargar */ }
+  render(false); toast(msg);
+}
+function modPublicar(id) {
+  const b = estado.semillas.find(function (x) { return x.id === id; }); if (!b || tejidoDe(b.tejido).privado) return;
+  modCambiar(id, { publica: !b.publica }, b.publica ? 'Ahora es privada' : 'Ahora es pública');
+}
+function modTejido(id, t) {
+  const b = estado.semillas.find(function (x) { return x.id === id; }); if (!b || !tejidoOk(t) || t === b.tejido) { estado.moMover = ''; render(false); return; }
+  estado.moMover = '';
+  modCambiar(id, { tejido: t, publica: tejidoDe(t).privado ? false : !!b.publica }, 'Movida a ' + tejidoDe(t).nombre);
 }
 
+/* ---------- Calificación: plones (o dulce / pesadilla en los sueños) ---------- */
+
 /* ---------- La ficha / el formulario de una semilla ---------- */
-function vistaSemilla() {
-  const s = estado.sem;
-  if (s && !s.faltante && estado.sesion) return formSemillaHTML(s);
-  if (s && s.base && !estado.sesion && tipoDe(s.tipo).ficha) return vistaModulo(s.id);
-  return vistaSemillaBase();
-}
 
 /* ---------- Guardar ---------- */
 async function guardarSemilla() {
@@ -5049,8 +5223,10 @@ function autoGuardarResena(s) {
   });
 }
 function v24PostRender(h) {
+  if ((h.indexOf('sembrar-') === 0 || h.indexOf('semilla-') === 0) && estado.sem && !estado.sem.faltante && esPop(estado.sem)) abrirPop(); else cerrarHoja('hoja-ficha');
   if (h.indexOf('semilla-') === 0 && estado.pedirResena && estado.sem && estado.sem.id === estado.pedirResena) {
     estado.pedirResena = null;
+    estado.sem.paginaCompleta = true;
     setTimeout(function () {
       const c = $('#s-cuerpo'); if (!c) return;
       try { c.scrollIntoView({ behavior: reducido() ? 'auto' : 'smooth', block: 'center' }); } catch (e) { /* nada */ }
@@ -6259,6 +6435,9 @@ document.addEventListener('click', function (e) {
     case 'tj-tipo': estado.tj.tipo = estado.tj.tipo === b.dataset.t ? '' : b.dataset.t; render(false); break;
     case 'mod-leer': estado.moLeer = estado.moLeer === id ? '' : id; render(false); break;
     case 'mod-libro': abrirVerHoja('semilla', id); break;
+    case 'mod-pub': modPublicar(id); break;
+    case 'mod-mover': estado.moMover = estado.moMover === id ? '' : id; render(false); break;
+    case 'mod-tej': modTejido(id, b.dataset.t); break;
     case 'mod-resena': estado.pedirResena = id; break;
     case 'resena-si': cerrarHoja('hoja-resena'); estado.pedirResena = id; location.hash = '#semilla-' + id; break;
     case 'resena-no': cerrarHoja('hoja-resena'); break;
