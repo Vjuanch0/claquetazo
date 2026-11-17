@@ -5,6 +5,11 @@ Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
 Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
 Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube el número de VERSION en sw.js).
 
+NOVEDAD v28 - Tarjetas de Inicio más bajitas y plones a la derecha:
+ - Película, Serie, Juego y Libro en Inicio ahora son tarjetas compactas (ícono a la izquierda, nombre y pregunta al lado), en celular, tablet y PC.
+ - En tablet y PC, el pop-up pone la calificación en plones en la columna derecha, debajo de las etiquetas, todo junto. El celular queda igual.
+ (No hay que correr ningún SQL nuevo.)
+
 NOVEDAD v27 - Pop-up para sembrar y los plones:
  - Película, serie, juego, libro, comida y lugar se abren en un pop-up compacto (sin scroll): póster grande a la izquierda con Galería/Cámara abajo, nombre, director + año, fecha, etiquetas, calificación y "¿Escribir reseña?" Sí/No.
  - Con "Sí" el botón dice "Guardar y escribir" y te lleva directo a la reseña.
