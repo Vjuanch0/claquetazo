@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=25">
-<link rel="icon" href="favicon.svg?v=25" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=25" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=25">
+<link rel="manifest" href="manifest.webmanifest?v=26">
+<link rel="icon" href="favicon.svg?v=26" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=26" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=26">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -969,6 +969,97 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .mo-cuaderno::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;z-index:2;background:linear-gradient(90deg,rgba(0,0,0,.5),rgba(255,255,255,.08) 55%,rgba(0,0,0,.18));pointer-events:none}
 .mo-txt-b{display:inline-block;margin:10px 0 0;min-height:40px}
 .mo-lee .hj-ver-b{display:none}
+/* ---------- v26: Inicio, ficha compacta y anchos de PC y tablet ---------- */
+.sem-gr-l{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 4px}
+.sem-gr{position:relative;display:grid;gap:2px;align-content:end;min-height:118px;padding:14px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:linear-gradient(160deg,color-mix(in srgb,var(--tc) 26%,var(--surface)),var(--surface) 74%);transition:transform .2s,border-color .2s,box-shadow .2s}
+.sem-gr:hover,.sem-gr:focus-visible{transform:translateY(-3px);border-color:var(--tc);box-shadow:0 14px 28px rgba(0,0,0,.3)}
+.sem-gr:active{transform:scale(.98)}
+.sem-gr-i{position:absolute;right:12px;top:12px;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:color-mix(in srgb,var(--tc) 22%,transparent);color:var(--tc)}
+.sem-gr-i .ic{width:22px;height:22px}
+.sem-gr-n{font:600 1.3rem/1.15 var(--display)}
+.sem-gr-d{color:var(--ink-dim);font-size:.82rem;line-height:1.3}
+.sem-otro{margin:22px 0 6px;font:700 .72rem var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+@media(min-width:700px){
+  .sem-gr-l{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .sem-gr{min-height:150px;padding:18px}
+  .sem-cab,.sem-lista,.sem-cta{max-width:none}
+  .sem-h{max-width:none}
+  .sem-lista{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:36px}
+  .tj-hilos{max-width:none;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tj-lista{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rk{max-width:none}
+  .mo{max-width:none}
+  .sem-form:not(.sem-ficha){max-width:860px}
+  .sem-ficha{max-width:none}
+}
+@media(min-width:1100px){
+  .tj-hilos{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .tj-lista{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rk{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}
+}
+@media(prefers-reduced-motion:reduce){.sem-gr,.fx-sel .ic{transition:none}}
+
+/* La ficha: póster grande a la izquierda, datos a la derecha */
+.fx{gap:14px}
+.fx .sem-ask{font-size:clamp(1.55rem,5.6vw,2.15rem);max-width:none}
+.fx-cols{display:grid;gap:14px;align-items:start}
+.fx-izq,.fx-der{display:grid;gap:14px;min-width:0;align-content:start}
+@media(min-width:1000px){.fx-cols{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:30px}}
+.fx-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px 16px;align-items:start}
+.fx-poster{display:grid;gap:8px;justify-items:center;align-content:start;width:clamp(116px,31vw,136px);min-width:0}
+@media(min-width:700px){.fx-poster{width:190px}.fx-top{gap:16px 22px}}
+@media(min-width:1000px){.fx-poster{width:215px}}
+.fx-pv{display:block;position:relative;width:100%;aspect-ratio:2/3;border-radius:14px;overflow:hidden;border:1px dashed var(--line);background:var(--surface);cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.28)}
+.fx-poster:has(img) .fx-pv{border-style:solid}
+.fx-pv img{display:block;width:100%;height:100%;object-fit:cover}
+.fx-pv-v{position:absolute;inset:0;display:grid;place-content:center;gap:4px;justify-items:center;text-align:center;padding:8px;color:var(--ink-dim);background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px)}
+.fx-pv-v .ic{width:26px;height:26px}
+.fx-pv-v b{font:600 .95rem var(--display);color:var(--ink)}
+.fx-pv-v small{font-size:.68rem;color:var(--ink-faint)}
+.fx-pb{display:flex;gap:6px;width:100%}
+.fx-ib{flex:1;display:flex;align-items:center;justify-content:center;gap:3px;min-height:34px;padding:0 2px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink-dim);font-size:.66rem;font-weight:600;cursor:pointer;min-width:0;overflow:hidden}
+.fx-ib .ic{width:16px;height:16px;flex:none}
+.fx-ib:hover{border-color:var(--lilac);color:var(--ink)}
+.fx-q{font-size:.75rem}
+.fx-datos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-width:0;align-content:start}
+.fx-c{display:grid;gap:5px;grid-column:1/-1;min-width:0;align-content:start}
+.fx-c.fx-h{grid-column:auto}
+.fx .in{width:100%;min-width:0;min-height:40px;padding:0 10px;font-size:.92rem}
+.fx .fx-ti .sem-tit{font-size:1.2rem;font-weight:600}
+.fx-fila{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px;align-items:start}
+.fx-sel{display:flex;align-items:center;gap:8px;width:100%;min-height:40px;padding:0 10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);text-align:left}
+.fx-sel b{flex:1;min-width:0;font:600 .95rem var(--display);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fx-sel .ic{width:18px;height:18px;flex:none;color:var(--ink-dim);transition:transform .2s}
+.fx-sel[aria-expanded="true"] .ic{transform:rotate(180deg)}
+.fx-dot{width:10px;height:10px;border-radius:50%;flex:none}
+.fx-seg{display:grid;width:100%;justify-self:stretch}
+.fx-seg button{padding:0 8px;min-height:34px}
+.fx-priv{margin:0;min-height:40px;display:flex;align-items:center;color:var(--ink-dim);font-size:.82rem;line-height:1.25}
+#s-tej-p:empty{display:none}
+.fx-multi{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:44px;padding:5px 6px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.fx-mas{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--ink-dim);font-size:.88rem;font-weight:600}
+.fx-mas:only-child{flex:1;justify-content:space-between}
+.fx-mas .ic{width:18px;height:18px}
+.fx-mas:hover{color:var(--ink)}
+.etq-nueva{justify-content:flex-start}
+.fx-nota{padding:12px 14px}
+.fx-nota .mod-t{margin:0 0 4px}
+.fx .nw-orq{width:66px;max-height:88px}
+.fx .nw-num b{font-size:2.1rem}
+.fx .nw-e svg{height:28px}
+@media(min-width:700px){.fx .nw-orq{width:84px;max-height:110px}}
+.fx-res{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px}
+.fx-res-t{display:grid;gap:2px;min-width:0}
+.fx-res-t b{font:600 1rem/1.25 var(--display)}
+.fx-res .fx-seg{width:auto;min-width:132px}
+
+.fx-fila>.fx-c{grid-column:auto}
+.fx-fp{grid-column:1/-1;display:grid;gap:10px;min-width:0}
+@media(min-width:700px){.fx-poster{grid-row:1/3}.fx-datos{grid-column:2}.fx-fp{grid-column:2;grid-row:2;align-self:end}}
+@media(min-width:1000px){.mo-hero{grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:34px}.mo-poster{max-width:320px}.mo-h{font-size:clamp(2.2rem,3.4vw,3rem)}}
+.fx-datos{align-items:end}
+.fx-datos .fx-c{align-content:end}
+.fx-datos .fx-h .fi-l{font-size:.66rem;letter-spacing:.09em}
 </style>
 </head>
 <body>
@@ -2349,7 +2440,7 @@ const TIPOS = [
     id: 'comida', nombre: 'Comida', desc: 'Lo que probaste', ask: '¿Qué <b>probaste</b>?', ph: 'El sabor, el sitio, la vuelta…', tejido: 'experiencias',
     ficha: true, nota: true, imgL: 'Foto', tituloL: '¿Cómo se llama?', tituloPh: 'Ej: Bandeja paisa', fechaL: '¿Cuándo la probaste?',
     calQ: '¿Cuántas <b class="resalta">florecitas</b> le das a la comida?',
-    campos: [{ k: 'lugar', l: '¿Dónde?', ph: 'Restaurante, puesto, casa…' }, { k: 'ciudad', l: 'Ciudad', ph: 'Ej: Medellín' }],
+    campos: [{ k: 'lugar', l: '¿Dónde?', ph: 'Restaurante, puesto, casa…' }, { k: 'ciudad', l: 'Ciudad', ph: 'Ej: Medellín', h: 1 }],
     etq: ['Desayuno', 'Almuerzo', 'Cena', 'Postre', 'Callejera', 'Casera', 'Café', 'Típica']
   },
   {
@@ -2363,28 +2454,28 @@ const TIPOS = [
     id: 'pelicula', nombre: 'Película', inicio: '¿Qué película viste?', desc: 'Ficha, florecitas y reseña', ask: '¿Qué película <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'escena',
     ficha: true, nota: true, imgL: 'Póster', tituloL: 'Nombre de la película', tituloPh: 'Ej: El padrino', fechaL: '¿Cuándo la viste?',
     calQ: '¿Cuántas <b class="resalta">florecitas</b> le das a la película?',
-    campos: [{ k: 'director', l: 'Director', ph: 'Ej: Francis Ford Coppola' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 1972', num: true }],
+    campos: [{ k: 'director', l: 'Director', ph: 'Ej: Francis Ford Coppola', sug: 'director' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 1972', num: true, h: 1 }],
     etq: ['Acción', 'Comedia', 'Drama', 'Terror', 'Ciencia ficción', 'Animación', 'Suspenso', 'Romance', 'Documental', 'Fantasía', 'Colombiana']
   },
   {
     id: 'serie', nombre: 'Serie', inicio: '¿Qué serie viste?', desc: 'Ficha, florecitas y reseña', ask: '¿Qué serie <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'capitulo',
-    ficha: true, nota: true, imgL: 'Póster', tituloL: 'Nombre de la serie', tituloPh: 'Ej: Breaking Bad', fechaL: '¿Cuándo la terminaste o dónde vas?',
+    ficha: true, nota: true, imgL: 'Póster', tituloL: 'Nombre de la serie', tituloPh: 'Ej: Breaking Bad', fechaL: '¿Cuándo la viste?',
     calQ: '¿Cuántas <b class="resalta">florecitas</b> le das a la serie?',
-    campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: Netflix' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 2008', num: true }, { k: 'temporadas', l: 'Temporadas vistas', ph: 'Ej: 1 a 3' }],
+    campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: Netflix', sug: 'plat_serie' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 2008', num: true, h: 1 }, { k: 'temporadas', l: 'Temporadas vistas', ph: 'Ej: 1 a 3', h: 1 }],
     etq: ['Drama', 'Comedia', 'Policial', 'Ciencia ficción', 'Terror', 'Miniserie', 'Anime', 'Documental', 'Fantasía']
   },
   {
     id: 'juego', nombre: 'Juego', inicio: '¿Qué juego jugaste?', desc: 'Ficha, florecitas y reseña', ask: '¿Qué juego <b>jugaste</b>?', ph: 'Lo que te dejó…', tejido: 'partida',
     ficha: true, nota: true, imgL: 'Portada', tituloL: 'Nombre del juego', tituloPh: 'Ej: The Last of Us', fechaL: '¿Cuándo lo jugaste?',
     calQ: '¿Cuántas <b class="resalta">florecitas</b> le das al juego?',
-    campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: PlayStation, PC, celular' }, { k: 'estreno', l: 'Año de lanzamiento', ph: 'Ej: 2013', num: true }],
+    campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: PlayStation, PC, celular', sug: 'plat_juego' }, { k: 'estreno', l: 'Año de lanzamiento', ph: 'Ej: 2013', num: true, h: 1 }],
     etq: ['Aventura', 'Acción', 'RPG', 'Terror', 'Estrategia', 'Deportes', 'Indie', 'Mundo abierto', 'Cooperativo']
   },
   {
     id: 'libro', nombre: 'Libro', inicio: '¿Qué libro leíste?', desc: 'Ficha, florecitas y reseña', ask: '¿Qué libro <b>leíste</b>?', ph: 'Lo que te dejó…', tejido: 'paginas',
     ficha: true, nota: true, imgL: 'Portada', tituloL: 'Título del libro', tituloPh: 'Ej: Cien años de soledad', fechaL: '¿Cuándo lo terminaste?',
     calQ: '¿Cuántas <b class="resalta">florecitas</b> le das al libro?',
-    campos: [{ k: 'autor', l: 'Autor', ph: 'Ej: Gabriel García Márquez' }, { k: 'estreno', l: 'Año de publicación', ph: 'Ej: 1967', num: true }],
+    campos: [{ k: 'autor', l: 'Autor', ph: 'Ej: Gabriel García Márquez', sug: 'autor' }, { k: 'estreno', l: 'Año de publicación', ph: 'Ej: 1967', num: true, h: 1 }],
     etq: ['Novela', 'Cuento', 'Poesía', 'Ensayo', 'Ciencia ficción', 'Fantasía', 'Historia', 'Biografía', 'Colombiano']
   },
   { id: 'random', nombre: 'Random', desc: 'Lo que no cabe en otro lado', ask: 'Lo que <b>sea</b>.', ph: 'Lo que se te ocurra…', tejido: null }
@@ -2411,6 +2502,31 @@ const tejidoDe = id => TEJIDOS.find(t => t.id === id) || TEJIDOS[0];
 const estanteDe = id => ESTANTES.find(e => e.id === id) || null;
 // La nota solo cuenta en los tipos que se califican con florecitas
 const notaDe = s => (tipoDe(s.tipo).nota && s.nota != null) ? s.nota : null;
+
+// Sugerencias para los campos de la ficha. Lo que escribas además se va guardando solo (sale de tus propias fichas).
+const SUGERIDOS = {
+  director: ['Quentin Tarantino', 'Christopher Nolan', 'Martin Scorsese', 'Steven Spielberg', 'Denis Villeneuve', 'Guillermo del Toro', 'Alfonso Cuarón', 'Alejandro G. Iñárritu',
+    'Stanley Kubrick', 'Francis Ford Coppola', 'David Fincher', 'Ridley Scott', 'James Cameron', 'Hayao Miyazaki', 'Akira Kurosawa', 'Bong Joon-ho', 'Park Chan-wook',
+    'Wes Anderson', 'Paul Thomas Anderson', 'Joel y Ethan Coen', 'Greta Gerwig', 'Jordan Peele', 'Ari Aster', 'Robert Eggers', 'Alfred Hitchcock', 'Sergio Leone',
+    'Clint Eastwood', 'Woody Allen', 'Tim Burton', 'Peter Jackson', 'George Lucas', 'Ang Lee', 'Wong Kar-wai', 'Pedro Almodóvar', 'Luis Buñuel', 'Federico Fellini',
+    'Ingmar Bergman', 'Jean-Luc Godard', 'François Truffaut', 'Lars von Trier', 'Michael Haneke', 'Yorgos Lanthimos', 'Darren Aronofsky', 'Spike Lee', 'Sofia Coppola',
+    'Kathryn Bigelow', 'Taika Waititi', 'Edgar Wright', 'Guy Ritchie', 'Zack Snyder', 'Michael Bay', 'Robert Zemeckis', 'Ron Howard', 'Oliver Stone', 'Brian De Palma',
+    'John Carpenter', 'Wes Craven', 'David Lynch', 'David Cronenberg', 'Terrence Malick', 'Sam Raimi', 'Satoshi Kon', 'Makoto Shinkai', 'Isao Takahata', 'Mamoru Hosoda',
+    'Pete Docter', 'Brad Bird', 'Rian Johnson', 'Matt Reeves', 'Todd Phillips', 'Chloé Zhao', 'Barry Jenkins', 'Damien Chazelle', 'Luc Besson', 'Roman Polanski',
+    'Billy Wilder', 'Orson Welles', 'Charlie Chaplin', 'Fritz Lang', 'Sidney Lumet', 'John Ford', 'Yasujirō Ozu', 'Takeshi Kitano', 'Alejandro Amenábar',
+    'Juan José Campanella', 'Fernando Meirelles', 'Walter Salles', 'Pablo Larraín', 'Alex Garland', 'Gaspar Noé', 'Steve McQueen', 'Jonathan Glazer',
+    'Víctor Gaviria', 'Ciro Guerra', 'Cristina Gallego', 'Luis Ospina', 'Sergio Cabrera', 'Carlos Mayolo'],
+  autor: ['Gabriel García Márquez', 'Jorge Luis Borges', 'Julio Cortázar', 'Mario Vargas Llosa', 'Isabel Allende', 'Pablo Neruda', 'Octavio Paz', 'Roberto Bolaño', 'Carlos Fuentes',
+    'Juan Rulfo', 'Laura Restrepo', 'Fernando Vallejo', 'Héctor Abad Faciolince', 'William Ospina', 'Álvaro Mutis', 'Jorge Isaacs', 'José Eustasio Rivera', 'Eduardo Galeano',
+    'Ernesto Sabato', 'Miguel de Cervantes', 'Federico García Lorca', 'Stephen King', 'J. K. Rowling', 'J. R. R. Tolkien', 'George R. R. Martin', 'George Orwell',
+    'Aldous Huxley', 'Ray Bradbury', 'Isaac Asimov', 'Philip K. Dick', 'Frank Herbert', 'Agatha Christie', 'Arthur Conan Doyle', 'Edgar Allan Poe', 'H. P. Lovecraft',
+    'Franz Kafka', 'Fiódor Dostoievski', 'León Tolstói', 'Albert Camus', 'Jean-Paul Sartre', 'Haruki Murakami', 'Paulo Coelho', 'Dan Brown', 'Suzanne Collins',
+    'Brandon Sanderson', 'Neil Gaiman', 'Umberto Eco', 'Milan Kundera', 'Friedrich Nietzsche', 'Yuval Noah Harari', 'Carl Sagan', 'Stephen Hawking', 'Mark Manson',
+    'James Clear', 'Ernest Hemingway', 'F. Scott Fitzgerald', 'Mark Twain', 'Charles Dickens', 'Jane Austen', 'Virginia Woolf', 'Oscar Wilde', 'Victor Hugo',
+    'Julio Verne', 'Antoine de Saint-Exupéry'],
+  plat_serie: ['Netflix', 'Disney+', 'Max', 'Prime Video', 'Apple TV+', 'Paramount+', 'Hulu', 'Crunchyroll', 'YouTube', 'Caracol', 'RCN', 'Claro video', 'Movistar', 'Televisión'],
+  plat_juego: ['PlayStation 5', 'PlayStation 4', 'Xbox Series', 'Xbox One', 'Nintendo Switch', 'PC', 'Steam Deck', 'Celular', 'Nintendo 3DS', 'Game Boy']
+};
 const SQL_V24 = "-- ALUNA v24 \u00b7 Tejidos. P\u00e9galo UNA sola vez en Supabase: SQL Editor -> New query -> pegar -> Run.\n-- Necesita que ya hayas corrido supabase-setup.sql y supabase-diario.sql (supabase-hojas.sql es opcional).\n-- Qu\u00e9 hace: (1) agrega a las semillas el tejido, la ficha, las etiquetas y la fecha; (2) pone candado para que\n-- Ra\u00edz y Sue\u00f1os nunca sean p\u00fablicos; (3) pasa tus rese\u00f1as viejas a su tejido nuevo sin borrar nada.\n\n-- 1. Columnas nuevas\nalter table public.semillas add column if not exists tejido text;\nalter table public.semillas add column if not exists datos jsonb not null default '{}'::jsonb;\nalter table public.semillas add column if not exists etiquetas text[] not null default '{}';\nalter table public.semillas add column if not exists fecha date;\n\n-- 2. Tipos que desaparecen y tejido de lo que ya hab\u00eda\nupdate public.semillas set tipo = 'momento' where tipo = 'gratitud';\nupdate public.semillas set tejido = case tipo\n    when 'idea' then 'ideas'\n    when 'aprendi' then 'saber'\n    when 'sueno' then 'suenos'\n    when 'lugar' then 'ruta'\n    else 'raiz'\n  end\n  where tejido is null;\nalter table public.semillas alter column tejido set default 'raiz';\nalter table public.semillas alter column tejido set not null;\n\n-- 3. Candados: Ra\u00edz y Sue\u00f1os jam\u00e1s p\u00fablicos; la ficha no puede pesar de m\u00e1s\nupdate public.semillas set publica = false where publica and tejido in ('raiz', 'suenos');\nalter table public.semillas drop constraint if exists semillas_privado_chk;\nalter table public.semillas add constraint semillas_privado_chk check (not (publica and tejido in ('raiz', 'suenos')));\nalter table public.semillas drop constraint if exists semillas_datos_chk;\nalter table public.semillas add constraint semillas_datos_chk check (octet_length(datos::text) <= 20000);\nalter table public.semillas drop constraint if exists semillas_etiquetas_chk;\nalter table public.semillas add constraint semillas_etiquetas_chk check (coalesce(cardinality(etiquetas), 0) <= 24);\n\ncreate index if not exists semillas_tejido_idx on public.semillas (user_id, tejido, created_at desc);\n\n-- 4. Tus rese\u00f1as viejas pasan a ser fichas (pel\u00edcula -> Escena, serie/anime -> Cap\u00edtulo, videojuego -> Partida, libro -> P\u00e1ginas;\n--    lo dem\u00e1s queda como nota en Ra\u00edz). La tabla vieja NO se borra: queda de respaldo.\ninsert into public.semillas (id, user_id, tipo, titulo, contenido, nota, publica, tejido, datos, etiquetas, fecha, created_at, updated_at)\nselect\n  r.id, r.user_id,\n  case r.categoria when 'cine' then 'pelicula' when 'series' then 'serie' when 'anime' then 'serie'\n                   when 'videojuegos' then 'juego' when 'libros' then 'libro' else 'random' end,\n  left(r.titulo, 200),\n  left(btrim(regexp_replace(replace(replace(replace(replace(replace(\n        regexp_replace(regexp_replace(coalesce(r.resenia, ''), '</(p|h2|h3|blockquote|li)>', E'\\n\\n', 'gi'), '<[^>]+>', '', 'g'),\n        '&nbsp;', ' '), '&lt;', '<'), '&gt;', '>'), '&quot;', '\"'), '&amp;', '&'),\n        E'\\n{3,}', E'\\n\\n', 'g')), 30000),\n  r.nota,\n  case when r.categoria in ('cine', 'series', 'anime', 'videojuegos', 'libros') then r.publica else false end,\n  case r.categoria when 'cine' then 'escena' when 'series' then 'capitulo' when 'anime' then 'capitulo'\n                   when 'videojuegos' then 'partida' when 'libros' then 'paginas' else 'raiz' end,\n  jsonb_strip_nulls(jsonb_build_object(\n    'migrada', 'resena',\n    'img', r.foto_path, 'thumb', r.thumb_path,\n    'estreno', nullif(r.fecha, ''),\n    'veredicto', nullif(r.veredicto, ''),\n    'descripcion', nullif(left(r.descripcion, 500), ''))),\n  coalesce(r.generos[1:20], '{}'),\n  r.created_at::date, r.created_at, r.updated_at\nfrom public.reviews r\nwhere not exists (select 1 from public.semillas s where s.id = r.id)\n  and coalesce((to_jsonb(r) ->> 'borrador')::boolean, false) = false;\n\n-- Si la rese\u00f1a vieja ten\u00eda una hoja, ahora cuelga de la ficha nueva (solo si ya existe la tabla de hojas)\ndo $$\nbegin\n  if to_regclass('public.hojas') is not null then\n    update public.hojas set ref_tipo = 'semilla'\n      where ref_tipo = 'resena'\n        and ref_id in (select id::text from public.semillas where datos ->> 'migrada' = 'resena');\n  end if;\nend $$;\n";
 const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 const MESES_L = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -2690,7 +2806,7 @@ function iniciarSemilla(tipo, id) {
     base: base, ruta: ruta, tocado: false, recuperado: 0,
     hoja: null, hojaTocada: false, hojaCargada: !base, hojaMini: '',
     tejido: base ? base.tejido : (tipoDe(t).tejido || 'raiz'), datos: base ? Object.assign({}, base.datos) : {}, etiquetas: base ? base.etiquetas.slice() : [],
-    fecha: base ? base.fecha : (tipoDe(t).ficha ? diaClave(Date.now()) : ''), img: { nueva: null, vista: '', quitar: false }, verTej: t === 'random'
+    fecha: base ? base.fecha : (tipoDe(t).ficha ? diaClave(Date.now()) : ''), img: { nueva: null, vista: '', quitar: false }, verTej: t === 'random', quiereResena: false
   };
   cargarHojaSem();
   restaurarSemilla();
@@ -2702,13 +2818,13 @@ async function restaurarSemilla() {
   if (s.base && reg.hora <= (s.base.actualizado || 0)) { Copia.borrar(claveSemBor(s)); return; }
   const d = reg.datos;
   s.titulo = d.titulo || ''; s.contenido = d.contenido || ''; s.nota = d.nota == null ? null : Number(d.nota); s.publica = !!d.publica; s.abierta = s.nota != null; s.recuperado = reg.hora;
-  if (d.tejido && tejidoOk(d.tejido)) { s.tejido = d.tejido; s.datos = d.datos || {}; s.etiquetas = d.etiquetas || []; s.fecha = d.fecha || s.fecha; }
+  if (d.tejido && tejidoOk(d.tejido)) { s.tejido = d.tejido; s.datos = d.datos || {}; s.etiquetas = d.etiquetas || []; s.fecha = d.fecha || s.fecha; s.quiereResena = !!d.quiere; }
   if (d.hoja && !s.hojaTocada) { s.hoja = hjNormal(d.hoja); s.hojaMini = d.hojaMini || ''; s.hojaTocada = true; s.hojaCargada = true; }
   if (location.hash.slice(1) === s.ruta) render(false);
 }
 function recogerSem() {
   const s = estado.sem, t = $('#s-titulo'), x = $('#s-texto');
-  return { titulo: t ? t.value : s.titulo, contenido: x ? x.value : s.contenido, nota: s.nota, publica: s.publica, hoja: s.hojaTocada ? s.hoja : undefined, hojaMini: s.hojaTocada ? s.hojaMini : undefined, tejido: s.tejido, datos: s.datos, etiquetas: s.etiquetas, fecha: s.fecha };
+  return { titulo: t ? t.value : s.titulo, contenido: x ? x.value : s.contenido, nota: s.nota, publica: s.publica, hoja: s.hojaTocada ? s.hoja : undefined, hojaMini: s.hojaTocada ? s.hojaMini : undefined, tejido: s.tejido, datos: s.datos, etiquetas: s.etiquetas, fecha: s.fecha, quiere: s.quiereResena };
 }
 function pintarEstadoSem() {
   const e = $('#s-est'); if (!e) return;
@@ -4599,14 +4715,6 @@ function esColumnaFalta(e) {
 }
 
 /* ---------- Inicio: ¿qué quieres sembrar hoy? ---------- */
-function vistaSembrar() {
-  const filas = TIPOS.map(function (t) {
-    return '<li><a class="sem-f" href="#sembrar-' + t.id + '"><span class="sem-fn">' + esc(t.inicio || t.nombre) + '</span><span class="sem-fd">' + esc(t.desc) + '</span>' + FLECHA_DER + '</a></li>';
-  }).join('');
-  return '<header class="sem-cab"><p class="sem-saludo">' + saludo() + ' · ' + fechaLarga() + '</p>' +
-    '<h1 class="sem-h">¿Qué quieres <span>sembrar</span> hoy?</h1></header>' +
-    '<ul class="sem-lista">' + filas + '</ul>';
-}
 
 /* ---------- Ficha: imagen ---------- */
 function imgVistaSem() {
@@ -4614,13 +4722,6 @@ function imgVistaSem() {
   if (s.img.vista) return s.img.vista;
   if (s.img.quitar || !s.base) return '';
   return fichaImgUrl(s.base, false) || '';
-}
-function imgHTML() {
-  const s = estado.sem, t = tipoDe(s.tipo), u = imgVistaSem();
-  return '<div class="fi-prev">' + (u ? '<img src="' + esc(u) + '" alt="' + esc(t.imgL) + ' elegido">' : '<span class="mo-sin">' + esc(t.imgL) + '</span>') + '</div>' +
-    '<div class="fi-bot"><label class="btn">' + (u ? 'Cambiar' : 'Elegir') + ' de la galería<input type="file" id="s-foto" accept="image/*" hidden></label>' +
-    '<label class="btn">Tomar foto<input type="file" id="s-foto-cam" accept="image/*" capture="environment" hidden></label>' +
-    (u ? '<button type="button" class="link-b" data-action="sem-img-quitar">Quitar</button>' : '') + '</div>';
 }
 function pintarImg() { const e = $('#s-img'); if (e) e.innerHTML = imgHTML(); }
 async function elegirFotoSem(archivo) {
@@ -4638,48 +4739,219 @@ async function elegirFotoSem(archivo) {
 }
 
 /* ---------- Ficha: etiquetas ---------- */
-function etqNorm(x) { return String(x || '').replace(/^#+/, '').replace(/\s+/g, ' ').trim().slice(0, 30); }
-function etqChipsHTML() {
-  const s = estado.sem;
-  return s.etiquetas.map(function (e) { return '<span class="fi-etq">#' + esc(e) + '<button type="button" data-action="sem-etq-quitar" data-e="' + esc(e) + '" aria-label="Quitar ' + esc(e) + '">×</button></span>'; }).join('');
-}
-function etqSugHTML() {
-  const s = estado.sem, t = tipoDe(s.tipo);
-  const mias = s.etiquetas.map(function (e) { return e.toLowerCase(); });
-  const sug = (t.etq || []).filter(function (e) { return mias.indexOf(e.toLowerCase()) < 0; });
-  return sug.map(function (e) { return '<button type="button" class="chip" aria-pressed="false" data-action="sem-etq-add" data-e="' + esc(e) + '">+ ' + esc(e) + '</button>'; }).join('');
-}
-function pintarEtq() { const a = $('#s-etq-chips'), b = $('#s-etq-sug'); if (a) a.innerHTML = etqChipsHTML(); if (b) b.innerHTML = etqSugHTML(); }
-function agregarEtq(x) {
-  const s = estado.sem; if (!s) return;
-  const e = etqNorm(x); if (!e) return;
-  if (s.etiquetas.some(function (y) { return y.toLowerCase() === e.toLowerCase(); })) return;
-  if (s.etiquetas.length >= 24) { toast('Máximo 24 etiquetas.'); return; }
-  s.etiquetas.push(e); marcarSem(); pintarEtq();
-}
-function quitarEtq(x) { const s = estado.sem; if (!s) return; s.etiquetas = s.etiquetas.filter(function (y) { return y !== x; }); marcarSem(); pintarEtq(); }
 
 /* ---------- Tejido y privacidad ---------- */
-function tejSecHTML() {
-  const s = estado.sem, tj = tejidoDe(s.tejido);
-  let h = '<h2 class="mod-t">Tejido</h2><p class="fi-tej">Va en <b style="color:' + tj.color + '">' + esc(tj.nombre) + '</b> <button type="button" class="link-b" data-action="sem-tej-ver">' + (s.verTej ? 'Listo' : 'Cambiar') + '</button></p>';
-  if (s.verTej) h += '<div class="chips sm">' + TEJIDOS.map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x.id === s.tejido) + '" data-action="sem-tej" data-t="' + x.id + '">' + esc(x.nombre) + '</button>'; }).join('') + '</div>';
-  return h;
-}
-function pintarTej() { const e = $('#s-tej'); if (e) e.innerHTML = tejSecHTML(); const v = $('#s-vis'); if (v) v.innerHTML = visSemHTML(); }
 function cambiarTejido(id) {
   const s = estado.sem; if (!s || !tejidoOk(id)) return;
   s.tejido = id; if (tejidoDe(id).privado) s.publica = false;
   marcarSem(); pintarTej();
 }
+
+/* ---------- v26: Inicio con lo principal arriba ---------- */
+const TIPOS_TOP = ['pelicula', 'serie', 'juego', 'libro'];
+const ICO_TIPO = {
+  pelicula: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 9.5h18M7.5 5l2.5 4.5M13 5l2.5 4.5M18 5l2 4.5"/></svg>',
+  serie: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M9 3l3 3 3-3M8 21h8"/></svg>',
+  juego: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h10a4 4 0 014 4v2.5a3 3 0 01-5.3 1.9L14.5 15h-5l-1.2 1.4A3 3 0 013 14.500V12a4 4 0 014-4z"/><path d="M8 10.500v3M6.500 12h3"/><circle cx="15.500" cy="11.500" r=".7"/><circle cx="17.500" cy="13.500" r=".7"/></svg>',
+  libro: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5a2 2 0 012-2h11v15H7a2 2 0 00-2 2V5z"/><path d="M5 20a2 2 0 002 2h11M9 7h6"/></svg>'
+};
+function vistaSembrar() {
+  const gr = TIPOS_TOP.map(tipoDe).map(function (t) {
+    return '<a class="sem-gr" href="#sembrar-' + t.id + '" style="--tc:' + tejidoDe(t.tejido).color + '"><span class="sem-gr-i">' + ICO_TIPO[t.id] + '</span>' +
+      '<span class="sem-gr-n">' + esc(t.nombre) + '</span><span class="sem-gr-d">' + esc(t.inicio) + '</span></a>';
+  }).join('');
+  const filas = TIPOS.filter(function (t) { return TIPOS_TOP.indexOf(t.id) < 0; }).map(function (t) {
+    return '<li><a class="sem-f" href="#sembrar-' + t.id + '"><span class="sem-fn">' + esc(t.inicio || t.nombre) + '</span><span class="sem-fd">' + esc(t.desc) + '</span>' + FLECHA_DER + '</a></li>';
+  }).join('');
+  return '<header class="sem-cab"><p class="sem-saludo">' + saludo() + ' · ' + fechaLarga() + '</p>' +
+    '<h1 class="sem-h">¿Qué quieres <span>sembrar</span> hoy?</h1></header>' +
+    '<div class="sem-gr-l">' + gr + '</div>' +
+    '<h2 class="sem-otro">Otras cosas para sembrar</h2><ul class="sem-lista">' + filas + '</ul>';
+}
+
+/* ---------- Ficha: imagen (póster grande, botones chicos debajo) ---------- */
+const ICO_GAL = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.500"/><circle cx="9" cy="10" r="1.700"/><path d="M21 16l-5-5-8 9"/></svg>';
+const ICO_CAM = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l1.500-2h7L17 8h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.500"/></svg>';
+function imgHTML() {
+  const s = estado.sem, t = tipoDe(s.tipo), u = imgVistaSem();
+  return '<label class="fx-pv" for="s-foto" title="Elegir de la galería">' + (u ? '<img src="' + esc(u) + '" alt="' + esc(t.imgL) + ' elegido">' : '<span class="fx-pv-v">' + ICO_GAL + '<b>' + esc(t.imgL) + '</b><small>Toca para elegir</small></span>') + '</label>' +
+    '<div class="fx-pb"><label class="fx-ib">' + ICO_GAL + '<span>Galería</span><input type="file" id="s-foto" accept="image/*" hidden></label>' +
+    '<label class="fx-ib">' + ICO_CAM + '<span>Cámara</span><input type="file" id="s-foto-cam" accept="image/*" capture="environment" hidden></label></div>' +
+    (u ? '<button type="button" class="link-b fx-q" data-action="sem-img-quitar">Quitar ' + esc(t.imgL.toLowerCase()) + '</button>' : '');
+}
+
+/* ---------- Ficha: etiquetas (campo de selección múltiple con buscador y subgéneros) ---------- */
+function etqNorm(x) { return String(x || '').replace(/^#+/, '').replace(/\s+/g, ' ').trim().slice(0, 30); }
+function etqChipsHTML() {
+  const s = estado.sem;
+  return s.etiquetas.map(function (e) { return '<span class="fi-etq">#' + esc(e) + '<button type="button" data-action="sem-etq-quitar" data-e="' + esc(e) + '" aria-label="Quitar ' + esc(e) + '">×</button></span>'; }).join('') +
+    '<button type="button" class="fx-mas" data-action="etq-abrir" aria-haspopup="dialog">' + (s.etiquetas.length ? '+ Más' : 'Elegir etiquetas y géneros') + FLECHA_ABAJO + '</button>';
+}
+function etqSugHTML() { return ''; }
+function pintarEtq() { const a = $('#s-etq-chips'); if (a) a.innerHTML = etqChipsHTML(); }
+function agregarEtq(x) {
+  const s = estado.sem; if (!s) return false;
+  const e = etqNorm(x); if (!e) return false;
+  if (s.etiquetas.some(function (y) { return y.toLowerCase() === e.toLowerCase(); })) return false;
+  if (s.etiquetas.length >= 24) { toast('Máximo 24 etiquetas.'); return false; }
+  s.etiquetas.push(e); marcarSem(); pintarEtq(); return true;
+}
+function quitarEtq(x) { const s = estado.sem; if (!s) return; s.etiquetas = s.etiquetas.filter(function (y) { return y !== x; }); marcarSem(); pintarEtq(); }
+function taxoDe(t) { return t.id === 'pelicula' ? TAXO.cine : t.id === 'serie' ? TAXO.series : t.id === 'juego' ? TAXO.videojuegos : t.id === 'libro' ? TAXO.libros : null; }
+// Las etiquetas que ya usaste en este tipo y no están en la lista de géneros: se van guardando solas
+function etqPropias(t, tx) {
+  const enTaxo = {}; tx.forEach(function (g) { enTaxo[norm(g.g)] = 1; g.s.forEach(function (x) { enTaxo[norm(x[0])] = 1; }); });
+  const vistas = {}, out = [];
+  const poner = function (e) { const k = norm(e); if (!k || enTaxo[k] || vistas[k]) return; vistas[k] = 1; out.push(e); };
+  (t.etq || []).forEach(poner);
+  estado.semillas.forEach(function (x) { if (x.tipo === t.id) (x.etiquetas || []).forEach(poner); });
+  estado.sem.etiquetas.forEach(poner);
+  return out;
+}
+function etqListaHTML() {
+  const s = estado.sem, t = tipoDe(s.tipo), sel = s.etiquetas, tx = taxoDe(t) || [];
+  const op = function (n, d, macro) {
+    return '<button type="button" class="gen-op' + (macro ? ' macro' : '') + '" data-action="etq-pick" data-e="' + esc(n) + '" aria-pressed="' + (sel.indexOf(n) >= 0) + '" data-t="' + esc(norm(n + ' ' + (d || ''))) + '">' +
+      '<span class="gen-n">' + esc(n) + '</span>' + (d ? '<span class="gen-d">' + esc(d) + '</span>' : '') + '<span class="gen-ok" aria-hidden="true">✓</span></button>';
+  };
+  const grupos = tx.slice();
+  const otras = etqPropias(t, tx);
+  if (otras.length) grupos.push({ g: tx.length ? 'Las tuyas y otras' : 'Etiquetas', d: 'Las que ya usaste y las sugeridas.', sel: false, s: otras.map(function (e) { return [e, '']; }), abierto: true });
+  return grupos.map(function (g) {
+    const abierto = !!g.abierto || g.s.some(function (x) { return sel.indexOf(x[0]) >= 0; }) || sel.indexOf(g.g) >= 0;
+    return '<section class="gen-grupo"><div class="gen-cab">' +
+      (g.sel === false ? '<div class="gen-op macro fijo"><span class="gen-n">' + esc(g.g) + '</span><span class="gen-d">' + esc(g.d) + '</span></div>' : op(g.g, g.d, true)) +
+      '<button type="button" class="ib" data-action="gen-plegar" aria-expanded="' + abierto + '" aria-label="Mostrar u ocultar los subgéneros de ' + esc(g.g) + '">' + FLECHA_ABAJO + '</button></div>' +
+      '<div class="gen-subs"' + (abierto ? '' : ' hidden') + '>' + g.s.map(function (x) { return op(x[0], x[1], false); }).join('') + '</div></section>';
+  }).join('') + '<p class="ayuda" id="etq-nada" hidden>No encontré esa etiqueta. Puedes agregarla con el botón de arriba.</p>';
+}
+function hojaEtqHTML() {
+  const s = estado.sem, t = tipoDe(s.tipo);
+  return '<div class="hoja-c gen"><h2 class="hoja-t">Etiquetas · ' + esc(t.nombre) + '</h2>' +
+    '<p class="ayuda">Marca las que quieras. Aquí ves qué significa cada una; en la ficha solo queda el nombre.</p>' +
+    '<label class="vh" for="etq-q">Buscar etiqueta</label><input id="etq-q" class="in" type="search" placeholder="Buscar o escribir una nueva…" autocomplete="off" maxlength="30">' +
+    '<button type="button" class="btn etq-nueva" id="etq-nueva" data-action="etq-nueva" hidden></button>' +
+    '<div class="gen-lista" id="etq-lista">' + etqListaHTML() + '</div>' +
+    '<div class="hoja-pie"><button type="button" class="btn prim" data-action="etq-cerrar" id="etq-listo">Listo (' + s.etiquetas.length + ')</button></div></div>';
+}
+function abrirEtq() { const h = abrirHoja('hoja-etq', hojaEtqHTML()); h.setAttribute('aria-label', 'Elegir etiquetas'); }
+function pickEtq(e) {
+  const s = estado.sem; if (!s) return;
+  if (s.etiquetas.indexOf(e) >= 0) quitarEtq(e); else agregarEtq(e);
+  document.querySelectorAll('#hoja-etq .gen-op[data-e]').forEach(function (b) { if (b.dataset.e === e) b.setAttribute('aria-pressed', s.etiquetas.indexOf(e) >= 0); });
+  const l = $('#etq-listo'); if (l) l.textContent = 'Listo (' + s.etiquetas.length + ')';
+}
+function filtrarEtq(q) {
+  const n = norm(q.trim()); let alguno = false, exacto = false;
+  document.querySelectorAll('#etq-lista .gen-grupo').forEach(function (g) {
+    let hay = !n;
+    g.querySelectorAll('.gen-subs .gen-op, .gen-cab .gen-op:not(.fijo)').forEach(function (b) {
+      const ok = !n || b.dataset.t.indexOf(n) >= 0; b.hidden = !ok; if (ok) hay = true;
+      if (n && norm(b.dataset.e) === n) exacto = true;
+    });
+    g.hidden = !hay; if (hay) alguno = true;
+    const subs = g.querySelector('.gen-subs'), btn = g.querySelector('[data-action=gen-plegar]');
+    subs.hidden = n ? false : btn.getAttribute('aria-expanded') !== 'true';
+  });
+  const nada = $('#etq-nada'); if (nada) nada.hidden = alguno || !n;
+  const nu = $('#etq-nueva'); if (nu) { const e = etqNorm(q); nu.hidden = !n || exacto; nu.textContent = '+ Agregar «' + e + '»'; }
+}
+function nuevaEtq() {
+  const q = $('#etq-q'); if (!q) return;
+  if (agregarEtq(q.value)) {
+    q.value = ''; const l = $('#etq-lista'); if (l) l.innerHTML = etqListaHTML(); filtrarEtq('');
+    const b = $('#etq-listo'); if (b) b.textContent = 'Listo (' + estado.sem.etiquetas.length + ')';
+  }
+}
+
+/* ---------- Tejido y privacidad (compactos y arriba) ---------- */
+function tejSecHTML() {
+  const s = estado.sem, tj = tejidoDe(s.tejido);
+  return '<span class="fi-l">Tejido</span><button type="button" class="fx-sel" data-action="sem-tej-ver" aria-expanded="' + !!s.verTej + '"><i class="fx-dot" style="background:' + tj.color + '"></i><b>' + esc(tj.nombre) + '</b>' + FLECHA_ABAJO + '</button>';
+}
+function tejPanelHTML() {
+  const s = estado.sem; if (!s.verTej) return '';
+  return '<div class="chips sm fx-tp">' + TEJIDOS.map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x.id === s.tejido) + '" data-action="sem-tej" data-t="' + x.id + '">' + esc(x.nombre) + '</button>'; }).join('') + '</div>';
+}
+function pintarTej() {
+  const e = $('#s-tej'); if (e) e.innerHTML = tejSecHTML();
+  const p = $('#s-tej-p'); if (p) p.innerHTML = tejPanelHTML();
+  const v = $('#s-vis'); if (v) v.innerHTML = visSemHTML();
+}
 function visSemHTML() {
   const s = estado.sem, tj = tejidoDe(s.tejido);
-  if (tj.privado) return '<p class="ayuda">Lo que va en ' + esc(tj.nombre) + ' es solo tuyo: nunca se publica.</p>';
+  if (tj.privado) return '<span class="fi-l">¿Quién la puede ver?</span><p class="fx-priv">Solo tú. Nunca se publica.</p>';
   const p = s.publica;
-  return '<div class="seg" role="group" aria-label="Quién la puede ver">' +
+  return '<span class="fi-l">¿Quién la puede ver?</span><div class="seg fx-seg" role="group" aria-label="Quién la puede ver">' +
     '<button type="button" aria-pressed="' + (!p) + '" data-action="sem-vis" data-v="0">Privada</button>' +
-    '<button type="button" aria-pressed="' + p + '" data-action="sem-vis" data-v="1">Pública</button></div>' +
-    '<p class="ayuda">' + (p ? 'Cualquiera con el link de Aluna la puede ver.' : 'Solo tú la ves, cuando inicias sesión.') + '</p>';
+    '<button type="button" aria-pressed="' + p + '" data-action="sem-vis" data-v="1">Pública</button></div>';
+}
+
+/* ---------- Reseña: Sí o No en el mismo formulario ---------- */
+function resenaSiNoHTML() {
+  const q = !!estado.sem.quiereResena;
+  return '<div class="fx-res-t"><span class="fi-l">Reseña</span><b>¿Quieres escribir la reseña?</b></div>' +
+    '<div class="seg fx-seg" role="group" aria-label="Escribir la reseña"><button type="button" aria-pressed="' + (!q) + '" data-action="sem-res" data-v="0">No</button><button type="button" aria-pressed="' + q + '" data-action="sem-res" data-v="1">Sí</button></div>';
+}
+function textoGuardar() {
+  const s = estado.sem; if (!s) return 'Guardar';
+  if (s.base) return 'Guardar cambios';
+  const t = tipoDe(s.tipo);
+  return t.ficha ? (s.quiereResena ? 'Guardar y escribir la reseña' : 'Guardar ficha') : 'Sembrar';
+}
+
+/* ---------- Sugerencias para director, autor y plataforma: las de la lista + las que ya escribiste ---------- */
+function sugerenciasCampo(t, c) {
+  if (!c.sug) return [];
+  const vistas = {}, out = [];
+  const poner = function (x) { const k = norm(x); if (!k || vistas[k]) return; vistas[k] = 1; out.push(x); };
+  estado.semillas.forEach(function (x) { if (x.tipo === t.id && x.datos && x.datos[c.k]) poner(String(x.datos[c.k])); });
+  (SUGERIDOS[c.sug] || []).forEach(poner);
+  return out;
+}
+
+/* ---------- La ficha / el formulario de una semilla ---------- */
+function camposHTML(t, s) {
+  const dl = [], campos = t.campos || [];
+  const mitades = campos.filter(function (c) { return c.h; }).length;
+  let h = campos.map(function (c) {
+    const lista = sugerenciasCampo(t, c);
+    if (lista.length) dl.push('<datalist id="dl-' + c.k + '">' + lista.map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>');
+    return '<label class="fx-c' + (c.h ? ' fx-h' : '') + '"><span class="fi-l">' + esc(c.l) + '</span><input class="in" type="text" data-campo="' + c.k + '"' + (lista.length ? ' list="dl-' + c.k + '"' : '') + (c.num ? ' inputmode="numeric" maxlength="4"' : ' maxlength="80"') + ' placeholder="' + esc(c.ph || '') + '" value="' + esc(s.datos[c.k] || '') + '" autocomplete="off"></label>';
+  }).join('');
+  h += '<label class="fx-c' + (mitades % 2 === 1 ? ' fx-h' : '') + '"><span class="fi-l">' + esc(t.fechaL) + '</span><input class="in" type="date" id="s-fecha" value="' + esc(s.fecha || '') + '"></label>';
+  return h + dl.join('');
+}
+function formSemillaHTML(s) {
+  const t = tipoDe(s.tipo), nueva = !s.base;
+  const atras = nueva ? '#inicio' : (t.ficha ? '#modulo-' + s.id : '#tejido-' + s.tejido);
+  const volver = '<a class="volver" href="' + atras + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>';
+  const nota = (t.nota || t.sueno) ? '<section class="mod sem-nota fx-nota" id="s-nota">' + notaSecHTML() + '</section>' : '';
+  const fila = '<div class="fx-fila"><div class="fx-c" id="s-tej">' + tejSecHTML() + '</div><div class="fx-c" id="s-vis">' + visSemHTML() + '</div></div><div id="s-tej-p">' + tejPanelHTML() + '</div>';
+  let cuerpo;
+  if (t.ficha) {
+    cuerpo = '<div class="fx-cols"><div class="fx-izq"><div class="fx-top"><div class="fx-poster" id="s-img">' + imgHTML() + '</div>' +
+      '<div class="fx-datos"><label class="fx-c fx-ti"><span class="fi-l">' + esc(t.tituloL) + '</span>' +
+      '<input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="' + esc(t.tituloPh) + '" value="' + esc(s.titulo) + '" autocomplete="off" required></label>' +
+      camposHTML(t, s) + '</div><div class="fx-fp">' + fila + '</div></div></div>' +
+      '<div class="fx-der"><section class="fx-c fx-etqs"><span class="fi-l">Etiquetas</span><div class="fx-multi" id="s-etq-chips">' + etqChipsHTML() + '</div></section>' +
+      nota +
+      (nueva ? '<section class="mod fx-res" id="s-res">' + resenaSiNoHTML() + '</section>' : '<section class="mod fi-resena"><h2 class="mod-t">Reseña</h2><div id="s-cuerpo">' + cuerpoSemHTML() + '</div></section>') +
+      '</div></div>';
+  } else {
+    cuerpo = '<label class="vh" for="s-titulo">Nombre (opcional)</label>' +
+      '<input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="Ponle nombre (opcional)" value="' + esc(s.titulo) + '" autocomplete="off">' +
+      '<div id="s-cuerpo">' + cuerpoSemHTML() + '</div>' + nota + fila;
+  }
+  return '<div class="ed-top">' + volver +
+    (s.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin sembrar (' + hace(s.recuperado) + ').</span><button type="button" class="btn" data-action="sem-descartar">Descartar</button></div>' : '') + '</div>' +
+    '<form id="fs" class="sem-form' + (t.ficha ? ' sem-ficha fx' : '') + '" novalidate>' +
+      '<p class="sem-ey">' + esc(t.nombre) + ' · ' + esc(fechaLarga(s.base ? s.base.creado : Date.now())) + '</p>' +
+      '<h1 class="sem-ask">' + t.ask + '</h1>' + cuerpo +
+      '<p class="error" id="s-error" role="alert" hidden></p>' +
+      '<div class="ed-bar"><button type="submit" id="s-guardar" class="btn prim">' + textoGuardar() + '</button>' +
+        (s.base ? '<button type="button" class="btn peligro" data-action="sem-borrar">Borrar</button>' : '') + '</div>' +
+    '</form>';
 }
 
 /* ---------- Calificación: florecitas (o dulce / pesadilla en los sueños) ---------- */
@@ -4696,45 +4968,6 @@ function notaSecHTML() {
 }
 
 /* ---------- La ficha / el formulario de una semilla ---------- */
-function camposHTML(t, s) {
-  return (t.campos || []).map(function (c) {
-    return '<label class="fi-c"><span class="fi-l">' + esc(c.l) + '</span><input class="in" type="text" data-campo="' + c.k + '"' + (c.num ? ' inputmode="numeric" maxlength="4"' : ' maxlength="80"') + ' placeholder="' + esc(c.ph || '') + '" value="' + esc(s.datos[c.k] || '') + '" autocomplete="off"></label>';
-  }).join('');
-}
-function formSemillaHTML(s) {
-  const t = tipoDe(s.tipo), nueva = !s.base;
-  const atras = nueva ? '#inicio' : (t.ficha ? '#modulo-' + s.id : '#tejido-' + s.tejido);
-  const volver = '<a class="volver" href="' + atras + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>';
-  const nota = (t.nota || t.sueno) ? '<section class="mod sem-nota" id="s-nota">' + notaSecHTML() + '</section>' : '';
-  const tej = '<section class="mod" id="s-tej">' + tejSecHTML() + '</section>';
-  const vis = '<section class="mod"><h2 class="mod-t">Quién la puede ver</h2><div id="s-vis">' + visSemHTML() + '</div></section>';
-  let cuerpo;
-  if (t.ficha) {
-    cuerpo = '<div class="fi-img" id="s-img">' + imgHTML() + '</div>' +
-      '<label class="fi-l" for="s-titulo">' + esc(t.tituloL) + '</label>' +
-      '<input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="' + esc(t.tituloPh) + '" value="' + esc(s.titulo) + '" autocomplete="off" required>' +
-      '<div class="fi-campos">' + camposHTML(t, s) + '</div>' +
-      '<label class="fi-c"><span class="fi-l">' + esc(t.fechaL) + '</span><input class="in" type="date" id="s-fecha" value="' + esc(s.fecha || '') + '"></label>' +
-      '<section class="mod"><h2 class="mod-t">Etiquetas</h2><div class="fi-etqs" id="s-etq-chips">' + etqChipsHTML() + '</div>' +
-      '<div class="fi-etq-in"><input class="in" id="s-etq" type="text" maxlength="30" placeholder="Escribe una etiqueta" autocomplete="off"><button type="button" class="btn" data-action="sem-etq-add-in">Agregar</button></div>' +
-      '<div class="chips sm" id="s-etq-sug">' + etqSugHTML() + '</div></section>' +
-      nota + tej + vis +
-      '<section class="mod fi-resena"><h2 class="mod-t">Reseña</h2><div id="s-cuerpo">' + (nueva ? '<p class="ayuda">Al guardar te pregunto si quieres escribir una reseña.</p>' : cuerpoSemHTML()) + '</div></section>';
-  } else {
-    cuerpo = '<label class="vh" for="s-titulo">Nombre (opcional)</label>' +
-      '<input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="Ponle nombre (opcional)" value="' + esc(s.titulo) + '" autocomplete="off">' +
-      '<div id="s-cuerpo">' + cuerpoSemHTML() + '</div>' + nota + tej + vis;
-  }
-  return '<div class="ed-top">' + volver +
-    (s.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin sembrar (' + hace(s.recuperado) + ').</span><button type="button" class="btn" data-action="sem-descartar">Descartar</button></div>' : '') + '</div>' +
-    '<form id="fs" class="sem-form' + (t.ficha ? ' sem-ficha' : '') + '" novalidate>' +
-      '<p class="sem-ey">' + esc(t.nombre) + ' · ' + esc(fechaLarga(s.base ? s.base.creado : Date.now())) + '</p>' +
-      '<h1 class="sem-ask">' + t.ask + '</h1>' + cuerpo +
-      '<p class="error" id="s-error" role="alert" hidden></p>' +
-      '<div class="ed-bar"><button type="submit" id="s-guardar" class="btn prim">' + (s.base ? 'Guardar cambios' : (t.ficha ? 'Guardar ficha' : 'Sembrar')) + '</button>' +
-        (s.base ? '<button type="button" class="btn peligro" data-action="sem-borrar">Borrar</button>' : '') + '</div>' +
-    '</form>';
-}
 function vistaSemilla() {
   const s = estado.sem;
   if (s && !s.faltante && estado.sesion) return formSemillaHTML(s);
@@ -4784,11 +5017,11 @@ async function guardarSemilla() {
     if (viejos.length) sb.storage.from(BUCKET).remove(viejos);
     const avisoHoja = await guardarHojaSem(s);
     Copia.borrar(claveSemBor(s));
-    const id = s.id, nueva = !s.base, sinResena = !hojaPropia && !contenido;
+    const id = s.id, nueva = !s.base, quiere = nueva && !!s.quiereResena && !hojaPropia && !contenido;
     estado.sem = null;
     try { await cargarSemillas(); } catch (e2) { /* se verá al recargar */ }
     toast(avisoHoja || (nueva ? (t.ficha ? 'Ficha guardada' : 'Semilla sembrada') : 'Cambios guardados'));
-    if (t.ficha) { location.hash = '#modulo-' + id; if (nueva && sinResena) setTimeout(function () { preguntarResena(id); }, 150); }
+    if (t.ficha) { if (quiere) { estado.pedirResena = id; location.hash = '#semilla-' + id; } else location.hash = '#modulo-' + id; }
     else location.hash = '#tejido-' + tej;
   } catch (e) {
     console.error(e);
@@ -4798,7 +5031,7 @@ async function guardarSemilla() {
     else errorSem('No se pudo guardar. Revisa tu internet e intenta otra vez.');
   } finally {
     estado.guardando = false;
-    const bt = $('#s-guardar'); if (bt) { bt.disabled = false; bt.textContent = (estado.sem && estado.sem.base) ? 'Guardar cambios' : (estado.sem && tipoDe(estado.sem.tipo).ficha ? 'Guardar ficha' : 'Sembrar'); }
+    const bt = $('#s-guardar'); if (bt) { bt.disabled = false; bt.textContent = textoGuardar(); }
   }
 }
 function preguntarResena(id) {
@@ -4838,6 +5071,7 @@ document.addEventListener('input', function (e) {
   const t = e.target, s = estado.sem; if (!s || !t) return;
   if (t.dataset && t.dataset.campo) { s.datos[t.dataset.campo] = t.value; marcarSem(); }
   else if (t.id === 's-fecha') { s.fecha = t.value; marcarSem(); }
+  else if (t.id === 'etq-q') { filtrarEtq(t.value); }
 });
 document.addEventListener('change', function (e) {
   const t = e.target; if (!t) return;
@@ -6034,6 +6268,11 @@ document.addEventListener('click', function (e) {
     case 'sem-img-quitar': estado.sem.img.nueva = null; estado.sem.img.vista = ''; estado.sem.img.quitar = true; pintarImg(); marcarSem(); break;
     case 'sem-tej-ver': estado.sem.verTej = !estado.sem.verTej; pintarTej(); break;
     case 'sem-tej': cambiarTejido(b.dataset.t); break;
+    case 'etq-abrir': abrirEtq(); break;
+    case 'etq-pick': pickEtq(b.dataset.e); break;
+    case 'etq-nueva': nuevaEtq(); break;
+    case 'etq-cerrar': cerrarHoja('hoja-etq'); break;
+    case 'sem-res': { estado.sem.quiereResena = b.dataset.v === '1'; const r0 = $('#s-res'); if (r0) r0.innerHTML = resenaSiNoHTML(); const g0 = $('#s-guardar'); if (g0) g0.textContent = textoGuardar(); marcarSem(); break; }
     case 'sem-sueno': estado.sem.datos.sueno = estado.sem.datos.sueno === b.dataset.v ? '' : b.dataset.v; marcarSem(); pintarSecNota(); break;
     case 'sem-nota-abrir': estado.sem.abierta = true; if (estado.sem.nota == null) estado.sem.nota = 3; marcarSem(); pintarSecNota(); break;
     case 'sem-nota-quitar': estado.sem.nota = null; estado.sem.abierta = false; marcarSem(); pintarSecNota(); break;
