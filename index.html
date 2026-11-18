@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=32">
-<link rel="icon" href="favicon.svg?v=32" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=32" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=32">
+<link rel="manifest" href="manifest.webmanifest?v=33">
+<link rel="icon" href="favicon.svg?v=33" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=33" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=33">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1361,6 +1361,28 @@ a.rc-in:hover strong{text-decoration:underline}
 .rec-pie{display:flex;gap:10px}
 .rec-pie .btn{flex:1}
 @media(prefers-reduced-motion:reduce){.tl-rt{animation:none}.tl-rt-ck,.rc-ck{transition:none}}
+/* ---------- v33: temporadas y episodios ---------- */
+.ser-rel{margin-top:18px}
+.ser-h2{margin-top:20px}
+.ser-ts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.ser-t{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--vc,var(--line));background:rgba(255,255,255,.04);color:var(--ink);font-size:.84rem;transition:background .2s}
+.ser-t:hover,.ser-t:focus-visible{background:rgba(255,255,255,.09)}
+.ser-t b{font:700 .84rem var(--display)}
+.ser-t span{display:inline-flex;align-items:center;gap:3px;color:var(--plon-on,#ff9a3c);font:600 .82rem var(--display)}
+.ser-t svg{width:14px;height:14px;fill:currentColor}
+.ser-b{margin-top:10px}
+.epi-com{min-height:68px;resize:none;font:inherit;line-height:1.35}
+.tmp-ser{display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.tmp-p{flex:none;width:34px;height:48px;border-radius:6px;overflow:hidden;background:linear-gradient(160deg,transparent,rgba(0,0,0,.5)),#c06ad6}
+.tmp-p img{display:block;width:100%;height:100%;object-fit:cover}
+.tmp-n{min-width:0;display:grid;gap:1px}
+.tmp-n small{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+.tmp-n b{font:600 1.05rem/1.15 var(--display);overflow-wrap:anywhere}
+.pop-tmp{display:grid;gap:12px}
+.tmp-ch{align-items:center}
+.tmp-ch .chip{min-width:40px;justify-content:center}
+.tmp-ch .chip i{font-style:normal;margin-left:3px;color:var(--plon-on,#ff9a3c)}
+.tmp-num{width:74px;min-height:34px;padding:0 10px;text-align:center}
 </style>
 </head>
 <body>
@@ -2752,47 +2774,59 @@ const TIPOS = [
     etq: ['Playa', 'Montaña', 'Ciudad', 'Pueblo', 'Parque', 'Museo', 'Mirador', 'Restaurante']
   },
   {
-    id: 'pelicula', nombre: 'Película', inicio: '¿Qué película viste?', desc: 'Ficha, plones y reseña', ask: '¿Qué película <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'escena',
+    id: 'pelicula', plural: 'Películas', nombre: 'Película', inicio: '¿Qué película viste?', desc: 'Ficha, plones y reseña', ask: '¿Qué película <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'escena',
     ficha: true, nota: true, imgL: 'Póster', tituloL: 'Nombre de la película', tituloPh: 'Ej: El padrino', fechaL: '¿Cuándo la viste?',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das a la película?',
     campos: [{ k: 'director', l: 'Director', ph: 'Ej: Francis Ford Coppola', sug: 'director' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 1972', num: true, h: 1 }],
     etq: ['Acción', 'Comedia', 'Drama', 'Terror', 'Ciencia ficción', 'Animación', 'Suspenso', 'Romance', 'Documental', 'Fantasía', 'Colombiana']
   },
   {
-    id: 'serie', nombre: 'Serie', inicio: '¿Qué serie viste?', desc: 'Ficha, plones y reseña', ask: '¿Qué serie <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'capitulo',
+    id: 'serie', plural: 'Series', nombre: 'Serie', inicio: '¿Qué serie viste?', desc: 'Ficha, plones y reseña', ask: '¿Qué serie <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'capitulo',
     ficha: true, nota: true, imgL: 'Póster', tituloL: 'Nombre de la serie', tituloPh: 'Ej: Breaking Bad', fechaL: '¿Cuándo la viste?',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das a la serie?',
     campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: Netflix', sug: 'plat_serie' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 2008', num: true, h: 1 }, { k: 'temporadas', l: 'Temporadas vistas', ph: 'Ej: 1 a 3', h: 1 }],
     etq: ['Drama', 'Comedia', 'Policial', 'Ciencia ficción', 'Terror', 'Miniserie', 'Anime', 'Documental', 'Fantasía']
   },
   {
-    id: 'juego', nombre: 'Juego', inicio: '¿Qué juego jugaste?', desc: 'Ficha, plones y reseña', ask: '¿Qué juego <b>jugaste</b>?', ph: 'Lo que te dejó…', tejido: 'partida',
+    id: 'juego', plural: 'Juegos', nombre: 'Juego', inicio: '¿Qué juego jugaste?', desc: 'Ficha, plones y reseña', ask: '¿Qué juego <b>jugaste</b>?', ph: 'Lo que te dejó…', tejido: 'partida',
     ficha: true, nota: true, imgL: 'Portada', tituloL: 'Nombre del juego', tituloPh: 'Ej: The Last of Us', fechaL: '¿Cuándo lo jugaste?',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das al juego?',
     campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: PlayStation, PC, celular', sug: 'plat_juego' }, { k: 'estreno', l: 'Año de lanzamiento', ph: 'Ej: 2013', num: true, h: 1 }],
     etq: ['Aventura', 'Acción', 'RPG', 'Terror', 'Estrategia', 'Deportes', 'Indie', 'Mundo abierto', 'Cooperativo']
   },
   {
-    id: 'libro', nombre: 'Libro', inicio: '¿Qué libro leíste?', desc: 'Ficha, plones y reseña', ask: '¿Qué libro <b>leíste</b>?', ph: 'Lo que te dejó…', tejido: 'paginas',
+    id: 'libro', plural: 'Libros', nombre: 'Libro', inicio: '¿Qué libro leíste?', desc: 'Ficha, plones y reseña', ask: '¿Qué libro <b>leíste</b>?', ph: 'Lo que te dejó…', tejido: 'paginas',
     ficha: true, nota: true, imgL: 'Portada', tituloL: 'Título del libro', tituloPh: 'Ej: Cien años de soledad', fechaL: '¿Cuándo lo leíste?',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das al libro?',
     campos: [{ k: 'autor', l: 'Autor', ph: 'Ej: Gabriel García Márquez', sug: 'autor' }, { k: 'estreno', l: 'Año de publicación', ph: 'Ej: 1967', num: true, h: 1 }],
     etq: ['Novela', 'Cuento', 'Poesía', 'Ensayo', 'Ciencia ficción', 'Fantasía', 'Historia', 'Biografía', 'Colombiano']
   },
   {
-    id: 'banda', nombre: 'Banda', grupo: 'musica', oculto: true, inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
+    id: 'episodio', nombre: 'Episodio', plural: 'Episodios', hijo: true, inicio: '¿Qué episodio viste?', desc: 'Uno de una serie que ya sembraste', ask: '¿Qué <b>episodio</b> viste?', ph: 'Lo que te dejó…', tejido: 'capitulo',
+    ficha: true, nota: true, sinFecha: true, imgL: 'Imagen', tituloL: 'Nombre del episodio', tituloPh: 'Ej: Diversity Day',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das al episodio?',
+    campos: [{ k: 'serie', l: 'Serie', ph: 'Ej: The Office', sug: 'serie' }, { k: 'temporada', l: 'Temporada', lab: 'Temp.', num: true, ph: '1' }]
+  },
+  {
+    id: 'temporada', nombre: 'Temporada', plural: 'Temporadas', hijo: true, oculto: true, inicio: '¿Qué temporada viste?', desc: 'Una temporada de una serie', ask: '¿Qué <b>temporada</b> viste?', ph: 'Lo que te dejó…', tejido: 'capitulo',
+    ficha: true, nota: true, sinFecha: true, imgL: 'Portada', tituloL: 'Nombre', tituloPh: '',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das a la temporada?',
+    campos: [{ k: 'serie', l: 'Serie', ph: 'Ej: The Office', sug: 'serie' }, { k: 'temporada', l: 'Temporada', num: true, ph: '1' }]
+  },
+  {
+    id: 'banda', plural: 'Bandas', nombre: 'Banda', grupo: 'musica', oculto: true, inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
     ficha: true, nota: true, sinFecha: true, imgL: 'Foto', tituloL: 'Nombre de la banda', tituloPh: 'Ej: Soda Stereo',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das a la banda?',
     campos: [{ k: 'fundacion', l: 'Año de fundación', lab: 'Año de fundación', num: true, ph: 'Ej: 1982' }]
   },
   {
-    id: 'cancion', nombre: 'Canción', grupo: 'musica', card: 'Música', inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
+    id: 'cancion', plural: 'Canciones', nombre: 'Canción', grupo: 'musica', card: 'Música', inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
     ficha: true, nota: true, sinFecha: true, imgL: 'Portada', tituloL: 'Nombre de la canción', tituloPh: 'Ej: De música ligera',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das a la canción?',
     campos: [{ k: 'banda', l: 'Banda', ph: 'Ej: Soda Stereo', sug: 'banda' }]
   },
   {
-    id: 'album', nombre: 'Álbum', grupo: 'musica', oculto: true, inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
+    id: 'album', plural: 'Álbumes', nombre: 'Álbum', grupo: 'musica', oculto: true, inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
     ficha: true, nota: true, sinFecha: true, imgL: 'Portada', tituloL: 'Nombre del álbum', tituloPh: 'Ej: Dynamo',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das al álbum?',
     campos: [{ k: 'banda', l: 'Banda', ph: 'Ej: Soda Stereo', sug: 'banda' }, { k: 'estreno', l: 'Año de lanzamiento', num: true, ph: 'Ej: 1992' }]
@@ -3273,7 +3307,7 @@ function fechaFicha(f) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(f || ''); if (!m) return '';
   return parseInt(m[3], 10) + ' ' + MESES[parseInt(m[2], 10) - 1] + ' ' + m[1];
 }
-function fichaImgUrl(s, grande) {
+function fichaImgUrl_v32(s, grande) {
   const d = s.datos || {}, p = grande ? (d.img || d.thumb) : (d.thumb || d.img);
   return p ? urlFoto(p) : null;
 }
@@ -3416,6 +3450,8 @@ const tlNota = s => { const n = notaDe(s); return n == null ? -1 : n; };
 function tlSub(s) {   // la segunda línea de una ficha: director · año, autor · año, plataforma…
   const d = s.datos || {}, a = [];
   if (s.tipo === 'banda') return d.fundacion ? 'Desde ' + d.fundacion : '';
+  if (s.tipo === 'temporada') return '';
+  if (s.tipo === 'episodio') return [d.serie, d.temporada ? 'T' + d.temporada : ''].filter(Boolean).join(' · ');
   (tipoDe(s.tipo).campos || []).forEach(function (c) { if (d[c.k] && a.length < 2) a.push(d[c.k]); });
   if (!a.length && s.fecha) a.push(fechaFicha(s.fecha));
   return a.join(' · ');
@@ -3486,7 +3522,7 @@ function tlFila(s, rank) {
   return '<a class="tl-r" href="#modulo-' + s.id + '" style="--tc:' + tejidoDe(s.tejido).color + (nv ? ';--vc:' + nv.color : '') + '">' +
     (rank ? '<span class="tl-rk">' + rank + '</span>' : '') +
     '<span class="tl-th">' + (u ? '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async">' : '<em>' + esc(t.nombre.slice(0, 1)) + '</em>') + '</span>' +
-    '<span class="tl-x"><strong class="tl-t">' + esc(s.titulo || 'Sin título') + '</strong><span class="tl-s">' + (t.grupo ? '<b class="tl-tp">' + esc(t.nombre) + '</b>' : '') + (sub ? '<span>' + esc(sub) + '</span>' : '') +
+    '<span class="tl-x"><strong class="tl-t">' + esc(s.titulo || 'Sin título') + '</strong><span class="tl-s">' + (t.grupo || t.hijo ? '<b class="tl-tp">' + esc(t.nombre) + '</b>' : '') + (sub ? '<span>' + esc(sub) + '</span>' : '') +
     (tieneResena(s) ? '<b class="tl-res">Reseña</b>' : '') + (!s.publica ? '<b class="tl-priv">Privada</b>' : '') + '</span></span>' +
     '<span class="tl-n">' + (nv ? '<span class="tl-nv">' + TL_NUBE + nt.toFixed(1) + '</span><small>' + esc(nv.nombre) + '</small>' : '<small>Sin plones</small>') + '</span></a>';
 }
@@ -3528,7 +3564,7 @@ function vistaColeccion(scope) {
   let ctl = '';
   if (tk.length > 1 || ek.length) {
     ctl += '<div class="tj-fil tl-chips" role="group" aria-label="Filtros">' + chip('tj-todas', '', 'Todas', !f.tipo && !f.etq && !f.nivel) +
-      (tk.length > 1 ? tk.map(function (k) { return chip('tj-tipo', 'data-t="' + k + '"', esc(tipoDe(k).nombre) + ' <small>' + tipos[k] + '</small>', f.tipo === k); }).join('') : '') +
+      (tk.length > 1 ? tk.map(function (k) { return chip('tj-tipo', 'data-t="' + k + '"', esc(tipoDe(k).plural || tipoDe(k).nombre) + ' <small>' + tipos[k] + '</small>', f.tipo === k); }).join('') : '') +
       ek.map(function (e) { return chip('tj-etq', 'data-e="' + esc(e) + '"', '#' + esc(e), f.etq === e); }).join('') + '</div>';
   }
   if (conNota) {
@@ -3677,7 +3713,7 @@ function musCambiar(id) {
 }
 
 /* --- Sugerencias de banda: las que ya tienes (fichas de banda y bandas de tus canciones y álbumes) y algunas conocidas --- */
-function sugerenciasCampo(t, c) {
+function sugerenciasCampo_v31(t, c) {
   if (c.sug !== 'banda') return sugerenciasCampo_v30(t, c);
   const vistas = {}, out = [];
   const poner = function (x) { const k = norm(x); if (!k || vistas[k]) return; vistas[k] = 1; out.push(x); };
@@ -3882,14 +3918,14 @@ function recLineaHTML(b) {
   const v = REC_VERBO[b.tipo] || ['Recomendada', 'vista'], vista = b.fecha || diaClave(b.creado);
   return '<p class="mo-rec">' + (d.recpor ? v[0] + ' por <b>' + esc(d.recpor) + '</b>' : 'Estaba en tus recomendaciones') + (d.recdia ? ' el ' + esc(fechaFicha(d.recdia)) : '') + ' · ' + v[1] + ' el ' + esc(fechaFicha(vista)) + '</p>';
 }
-function vistaModulo(id) {
+function vistaModulo_v32(id) {
   const h = vistaModulo_v31(id), b = estado.semillas.filter(function (x) { return x.id === id; })[0];
   if (!b) return h;
   const l = recLineaHTML(b); if (!l) return h;
   const i = h.indexOf('</h1>'); return i < 0 ? h : h.slice(0, i + 5) + l + h.slice(i + 5);
 }
 
-function iniciarSemilla(tipo, id) {
+function iniciarSemilla_v32(tipo, id) {
   iniciarSemilla_v31(tipo, id);
   const r = !id && estado.recPre; if (!r) return; estado.recPre = null;
   const m = estado.sem; if (!m || m.faltante) return;
@@ -3897,6 +3933,152 @@ function iniciarSemilla(tipo, id) {
   if (r.banda && (tipoDe(m.tipo).campos || []).some(function (c) { return c.k === 'banda'; })) m.datos.banda = r.banda;
   m.datos.recid = r.id; m.datos.recdia = r.dia; if (r.quien) m.datos.recpor = r.quien;
 }
+/* ---------- v33: temporadas y episodios dentro de la serie ---------- */
+// La temporada y el episodio son fichas hijas de una serie: guardan en datos la serie (nombre y, si se sabe, su id) y la temporada. No llevan copia de la imagen: usan la de la serie.
+const serieDe = s => {
+  const d = (s && s.datos) || {}, L = estado.semillas.filter(function (x) { return x.tipo === 'serie'; });
+  if (d.serieid) { const p = L.filter(function (x) { return x.id === d.serieid; })[0]; if (p) return p; }
+  const k = norm(String(d.serie || '').trim());
+  return k ? (L.filter(function (x) { return norm(String(x.titulo || '').trim()) === k; })[0] || null) : null;
+};
+const serEsHijo = x => x.tipo === 'temporada' || x.tipo === 'episodio';
+function serHijas(p, tipo, dueno) {   // las fichas hijas de una serie
+  return estado.semillas.filter(function (x) {
+    if (x.tipo !== tipo || !(dueno || x.publica)) return false;
+    const q = serieDe(x); return !!q && q.id === p.id;
+  });
+}
+const serNum = x => parseInt((x.datos || {}).temporada, 10) || 0;
+const serProm = l => { const n = l.filter(function (x) { return notaDe(x) != null; }); return n.length ? { v: n.reduce(function (a, x) { return a + notaDe(x); }, 0) / n.length, n: n.length } : null; };
+
+/* --- La imagen de una temporada o un episodio sin imagen propia es la de su serie --- */
+function fichaImgUrl(s, grande) {
+  const u = fichaImgUrl_v32(s, grande);
+  if (u || !s || !serEsHijo(s)) return u;
+  const p = serieDe(s); return p ? fichaImgUrl_v32(p, grande) : null;
+}
+
+/* --- Sugerencias de serie: las que ya sembraste --- */
+function sugerenciasCampo(t, c) {
+  if (c.sug !== 'serie') return sugerenciasCampo_v31(t, c);
+  const vistas = {}, out = [];
+  estado.semillas.forEach(function (x) { if (x.tipo === 'serie') { const k = norm(x.titulo); if (k && !vistas[k]) { vistas[k] = 1; out.push(x.titulo); } } });
+  return out;
+}
+
+/* --- La sección de la serie: temporadas, episodios y sus promedios --- */
+function serRelHTML(b) {
+  const dueno = !!estado.sesion;
+  const tmps = serHijas(b, 'temporada', dueno).sort(function (a, c) { return serNum(a) - serNum(c); });
+  const epis = serHijas(b, 'episodio', dueno).sort(function (a, c) { return serNum(a) - serNum(c) || a.creado - c.creado; });
+  if (!dueno && !tmps.length && !epis.length) return '';
+  const pt = serProm(tmps), pe = serProm(epis);
+  const prom = function (p, txt) { return p ? '<p class="mus-prom">Promedio de ' + txt + ': <b>' + p.v.toFixed(1) + '</b> · ' + p.n + (p.n === 1 ? ' calificación' : ' calificaciones') + '</p>' : ''; };
+  const chips = tmps.length ? '<div class="ser-ts">' + tmps.map(function (x) {
+    const n = notaDe(x), nv = n != null ? nivel(n) : null;
+    return '<a class="ser-t" href="#modulo-' + x.id + '"' + (nv ? ' style="--vc:' + nv.color + '"' : '') + '><b>T' + (serNum(x) || '?') + '</b>' + (n != null ? '<span>' + TL_NUBE + n.toFixed(1) + '</span>' : '<span>–</span>') + '</a>';
+  }).join('') + '</div>' : '<p class="ayuda">Todavía no has calificado temporadas de esta serie.</p>';
+  return '<section class="ser-rel" aria-label="Temporadas"><h2 class="sec">Temporadas</h2>' + prom(pt, 'tus temporadas') + chips +
+    (dueno ? '<button type="button" class="btn ser-b" data-action="ser-temp" data-id="' + b.id + '">¿Calificar una temporada?</button>' : '') +
+    '<h2 class="sec ser-h2">Episodios que calificaste</h2>' + prom(pe, 'tus episodios') +
+    (epis.length ? '<div class="tl-lista">' + epis.map(function (x) { return tlFila(x, 0); }).join('') + '</div>' : '<p class="ayuda">Todavía no hay episodios calificados.</p>') +
+    (dueno ? '<button type="button" class="btn ser-b" data-action="ser-epi" data-id="' + b.id + '">+ Episodio</button>' : '') + '</section>';
+}
+/* --- En la ficha de un episodio o una temporada: a qué serie pertenece --- */
+function serPadreHTML(b) {
+  const p = serieDe(b), nombre = (b.datos || {}).serie || '';
+  if (!p && !nombre) return '';
+  const hermanos = p ? estado.semillas.filter(function (x) { return x.id !== b.id && x.tipo === b.tipo && (!!estado.sesion || x.publica) && serieDe(x) && serieDe(x).id === p.id; })
+    .sort(function (a, c) { return serNum(a) - serNum(c) || a.creado - c.creado; }) : [];
+  return '<section class="ser-rel" aria-label="La serie">' +
+    (p ? '<a class="mus-ban" href="#modulo-' + p.id + '" style="--tc:' + tejidoDe(p.tejido).color + '">Serie · ' + esc(p.titulo) + ' ›</a>' : '<p class="ayuda">Serie: ' + esc(nombre) + '</p>') +
+    (hermanos.length ? '<h2 class="sec ser-h2">' + (b.tipo === 'temporada' ? 'Otras temporadas' : 'Otros episodios') + '</h2><div class="tl-lista">' + hermanos.map(function (x) { return tlFila(x, 0); }).join('') + '</div>' : '') + '</section>';
+}
+function vistaModulo(id) {
+  const h = vistaModulo_v32(id), b = estado.semillas.filter(function (x) { return x.id === id; })[0];
+  if (!b) return h;
+  const r = b.tipo === 'serie' ? serRelHTML(b) : serEsHijo(b) ? serPadreHTML(b) : ''; if (!r) return h;
+  const i = h.indexOf('<div class="acciones mo-acc">'), j = i >= 0 ? i : h.lastIndexOf('</article>');
+  return j < 0 ? h : h.slice(0, j) + r + h.slice(j);
+}
+
+/* --- Pop-up del episodio: imagen, nombre, serie, temporada, comentario corto y plones --- */
+function popEpiHTML(s) {
+  const t = tipoDe('episodio'), nueva = !s.base, dl = [];
+  const atras = nueva ? (serieDe(s) ? '#modulo-' + serieDe(s).id : '#inicio') : '#modulo-' + s.id;
+  return '<div class="pop-cab"><h2 class="pop-t">' + t.ask + '</h2><a class="pop-x" href="' + atras + '" aria-label="Cerrar">' + ICO_X + '</a></div>' +
+    '<form id="fs" class="pop-form" novalidate><div class="pop-cuerpo"><div class="fx-poster" id="s-img">' + imgHTML() + '</div>' +
+    '<div class="pop-datos"><label class="fx-c fx-ti"><span class="fi-l">' + esc(t.tituloL) + '</span><input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="' + esc(t.tituloPh) + '" value="' + esc(s.titulo) + '" autocomplete="off" required></label>' +
+    '<div class="pop-a pop-a-n">' + campoHTML(t, s, t.campos[0], dl) + campoHTML(t, s, t.campos[1], dl) + '</div>' + dl.join('') +
+    '<label class="fx-c"><span class="fi-l">Comentario corto</span><textarea id="epi-com" class="in epi-com" rows="3" maxlength="400" placeholder="Qué te pareció, en una o dos frases…">' + esc(s.contenido || '') + '</textarea></label></div></div>' +
+    '<section class="pop-nota" id="s-nota">' + notaSecHTML() + '</section><p class="error" id="s-error" role="alert" hidden></p>' +
+    '<div class="pop-pie">' + (nueva ? '' : '<button type="button" class="btn peligro pop-b" data-action="sem-borrar">Borrar</button>') + '<button type="submit" id="s-guardar" class="btn prim pop-g">' + textoGuardar() + '</button></div></form>';
+}
+
+/* --- Pop-up de la temporada: la serie ya viene puesta; eliges la temporada, los plones y si quieres reseña --- */
+function tmpHechas(s) {   // números de temporada ya calificados de esta serie
+  const p = serieDe(s), o = {};
+  if (p) serHijas(p, 'temporada', true).forEach(function (x) { if (x.id !== s.id && serNum(x)) o[serNum(x)] = 1; });
+  return o;
+}
+function tmpChipsHTML(s) {
+  const act = String(s.datos.temporada || ''), hechas = tmpHechas(s), otra = !!s.otraTmp || (act && (parseInt(act, 10) > 6 || !/^\d+$/.test(act)));
+  let h = '';
+  for (let n = 1; n <= 6; n++) h += '<button type="button" class="chip' + (hechas[n] ? ' tmp-hecha' : '') + '" aria-pressed="' + (!otra && act === String(n)) + '" data-action="tmp-sel" data-n="' + n + '">' + n + (hechas[n] ? ' <i aria-label="ya calificada">✓</i>' : '') + '</button>';
+  h += '<button type="button" class="chip" aria-pressed="' + otra + '" data-action="tmp-otra">Otra</button>';
+  if (otra) h += '<input class="in tmp-num" type="text" inputmode="numeric" maxlength="3" data-campo="temporada" aria-label="Número de la temporada" placeholder="Nº" value="' + esc(act) + '" autocomplete="off">';
+  return h;
+}
+function tmpActualizar() {
+  const s = estado.sem; if (!s || s.tipo !== 'temporada') return;
+  const p = serieDe(s), nombre = p ? p.titulo : String(s.datos.serie || '').trim(), n = String(s.datos.temporada || '').trim();
+  s.titulo = nombre && n ? (nombre + ' · Temporada ' + n).slice(0, 200) : '';
+  const i = $('#s-titulo'); if (i) i.value = s.titulo;
+}
+function pintarTmp() {
+  const s = estado.sem, e = $('#s-tmp'); if (!s || !e) return;
+  e.innerHTML = tmpChipsHTML(s); tmpActualizar(); marcarSem();
+}
+function popTmpHTML(s) {
+  const t = tipoDe('temporada'), nueva = !s.base, p = serieDe(s), dl = [], nombre = p ? p.titulo : String(s.datos.serie || '').trim();
+  const u = p ? fichaImgUrl(p, false) : null;
+  const atras = nueva ? (p ? '#modulo-' + p.id : '#inicio') : '#modulo-' + s.id;
+  const cab = nombre ? '<div class="tmp-ser"><span class="tmp-p">' + (u ? '<img src="' + esc(u) + '" alt="">' : '') + '</span><span class="tmp-n"><small>Serie</small><b>' + esc(nombre) + '</b></span></div>'
+    : campoHTML(t, s, { k: 'serie', l: 'Serie', ph: 'Ej: The Office', sug: 'serie' }, dl) + dl.join('');
+  return '<div class="pop-cab"><h2 class="pop-t">' + t.ask + '</h2><a class="pop-x" href="' + atras + '" aria-label="Cerrar">' + ICO_X + '</a></div>' +
+    '<form id="fs" class="pop-form pop-tmp" novalidate><input type="hidden" id="s-titulo" value="' + esc(s.titulo) + '">' + cab +
+    '<span class="fi-l">Temporada</span><div class="chips sm tmp-ch" id="s-tmp">' + tmpChipsHTML(s) + '</div>' +
+    '<section class="pop-nota" id="s-nota">' + notaSecHTML() + '</section><p class="error" id="s-error" role="alert" hidden></p>' +
+    '<div class="pop-pie">' + (nueva ? '<div class="pop-res" id="s-res">' + resenaSiNoHTML() + '</div>' : '<button type="button" class="btn peligro pop-b" data-action="sem-borrar">Borrar</button>') +
+    '<button type="submit" id="s-guardar" class="btn prim pop-g">' + textoGuardar() + '</button></div></form>';
+}
+function popHTML(s) {
+  const t = tipoDe(s.tipo);
+  return t.id === 'episodio' ? popEpiHTML(s) : t.id === 'temporada' ? popTmpHTML(s) : popHTML_v32(s);
+}
+
+/* --- Al abrir desde la serie ya viene la serie puesta (y la temporada que toca) --- */
+function iniciarSemilla(tipo, id) {
+  iniciarSemilla_v32(tipo, id);
+  const m = estado.sem; if (!m || m.faltante || id || !serEsHijo(m)) { if (!id) estado.serPre = null; return; }
+  const r = estado.serPre; estado.serPre = null;
+  if (r) { m.datos.serie = r.titulo; m.datos.serieid = r.id; m.tocado = true; }
+  if (m.tipo === 'temporada') {
+    if (!m.datos.temporada) { const h = tmpHechas(m); let n = 1; while (h[n]) n++; m.datos.temporada = String(n); m.otraTmp = n > 6; }
+    tmpActualizar();
+  }
+}
+// escribir el comentario o cambiar la serie / el número de temporada
+document.addEventListener('input', function (e) {
+  const t = e.target, s = estado.sem; if (!t || !s || s.faltante) return;
+  if (t.id === 'epi-com') { s.contenido = t.value; marcarSem(); return; }
+  if (!t.dataset || !t.dataset.campo) return;
+  if (t.dataset.campo === 'serie' && serEsHijo(s)) { s.datos.serie = t.value; delete s.datos.serieid; }
+  else if (t.dataset.campo === 'temporada') s.datos.temporada = t.value;
+  else return;
+  if (s.tipo === 'temporada') tmpActualizar();
+});
+
 /* --- Un módulo: la ficha completa y su reseña --- */
 function vistaModulo_v30(id) {
   const b = estado.semillas.find(function (x) { return x.id === id; }), dueno = !!estado.sesion;
@@ -5732,7 +5914,7 @@ function campoHTML(t, s, c, dl) {
     (c.num ? ' inputmode="numeric" maxlength="4"' : ' maxlength="80"') + ' placeholder="' + esc(c.ph || '') + '" value="' + esc(s.datos[c.k] || '') + '" autocomplete="off"></label>';
 }
 const ICO_X = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
-function popHTML(s) {
+function popHTML_v32(s) {
   const t = tipoDe(s.tipo), nueva = !s.base, camp = t.campos || [], dl = [];
   const c0 = camp[0] || null, cB = camp.filter(function (c) { return c.num && c !== c0; })[0] || camp[1] || null;
   const resto = camp.filter(function (c) { return c !== c0 && c !== cB; });
@@ -5765,7 +5947,7 @@ function abrirPop() {
   s.refrescarPop = false;
   const h = abrirHoja('hoja-ficha', '<div class="hoja-c pop">' + popHTML(s) + '</div>');
   h.dataset.sid = s.id; h.classList.add('hoja-pop'); h.setAttribute('aria-label', tipoDe(s.tipo).nombre);
-  if (!s.base && window.matchMedia && matchMedia('(pointer:fine)').matches) setTimeout(function () { const x = $('#s-titulo'); if (x && document.activeElement !== x) { try { x.focus({ preventScroll: true }); } catch (e) { /* nada */ } } }, 80);
+  if (!s.base && window.matchMedia && matchMedia('(pointer:fine)').matches) setTimeout(function () { const x = $('#s-titulo'), ae = document.activeElement; if (x && ae !== x && !(ae && /^(INPUT|TEXTAREA)$/.test(ae.tagName))) { try { x.focus({ preventScroll: true }); } catch (e) { /* nada */ } } }, 80);
 }
 
 /* ---------- La pantalla completa: textos, y la página de la reseña de una ficha ---------- */
@@ -7239,6 +7421,12 @@ document.addEventListener('click', function (e) {
     case 'resena-no': cerrarHoja('hoja-resena'); break;
     case 'sem-etq-add': agregarEtq(b.dataset.e); break;
     case 'sem-etq-add-in': { const i0 = $('#s-etq'); if (i0) { agregarEtq(i0.value); i0.value = ''; i0.focus(); } break; }
+    case 'ser-temp': case 'ser-epi': {
+      const p = estado.semillas.filter(function (x) { return x.id === b.dataset.id; })[0]; if (!p) break;
+      estado.serPre = { id: p.id, titulo: p.titulo }; location.hash = '#sembrar-' + (b.dataset.action === 'ser-temp' ? 'temporada' : 'episodio'); break;
+    }
+    case 'tmp-sel': { const s = estado.sem; if (s) { s.datos.temporada = String(b.dataset.n); s.otraTmp = false; pintarTmp(); } break; }
+    case 'tmp-otra': { const s = estado.sem; if (s) { s.otraTmp = true; s.datos.temporada = ''; pintarTmp(); const x = $('.tmp-num'); if (x) x.focus(); } break; }
     case 'rec-nueva': recAbrir(); break;
     case 'rec-cerrar': estado.recF = null; cerrarHoja('hoja-rec'); break;
     case 'rec-fmt': recFormato(b.dataset.f); break;

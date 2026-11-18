@@ -1,3 +1,12 @@
+NOVEDAD v33 - Temporadas y episodios dentro de la serie:
+ - En la ficha de una serie salen sus Temporadas (T1, T2... con sus plones) y "Episodios que calificaste", con el promedio de cada una.
+ - Botón "¿Calificar una temporada?": ya viene con la serie puesta, te propone la siguiente que falta y marca con ✓ las que ya calificaste (también hay "Otra").
+ - Botón "+ Episodio": nombre, temporada, un comentario corto y los plones. También sale en Inicio -> "¿Qué episodio viste?".
+ - La temporada y el episodio usan la imagen de la serie y enlazan de vuelta a ella.
+ - Rankings por tipo: Películas, Series, Temporadas, Episodios, Juegos, Libros (filtros arriba en Ranking).
+ - Arreglo: al escribir en el pop-up, el cursor ya no se salta al nombre.
+ (No hay que correr ningún SQL nuevo.)
+
 ALUNA
 =====
 Esta carpeta es la app completa (HTML + íconos + service worker).
