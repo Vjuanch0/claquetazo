@@ -5,6 +5,15 @@ Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
 Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
 Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube el número de VERSION en sw.js).
 
+NOVEDAD v32 - Recomendaciones:
+ - Abajo en Tejidos hay un telar de recomendaciones: un hilo naranja con las 3 más antiguas colgando (nombre, tipo y hace cuánto), cada una con su check. Arriba a la derecha el botón "+ Me recomendaron" y el número de pendientes.
+ - "+ Me recomendaron": eliges qué es (Película, Serie, Juego, Libro, Banda, Canción o Álbum), escribes el nombre y, si quieres, quién te la recomendó (y la banda si es canción o álbum). La fecha se pone sola.
+ - Tocando "Recomendaciones" (o el hilo) abres la lista tipo playlist: Pendientes (la más antigua primero) y Hechas. La X quita una (pide confirmar) y en Hechas la flechita la devuelve a pendientes.
+ - El check abre el pop-up normal de sembrar ya llenito (nombre, banda y quién la recomendó). Al guardar, la recomendación pasa a Hechas enlazada a la ficha nueva, y la ficha dice "Recomendada por X el ... · vista el ...".
+ - Las recomendaciones son solo tuyas (nunca se publican) y no cuentan en rankings, en "Recién tejido" ni en el número de fichas.
+ - Inicio en PC: las 5 tarjetas caben en una sola fila. Las filas de Tejidos quedaron un poco más compactas.
+ (No hay que correr ningún SQL nuevo.)
+
 NOVEDAD v31 - La madeja y el tejido de música "Cuerdas":
  - En Tejidos, cada tejido ahora es una madeja: un cordón de varias hebras que se cruzan. Más fichas = más hebras y más largo, con un amarre cada 5 fichas y la punta deshilachada. Si un tejido tiene 0 fichas, solo dice "0" (sin cordón).
  - Dentro de un tejido todo sigue igual: pósters colgando arriba, filtros y la lista con los plones.

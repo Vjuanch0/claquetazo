@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=31">
-<link rel="icon" href="favicon.svg?v=31" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=31" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=31">
+<link rel="manifest" href="manifest.webmanifest?v=32">
+<link rel="icon" href="favicon.svg?v=32" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=32" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=32">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1154,9 +1154,9 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .tl-rkb{flex:none;display:inline-flex;align-items:center;min-height:34px;padding:0 14px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim);font-weight:600;font-size:.8rem;background:rgba(255,255,255,.04);transition:border-color .2s,color .2s}
 .tl-rkb:hover,.tl-rkb:focus-visible{border-color:#ff9a3c;color:var(--ink)}
 .tl-hilos{display:grid;margin:14px 0 0}
-.tl-fila{display:flex;align-items:center;gap:10px;min-height:42px;min-width:0;color:inherit;border-radius:12px;transition:background .2s}
+.tl-fila{display:flex;align-items:center;gap:10px;min-height:38px;min-width:0;color:inherit;border-radius:12px;transition:background .2s}
 .tl-fila:hover,.tl-fila:focus-visible{background:rgba(255,255,255,.04)}
-.tl-apar{margin-top:6px}
+.tl-apar{margin-top:4px}
 .tl-nom{flex:none;width:112px;display:grid;gap:2px}
 .tl-nom b{display:flex;align-items:center;gap:5px;font:600 .95rem/1.1 var(--display)}
 .tl-nom small{font-size:.7rem;color:var(--ink-dim)}
@@ -1230,7 +1230,7 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .tl-nv svg{width:17px;height:17px;fill:currentColor}
 .tl-n small{font-size:.62rem;color:var(--ink-dim)}
 @media(min-width:700px){
-  .tl-urd{height:34px}.tl-cd{height:34px}
+  .tl-urd{height:34px}.tl-cd{height:34px}.tl-fila{min-height:46px}
   .tl-rec{grid-template-columns:repeat(6,minmax(0,1fr))}
   .tl-rec .tl-rc:nth-child(n+4){display:flex}
   .tl-nom{width:140px}
@@ -1251,7 +1251,116 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .mus-ban{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--tc);color:var(--ink);font-weight:600;font-size:.84rem;background:color-mix(in srgb,var(--tc) 14%,transparent)}
 @media(max-width:699px){.sem-gr-l .sem-gr:last-child:nth-child(odd){grid-column:1 / -1}}
 @media(min-width:700px) and (max-width:999px){.sem-gr-l .sem-gr:last-child:nth-child(odd){grid-column:span 2}}
-@media(min-width:1000px){.sem-gr-l{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media(min-width:1000px){.sem-gr-l{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.sem-gr{padding:10px 10px;column-gap:8px}.sem-gr-i{width:32px;height:32px}.sem-gr-i .ic{width:17px;height:17px}.sem-gr-n{font-size:1.1rem}.sem-gr-d{font-size:.72rem}}
+
+/* ---------- v32: Recomendaciones (el telar de abajo, la lista y el pop-up) ---------- */
+.tl-rtira{margin-top:18px}
+.tl-rcab{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tl-rcab-t{font:600 .62rem var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+.tl-rcab-t:hover,.tl-rcab-t:focus-visible{color:var(--ink-dim)}
+.tl-rcab-n{font:700 .68rem var(--ui);color:#ffb25e}
+.tl-rcab i{flex:1;height:1px;background:var(--line)}
+.tl-rmas{flex:none;min-height:30px;padding:0 11px;border-radius:999px;border:1px solid rgba(255,154,60,.5);background:transparent;color:#ffb25e;font:600 .7rem var(--ui);cursor:pointer;transition:background .2s}
+.tl-rmas:hover,.tl-rmas:focus-visible{background:rgba(255,154,60,.14)}
+.tl-rvac{margin:0;font-size:.76rem;color:var(--ink-faint)}
+.tl-rhilo{position:relative;padding-top:10px}
+.tl-rhilo::before,.rc-hilo{content:"";display:block;height:3px;border-radius:2px;background:repeating-linear-gradient(90deg,#ff9a3c 0 6px,#c9701c 6px 9px)}
+.tl-rhilo::before{position:absolute;left:0;right:0;top:0}
+.tl-rcol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tl-rt{position:relative;display:flex;align-items:center;gap:7px;min-width:0;padding:8px 8px 7px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);animation:tlFlota 4.6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-1.2s)}
+.tl-rt::before{content:"";position:absolute;left:50%;top:-11px;width:1px;height:11px;background:#ff9a3c}
+.tl-rt-ck,.rc-ck{position:relative;flex:none;display:grid;place-items:center;padding:0;border-radius:50%;border:1.5px solid var(--tc);background:transparent;color:var(--tc);cursor:pointer;transition:background .2s,color .2s,transform .15s}
+.tl-rt-ck{width:22px;height:22px}
+.tl-rt-ck::after,.rc-ck::after{content:"";position:absolute;inset:-8px}
+.tl-rt-ck:hover,.tl-rt-ck:focus-visible,.rc-ck:hover,.rc-ck:focus-visible{background:var(--tc);color:#04141a;transform:scale(1.08)}
+.tl-rt-ck svg,.rc-ck svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.tl-rt-x{min-width:0;display:grid;color:inherit}
+.tl-rt-x b{font:600 .72rem/1.15 var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-rt-x small{font-size:.6rem;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@keyframes tlFlota{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* la página de recomendaciones */
+.rc .tl-cab-in{margin-bottom:10px}
+.rc-hilo{margin:2px 0 4px}
+.rc-nota{margin:8px 0 2px;font-size:.76rem;color:var(--ink-faint)}
+.rc-lista{display:grid}
+.rc-r{display:flex;align-items:center;gap:12px;min-height:62px;padding:7px 2px;border-bottom:1px solid rgba(255,255,255,.07)}
+.rc-ck{width:30px;height:30px}
+.rc-ck svg{width:15px;height:15px}
+.rc-ok{background:var(--tc);color:#04141a;cursor:default}
+.rc-ok:hover{transform:none}
+.rc-in{flex:1;min-width:0;display:flex;align-items:center;gap:12px;color:inherit}
+a.rc-in:hover strong{text-decoration:underline}
+.rc-x{flex:1;min-width:0;display:grid;gap:3px}
+.rc-x strong{font-weight:600;font-size:.94rem;line-height:1.2;overflow-wrap:anywhere}
+.rc-s{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;font-size:.74rem;color:var(--ink-dim)}
+.rc-r .tl-tp{background:color-mix(in srgb,var(--tc) 22%,transparent);color:var(--tc)}
+.rc-del{flex:none;width:34px;height:34px;color:var(--ink-faint)}
+.rc-del:hover,.rc-del:focus-visible{color:var(--ink)}
+.rc-q{flex:none;display:flex;gap:6px}
+.rc-q .btn{min-height:32px;padding:0 12px;font-size:.78rem}
+.pop-rec{margin:0 0 8px;font-size:.78rem;color:var(--ink-dim)}
+.pop-rec b{color:#ffb25e}
+.mo-rec{margin:4px 0 8px;font-size:.84rem;color:var(--ink-dim)}
+.mo-rec b{color:#ffb25e}
+.rec-form{display:grid;gap:12px;padding-top:4px}
+.rec-fm{margin:-4px 0 0}
+.rec-pie{display:flex;gap:10px}
+.rec-pie .btn{flex:1}
+@media(prefers-reduced-motion:reduce){.tl-rt{animation:none}.tl-rt-ck,.rc-ck{transition:none}}
+/* ---------- v32: Recomendaciones (el telar de abajo, la lista y el pop-up) ---------- */
+.tl-rtira{margin-top:18px}
+.tl-rcab{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tl-rcab-t{font:600 .62rem var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+.tl-rcab-t:hover,.tl-rcab-t:focus-visible{color:var(--ink-dim)}
+.tl-rcab-n{font:700 .68rem var(--ui);color:#ffb25e}
+.tl-rcab i{flex:1;height:1px;background:var(--line)}
+.tl-rmas{flex:none;min-height:30px;padding:0 11px;border-radius:999px;border:1px solid rgba(255,154,60,.5);background:transparent;color:#ffb25e;font:600 .7rem var(--ui);cursor:pointer;transition:background .2s}
+.tl-rmas:hover,.tl-rmas:focus-visible{background:rgba(255,154,60,.14)}
+.tl-rvac{margin:0;font-size:.76rem;color:var(--ink-faint)}
+.tl-rhilo{position:relative;padding-top:10px}
+.tl-rhilo::before,.rc-hilo{content:"";display:block;height:3px;border-radius:2px;background:repeating-linear-gradient(90deg,#ff9a3c 0 6px,#c9701c 6px 9px)}
+.tl-rhilo::before{position:absolute;left:0;right:0;top:0}
+.tl-rcol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tl-rt{position:relative;display:flex;align-items:center;gap:7px;min-width:0;padding:8px 8px 7px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);animation:tlFlota 4.6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-1.2s)}
+.tl-rt::before{content:"";position:absolute;left:50%;top:-11px;width:1px;height:11px;background:#ff9a3c}
+.tl-rt-ck,.rc-ck{position:relative;flex:none;display:grid;place-items:center;padding:0;border-radius:50%;border:1.5px solid var(--tc);background:transparent;color:var(--tc);cursor:pointer;transition:background .2s,color .2s,transform .15s}
+.tl-rt-ck{width:22px;height:22px}
+.tl-rt-ck::after,.rc-ck::after{content:"";position:absolute;inset:-8px}
+.tl-rt-ck:hover,.tl-rt-ck:focus-visible,.rc-ck:hover,.rc-ck:focus-visible{background:var(--tc);color:#04141a;transform:scale(1.08)}
+.tl-rt-ck svg,.rc-ck svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.tl-rt-x{min-width:0;display:grid;color:inherit}
+.tl-rt-x b{font:600 .72rem/1.15 var(--display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-rt-x small{font-size:.6rem;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@keyframes tlFlota{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* la página de recomendaciones */
+.rc .tl-cab-in{margin-bottom:10px}
+.rc-hilo{margin:2px 0 4px}
+.rc-nota{margin:8px 0 2px;font-size:.76rem;color:var(--ink-faint)}
+.rc-lista{display:grid}
+.rc-r{display:flex;align-items:center;gap:12px;min-height:62px;padding:7px 2px;border-bottom:1px solid rgba(255,255,255,.07)}
+.rc-ck{width:30px;height:30px}
+.rc-ck svg{width:15px;height:15px}
+.rc-ok{background:var(--tc);color:#04141a;cursor:default}
+.rc-ok:hover{transform:none}
+.rc-in{flex:1;min-width:0;display:flex;align-items:center;gap:12px;color:inherit}
+a.rc-in:hover strong{text-decoration:underline}
+.rc-x{flex:1;min-width:0;display:grid;gap:3px}
+.rc-x strong{font-weight:600;font-size:.94rem;line-height:1.2;overflow-wrap:anywhere}
+.rc-s{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;font-size:.74rem;color:var(--ink-dim)}
+.rc-r .tl-tp{background:color-mix(in srgb,var(--tc) 22%,transparent);color:var(--tc)}
+.rc-del{flex:none;width:34px;height:34px;color:var(--ink-faint)}
+.rc-del:hover,.rc-del:focus-visible{color:var(--ink)}
+.rc-q{flex:none;display:flex;gap:6px}
+.rc-q .btn{min-height:32px;padding:0 12px;font-size:.78rem}
+.pop-rec{margin:0 0 8px;font-size:.78rem;color:var(--ink-dim)}
+.pop-rec b{color:#ffb25e}
+.mo-rec{margin:4px 0 8px;font-size:.84rem;color:var(--ink-dim)}
+.mo-rec b{color:#ffb25e}
+.rec-form{display:grid;gap:12px;padding-top:4px}
+.rec-fm{margin:-4px 0 0}
+.rec-pie{display:flex;gap:10px}
+.rec-pie .btn{flex:1}
+@media(prefers-reduced-motion:reduce){.tl-rt{animation:none}.tl-rt-ck,.rc-ck{transition:none}}
 </style>
 </head>
 <body>
@@ -2688,6 +2797,7 @@ const TIPOS = [
     calQ: '¿Cuántos <b class="resalta">plones</b> le das al álbum?',
     campos: [{ k: 'banda', l: 'Banda', ph: 'Ej: Soda Stereo', sug: 'banda' }, { k: 'estreno', l: 'Año de lanzamiento', num: true, ph: 'Ej: 1992' }]
   },
+  { id: 'recomendacion', nombre: 'Recomendación', desc: 'Lo que te recomendaron', ask: '', ph: '', tejido: 'recomendaciones', oculto: true },
   { id: 'random', nombre: 'Random', desc: 'Lo que no cabe en otro lado', ask: 'Lo que <b>sea</b>.', ph: 'Lo que se te ocurra…', tejido: null }
 ];
 const tipoDe = id => TIPOS.find(t => t.id === id) || TIPOS[TIPOS.length - 1];
@@ -3343,7 +3453,7 @@ function tlCuerda(k, max, c) {
 /* --- Pantalla principal de Tejidos --- */
 function vistaTejidos() {
   const dueno = !!estado.sesion;
-  const todos = estado.semillas.filter(function (s) { return dueno || s.publica; });
+  const todos = estado.semillas.filter(function (s) { return (dueno || s.publica) && !esRec(s); });
   const cuenta = function (id) { return todos.filter(function (s) { return s.tejido === id; }).length; };
   let max = 1; TEJIDOS.forEach(function (t) { max = Math.max(max, cuenta(t.id)); });
   let i = 0, hilos = 0;
@@ -3364,10 +3474,10 @@ function vistaTejidos() {
     (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</p></div>' + (conNota ? '<a class="tl-rkb" href="#top">Ranking</a>' : '') + '</header>' + avisosSemillas();
   if (estado.cargando && !todos.length) return h + '<div class="vacio-box"><strong>Cargando…</strong></div></div>';
   if (!todos.length) {
-    return h + '<div class="vacio-box"><strong>El tejido está vacío.</strong><span>' + (dueno ? 'Siembra algo y aquí empieza a tejerse.' : 'Todavía no hay nada público. Vuelve pronto.') + '</span>' + (dueno ? '<a class="btn prim" href="#inicio">Sembrar algo</a>' : '') + '</div></div>';
+    return h + '<div class="vacio-box"><strong>El tejido está vacío.</strong><span>' + (dueno ? 'Siembra algo y aquí empieza a tejerse.' : 'Todavía no hay nada público. Vuelve pronto.') + '</span>' + (dueno ? '<a class="btn prim" href="#inicio">Sembrar algo</a>' : '') + '</div>' + recTiraHTML() + '</div>';
   }
   const ult = todos.slice().sort(function (a, b) { return b.creado - a.creado; }).slice(0, 6);
-  return h + '<div class="tl-hilos">' + cuerpo + '</div><div class="tl-rec-t">Recién tejido</div><div class="tl-rec">' + ult.map(tlMini).join('') + '</div></div>';
+  return h + '<div class="tl-hilos">' + cuerpo + '</div><div class="tl-rec-t">Recién tejido</div><div class="tl-rec">' + ult.map(tlMini).join('') + '</div>' + recTiraHTML() + '</div>';
 }
 
 /* --- Una ficha en la lista: póster, título, datos y plones --- */
@@ -3395,10 +3505,11 @@ function tlColgante(base, color) {
 /* --- Una colección: un tejido, un estante o todo (con filtros y ranking) --- */
 function vistaColeccion(scope) {
   const al = tjAlcance(scope);
+  if (scope === 'recomendaciones') return vistaRecs();
   if (!al) return '<a class="volver" href="#tejidos">Tejidos</a><div class="vacio-box"><strong>Ese tejido no existe.</strong><a class="btn prim" href="#tejidos">Ir a los tejidos</a></div>';
   if (estado.tj.scope !== scope) estado.tj = { scope: scope, orden: al.rk ? 'mejores' : 'recientes', nivel: 0, etq: '', tipo: '' };
   const f = estado.tj, dueno = !!estado.sesion;
-  const base = estado.semillas.filter(function (s) { return (dueno || s.publica) && (!al.ids || al.ids.indexOf(s.tejido) >= 0); });
+  const base = estado.semillas.filter(function (s) { return (dueno || s.publica) && !esRec(s) && (!al.ids || al.ids.indexOf(s.tejido) >= 0); });
   const cargando = estado.cargando && !estado.semillas.length;
   const tipos = {}, etqs = {}; let conNota = 0;
   base.forEach(function (s) { tipos[s.tipo] = (tipos[s.tipo] || 0) + 1; s.etiquetas.forEach(function (e) { etqs[e] = (etqs[e] || 0) + 1; }); if (notaDe(s) != null) conNota++; });
@@ -3559,7 +3670,7 @@ function musCambiar(id) {
   const ti = $('#s-titulo'); if (ti) s.titulo = ti.value;
   try { Copia.borrar(claveSemBor(s)); } catch (e) { /* nada */ }
   const ok = {}; (tipoDe(id).campos || []).forEach(function (c) { ok[c.k] = 1; });
-  Object.keys(s.datos).forEach(function (k) { if (!ok[k] && k !== 'img' && k !== 'thumb') delete s.datos[k]; });
+  Object.keys(s.datos).forEach(function (k) { if (!ok[k] && k !== 'img' && k !== 'thumb' && k !== 'recid' && k !== 'recpor' && k !== 'recdia') delete s.datos[k]; });
   s.tipo = id; s.refrescarPop = true; s.tocado = true;
   history.replaceState(null, '', '#sembrar-' + id); s.ruta = 'sembrar-' + id;
   render(false);
@@ -3599,7 +3710,7 @@ function musRelHTML(b) {
     : (dueno ? '<button type="button" class="btn" data-action="mus-crear-banda" data-n="' + esc(banda) + '">Crear la ficha de ' + esc(banda) + '</button>' : '');
   return '<section class="mus-rel" aria-label="La banda">' + enlace + (lista ? '<h2 class="sec">Más de ' + esc(banda) + '</h2>' + lista : '') + '</section>';
 }
-function vistaModulo(id) {
+function vistaModulo_v31(id) {
   const h = vistaModulo_v30(id), b = estado.semillas.find(function (x) { return x.id === id; });
   if (!b) return h;
   const r = musRelHTML(b); if (!r) return h;
@@ -3607,9 +3718,184 @@ function vistaModulo(id) {
   return j < 0 ? h : h.slice(0, j) + r + h.slice(j);
 }
 
-function iniciarSemilla(tipo, id) {
+function iniciarSemilla_v31(tipo, id) {
   iniciarSemilla_v30(tipo, id);
   if (!id && estado.musPre) { if (estado.sem && estado.sem.tipo === 'banda') estado.sem.titulo = estado.musPre; estado.musPre = ''; }
+}
+/* ---------- v32: Recomendaciones (lo que te recomendaron y todavía no has visto, jugado, leído o escuchado) ---------- */
+// Una recomendación es una semilla más: tipo «recomendacion», tejido «recomendaciones», y en datos: formato, quien, banda, hecha, ficha, hecha_en. Siempre privada.
+const REC_FORMATOS = [['pelicula', 'Película'], ['serie', 'Serie'], ['juego', 'Juego'], ['libro', 'Libro'], ['banda', 'Banda'], ['cancion', 'Canción'], ['album', 'Álbum']];
+const REC_VERBO = { pelicula: ['Recomendada', 'vista'], serie: ['Recomendada', 'vista'], juego: ['Recomendado', 'jugado'], libro: ['Recomendado', 'leído'], banda: ['Recomendada', 'escuchada'], cancion: ['Recomendada', 'escuchada'], album: ['Recomendado', 'escuchado'] };
+const REC_COLOR = '#ff9a3c';
+const ICO_CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>';
+const esRec = s => s.tipo === 'recomendacion';
+const recHecha = s => !!(s.datos && s.datos.hecha);
+const recFmt = s => (s.datos && s.datos.formato) || 'pelicula';
+const recFmtNombre = id => (REC_FORMATOS.filter(function (f) { return f[0] === id; })[0] || [0, 'Otro'])[1];
+const recFmtColor = id => { const t = tipoDe(id); return t && t.tejido && tejidoOk(t.tejido) ? tejidoDe(t.tejido).color : REC_COLOR; };
+function recPendientes() { return estado.semillas.filter(function (s) { return esRec(s) && !recHecha(s); }).sort(function (a, b) { return a.creado - b.creado; }); }
+function recHechas() { return estado.semillas.filter(function (s) { return esRec(s) && recHecha(s); }).sort(function (a, b) { return String(b.datos.hecha_en || '').localeCompare(String(a.datos.hecha_en || '')) || b.creado - a.creado; }); }
+function recSub(s) {
+  const d = s.datos || {}, a = [recFmtNombre(recFmt(s))];
+  return { tipo: a[0], quien: d.quien ? 'Recomendada por ' + d.quien : '', banda: d.banda || '', hace: hace(s.creado) };
+}
+
+/* --- La tira de Tejidos: el telar de las recomendaciones, con las 3 más antiguas colgando --- */
+function recTiraHTML() {
+  if (!estado.sesion) return '';
+  const p = recPendientes();
+  const cab = '<div class="tl-rcab"><a class="tl-rcab-t" href="#tejido-recomendaciones">Recomendaciones</a>' + (p.length ? '<b class="tl-rcab-n">' + p.length + '</b>' : '') + '<i></i>' +
+    '<button type="button" class="tl-rmas" data-action="rec-nueva">+ Me recomendaron</button></div>';
+  if (!p.length) return '<section class="tl-rtira" aria-label="Recomendaciones">' + cab + '<p class="tl-rvac">Nada pendiente. Cuando alguien te recomiende algo, anótalo aquí.</p></section>';
+  return '<section class="tl-rtira" aria-label="Recomendaciones">' + cab + '<div class="tl-rhilo"><div class="tl-rcol">' + p.slice(0, 3).map(function (s, i) {
+    const c = recFmtColor(recFmt(s));
+    return '<div class="tl-rt" style="--tc:' + c + ';--i:' + i + '"><button type="button" class="tl-rt-ck" data-action="rec-check" data-id="' + s.id + '" aria-label="Ya lo vi: ' + esc(s.titulo) + '">' + ICO_CHECK + '</button>' +
+      '<a class="tl-rt-x" href="#tejido-recomendaciones"><b>' + esc(s.titulo) + '</b><small>' + esc(recFmtNombre(recFmt(s))) + ' · ' + esc(hace(s.creado)) + '</small></a></div>';
+  }).join('') + '</div></div></section>';
+}
+
+/* --- La página de las recomendaciones: una lista tipo playlist, la más antigua primero --- */
+function vistaRecs() {
+  if (!estado.sesion) return '<a class="volver" href="#tejidos">Tejidos</a><div class="vacio-box"><strong>Esto es solo para ti.</strong><span>Las recomendaciones no se publican.</span>' + (estado.iniciado ? '<a class="btn prim" href="#entrar">Entrar</a>' : '') + '</div>';
+  const p = recPendientes(), h = recHechas(), tab = estado.recTab === 'hechas' ? 'hechas' : 'pend';
+  const cabeza = '<header class="tl-cab tl-cab-in" style="--hc:' + REC_COLOR + '"><a class="tl-atras" href="#tejidos" aria-label="Volver a Tejidos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>' +
+    '<div class="tl-tt"><h1 class="pag">Recomendaciones</h1><p class="tl-sub">' + p.length + (p.length === 1 ? ' pendiente' : ' pendientes') + ' · ' + h.length + (h.length === 1 ? ' hecha' : ' hechas') + ' · solo tú</p></div>' +
+    '<button type="button" class="btn prim tl-sem" data-action="rec-nueva" aria-label="Anotar algo que me recomendaron">+ Anotar</button></header>' + avisosSemillas();
+  const chip = function (t, txt, n) { return '<button type="button" class="chip" aria-pressed="' + (tab === t) + '" data-action="rec-tab" data-t="' + t + '">' + txt + ' <small>' + n + '</small></button>'; };
+  const chips = '<div class="tj-fil tl-chips" role="group" aria-label="Pendientes o hechas">' + chip('pend', 'Pendientes', p.length) + chip('hechas', 'Hechas', h.length) + '</div>';
+  let cuerpo;
+  if (estado.cargando && !estado.semillas.length) cuerpo = '<div class="vacio-box"><strong>Cargando…</strong></div>';
+  else if (tab === 'pend') {
+    cuerpo = p.length ? '<p class="rc-nota">Las más antiguas primero. Toca el check cuando la hayas visto: se abre la ficha ya llenita para calificarla.</p><div class="rc-lista">' + p.map(function (s) {
+      const x = recSub(s), c = recFmtColor(recFmt(s));
+      const fin = estado.recQ === s.id
+        ? '<span class="rc-q"><button type="button" class="btn peligro" data-action="rec-borrar-si" data-id="' + s.id + '">Quitar</button><button type="button" class="btn" data-action="rec-borrar-no">No</button></span>'
+        : '<button type="button" class="ib rc-del" data-action="rec-borrar" data-id="' + s.id + '" aria-label="Quitar «' + esc(s.titulo) + '» de la lista"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+      return '<div class="rc-r" style="--tc:' + c + '"><button type="button" class="rc-ck" data-action="rec-check" data-id="' + s.id + '" aria-label="Ya la vi: ' + esc(s.titulo) + '">' + ICO_CHECK + '</button>' +
+        '<span class="rc-x"><strong>' + esc(s.titulo) + '</strong><span class="rc-s"><b class="tl-tp">' + esc(x.tipo) + '</b>' + (x.banda ? '<span>' + esc(x.banda) + '</span>' : '') + (x.quien ? '<span>' + esc(x.quien) + '</span>' : '') + '<span>' + esc(x.hace) + '</span></span></span>' + fin + '</div>';
+    }).join('') + '</div>'
+      : '<div class="vacio-box"><strong>No tienes nada pendiente.</strong><span>Cuando alguien te recomiende algo, toca «+ Me recomendaron» y queda aquí.</span></div>';
+  } else {
+    cuerpo = h.length ? '<div class="rc-lista">' + h.map(function (s) {
+      const d = s.datos || {}, f = d.ficha ? estado.semillas.filter(function (z) { return z.id === d.ficha; })[0] : null, c = recFmtColor(recFmt(s));
+      const cuando = d.hecha_en ? ' · ' + (REC_VERBO[recFmt(s)] || ['', 'vista'])[1] + ' el ' + fechaFicha(d.hecha_en) : '';
+      const cuerpoFila = '<span class="rc-ck rc-ok" style="--tc:' + c + '">' + ICO_CHECK + '</span><span class="rc-x"><strong>' + esc(s.titulo) + '</strong><span class="rc-s"><b class="tl-tp">' + esc(recFmtNombre(recFmt(s))) + '</b>' +
+        '<span>' + (d.quien ? 'Recomendada por ' + esc(d.quien) : 'Recomendación') + esc(cuando) + '</span></span></span>';
+      return '<div class="rc-r rc-hecha" style="--tc:' + c + '">' + (f ? '<a class="rc-in" href="' + hrefSem(f) + '">' + cuerpoFila + '</a>' : '<span class="rc-in">' + cuerpoFila + '</span>') +
+        '<button type="button" class="ib rc-del" data-action="rec-deshacer" data-id="' + s.id + '" aria-label="Volver a pendiente: ' + esc(s.titulo) + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7L4 12l5 5M4 12h11a5 5 0 010 10"/></svg></button></div>';
+    }).join('') + '</div>' : '<div class="vacio-box"><strong>Todavía no has marcado ninguna.</strong><span>Las que vayas viendo aparecen aquí con la fecha.</span></div>';
+  }
+  return '<div class="tl rc">' + cabeza + '<div class="rc-hilo" aria-hidden="true"></div>' + chips + '<div class="tl-cuerpo">' + cuerpo + '</div></div>';
+}
+
+/* --- El pop-up «Me recomendaron» --- */
+function recHojaHTML() {
+  const f = estado.recF, musica = f.formato === 'cancion' || f.formato === 'album';
+  const quienes = {}, listaQ = [];
+  estado.semillas.forEach(function (s) { const q = esRec(s) && s.datos && s.datos.quien; if (q && !quienes[norm(q)]) { quienes[norm(q)] = 1; listaQ.push(q); } });
+  const ph = { pelicula: 'Ej: El padrino', serie: 'Ej: Succession', juego: 'Ej: Hollow Knight', libro: 'Ej: Pedro Páramo', banda: 'Ej: Soda Stereo', cancion: 'Ej: De música ligera', album: 'Ej: Dynamo' }[f.formato];
+  const dlB = musica ? '<datalist id="dl-rec-banda">' + sugerenciasCampo(tipoDe('cancion'), { k: 'banda', sug: 'banda' }).slice(0, 120).map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>' : '';
+  return '<div class="hoja-c pop rec-pop"><div class="pop-cab"><h2 class="pop-t">Me <b>recomendaron</b>…</h2><button type="button" class="pop-x" data-action="rec-cerrar" aria-label="Cerrar">' + ICO_X + '</button></div>' +
+    '<form id="frec" class="rec-form" novalidate><span class="fi-l">¿Qué es?</span>' +
+    '<div class="chips sm rec-fm" role="group" aria-label="Qué es">' + REC_FORMATOS.map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x[0] === f.formato) + '" data-action="rec-fmt" data-f="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>' +
+    '<label class="fx-c"><span class="fi-l">Nombre</span><input id="rec-titulo" class="in" type="text" maxlength="200" placeholder="' + esc(ph) + '" value="' + esc(f.titulo || '') + '" autocomplete="off"></label>' +
+    (musica ? '<label class="fx-c"><span class="fi-l">Banda (opcional)</span><input id="rec-banda" class="in" type="text" maxlength="80" list="dl-rec-banda" placeholder="Ej: Soda Stereo" value="' + esc(f.banda || '') + '" autocomplete="off"></label>' + dlB : '') +
+    '<label class="fx-c"><span class="fi-l">¿Quién te la recomendó? (opcional)</span><input id="rec-quien" class="in" type="text" maxlength="60" list="dl-rec-quien" placeholder="Ej: Mi hermano" value="' + esc(f.quien || '') + '" autocomplete="off"></label>' +
+    '<datalist id="dl-rec-quien">' + listaQ.map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>' +
+    '<p class="error" id="rec-error" role="alert" hidden></p>' +
+    '<div class="pop-pie rec-pie"><button type="button" class="btn" data-action="rec-cerrar">Cancelar</button><button type="submit" id="rec-guardar" class="btn prim pop-g">Anotar</button></div></form></div>';
+}
+function recLeer() {
+  const f = estado.recF; if (!f) return;
+  const t = $('#rec-titulo'), q = $('#rec-quien'), b = $('#rec-banda');
+  if (t) f.titulo = t.value; if (q) f.quien = q.value; if (b) f.banda = b.value;
+}
+function recAbrir() {
+  estado.recF = { formato: 'pelicula', titulo: '', quien: '', banda: '' };
+  const h = abrirHoja('hoja-rec', recHojaHTML()); h.classList.add('hoja-pop'); h.setAttribute('aria-label', 'Me recomendaron');
+  setTimeout(function () { const x = $('#rec-titulo'); if (x && window.matchMedia && matchMedia('(pointer:fine)').matches) { try { x.focus({ preventScroll: true }); } catch (e) { /* nada */ } } }, 80);
+}
+function recFormato(id) {
+  if (!estado.recF || !REC_FORMATOS.some(function (x) { return x[0] === id; })) return;
+  recLeer(); estado.recF.formato = id;
+  const h = $('#hoja-rec'); if (h) { h.innerHTML = recHojaHTML(); const x = $('#rec-titulo'); if (x && window.matchMedia && matchMedia('(pointer:fine)').matches) x.focus({ preventScroll: true }); }
+}
+function recError(m) { const e = $('#rec-error'); if (e) { e.textContent = m; e.hidden = !m; } }
+async function recGuardar() {
+  const f = estado.recF; if (!f || estado.guardando) return;
+  recLeer();
+  const titulo = String(f.titulo || '').trim().slice(0, 200), quien = String(f.quien || '').trim().slice(0, 60), banda = String(f.banda || '').trim().slice(0, 80);
+  if (!titulo) { recError('Escribe el nombre para anotarla.'); const x = $('#rec-titulo'); if (x) x.focus(); return; }
+  if (!estado.sesion || !sb) { recError('Necesitas iniciar sesión para guardar.'); return; }
+  if (estado.semTabla === false || estado.semColumnas === false) { recError('Falta un paso en Supabase. Mira Ajustes.'); return; }
+  const datos = { formato: f.formato };
+  if (quien) datos.quien = quien;
+  if (banda && (f.formato === 'cancion' || f.formato === 'album')) datos.banda = banda;
+  const btn = $('#rec-guardar'); estado.guardando = true; if (btn) { btn.disabled = true; btn.textContent = 'Anotando…'; }
+  try {
+    const r = await sb.from('semillas').insert({ id: nuevoId(), tipo: 'recomendacion', titulo: titulo, contenido: '', publica: false, tejido: 'recomendaciones', datos: datos, etiquetas: [], fecha: null });
+    if (r.error) throw r.error;
+    try { await cargarSemillas(); } catch (e2) { /* se verá al recargar */ }
+    estado.recF = null; cerrarHoja('hoja-rec'); toast('Anotada en Recomendaciones'); render(false);
+  } catch (e) {
+    console.error(e);
+    recError('No se pudo guardar. Revisa tu internet e intenta otra vez.');
+  } finally {
+    estado.guardando = false; const b2 = $('#rec-guardar'); if (b2) { b2.disabled = false; b2.textContent = 'Anotar'; }
+  }
+}
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.getElementById('hoja-rec')) { e.preventDefault(); estado.recF = null; cerrarHoja('hoja-rec'); } });
+
+/* --- El check: abre el pop-up de siempre ya llenado; al guardar, la recomendación queda hecha y enlazada --- */
+function recCheck(id) {
+  const s = estado.semillas.filter(function (x) { return x.id === id; })[0]; if (!s || !esRec(s)) return;
+  const fm = recFmt(s);
+  estado.recPre = { id: s.id, titulo: s.titulo, quien: (s.datos || {}).quien || '', banda: (s.datos || {}).banda || '', dia: diaClave(s.creado) };
+  location.hash = '#sembrar-' + (TIPOS.some(function (t) { return t.id === fm; }) ? fm : 'pelicula');
+}
+async function recMarcar(rid, fichaId) {
+  const r = estado.semillas.filter(function (x) { return x.id === rid; })[0]; if (!r || !sb) return;
+  const datos = Object.assign({}, r.datos, { hecha: '1', ficha: fichaId, hecha_en: diaClave(Date.now()) });
+  try { await sb.from('semillas').update({ datos: datos }).eq('id', rid); } catch (e) { /* queda pendiente, no pasa nada */ }
+}
+async function recCambiar(id, mut, msg) {
+  const r = estado.semillas.filter(function (x) { return x.id === id; })[0]; if (!r || !sb) return;
+  const datos = Object.assign({}, r.datos); mut(datos);
+  const x = await sb.from('semillas').update({ datos: datos }).eq('id', id);
+  if (x.error) { toast('No se pudo cambiar. Intenta otra vez.'); return; }
+  r.datos = datos; if (msg) toast(msg); render(false);
+}
+async function recBorrar(id) {
+  const x = await sb.from('semillas').delete().eq('id', id);
+  if (x.error) { toast('No se pudo quitar. Intenta otra vez.'); return; }
+  estado.semillas = estado.semillas.filter(function (s) { return s.id !== id; }); estado.recQ = '';
+  Copia.escribir(claveSem(), estado.semillas); toast('Quitada de la lista'); render(false);
+}
+
+/* --- En la ficha: «Recomendada por X el … · vista el …» y un aviso en el pop-up --- */
+function recNotaHTML(s) {
+  const d = s.datos || {}; if (!d.recid) return '';
+  return '<p class="pop-rec">De tus recomendaciones' + (d.recpor ? ' · la recomendó <b>' + esc(d.recpor) + '</b>' : '') + '</p>';
+}
+function recLineaHTML(b) {
+  const d = b.datos || {}; if (!d.recid && !d.recdia) return '';
+  const v = REC_VERBO[b.tipo] || ['Recomendada', 'vista'], vista = b.fecha || diaClave(b.creado);
+  return '<p class="mo-rec">' + (d.recpor ? v[0] + ' por <b>' + esc(d.recpor) + '</b>' : 'Estaba en tus recomendaciones') + (d.recdia ? ' el ' + esc(fechaFicha(d.recdia)) : '') + ' · ' + v[1] + ' el ' + esc(fechaFicha(vista)) + '</p>';
+}
+function vistaModulo(id) {
+  const h = vistaModulo_v31(id), b = estado.semillas.filter(function (x) { return x.id === id; })[0];
+  if (!b) return h;
+  const l = recLineaHTML(b); if (!l) return h;
+  const i = h.indexOf('</h1>'); return i < 0 ? h : h.slice(0, i + 5) + l + h.slice(i + 5);
+}
+
+function iniciarSemilla(tipo, id) {
+  iniciarSemilla_v31(tipo, id);
+  const r = !id && estado.recPre; if (!r) return; estado.recPre = null;
+  const m = estado.sem; if (!m || m.faltante) return;
+  m.titulo = r.titulo; m.tocado = true;
+  if (r.banda && (tipoDe(m.tipo).campos || []).some(function (c) { return c.k === 'banda'; })) m.datos.banda = r.banda;
+  m.datos.recid = r.id; m.datos.recdia = r.dia; if (r.quien) m.datos.recpor = r.quien;
 }
 /* --- Un módulo: la ficha completa y su reseña --- */
 function vistaModulo_v30(id) {
@@ -5458,7 +5744,7 @@ function popHTML(s) {
   const atras = nueva ? '#inicio' : '#modulo-' + s.id;
   return '<div class="pop-cab"><h2 class="pop-t">' + t.ask + '</h2><a class="pop-x" href="' + atras + '" aria-label="Cerrar">' + ICO_X + '</a></div>' +
     (s.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin guardar (' + hace(s.recuperado) + ').</span><button type="button" class="btn" data-action="sem-descartar">Descartar</button></div>' : '') +
-    musSelHTML(s) + '<form id="fs" class="pop-form" novalidate>' +
+    musSelHTML(s) + recNotaHTML(s) + '<form id="fs" class="pop-form" novalidate>' +
       '<div class="pop-cuerpo"><div class="fx-poster" id="s-img">' + imgHTML() + '</div>' +
       '<div class="pop-datos"><label class="fx-c fx-ti"><span class="fi-l">' + esc(t.tituloL) + '</span>' +
       '<input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="' + esc(t.tituloPh) + '" value="' + esc(s.titulo) + '" autocomplete="off" required></label>' +
@@ -5696,6 +5982,7 @@ async function guardarSemilla() {
     if (t.nota) fila.nota = s.nota;
     const r = s.base ? await sb.from('semillas').update(fila).eq('id', s.id) : await sb.from('semillas').insert(Object.assign({ id: s.id }, fila));
     if (r.error) throw r.error;
+    if (!s.base && datos.recid) await recMarcar(datos.recid, s.id);
     if (viejos.length) sb.storage.from(BUCKET).remove(viejos);
     const avisoHoja = await guardarHojaSem(s);
     Copia.borrar(claveSemBor(s));
@@ -6952,6 +7239,15 @@ document.addEventListener('click', function (e) {
     case 'resena-no': cerrarHoja('hoja-resena'); break;
     case 'sem-etq-add': agregarEtq(b.dataset.e); break;
     case 'sem-etq-add-in': { const i0 = $('#s-etq'); if (i0) { agregarEtq(i0.value); i0.value = ''; i0.focus(); } break; }
+    case 'rec-nueva': recAbrir(); break;
+    case 'rec-cerrar': estado.recF = null; cerrarHoja('hoja-rec'); break;
+    case 'rec-fmt': recFormato(b.dataset.f); break;
+    case 'rec-check': recCheck(b.dataset.id); break;
+    case 'rec-tab': estado.recTab = b.dataset.t; estado.recQ = ''; render(false); break;
+    case 'rec-borrar': estado.recQ = b.dataset.id; render(false); break;
+    case 'rec-borrar-no': estado.recQ = ''; render(false); break;
+    case 'rec-borrar-si': recBorrar(b.dataset.id); break;
+    case 'rec-deshacer': recCambiar(b.dataset.id, function (d) { delete d.hecha; delete d.ficha; delete d.hecha_en; }, 'Volvió a pendientes'); break;
     case 'mus-tipo': musCambiar(b.dataset.t); break;
     case 'mus-crear-banda': estado.musPre = b.dataset.n || ''; location.hash = '#sembrar-banda'; break;
     case 'sem-etq-quitar': quitarEtq(b.dataset.e); break;
@@ -7054,6 +7350,7 @@ document.addEventListener('submit', function (e) {
   const f = e.target;
   if (f.id === 'f') { guardarFormulario(); }
   else if (f.id === 'fs') { guardarSemilla(); }
+  else if (f.id === 'frec') { recGuardar(); }
   else if (f.id === 'flogin') {
     const err = $('#login-error'), btn = $('#login-btn');
     const email = $('#login-email').value.trim(), clave = $('#login-clave').value;
