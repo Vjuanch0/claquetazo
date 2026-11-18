@@ -1,3 +1,12 @@
+NOVEDAD v34 - Directores y actores con su ficha:
+ - Nueva ficha de Persona: foto, nombre, "¿Qué es?" (Director, Actor o Director y actor), año de nacimiento, plones tuyos y cuaderno de reseña propio.
+ - En Tejidos, debajo de Pantalla, salen dos hilos punteados: Directores y Actores (cada uno con su cantidad de fichas). Tocas uno y ves la lista ordenada por el promedio de sus obras (con cuántas obras tiene): Mejor promedio, Peor promedio, Más obras o A-Z. "+ Sembrar" crea una ficha desde ahí. En Ranking también hay atajos a las dos listas.
+ - Las películas y las series tienen un campo nuevo "Reparto" (nombres que se vuelven chips: escribes y das Enter o coma). Con sugerencias de actores conocidos y de quienes ya tienen ficha.
+ - Enlaces en los dos sentidos: en la ficha de una película salen "Dirección y reparto" y cada nombre abre su ficha; si todavía no la tiene, toca "Crear ficha" y ya viene con el nombre y el rol puestos. La ficha de la persona lista lo que dirigió y en lo que actuó, con el promedio de cada cosa.
+ - "Convertir en ficha de persona": en la ficha de una película aparece ese botón (por ejemplo para tu reseña vieja de Scorsese). Se queda con su foto, sus plones y su reseña, y pasa a Directores y actores.
+ - Las personas no se mezclan con el resto del ranking ni con "Recién tejido".
+ (No hay que correr ningún SQL nuevo.)
+
 NOVEDAD v33 - Temporadas y episodios dentro de la serie:
  - En la ficha de una serie salen sus Temporadas (T1, T2... con sus plones) y "Episodios que calificaste", con el promedio de cada una.
  - Botón "¿Calificar una temporada?": ya viene con la serie puesta, te propone la siguiente que falta y marca con ✓ las que ya calificaste (también hay "Otra").

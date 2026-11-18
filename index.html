@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=33">
-<link rel="icon" href="favicon.svg?v=33" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=33" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=33">
+<link rel="manifest" href="manifest.webmanifest?v=34">
+<link rel="icon" href="favicon.svg?v=34" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=34" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=34">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1383,6 +1383,38 @@ a.rc-in:hover strong{text-decoration:underline}
 .tmp-ch .chip{min-width:40px;justify-content:center}
 .tmp-ch .chip i{font-style:normal;margin-left:3px;color:var(--plon-on,#ff9a3c)}
 .tmp-num{width:74px;min-height:34px;padding:0 10px;text-align:center}
+/* ---------- v34: directores y actores ---------- */
+.tl-pt .tl-urd{background-image:none}
+.tl-pt .tl-urd::after{display:none}
+.tl-pd{display:block;width:100%;height:26px;overflow:visible}
+@media(min-width:700px){.tl-pd{height:34px}}
+.per-th{border-radius:50%!important;width:46px!important;height:46px!important;flex:none}
+.per-th img,.per-th em{border-radius:50%}
+.per-r .tl-th{background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(0,0,0,.35)),#7a4d1e}
+.per-n-o{color:var(--ink-soft,#9bb3ad)}
+.per-gente{margin-top:18px}
+.per-l{margin:10px 0 6px;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+.per-cs{display:flex;flex-wrap:wrap;gap:8px}
+.per-c{display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:3px 14px 3px 4px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--ink);font:500 .86rem var(--display);transition:background .2s}
+a.per-c:hover,a.per-c:focus-visible,button.per-c:hover{background:rgba(255,255,255,.09)}
+.per-av{flex:none;width:30px;height:30px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:#7a4d1e;color:#ffe2bd;font:700 .8rem var(--display)}
+.per-av img{display:block;width:100%;height:100%;object-fit:cover}
+.per-n{border-style:dashed;cursor:pointer;color:var(--ink-soft,#cfe0da)}
+.per-n small{font-size:.66rem;color:var(--plon-on,#ff9a3c);letter-spacing:.04em}
+.per-x{padding-left:14px}
+.per-conv{margin-top:2px}
+.per-ch{margin-top:2px}
+.rep-box{gap:6px}
+.rep-chips{display:flex;flex-wrap:wrap;gap:6px}
+.rep-chips:empty{display:none}
+.rep-c{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink);font:500 .8rem var(--display);cursor:pointer}
+.rep-c i{font-style:normal;color:var(--ink-faint);font-size:1rem;line-height:1}
+.rep-c:hover i{color:var(--plon-on,#ff9a3c)}
+.rep-fila{display:flex;gap:8px}
+.rep-fila .in{flex:1;min-width:0}
+.rep-mas{flex:none;min-width:42px;padding:0 12px;font-size:1.1rem}
+.per-sel .fx-seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+.per-sel .fx-seg button{padding-left:6px;padding-right:6px;font-size:.78rem}
 </style>
 </head>
 <body>
@@ -2831,6 +2863,12 @@ const TIPOS = [
     calQ: '¿Cuántos <b class="resalta">plones</b> le das al álbum?',
     campos: [{ k: 'banda', l: 'Banda', ph: 'Ej: Soda Stereo', sug: 'banda' }, { k: 'estreno', l: 'Año de lanzamiento', num: true, ph: 'Ej: 1992' }]
   },
+  {
+    id: 'persona', nombre: 'Persona', plural: 'Directores y actores', oculto: true, inicio: '¿Qué director o actor?', desc: 'Director o actor', ask: '¿Qué <b>director o actor</b> guardas?', ph: 'Lo que te dejó…', tejido: 'personas',
+    ficha: true, nota: true, sinFecha: true, imgL: 'Foto', tituloL: 'Nombre', tituloPh: 'Ej: Martin Scorsese',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das?',
+    campos: [{ k: 'nacio', l: 'Año de nacimiento', lab: 'Año de nacimiento', num: true, ph: 'Ej: 1942' }]
+  },
   { id: 'recomendacion', nombre: 'Recomendación', desc: 'Lo que te recomendaron', ask: '', ph: '', tejido: 'recomendaciones', oculto: true },
   { id: 'random', nombre: 'Random', desc: 'Lo que no cabe en otro lado', ask: 'Lo que <b>sea</b>.', ph: 'Lo que se te ocurra…', tejido: null }
 ];
@@ -2849,7 +2887,8 @@ const TEJIDOS = [
   { id: 'capitulo', nombre: 'Capítulo', desc: 'Series', est: 'pantalla', color: '#c06ad6' },
   { id: 'partida', nombre: 'Partida', desc: 'Juegos', est: 'pantalla', color: '#4cc9f0' },
   { id: 'paginas', nombre: 'Páginas', desc: 'Libros', color: '#e6a85c' },
-  { id: 'musica', nombre: 'Cuerdas', desc: 'Bandas, canciones y álbumes', color: '#b5e04a', sembrar: 'cancion' }
+  { id: 'musica', nombre: 'Cuerdas', desc: 'Bandas, canciones y álbumes', color: '#b5e04a', sembrar: 'cancion' },
+  { id: 'personas', nombre: 'Gente de cine', desc: 'Directores y actores', color: '#f0a35e', oculto: true }
 ];
 const ESTANTES = [{ id: 'pantalla', nombre: 'Pantalla', desc: 'Películas, series y juegos', color: '#e24cc2' }];
 const tejidoOk = id => TEJIDOS.some(t => t.id === id);
@@ -3450,6 +3489,7 @@ const tlNota = s => { const n = notaDe(s); return n == null ? -1 : n; };
 function tlSub(s) {   // la segunda línea de una ficha: director · año, autor · año, plataforma…
   const d = s.datos || {}, a = [];
   if (s.tipo === 'banda') return d.fundacion ? 'Desde ' + d.fundacion : '';
+  if (s.tipo === 'persona') return perSubTxt(s);
   if (s.tipo === 'temporada') return '';
   if (s.tipo === 'episodio') return [d.serie, d.temporada ? 'T' + d.temporada : ''].filter(Boolean).join(' · ');
   (tipoDe(s.tipo).campos || []).forEach(function (c) { if (d[c.k] && a.length < 2) a.push(d[c.k]); });
@@ -3486,10 +3526,17 @@ function tlCuerda(k, max, c) {
   return h + '<circle class="tl-bd" cx="' + (L + 5) + '" cy="13" r="5.5" fill="' + tlLt(c, .2) + '"/></svg>';
 }
 
+/* --- El hilo punteado (directores y actores): puntos en vez de trenza --- */
+function tlPunteada(k, max, c) {
+  if (!k) return '';
+  const L = Math.round(36 + Math.min(1, k / Math.max(max, 1)) * 170);
+  return '<svg class="tl-pd" viewBox="0 0 260 26" preserveAspectRatio="xMinYMid meet" aria-hidden="true" focusable="false"><path d="M0 13H' + L + '" stroke="' + c + '" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="0.1 8"/><circle cx="' + (L + 5) + '" cy="13" r="4.6" fill="none" stroke="' + tlLt(c, .2) + '" stroke-width="2"/></svg>';
+}
+
 /* --- Pantalla principal de Tejidos --- */
 function vistaTejidos() {
   const dueno = !!estado.sesion;
-  const todos = estado.semillas.filter(function (s) { return (dueno || s.publica) && !esRec(s); });
+  const todos = estado.semillas.filter(function (s) { return (dueno || s.publica) && !esFuera(s); });
   const cuenta = function (id) { return todos.filter(function (s) { return s.tejido === id; }).length; };
   let max = 1; TEJIDOS.forEach(function (t) { max = Math.max(max, cuenta(t.id)); });
   let i = 0, hilos = 0;
@@ -3501,10 +3548,17 @@ function vistaTejidos() {
       '<span class="tl-nom"><b>' + esc(tj.nombre) + (tj.privado ? TL_LOCK : '') + '</b><small>' + (c ? c + (c === 1 ? ' ficha' : ' fichas') : '0') + '</small></span>' +
       '<span class="tl-urd">' + tlCuerda(c, max, tj.color) + '</span></a>';
   };
+  const filaPer = function (rol) {   // los hilos punteados: gente de cine (se arman con las obras, no son un tejido)
+    const c = perLista(rol, dueno).length; if (!dueno && !c) return '';
+    hilos++;
+    return '<a class="tl-fila tl-pt' + (c ? '' : ' tl-cero') + '" href="#tejido-' + (rol === 'actor' ? 'actores' : 'directores') + '" style="--hc:' + PER_COLOR + ';--i:' + (i++) + '">' +
+      '<span class="tl-nom"><b>' + (rol === 'actor' ? 'Actores' : 'Directores') + '</b><small>' + (c ? c + (c === 1 ? ' ficha' : ' fichas') : '0') + '</small></span>' +
+      '<span class="tl-urd">' + tlPunteada(c, max, PER_COLOR) + '</span></a>';
+  };
   const est = ESTANTES[0], cEst = TEJIDOS.filter(function (t) { return t.est === est.id; }).reduce(function (a, t) { return a + cuenta(t.id); }, 0);
   const sep = (dueno || cEst) ? '<a class="tl-sep" href="#estante-' + est.id + '"><span>' + esc(est.nombre) + '</span><i></i><span>estante ›</span></a>' : '';
   const cuerpo = ['raiz', 'suenos', 'ideas', 'saber', 'experiencias', 'ruta'].map(function (id) { return fila(id); }).join('') + sep +
-    ['escena', 'capitulo', 'partida'].map(function (id) { return fila(id); }).join('') + fila('paginas', true) + fila('musica');
+    ['escena', 'capitulo', 'partida'].map(function (id) { return fila(id); }).join('') + filaPer('director') + filaPer('actor') + fila('paginas', true) + fila('musica');
   const conNota = todos.some(function (s) { return notaDe(s) != null; });
   const h = '<div class="tl"><header class="tl-cab"><div><h1 class="pag">' + (dueno ? 'Tus <span>tejidos</span>' : 'Tejidos') + '</h1><p class="tl-sub">' + hilos + (hilos === 1 ? ' hilo' : ' hilos') + ' · ' + todos.length + (todos.length === 1 ? ' ficha' : ' fichas') +
     (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</p></div>' + (conNota ? '<a class="tl-rkb" href="#top">Ranking</a>' : '') + '</header>' + avisosSemillas();
@@ -3542,10 +3596,11 @@ function tlColgante(base, color) {
 function vistaColeccion(scope) {
   const al = tjAlcance(scope);
   if (scope === 'recomendaciones') return vistaRecs();
+  if (scope === 'directores' || scope === 'actores' || scope === 'personas') return vistaPersonas(scope === 'actores' ? 'actor' : 'director');
   if (!al) return '<a class="volver" href="#tejidos">Tejidos</a><div class="vacio-box"><strong>Ese tejido no existe.</strong><a class="btn prim" href="#tejidos">Ir a los tejidos</a></div>';
   if (estado.tj.scope !== scope) estado.tj = { scope: scope, orden: al.rk ? 'mejores' : 'recientes', nivel: 0, etq: '', tipo: '' };
   const f = estado.tj, dueno = !!estado.sesion;
-  const base = estado.semillas.filter(function (s) { return (dueno || s.publica) && !esRec(s) && (!al.ids || al.ids.indexOf(s.tejido) >= 0); });
+  const base = estado.semillas.filter(function (s) { return (dueno || s.publica) && !esFuera(s) && (!al.ids || al.ids.indexOf(s.tejido) >= 0); });
   const cargando = estado.cargando && !estado.semillas.length;
   const tipos = {}, etqs = {}; let conNota = 0;
   base.forEach(function (s) { tipos[s.tipo] = (tipos[s.tipo] || 0) + 1; s.etiquetas.forEach(function (e) { etqs[e] = (etqs[e] || 0) + 1; }); if (notaDe(s) != null) conNota++; });
@@ -3572,6 +3627,7 @@ function vistaColeccion(scope) {
       [5, 4, 3, 2, 1].map(function (i) { return chip('tj-nivel', 'data-n="' + i + '"', esc(NIVELES[i].nombre), f.nivel === i, ' style="--vc:' + NIVELES[i].color + '"'); }).join('') + '</div>';
   }
 
+  if (al.rk) ctl += perChipsHTML();
   let cuerpo;
   if (cargando) cuerpo = '<div class="vacio-box"><strong>Cargando…</strong></div>';
   else if (!l.length) {
@@ -3959,7 +4015,7 @@ function fichaImgUrl(s, grande) {
 }
 
 /* --- Sugerencias de serie: las que ya sembraste --- */
-function sugerenciasCampo(t, c) {
+function sugerenciasCampo_v33(t, c) {
   if (c.sug !== 'serie') return sugerenciasCampo_v31(t, c);
   const vistas = {}, out = [];
   estado.semillas.forEach(function (x) { if (x.tipo === 'serie') { const k = norm(x.titulo); if (k && !vistas[k]) { vistas[k] = 1; out.push(x.titulo); } } });
@@ -3994,7 +4050,7 @@ function serPadreHTML(b) {
     (p ? '<a class="mus-ban" href="#modulo-' + p.id + '" style="--tc:' + tejidoDe(p.tejido).color + '">Serie · ' + esc(p.titulo) + ' ›</a>' : '<p class="ayuda">Serie: ' + esc(nombre) + '</p>') +
     (hermanos.length ? '<h2 class="sec ser-h2">' + (b.tipo === 'temporada' ? 'Otras temporadas' : 'Otros episodios') + '</h2><div class="tl-lista">' + hermanos.map(function (x) { return tlFila(x, 0); }).join('') + '</div>' : '') + '</section>';
 }
-function vistaModulo(id) {
+function vistaModulo_v33(id) {
   const h = vistaModulo_v32(id), b = estado.semillas.filter(function (x) { return x.id === id; })[0];
   if (!b) return h;
   const r = b.tipo === 'serie' ? serRelHTML(b) : serEsHijo(b) ? serPadreHTML(b) : ''; if (!r) return h;
@@ -4052,13 +4108,13 @@ function popTmpHTML(s) {
     '<div class="pop-pie">' + (nueva ? '<div class="pop-res" id="s-res">' + resenaSiNoHTML() + '</div>' : '<button type="button" class="btn peligro pop-b" data-action="sem-borrar">Borrar</button>') +
     '<button type="submit" id="s-guardar" class="btn prim pop-g">' + textoGuardar() + '</button></div></form>';
 }
-function popHTML(s) {
+function popHTML_v33(s) {
   const t = tipoDe(s.tipo);
   return t.id === 'episodio' ? popEpiHTML(s) : t.id === 'temporada' ? popTmpHTML(s) : popHTML_v32(s);
 }
 
 /* --- Al abrir desde la serie ya viene la serie puesta (y la temporada que toca) --- */
-function iniciarSemilla(tipo, id) {
+function iniciarSemilla_v33(tipo, id) {
   iniciarSemilla_v32(tipo, id);
   const m = estado.sem; if (!m || m.faltante || id || !serEsHijo(m)) { if (!id) estado.serPre = null; return; }
   const r = estado.serPre; estado.serPre = null;
@@ -4078,6 +4134,262 @@ document.addEventListener('input', function (e) {
   else return;
   if (s.tipo === 'temporada') tmpActualizar();
 });
+
+/* ---------- v34: directores y actores ---------- */
+// Una persona es una ficha más: tipo «persona», tejido «personas» (oculto: no sale en la lista de tejidos) y en datos: rol (director | actor | ambos) y nacio.
+// Los enlaces con las obras se hacen por el nombre (sin tildes ni mayúsculas): el campo Director de una película y el Reparto de películas y series.
+const PER_COLOR = '#f0a35e';
+const PER_ROLES = [['director', 'Director'], ['actor', 'Actor'], ['ambos', 'Director y actor']];
+const esFuera = s => s.tipo === 'recomendacion' || s.tipo === 'persona';   // no entran al telar normal (hub, recién tejido, rankings por tipo)
+const perClave = x => norm(String(x || '').replace(/\s+/g, ' ').trim());
+function perNombres(txt) {   // «Al Pacino, Marlon Brando» → ['Al Pacino', 'Marlon Brando']
+  const vistos = {}, out = [];
+  String(txt || '').split(/[,;&]/).forEach(function (x) { x = x.replace(/\s+/g, ' ').trim(); const k = perClave(x); if (k && !vistos[k]) { vistos[k] = 1; out.push(x); } });
+  return out;
+}
+const perRol = s => { const r = (s.datos || {}).rol; return r === 'actor' || r === 'ambos' ? r : 'director'; };
+const perEsDir = s => perRol(s) !== 'actor';
+const perEsAct = s => perRol(s) !== 'director';
+const perRolTxt = s => PER_ROLES.filter(function (r) { return r[0] === perRol(s); })[0][1];
+const perPersonas = dueno => estado.semillas.filter(function (x) { return x.tipo === 'persona' && (dueno || x.publica); });
+const perLista = (rol, dueno) => perPersonas(dueno).filter(function (p) { return rol === 'actor' ? perEsAct(p) : perEsDir(p); });
+function perDe(nombre, dueno) {
+  const k = perClave(nombre); if (!k) return null;
+  return perPersonas(dueno).filter(function (p) { return perClave(p.titulo) === k; })[0] || null;
+}
+function perObras(p, dueno) {   // lo que dirigió (películas) y en lo que actuó (películas y series)
+  const k = perClave(p.titulo), vis = function (x) { return dueno || x.publica; };
+  const esMio = function (txt) { return perNombres(txt).some(function (n) { return perClave(n) === k; }); };
+  return {
+    dir: estado.semillas.filter(function (x) { return x.tipo === 'pelicula' && vis(x) && esMio(x.datos.director); }),
+    act: estado.semillas.filter(function (x) { return (x.tipo === 'pelicula' || x.tipo === 'serie') && vis(x) && esMio(x.datos.reparto); })
+  };
+}
+function perStats(p, rol, dueno) {
+  const o = perObras(p, dueno), l = rol === 'actor' ? o.act : o.dir;
+  return { l: l, prom: serProm(l) };
+}
+function perSubTxt(s) {
+  const o = perObras(s, !!estado.sesion), ids = {}; o.dir.concat(o.act).forEach(function (x) { ids[x.id] = 1; });
+  const n = Object.keys(ids).length;
+  return perRolTxt(s) + (n ? ' · ' + n + (n === 1 ? ' obra' : ' obras') : '');
+}
+const perProm = (v, n) => '<p class="mus-prom">Promedio: <b>' + v.toFixed(1) + '</b> · ' + n + (n === 1 ? ' calificación' : ' calificaciones') + '</p>';
+
+/* --- Una fila de la lista de directores / actores: foto, nombre, cuántas obras y el promedio de ellas --- */
+function perFila(p, rol, rank, dueno) {
+  const st = perStats(p, rol, dueno), u = fichaImgUrl(p, false), nv = st.prom ? nivel(st.prom.v) : null, n = st.l.length;
+  return '<a class="tl-r per-r" href="#modulo-' + p.id + '" style="--tc:' + PER_COLOR + (nv ? ';--vc:' + nv.color : '') + '">' +
+    (rank ? '<span class="tl-rk">' + rank + '</span>' : '') +
+    '<span class="tl-th per-th">' + (u ? '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async">' : '<em>' + esc((p.titulo || '?').slice(0, 1).toUpperCase()) + '</em>') + '</span>' +
+    '<span class="tl-x"><strong class="tl-t">' + esc(p.titulo || 'Sin nombre') + '</strong><span class="tl-s"><span class="per-n-o">' + (n ? n + (n === 1 ? ' obra' : ' obras') : 'Sin obras todavía') + '</span>' +
+    (rol !== 'actor' && perRol(p) === 'ambos' ? '<b class="tl-tp">También actor</b>' : rol === 'actor' && perRol(p) === 'ambos' ? '<b class="tl-tp">También director</b>' : '') +
+    (tieneResena(p) ? '<b class="tl-res">Reseña</b>' : '') + (!p.publica ? '<b class="tl-priv">Privada</b>' : '') + '</span></span>' +
+    '<span class="tl-n">' + (nv ? '<span class="tl-nv">' + TL_NUBE + st.prom.v.toFixed(1) + '</span><small>promedio · ' + esc(nv.nombre) + '</small>' : '<small>Sin promedio</small>') + '</span></a>';
+}
+/* --- La página «Directores» o «Actores»: un ranking por el promedio de sus obras --- */
+function vistaPersonas(rol) {
+  const dueno = !!estado.sesion, f = estado.perOrden || 'prom', nombre = rol === 'actor' ? 'Actores' : 'Directores';
+  const base = perLista(rol, dueno);
+  const filas = base.map(function (p) { return { p: p, st: perStats(p, rol, dueno) }; });
+  const cmpN = function (a, b) { return String(a.p.titulo).localeCompare(String(b.p.titulo), 'es'); };
+  filas.sort(function (a, b) {
+    if (f === 'az') return cmpN(a, b);
+    if (f === 'obras') return b.st.l.length - a.st.l.length || cmpN(a, b);
+    const va = a.st.prom ? a.st.prom.v : null, vb = b.st.prom ? b.st.prom.v : null;
+    if (va == null || vb == null) return va == null && vb == null ? cmpN(a, b) : va == null ? 1 : -1;
+    return (f === 'peor' ? va - vb : vb - va) || b.st.prom.n - a.st.prom.n || cmpN(a, b);
+  });
+  const ranking = f === 'prom' || f === 'peor';
+  let k = 0;
+  const lista = filas.map(function (x) { return perFila(x.p, rol, ranking && x.st.prom ? ++k : 0, dueno); }).join('');
+  const cuenta = function (r) { return perLista(r, dueno).length; };
+  const chip = function (o, txt) { return '<button type="button" class="chip" aria-pressed="' + (f === o) + '" data-action="per-orden" data-o="' + o + '">' + txt + '</button>'; };
+  const tabs = '<div class="tj-fil tj-tabs tl-chips" role="group" aria-label="Gente de cine">' +
+    [['director', 'Directores', '#tejido-directores'], ['actor', 'Actores', '#tejido-actores']].map(function (t) { return '<a class="chip" aria-pressed="' + (t[0] === rol) + '" href="' + t[2] + '">' + t[1] + ' <small>' + cuenta(t[0]) + '</small></a>'; }).join('') + '</div>';
+  const orden = base.length > 1 ? '<div class="tj-fil tl-chips" role="group" aria-label="Orden">' + chip('prom', 'Mejor promedio') + chip('peor', 'Peor promedio') + chip('obras', 'Más obras') + chip('az', 'A–Z') + '</div>' : '';
+  let cuerpo;
+  if (estado.cargando && !estado.semillas.length) cuerpo = '<div class="vacio-box"><strong>Cargando…</strong></div>';
+  else if (!base.length) cuerpo = '<div class="vacio-box"><strong>' + (dueno ? 'Todavía no hay fichas de ' + nombre.toLowerCase() + '.' : 'Todavía no hay nada público aquí.') + '</strong><span>' +
+    (dueno ? 'Toca «+ Sembrar», o abre una película y usa «Crear ficha» junto al nombre de quien la dirigió o actuó.' : 'Vuelve pronto.') + '</span></div>';
+  else cuerpo = '<div class="tl-lista">' + lista + '</div>';
+  const sub = ['Estante Pantalla', base.length + (base.length === 1 ? ' ficha' : ' fichas'), 'por el promedio de sus obras'];
+  return '<div class="tl"><header class="tl-cab tl-cab-in" style="--hc:' + PER_COLOR + '"><a class="tl-atras" href="#tejidos" aria-label="Volver a Tejidos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>' +
+    '<div class="tl-tt"><h1 class="pag">' + nombre + '</h1><p class="tl-sub">' + esc(sub.join(' · ')) + '</p></div>' +
+    (dueno ? '<button type="button" class="btn prim tl-sem" data-action="per-nueva" data-r="' + rol + '">+ Sembrar</button>' : '') + '</header>' +
+    avisosSemillas() + tabs + orden + '<div class="tl-cuerpo">' + cuerpo + '</div></div>';
+}
+/* --- En el Ranking: atajos a las listas de directores y actores --- */
+function perChipsHTML() {
+  const dueno = !!estado.sesion, d = perLista('director', dueno).length, a = perLista('actor', dueno).length;
+  if (!d && !a) return '';
+  return '<div class="tj-fil tl-chips per-ch" role="group" aria-label="Gente de cine">' + (d ? '<a class="chip" href="#tejido-directores">Directores <small>' + d + '</small></a>' : '') + (a ? '<a class="chip" href="#tejido-actores">Actores <small>' + a + '</small></a>' : '') + '</div>';
+}
+
+/* --- La ficha de una persona: lo que dirigió, en lo que actuó y el promedio de cada cosa --- */
+function perRelHTML(b) {
+  const dueno = !!estado.sesion, o = perObras(b, dueno);
+  const orden = function (l) { return l.slice().sort(function (x, y) { return notaDe(y) == null ? -1 : notaDe(x) == null ? 1 : notaDe(y) - notaDe(x) || y.creado - x.creado; }); };
+  const sec = function (tit, l, ayuda) {
+    const p = serProm(l);
+    return '<h2 class="sec ser-h2">' + tit + '</h2>' + (p ? perProm(p.v, p.n) : '') +
+      (l.length ? '<div class="tl-lista">' + orden(l).map(function (x) { return tlFila(x, 0); }).join('') + '</div>' : '<p class="ayuda">' + ayuda + '</p>');
+  };
+  let h = '';
+  if (perEsDir(b) || o.dir.length) h += sec('Dirigió', o.dir, 'Todavía no hay películas tuyas dirigidas por ' + esc(b.titulo) + '. Escribe su nombre en el campo Director de una película.');
+  if (perEsAct(b) || o.act.length) h += sec('Actuó en', o.act, 'Todavía no hay películas o series con ' + esc(b.titulo) + ' en el reparto. Agrégalo en el Reparto de la ficha.');
+  return h ? '<section class="ser-rel per-obras" aria-label="Sus obras">' + h + '</section>' : '';
+}
+/* --- En la ficha de una película o serie: quién dirigió y quién actuó, con enlace a su ficha --- */
+function perChip(n, rol, dueno) {
+  const p = perDe(n, dueno);
+  if (p) { const u = fichaImgUrl(p, false); return '<a class="per-c" href="#modulo-' + p.id + '"><span class="per-av">' + (u ? '<img src="' + esc(u) + '" alt="">' : esc(n.slice(0, 1).toUpperCase())) + '</span>' + esc(n) + '</a>'; }
+  if (dueno) return '<button type="button" class="per-c per-n" data-action="per-crear" data-n="' + esc(n) + '" data-r="' + rol + '"><span class="per-av">+</span>' + esc(n) + '<small>Crear ficha</small></button>';
+  return '<span class="per-c per-x">' + esc(n) + '</span>';
+}
+function perGenteHTML(b) {
+  const dueno = !!estado.sesion, dir = b.tipo === 'pelicula' ? perNombres(b.datos.director) : [], rep = perNombres(b.datos.reparto);
+  if (!dir.length && !rep.length) return '';
+  return '<section class="per-gente" aria-label="Dirección y reparto"><h2 class="sec">' + (b.tipo === 'pelicula' ? 'Dirección y reparto' : 'Reparto') + '</h2>' +
+    (dir.length ? '<p class="per-l">Dirección</p><div class="per-cs">' + dir.map(function (n) { return perChip(n, 'director', dueno); }).join('') + '</div>' : '') +
+    (rep.length ? '<p class="per-l">Reparto</p><div class="per-cs">' + rep.map(function (n) { return perChip(n, 'actor', dueno); }).join('') + '</div>' : '') + '</section>';
+}
+function vistaModulo(id) {
+  let h = vistaModulo_v33(id); const b = estado.semillas.filter(function (x) { return x.id === id; })[0];
+  if (!b) return h;
+  const dueno = !!estado.sesion, acc = '<div class="acciones mo-acc">';
+  if (b.tipo === 'persona') {
+    const r = perRol(b) === 'actor' ? 'actores' : 'directores', rt = perRolTxt(b);
+    h = h.replace('href="#tejido-personas"', 'href="#tejido-' + r + '"').replace(/Gente de cine<\/a>/, (r === 'actores' ? 'Actores' : 'Directores') + '</a>').replace('Gente de cine · Persona</p>', 'Persona · ' + esc(rt) + '</p>');
+    const x = perRelHTML(b), i = h.indexOf(acc), j = i >= 0 ? i : h.lastIndexOf('</article>');
+    return !x || j < 0 ? h : h.slice(0, j) + x + h.slice(j);
+  }
+  if (b.tipo !== 'pelicula' && b.tipo !== 'serie') return h;
+  if (b.tipo === 'pelicula') h = h.replace(/<div><dt>Director<\/dt><dd>[^<]*<\/dd><\/div>/, '');   // ahora sale en «Dirección y reparto», con enlace
+  const g = perGenteHTML(b), k = h.indexOf('<section class="ser-rel"'), i = h.indexOf(acc);
+  if (g) { const j = k >= 0 ? k : i >= 0 ? i : h.lastIndexOf('</article>'); if (j >= 0) h = h.slice(0, j) + g + h.slice(j); }
+  if (dueno && b.tipo === 'pelicula') {
+    const a = h.indexOf(acc), e = a >= 0 ? h.indexOf('</div>', a) : -1;
+    if (e >= 0) h = h.slice(0, e) + '<button type="button" class="btn per-conv" data-action="per-convertir" data-id="' + b.id + '">Convertir en ficha de persona</button>' + h.slice(e);
+  }
+  return h;
+}
+// De una película que en realidad es una persona (como las reseñas viejas de un director) a su ficha de persona
+function perPreguntarConvertir(id) {
+  const b = estado.semillas.filter(function (x) { return x.id === id; })[0]; if (!b) return;
+  const h = abrirHoja('hoja-conv', '<div class="hoja-c enc"><h2 class="hoja-t">¿Convertir «' + esc(b.titulo) + '» en ficha de persona?</h2>' +
+    '<p class="ayuda">Deja de ser una película y pasa a Directores y actores. Se quedan su foto, sus plones y su reseña. ¿Qué es?</p>' +
+    '<div class="hoja-pie" style="width:100%"><button type="button" class="btn prim" data-action="per-conv-ok" data-id="' + b.id + '" data-r="director">Director</button>' +
+    '<button type="button" class="btn prim" data-action="per-conv-ok" data-id="' + b.id + '" data-r="actor">Actor</button>' +
+    '<button type="button" class="btn prim" data-action="per-conv-ok" data-id="' + b.id + '" data-r="ambos">Los dos</button>' +
+    '<button type="button" class="btn" data-action="per-conv-no">Cancelar</button></div></div>');
+  h.setAttribute('aria-label', 'Convertir en ficha de persona');
+}
+function modControlesHTML(b) {
+  if (b.tipo !== 'persona') return modControlesHTML_v33(b);   // una persona no se mueve de tejido
+  return '<div class="mo-ctl"><button type="button" class="chip mo-c" data-action="mod-pub" data-id="' + b.id + '" aria-pressed="' + !!b.publica + '">' + (b.publica ? 'Pública' : 'Privada') + '<small>' + (b.publica ? 'Volver privada' : 'Hacer pública') + '</small></button></div>';
+}
+
+/* --- Sugerencias: los directores que ya tienen ficha salen primero; los actores salen en el reparto --- */
+const PER_ACTORES = ['Al Pacino', 'Robert De Niro', 'Marlon Brando', 'Jack Nicholson', 'Dustin Hoffman', 'Robert Redford', 'Paul Newman', 'Clint Eastwood', 'Harrison Ford', 'Tom Hanks',
+  'Denzel Washington', 'Morgan Freeman', 'Anthony Hopkins', 'Brad Pitt', 'Leonardo DiCaprio', 'Johnny Depp', 'Tom Cruise', 'Keanu Reeves', 'Matt Damon', 'Christian Bale',
+  'Joaquin Phoenix', 'Heath Ledger', 'Ryan Gosling', 'Robert Downey Jr.', 'Samuel L. Jackson', 'Bruce Willis', 'Arnold Schwarzenegger', 'Sylvester Stallone', 'Will Smith', 'Jim Carrey',
+  'Adam Sandler', 'Ben Stiller', 'Bill Murray', 'Robin Williams', 'Jeff Bridges', 'Gary Oldman', 'Daniel Day-Lewis', 'Edward Norton', 'Tom Hardy', 'Cillian Murphy',
+  'Timothée Chalamet', 'Pedro Pascal', 'Oscar Isaac', 'Javier Bardem', 'Gael García Bernal', 'Diego Luna', 'Benicio del Toro', 'Antonio Banderas', 'Ricardo Darín', 'Wagner Moura',
+  'Meryl Streep', 'Cate Blanchett', 'Kate Winslet', 'Natalie Portman', 'Scarlett Johansson', 'Emma Stone', 'Margot Robbie', 'Jennifer Lawrence', 'Anne Hathaway', 'Julia Roberts',
+  'Sandra Bullock', 'Nicole Kidman', 'Charlize Theron', 'Frances McDormand', 'Viola Davis', 'Zendaya', 'Florence Pugh', 'Penélope Cruz', 'Salma Hayek', 'Sigourney Weaver',
+  'Steve Carell', 'John Krasinski', 'Bryan Cranston', 'Aaron Paul', 'Bob Odenkirk', 'Millie Bobby Brown', 'Winona Ryder', 'Catalina Sandino Moreno', 'Sofía Vergara', 'Carmen Maura'];
+function sugerenciasCampo(t, c) {
+  const l = sugerenciasCampo_v33(t, c);
+  if (c.sug !== 'director') return l;
+  const vistas = {}, out = [], poner = function (x) { const k = norm(x); if (!k || vistas[k]) return; vistas[k] = 1; out.push(x); };
+  perLista('director', true).forEach(function (p) { poner(p.titulo); }); l.forEach(poner);
+  return out;
+}
+function repSugerencias() {
+  const vistas = {}, out = [], poner = function (x) { const k = norm(x); if (!k || vistas[k]) return; vistas[k] = 1; out.push(x); };
+  perLista('actor', true).forEach(function (p) { poner(p.titulo); });
+  estado.semillas.forEach(function (x) { if (x.datos && x.datos.reparto) perNombres(x.datos.reparto).forEach(poner); });
+  PER_ACTORES.forEach(poner);
+  return out;
+}
+
+/* --- El reparto: nombres sueltos que se van volviendo chips (se guardan en datos.reparto, separados por coma) --- */
+const repLista = s => s.repL || (s.repL = perNombres(s.datos.reparto));
+function repSync(s) {
+  const i = $('#rep-in'), p = i ? i.value.trim() : '';
+  s.datos.reparto = repLista(s).concat(p ? [p] : []).join(', ').slice(0, 200);
+}
+function repChipsHTML(s) {
+  return repLista(s).map(function (n, k) { return '<button type="button" class="rep-c" data-action="rep-quitar" data-i="' + k + '" aria-label="Quitar a ' + esc(n) + '">' + esc(n) + '<i aria-hidden="true">×</i></button>'; }).join('');
+}
+function repHTML(s) {
+  return '<div class="fx-c rep-box"><span class="fi-l">Reparto</span><div class="rep-chips" id="rep-chips">' + repChipsHTML(s) + '</div>' +
+    '<div class="rep-fila"><input class="in" id="rep-in" type="text" maxlength="60" list="dl-reparto" placeholder="Nombre y Enter" autocomplete="off">' +
+    '<button type="button" class="btn rep-mas" data-action="rep-add" aria-label="Agregar al reparto">+</button></div>' +
+    '<datalist id="dl-reparto">' + repSugerencias().map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist></div>';
+}
+function repCommit(todo) {
+  const s = estado.sem, i = $('#rep-in'); if (!s || !i) return;
+  if (todo && !i.value.trim()) return;   // nada que agregar: no se repintan los chips (así un toque sobre uno no se pierde)
+  const partes = i.value.split(/[,;]/), resto = todo ? '' : partes.pop(), L = repLista(s);
+  let lleno = false;
+  partes.forEach(function (x) {
+    x = x.replace(/\s+/g, ' ').trim().slice(0, 60); if (!x) return;
+    if (L.some(function (y) { return perClave(y) === perClave(x); })) return;
+    if (L.concat([x]).join(', ').length > 200) { lleno = true; return; }
+    L.push(x);
+  });
+  i.value = resto || ''; const c = $('#rep-chips'); if (c) c.innerHTML = repChipsHTML(s);
+  repSync(s); marcarSem();
+  if (lleno) errorSem('El reparto ya está lleno (máximo unas 200 letras).');
+}
+document.addEventListener('input', function (e) {
+  const t = e.target; if (!t || t.id !== 'rep-in' || !estado.sem) return;
+  if (/[,;]/.test(t.value)) repCommit(false); else { repSync(estado.sem); marcarSem(); }
+});
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && e.target && e.target.id === 'rep-in') { e.preventDefault(); repCommit(true); }
+});
+document.addEventListener('focusout', function (e) { if (e.target && e.target.id === 'rep-in' && estado.sem) repCommit(true); });
+
+/* --- El pop-up de una persona: foto, nombre, qué es, año de nacimiento y plones --- */
+function perSelHTML(s) {
+  const r = perRol(s);
+  return '<div class="fx-c per-sel"><span class="fi-l">¿Qué es?</span><div class="seg fx-seg" role="group" aria-label="Rol">' +
+    PER_ROLES.map(function (x) { return '<button type="button" aria-pressed="' + (x[0] === r) + '" data-action="per-rol" data-r="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>';
+}
+function popPerHTML(s) {
+  const t = tipoDe('persona'), nueva = !s.base, dl = [];
+  const rol = perRol(s) === 'actor' ? 'actores' : 'directores';
+  const atras = nueva ? '#tejido-' + rol : '#modulo-' + s.id;
+  return '<div class="pop-cab"><h2 class="pop-t">' + t.ask + '</h2><a class="pop-x" href="' + atras + '" aria-label="Cerrar">' + ICO_X + '</a></div>' +
+    (s.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin guardar (' + hace(s.recuperado) + ').</span><button type="button" class="btn" data-action="sem-descartar">Descartar</button></div>' : '') +
+    '<form id="fs" class="pop-form" novalidate><div class="pop-cuerpo"><div class="fx-poster" id="s-img">' + imgHTML() + '</div>' +
+    '<div class="pop-datos"><label class="fx-c fx-ti"><span class="fi-l">' + esc(t.tituloL) + '</span><input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="' + esc(t.tituloPh) + '" value="' + esc(s.titulo) + '" autocomplete="off" required></label>' +
+    perSelHTML(s) + '<div class="pop-a pop-1">' + campoHTML(t, s, t.campos[0], dl) + '</div>' + dl.join('') + '</div></div>' +
+    '<section class="pop-nota" id="s-nota">' + notaSecHTML() + '</section><p class="error" id="s-error" role="alert" hidden></p>' +
+    '<div class="pop-pie">' + (nueva ? '<div class="pop-res" id="s-res">' + resenaSiNoHTML() + '</div>' : '<button type="button" class="btn peligro pop-b" data-action="sem-borrar">Borrar</button>') +
+    '<button type="submit" id="s-guardar" class="btn prim pop-g">' + textoGuardar() + '</button></div></form>';
+}
+function popHTML(s) {
+  const t = tipoDe(s.tipo);
+  if (t.id === 'persona') return popPerHTML(s);
+  const h = popHTML_v33(s);
+  if (t.id !== 'pelicula' && t.id !== 'serie') return h;
+  s.repL = perNombres(s.datos.reparto);
+  const i = h.indexOf('<section class="fx-c fx-etqs">');
+  return i < 0 ? h : h.slice(0, i) + repHTML(s) + h.slice(i);
+}
+// al abrir una persona desde «+ Sembrar» o desde «Crear ficha de X» ya viene con el nombre y el rol
+function iniciarSemilla(tipo, id) {
+  iniciarSemilla_v33(tipo, id);
+  const m = estado.sem; if (!m || m.faltante || id) return;
+  if (m.tipo !== 'persona') { estado.perPre = null; return; }
+  const r = estado.perPre; estado.perPre = null;
+  if (!m.datos.rol) m.datos.rol = 'director';
+  if (r) { if (r.n) m.titulo = r.n; if (r.r) m.datos.rol = r.r; m.tocado = true; }
+}
 
 /* --- Un módulo: la ficha completa y su reseña --- */
 function vistaModulo_v30(id) {
@@ -5863,7 +6175,7 @@ function tejSecHTML() {
 }
 function tejPanelHTML() {
   const s = estado.sem; if (!s.verTej) return '';
-  return '<div class="chips sm fx-tp">' + TEJIDOS.map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x.id === s.tejido) + '" data-action="sem-tej" data-t="' + x.id + '">' + esc(x.nombre) + '</button>'; }).join('') + '</div>';
+  return '<div class="chips sm fx-tp">' + TEJIDOS.filter(function (x) { return !x.oculto; }).map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x.id === s.tejido) + '" data-action="sem-tej" data-t="' + x.id + '">' + esc(x.nombre) + '</button>'; }).join('') + '</div>';
 }
 function pintarTej() {
   const e = $('#s-tej'); if (e) e.innerHTML = tejSecHTML();
@@ -6095,13 +6407,13 @@ document.addEventListener('keydown', function (e) {
 
 /* ---------- La página de la ficha: hacerla pública y moverla de tejido ---------- */
 estado.moMover = '';
-function modControlesHTML(b) {
+function modControlesHTML_v33(b) {
   const tj = tejidoDe(b.tejido);
   let h = '<div class="mo-ctl">';
   if (tj.privado) h += '<span class="mo-vis">Solo tú. Aquí nada se publica.</span>';
   else h += '<button type="button" class="chip mo-c" data-action="mod-pub" data-id="' + b.id + '" aria-pressed="' + !!b.publica + '">' + (b.publica ? 'Pública' : 'Privada') + '<small>' + (b.publica ? 'Volver privada' : 'Hacer pública') + '</small></button>';
   h += '<button type="button" class="chip mo-c" data-action="mod-mover" data-id="' + b.id + '" aria-expanded="' + (estado.moMover === b.id) + '"><i class="fx-dot" style="background:' + tj.color + '"></i>' + esc(tj.nombre) + '<small>Mover de tejido</small></button></div>';
-  if (estado.moMover === b.id) h += '<div class="chips sm mo-mv">' + TEJIDOS.map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x.id === b.tejido) + '" data-action="mod-tej" data-id="' + b.id + '" data-t="' + x.id + '">' + esc(x.nombre) + '</button>'; }).join('') + '</div>';
+  if (estado.moMover === b.id) h += '<div class="chips sm mo-mv">' + TEJIDOS.filter(function (x) { return !x.oculto; }).map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x.id === b.tejido) + '" data-action="mod-tej" data-id="' + b.id + '" data-t="' + x.id + '">' + esc(x.nombre) + '</button>'; }).join('') + '</div>';
   return h;
 }
 async function modCambiar(id, campos, msg) {
@@ -7427,6 +7739,21 @@ document.addEventListener('click', function (e) {
     }
     case 'tmp-sel': { const s = estado.sem; if (s) { s.datos.temporada = String(b.dataset.n); s.otraTmp = false; pintarTmp(); } break; }
     case 'tmp-otra': { const s = estado.sem; if (s) { s.otraTmp = true; s.datos.temporada = ''; pintarTmp(); const x = $('.tmp-num'); if (x) x.focus(); } break; }
+    case 'per-nueva': estado.perPre = { n: '', r: b.dataset.r === 'actor' ? 'actor' : 'director' }; location.hash = '#sembrar-persona'; break;
+    case 'per-crear': estado.perPre = { n: b.dataset.n || '', r: b.dataset.r === 'actor' ? 'actor' : 'director' }; location.hash = '#sembrar-persona'; break;
+    case 'per-rol': { const s = estado.sem; if (s && PER_ROLES.some(function (x) { return x[0] === b.dataset.r; })) { s.datos.rol = b.dataset.r; marcarSem(); document.querySelectorAll('.per-sel [data-action="per-rol"]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.r === b.dataset.r)); }); } break; }
+    case 'per-orden': estado.perOrden = b.dataset.o; render(false); break;
+    case 'per-convertir': perPreguntarConvertir(id); break;
+    case 'per-conv-no': cerrarHoja('hoja-conv'); break;
+    case 'per-conv-ok': {
+      cerrarHoja('hoja-conv');
+      const x = estado.semillas.filter(function (q) { return q.id === id; })[0]; if (!x) break;
+      const d = {}; Object.keys(x.datos).forEach(function (k) { if (k !== 'director' && k !== 'estreno' && k !== 'reparto') d[k] = x.datos[k]; });
+      d.rol = b.dataset.r === 'actor' || b.dataset.r === 'ambos' ? b.dataset.r : 'director';
+      modCambiar(x.id, { tipo: 'persona', tejido: 'personas', datos: d, etiquetas: [], fecha: null }, 'Ahora es una ficha de persona'); break;
+    }
+    case 'rep-add': { repCommit(true); const i = $('#rep-in'); if (i) i.focus(); break; }
+    case 'rep-quitar': { const s = estado.sem; if (!s) break; repLista(s).splice(parseInt(b.dataset.i, 10), 1); const c = $('#rep-chips'); if (c) c.innerHTML = repChipsHTML(s); repSync(s); marcarSem(); break; }
     case 'rec-nueva': recAbrir(); break;
     case 'rec-cerrar': estado.recF = null; cerrarHoja('hoja-rec'); break;
     case 'rec-fmt': recFormato(b.dataset.f); break;
