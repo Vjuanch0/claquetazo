@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#05181c">
+<title>ALUNA · Prueba de discografía</title>
+<style>
+:root{--bg:#05181c;--s:#0b2429;--s2:#103038;--l:#1d4650;--t:#e9f3f1;--d:#9db7b4;--a:#ff7a2f;--ok:#4cd9a0;--mal:#ff6b6b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:16px/1.45 system-ui,Segoe UI,Roboto,sans-serif;padding:18px 16px 60px;max-width:640px;margin-inline:auto}
+h1{font-size:1.4rem;margin:6px 0 4px}h2{font-size:1.05rem;margin:22px 0 8px}
+p{color:var(--d);margin:6px 0}
+.caja{background:var(--s);border:1px solid var(--l);border-radius:14px;padding:12px 14px;margin:10px 0}
+input{width:100%;min-height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--l);background:var(--s2);color:var(--t);font:inherit}
+button{min-height:44px;padding:0 18px;border:1px solid var(--l);border-radius:999px;background:var(--s2);color:var(--t);font:600 .95rem inherit;font-family:inherit}
+button.p{background:var(--a);border-color:var(--a);color:#fff}
+.fila{display:flex;gap:8px;margin:10px 0}
+.fila input{flex:1}
+.r{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--l);font-size:.92rem}
+.r:first-child{border-top:0}
+.ok{color:var(--ok);font-weight:700}.mal{color:var(--mal);font-weight:700}
+.alb{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.alb figure{margin:0}
+.alb .c{aspect-ratio:1;border-radius:8px;background:linear-gradient(135deg,#1c4a55,#0b2429);display:grid;place-items:center;overflow:hidden;position:relative;color:var(--d);font-size:.75rem;text-align:center}
+.alb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.alb figcaption{font-size:.8rem;margin-top:4px;line-height:1.25}
+.alb small{color:var(--d)}
+.art{display:block;width:100%;text-align:left;border-radius:12px;margin:6px 0;padding:10px 14px;min-height:0}
+.art small{display:block;color:var(--d);font-weight:400}
+pre{white-space:pre-wrap;color:var(--d);font-size:.85rem}
+</style>
+</head>
+<body>
+<h1>Prueba de discografía</h1>
+<p>Esta paginita solo sirve para ver si tu celular puede traer la discografía de una banda (álbumes, portadas y canciones). No guarda nada ni toca tus semillas.</p>
+
+<div class="caja">
+  <h2 style="margin-top:0">1. ¿Hay conexión?</h2>
+  <button class="p" id="b-con">Probar conexión</button>
+  <div id="con"></div>
+</div>
+
+<div class="caja">
+  <h2 style="margin-top:0">2. Buscar una banda</h2>
+  <div class="fila"><input id="q" value="Kalmah" autocomplete="off" autocapitalize="words" enterkeyhint="search"><button class="p" id="b-bus">Buscar</button></div>
+  <div id="arts"></div>
+  <div id="albs"></div>
+  <div id="pis"></div>
+</div>
+
+<pre id="log"></pre>
+
+<script>
+/* --- Discografía: busca la banda en MusicBrainz (con portadas de Cover Art Archive) y, si no hay conexión con ese, en iTunes --- */
+const DC = {
+  _ult: 0,
+  esperar(ms) { return new Promise(function (r) { setTimeout(r, ms); }); },
+  async json(url) {
+    const ctl = typeof AbortController !== 'undefined' ? new AbortController() : null, t = ctl ? setTimeout(function () { ctl.abort(); }, 15000) : null;
+    try {
+      const r = await fetch(url, { headers: { Accept: 'application/json' }, signal: ctl ? ctl.signal : undefined });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return await r.json();
+    } finally { if (t) clearTimeout(t); }
+  },
+  async mb(ruta) {   // MusicBrainz pide como máximo una consulta por segundo
+    const w = DC._ult + 1100 - Date.now(); if (w > 0) await DC.esperar(w);
+    DC._ult = Date.now();
+    return DC.json('https://musicbrainz.org/ws/2/' + ruta + (ruta.indexOf('?') < 0 ? '?' : '&') + 'fmt=json');
+  },
+  anio(f) { const m = /^(\d{4})/.exec(String(f || '')); return m ? m[1] : ''; },
+  limpiarTitulo(t) { return String(t || '').replace(/\s*[\(\[](deluxe|remaster|expanded|anniversary|bonus|special|limited|edition)[^\)\]]*[\)\]]\s*/ig, ' ').replace(/\s+-\s+(EP|Single)$/i, '').replace(/\s+/g, ' ').trim(); },
+  // ---- MusicBrainz ----
+  async mbBuscar(nombre) {
+    const d = await DC.mb('artist/?query=' + encodeURIComponent(nombre) + '&limit=8');
+    return (d.artists || []).filter(function (a) { return (a.score || 0) >= 40; }).slice(0, 6).map(function (a) {
+      return { fuente: 'mb', id: a.id, nombre: a.name, pais: a.country || (a.area && a.area['iso-3166-1-codes'] && a.area['iso-3166-1-codes'][0]) || '', desde: DC.anio(a['life-span'] && a['life-span'].begin), hasta: DC.anio(a['life-span'] && a['life-span'].end), nota: a.disambiguation || '', tipo: a.type || '' };
+    });
+  },
+  async mbAlbumes(id) {
+    let todos = [], off = 0;
+    for (let i = 0; i < 3; i++) {
+      const d = await DC.mb('release-group?artist=' + id + '&type=album%7Cep&limit=100&offset=' + off);
+      const l = d['release-groups'] || []; todos = todos.concat(l); off += l.length;
+      if (!l.length || off >= (d['release-group-count'] || 0)) break;
+    }
+    return todos.map(function (g) {
+      const sec = g['secondary-types'] || [], tipo = sec.length ? (sec.indexOf('Live') >= 0 ? 'vivo' : sec.indexOf('Compilation') >= 0 ? 'recop' : 'otro') : (g['primary-type'] === 'EP' ? 'ep' : 'estudio');
+      return { fuente: 'mb', id: g.id, titulo: g.title, anio: DC.anio(g['first-release-date']), tipo: tipo,
+        portada: 'https://coverartarchive.org/release-group/' + g.id + '/front-250', img: 'https://coverartarchive.org/release-group/' + g.id + '/front-500', thumb: 'https://coverartarchive.org/release-group/' + g.id + '/front-250' };
+    }).sort(function (a, b) { return (a.anio || '9999').localeCompare(b.anio || '9999') || a.titulo.localeCompare(b.titulo); });
+  },
+  async mbPistas(rg) {
+    const d = await DC.mb('release?release-group=' + rg + '&inc=recordings&limit=12');
+    const rs = (d.releases || []).filter(function (r) { return (r.media || []).some(function (m) { return (m.tracks || []).length; }); });
+    rs.sort(function (a, b) { return (a.status === 'Official' ? 0 : 1) - (b.status === 'Official' ? 0 : 1) || (a.date || '9999').localeCompare(b.date || '9999'); });
+    if (!rs.length) return [];
+    const out = []; rs[0].media.forEach(function (m) { (m.tracks || []).forEach(function (t) { if (t.title) out.push(String(t.title)); }); });
+    return out.slice(0, 80);
+  },
+  // ---- iTunes (plan B) ----
+  async itBuscar(nombre) {
+    const d = await DC.json('https://itunes.apple.com/search?media=music&entity=musicArtist&limit=6&term=' + encodeURIComponent(nombre));
+    return (d.results || []).filter(function (a) { return a.artistId; }).map(function (a) { return { fuente: 'it', id: String(a.artistId), nombre: a.artistName, pais: '', desde: '', hasta: '', nota: a.primaryGenreName || '', tipo: '' }; });
+  },
+  async itAlbumes(id) {
+    const d = await DC.json('https://itunes.apple.com/lookup?entity=album&limit=200&id=' + encodeURIComponent(id)), vistos = {};
+    return (d.results || []).filter(function (x) { return x.collectionType === 'Album' && x.collectionId; }).map(function (x) {
+      const t = DC.limpiarTitulo(x.collectionName), ep = /\s-\sEP$/i.test(x.collectionName) || /\bEP\b/.test(x.collectionName) && (x.trackCount || 0) <= 7;
+      const a = String(x.artworkUrl100 || '');
+      return { fuente: 'it', id: String(x.collectionId), titulo: t, anio: DC.anio(x.releaseDate), tipo: ep ? 'ep' : 'estudio', portada: a.replace('100x100bb', '300x300bb'), img: a.replace('100x100bb', '600x600bb'), thumb: a.replace('100x100bb', '300x300bb') };
+    }).filter(function (x) { const k = x.titulo.toLowerCase(); if (vistos[k]) return false; vistos[k] = 1; return true; }).sort(function (a, b) { return (a.anio || '9999').localeCompare(b.anio || '9999'); });
+  },
+  async itPistas(id) {
+    const d = await DC.json('https://itunes.apple.com/lookup?entity=song&limit=200&id=' + encodeURIComponent(id));
+    return (d.results || []).filter(function (x) { return x.wrapperType === 'track' && x.trackName; }).sort(function (a, b) { return (a.discNumber || 1) - (b.discNumber || 1) || (a.trackNumber || 0) - (b.trackNumber || 0); }).map(function (x) { return String(x.trackName); }).slice(0, 80);
+  },
+  buscar(f, nombre) { return f === 'it' ? DC.itBuscar(nombre) : DC.mbBuscar(nombre); },
+  albumes(f, id) { return f === 'it' ? DC.itAlbumes(id) : DC.mbAlbumes(id); },
+  pistas(f, id) { return f === 'it' ? DC.itPistas(id) : DC.mbPistas(id); }
+};
+const DC_PAISES = { FI: 'Finlandia', SE: 'Suecia', NO: 'Noruega', DK: 'Dinamarca', IS: 'Islandia', US: 'Estados Unidos', GB: 'Reino Unido', DE: 'Alemania', FR: 'Francia', ES: 'España', IT: 'Italia', PT: 'Portugal', NL: 'Países Bajos', BE: 'Bélgica', CH: 'Suiza', AT: 'Austria', IE: 'Irlanda', PL: 'Polonia', CZ: 'República Checa', HU: 'Hungría', RO: 'Rumania', UA: 'Ucrania', RU: 'Rusia', GR: 'Grecia', TR: 'Turquía', CA: 'Canadá', AU: 'Australia', NZ: 'Nueva Zelanda', JP: 'Japón', KR: 'Corea del Sur', CN: 'China', HK: 'Hong Kong', TW: 'Taiwán', IN: 'India', TH: 'Tailandia', ID: 'Indonesia', PH: 'Filipinas', IL: 'Israel', EG: 'Egipto', ZA: 'Sudáfrica', NG: 'Nigeria', CO: 'Colombia', AR: 'Argentina', CL: 'Chile', PE: 'Perú', BR: 'Brasil', VE: 'Venezuela', EC: 'Ecuador', UY: 'Uruguay', BO: 'Bolivia', PY: 'Paraguay', CU: 'Cuba', CR: 'Costa Rica', PA: 'Panamá', PR: 'Puerto Rico', DO: 'República Dominicana', MX: 'México' };
+
+const $ = function (s) { return document.querySelector(s); };
+const esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+let fuente = 'mb';
+function log(t) { $('#log').textContent += t + '\n'; }
+async function medir(nombre, fn) {
+  const t0 = Date.now();
+  try { const r = await fn(); return '<div class="r"><span>' + esc(nombre) + '</span><span class="ok">Sí · ' + (Date.now() - t0) + ' ms' + (r ? ' · ' + esc(r) : '') + '</span></div>'; }
+  catch (e) { return '<div class="r"><span>' + esc(nombre) + '</span><span class="mal">No · ' + esc(e && e.message ? e.message : e) + '</span></div>'; }
+}
+$('#b-con').onclick = async function () {
+  $('#con').innerHTML = '<p>Probando…</p>'; let h = '';
+  h += await medir('MusicBrainz (bandas y álbumes)', async function () { const a = await DC.mbBuscar('Kalmah'); return a.length + ' resultados'; });
+  h += await medir('iTunes (plan B)', async function () { const a = await DC.itBuscar('Kalmah'); return a.length + ' resultados'; });
+  $('#con').innerHTML = h + '<p>Las portadas se ven en el paso 2: si ves las imágenes, también funcionan. Si MusicBrainz dice «Sí», la discografía va a funcionar. Si dice «No» pero iTunes dice «Sí», la app usa iTunes. Si los dos dicen «No», mándame lo que dice aquí.</p>';
+};
+async function buscar() {
+  const n = $('#q').value.trim(); if (!n) return;
+  $('#arts').innerHTML = '<p>Buscando…</p>'; $('#albs').innerHTML = ''; $('#pis').innerHTML = '';
+  let l = [];
+  try { fuente = 'mb'; l = await DC.buscar('mb', n); } catch (e) { log('MusicBrainz falló: ' + e.message); }
+  if (!l.length) { try { fuente = 'it'; l = await DC.buscar('it', n); } catch (e) { log('iTunes falló: ' + e.message); } }
+  if (!l.length) { $('#arts').innerHTML = '<p class="mal">No salió nada. Mira el registro de abajo.</p>'; return; }
+  $('#arts').innerHTML = '<p>Fuente: ' + (fuente === 'mb' ? 'MusicBrainz' : 'iTunes') + '. Toca la banda correcta:</p>' + l.map(function (a, i) {
+    return '<button class="art" data-i="' + i + '">' + esc(a.nombre) + '<small>' + esc([a.pais, a.desde ? 'desde ' + a.desde : '', a.nota].filter(Boolean).join(' · ')) + '</small></button>';
+  }).join('');
+  document.querySelectorAll('.art').forEach(function (b) { b.onclick = function () { elegir(l[+b.dataset.i]); }; });
+}
+async function elegir(a) {
+  $('#albs').innerHTML = '<p>Trayendo los álbumes de ' + esc(a.nombre) + '…</p>'; $('#pis').innerHTML = '';
+  const t0 = Date.now();
+  try {
+    const l = await DC.albumes(a.fuente, a.id);
+    $('#albs').innerHTML = '<p class="ok">' + l.length + ' álbumes en ' + (Date.now() - t0) + ' ms</p><div class="alb">' + l.map(function (x, i) {
+      return '<figure><div class="c">' + esc(x.titulo.slice(0, 1)) + '<img src="' + esc(x.portada) + '" alt="" loading="lazy" onerror="this.remove()"></div><figcaption>' + esc(x.titulo) + '<br><small>' + esc(x.anio) + ' · ' + esc(x.tipo) + '</small><br><button data-i="' + i + '" style="min-height:34px;padding:0 12px;font-size:.78rem;margin-top:4px">Ver canciones</button></figcaption></figure>';
+    }).join('') + '</div><p>Las que salen con una letra en vez de portada no tienen imagen en el catálogo: en ALUNA las puedes poner tú.</p>';
+    document.querySelectorAll('#albs button').forEach(function (b) { b.onclick = async function () { const x = l[+b.dataset.i]; $('#pis').innerHTML = '<p>Trayendo canciones de ' + esc(x.titulo) + '…</p>'; try { const p = await DC.pistas(x.fuente, x.id); $('#pis').innerHTML = '<p class="ok">' + p.length + ' canciones en ' + esc(x.titulo) + '</p><div class="caja">' + p.map(function (t, i) { return '<div class="r"><span>' + (i + 1) + '. ' + esc(t) + '</span></div>'; }).join('') + '</div>'; } catch (e) { $('#pis').innerHTML = '<p class="mal">' + esc(e.message) + '</p>'; } }; });
+  } catch (e) { $('#albs').innerHTML = '<p class="mal">No pude traer los álbumes: ' + esc(e.message) + '</p>'; }
+}
+$('#b-bus').onclick = buscar;
+$('#q').addEventListener('keydown', function (e) { if (e.key === 'Enter') buscar(); });
+</script>
+</body>
+</html>

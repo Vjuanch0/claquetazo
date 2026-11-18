@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=36">
-<link rel="icon" href="favicon.svg?v=36" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=36" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=36">
+<link rel="manifest" href="manifest.webmanifest?v=37">
+<link rel="icon" href="favicon.svg?v=37" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=37" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=37">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1559,6 +1559,159 @@ html.kb-abierto .hoja-c.pop{padding-bottom:12px}
 .rt-c{display:grid;gap:4px;margin-bottom:14px}
 .fc-menu .fc-mi::after,.fc-menu .fc-mi::before{content:none!important}
 .fc{max-width:760px;margin-inline:auto}
+/* ---------- v37: carrusel de vinilos y VHS, canciones rápidas, barrita de reproductor, imagen grande ---------- */
+/* La imagen del artista: más alta, se queda atrás al bajar y deja una barrita fija arriba */
+.fc-hero{min-height:344px;padding-top:70px}
+.fc-hero:has(.fc-menu-w.ab){z-index:3}
+.fc-hero.sin{min-height:0;padding-top:62px}
+.fc-img{height:430px;will-change:transform,opacity;-webkit-mask-image:linear-gradient(to bottom,#000 46%,transparent 100%),linear-gradient(to right,transparent 0,#000 10%,#000 90%,transparent 100%);mask-image:linear-gradient(to bottom,#000 46%,transparent 100%),linear-gradient(to right,transparent 0,#000 10%,#000 90%,transparent 100%)}
+.fc-img img{object-position:50% 20%}
+.fc-cajas,.fc-links{position:relative;z-index:2}
+.fc-mini{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;gap:10px;height:calc(54px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 14px 0;background:color-mix(in srgb,var(--bg,#05181c) 90%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transform:translateY(-110%);transition:transform .22s ease;pointer-events:none}
+body.fc-mini-on .fc-mini{transform:none;pointer-events:auto}
+.fc-mb{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;margin-left:-6px;color:var(--ink)}
+.fc-mb svg{width:20px;height:20px}
+.fc-mf{flex:none;width:34px;height:34px;border-radius:50%;overflow:hidden;background:var(--surface-2)}
+.fc-mf img{width:100%;height:100%;object-fit:cover;display:block}
+.fc-mn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:700 1rem var(--display)}
+.fc-mp{display:inline-flex;align-items:center;gap:4px;color:var(--plon-on);font:700 .95rem var(--display)}
+.fc-mp svg{width:18px;height:18px;fill:currentColor}
+@media(min-width:720px){.fc-mini{display:none}}
+
+/* El carrusel */
+.ca{position:relative;margin:8px -14px 0}
+.ca-pista{position:relative;display:flex;gap:6px;overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:14px calc(50% - 74px) 8px;perspective:760px;overscroll-behavior-x:contain}
+.ca-pista::-webkit-scrollbar{display:none}
+.ca-it{position:relative;flex:none;width:148px;padding:0;border:0;background:none;color:var(--ink);text-align:center;scroll-snap-align:center;--e:0;--r:0;
+  transform:rotateY(calc(var(--r)*-24deg)) scale(calc(1 - var(--e)*.2));opacity:calc(1 - var(--e)*.42);z-index:calc(10 - var(--e)*5);-webkit-tap-highlight-color:transparent;will-change:transform}
+.ca-it.on{z-index:12}
+.ca-cv{position:relative;display:block;width:132px;margin:0 auto;aspect-ratio:1}
+.ca-port{position:absolute;inset:0;z-index:2;display:grid;place-items:center;overflow:hidden;border-radius:6px;box-shadow:0 10px 22px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08);
+  background:linear-gradient(145deg,hsl(var(--h,180) 42% 30%),hsl(calc(var(--h,180) + 38) 46% 14%))}
+.ca-port.sin::before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 50% 50%,rgba(255,255,255,.07) 0 1px,transparent 1px 7px);opacity:.9}
+.ca-port b{position:relative;font:800 3rem var(--display);color:rgba(255,255,255,.82);text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.ca-port img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.ca-disco{position:absolute;z-index:1;top:3%;left:3%;width:94%;aspect-ratio:1;border-radius:50%;translate:0 0;transition:translate .5s cubic-bezier(.2,.8,.2,1);
+  background:radial-gradient(circle at 50% 50%,#d9d4c8 0 3%,#0c0c0c 3.5% 12%,hsl(var(--h,20) 58% 46%) 12.5% 29%,#0c0c0c 29.5% 31%,transparent 31.5%),
+    repeating-radial-gradient(circle at 50% 50%,#101010 0 1.4px,#1a1a1a 1.4px 2.8px),
+    conic-gradient(from 20deg,rgba(255,255,255,.0),rgba(255,255,255,.17) 8%,rgba(255,255,255,0) 18%,rgba(255,255,255,0) 50%,rgba(255,255,255,.14) 58%,rgba(255,255,255,0) 68%);
+  box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.ca-it.on .ca-disco{translate:36% 0}
+.ca-it.on.gira .ca-disco{animation:ca-g 5.5s linear infinite}
+@keyframes ca-g{to{rotate:360deg}}
+.ca-cod{position:absolute;z-index:3;top:6px;left:6px;padding:1px 6px;border-radius:5px;background:rgba(5,24,28,.78);color:var(--ink-dim);font:700 .62rem var(--ui);letter-spacing:.06em}
+.ca-pl{position:absolute;z-index:3;left:6px;bottom:6px;display:inline-flex;align-items:center;gap:3px;padding:2px 7px 2px 5px;border-radius:999px;background:rgba(5,24,28,.82);color:var(--plon-on);font:700 .74rem var(--ui)}
+.ca-pl svg{width:14px;height:14px;fill:currentColor}
+.ca-n{display:block;margin-top:9px;padding:0 4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 .82rem var(--display)}
+.ca-n small{font-weight:400;color:var(--ink-faint)}
+.ca-fl{display:none}
+@media(min-width:720px){
+  .ca{margin:8px 0 0}
+  .ca-fl{display:inline-flex;position:absolute;top:70px;z-index:20;width:38px;height:38px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:rgba(5,24,28,.8);color:var(--ink)}
+  .ca-fl-i{left:6px}.ca-fl-d{right:6px}.ca-fl-d svg{transform:rotate(180deg)}
+}
+/* VHS: la temporada es una cinta */
+.ca-vh{width:200px}
+.ca-vh .ca-cv{width:184px;aspect-ratio:1.78}
+.ca-vhs{position:absolute;inset:0;display:grid;grid-template-rows:auto 1fr;gap:6px;padding:8px;border-radius:8px;border:1px solid #2d3236;box-shadow:0 10px 22px rgba(0,0,0,.55);
+  background:linear-gradient(160deg,hsl(var(--h,200) 14% 16%),#0d0f10)}
+.ca-et{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 8px;border-radius:4px;background:#ece3cf;color:#26221b;box-shadow:inset 0 -2px 0 rgba(0,0,0,.12)}
+.ca-et b{font:800 .82rem var(--display);letter-spacing:.04em}
+.ca-vpl{display:inline-flex;align-items:center;gap:3px;font:800 .78rem var(--ui);color:#b5470f}
+.ca-vpl svg{width:14px;height:14px;fill:currentColor}
+.ca-ven{position:relative;display:flex;align-items:center;justify-content:space-around;padding:0 18px;border-radius:6px;background:#060708;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+.ca-ven i{display:block;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle,#0b0b0b 0 18%,#d8d4c6 19% 30%,#2b2b2b 31% 52%,#6b4a2c 53% 100%);box-shadow:0 0 0 2px #181a1c}
+.ca-vh.on .ca-ven i{animation:ca-g 4s linear infinite}
+.ca-ser{position:absolute;right:12px;bottom:10px;max-width:58%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 .6rem var(--ui);color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase}
+/* El panel del que está en el centro */
+.ca-paneles{padding:6px 14px 0}
+.ca-pn{display:none;padding-top:4px}
+.ca-pn.on{display:block}
+.ca-pn.solo{padding-top:0}
+.ca-pt{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:4px}
+.ca-pm{min-width:0;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px}
+.ca-cd{padding:1px 7px;border-radius:5px;border:1px solid var(--line);color:var(--ink-faint);font:700 .64rem var(--ui);letter-spacing:.08em}
+.ca-nm{margin:0;font:700 1.12rem/1.2 var(--display);overflow-wrap:anywhere}
+.ca-pm small{color:var(--ink-faint);font-size:.82rem}
+.ca-pn .tb-l{margin-top:12px}
+/* Las canciones: agregar, calificar y quitar en la misma fila */
+.ca-c .cn-r{flex-wrap:nowrap;gap:8px}
+.ca-nom{padding:0;border:0;background:none;text-align:left;cursor:pointer}
+.ca-nt{flex:none;display:inline-flex;align-items:center;gap:4px;min-height:34px;padding:0 10px;border:1px solid transparent;border-radius:999px;background:none;color:var(--plon-on);font:700 .88rem var(--ui)}
+.ca-nt svg{width:16px;height:16px;fill:currentColor}
+.ca-nt.vacio{border-color:var(--line);color:var(--ink-dim);font-weight:600;font-size:.78rem}
+.ca-nt[aria-expanded="true"]{background:var(--surface-2);border-color:var(--ink-faint)}
+.ca-x{flex:none;min-width:34px;height:34px;padding:0 8px;border:0;border-radius:999px;background:none;color:var(--ink-faint);font:500 1.35rem/1 var(--ui)}
+.ca-x.conf{background:rgba(255,90,90,.16);color:#ff8d8d;font:700 .74rem var(--ui)}
+.ca-tira{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+.ca-tn{min-width:40px;min-height:36px;padding:0 10px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink-dim);font:700 .84rem var(--ui)}
+.ca-tn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.ca-tq{color:var(--ink-faint);font-weight:600}
+.ca-c.sin .cn-n{color:var(--ink-dim);font-weight:500}
+.ca-add{display:flex;align-items:flex-end;gap:8px;margin-top:10px}
+.ca-in{flex:1;min-width:0;min-height:46px;max-height:150px;padding:12px 14px;resize:none;font:inherit;line-height:1.35;overflow-y:auto}
+.ca-go{min-height:46px;flex:none;padding:0 16px}
+.ca-hint{margin:6px 0 0}
+.ca-pie{margin-top:12px}
+.ca-foto{cursor:pointer}
+.dc-vacio{margin:10px 0 2px}
+.dc-b{min-height:38px;padding:0 14px;font-size:.84rem}
+/* Pop-up de «+ Álbum» liviano */
+.pop-lite .fx-etqs,.pop-lite .fc-dsc,.pop-lite .fx-c:has([data-campo="pais"]){display:none}
+.pop-mas-b{display:block;margin:2px 0 10px;padding:6px 0}
+/* Editar en una sola pantalla */
+.e37{display:grid;gap:12px;align-content:start}
+.e37 .pop-cab{margin:0}
+.e37-pie{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.e37-mas{display:block;text-align:center;padding:4px 0 2px}
+/* La barrita del reproductor */
+.fc-barra{position:fixed;left:8px;right:8px;bottom:calc(var(--navh,64px) + 8px);z-index:40;display:flex;gap:10px;align-items:stretch;padding:8px;border:1px solid var(--line);border-radius:16px;background:color-mix(in srgb,var(--surface-2) 94%,#000);box-shadow:0 14px 34px rgba(0,0,0,.6)}
+@media(min-width:720px){.fc-barra{left:auto;right:18px;bottom:18px;width:430px}}
+.fb-vid{position:relative;flex:none;width:160px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
+.fb-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.fb-cu{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:4px}
+.fb-i{min-width:0}
+.fb-t{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:700 .9rem var(--display)}
+.fb-s{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink-faint);font-size:.74rem}
+.fb-c{display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+.fb-b{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:none;color:var(--ink)}
+.fb-b svg{width:18px;height:18px}
+.fb-b:disabled{opacity:.35}
+.fb-pp{background:var(--accent);color:#fff}
+.fb-m{margin:0 4px 0 auto;font:600 .7rem var(--ui);color:var(--ink-dim);text-decoration:underline;white-space:nowrap}
+.fb-x{color:var(--ink-faint)}
+.fb-spo{display:block;padding:6px;padding-right:44px}
+.fb-spo .fb-sp{display:block;width:100%;border:0;border-radius:12px}
+.fb-spo .fb-x{position:absolute;right:6px;top:6px}
+body.fb-on #vista{padding-bottom:132px}
+/* Discografía */
+.dc{display:grid;gap:10px;align-content:start}
+.dc .pop-cab{margin:0}
+.dc-bus{display:flex;gap:8px}
+.dc-bus .in{flex:1;min-width:0}
+.dc-arts{display:grid;gap:6px}
+.dc-art{display:grid;gap:1px;width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--ink);text-align:left;font:600 .95rem var(--display)}
+.dc-art small{color:var(--ink-faint);font:400 .78rem var(--ui)}
+.dc-chips{display:flex;flex-wrap:wrap;gap:6px}
+.dc-lista{display:grid;gap:2px;max-height:46dvh;overflow:auto;margin:0 -4px;padding:0 4px}
+.dc-al{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent);cursor:pointer}
+.dc-al:first-child{border-top:0}
+.dc-al input{flex:none;width:22px;height:22px;accent-color:var(--accent)}
+.dc-al.ya{opacity:.5}
+.dc-cv{position:relative;flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:6px;overflow:hidden;background:linear-gradient(145deg,#1f4b56,#0b2429);color:rgba(255,255,255,.7);font:800 1.4rem var(--display)}
+.dc-cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dc-ti{min-width:0;font:600 .92rem/1.25 var(--display);overflow-wrap:anywhere}
+.dc-ti small{display:block;color:var(--ink-faint);font:400 .76rem var(--ui)}
+.dc-op{display:flex;gap:16px}
+.dc-chk{display:flex;gap:10px;align-items:flex-start;font-size:.9rem}
+.dc-chk input{flex:none;width:22px;height:22px;margin-top:1px;accent-color:var(--accent)}
+.dc-chk small{display:block;color:var(--ink-faint);font-size:.76rem}
+.dc-prog{display:grid;gap:10px;padding:10px 0 6px}
+.dc-pt{margin:0;font:600 .95rem var(--display)}
+.dc-barra{height:8px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.dc-barra i{display:block;height:100%;border-radius:99px;background:var(--accent);transition:width .4s}
+
+button.pop-x{background:none;padding:0;cursor:pointer}
 </style>
 </head>
 <body>
@@ -2408,6 +2561,7 @@ function iniciarCliente() {
   return !!sb;
 }
 function urlFoto(path) {
+  if (path && /^https:\/\//i.test(path)) return path;   // portada que viene de la discografía: ya es un enlace
   if (!path || !sb) return null;
   try { return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl; } catch (e) { return null; }
 }
@@ -2951,28 +3105,28 @@ const TIPOS = [
     etq: ['Playa', 'Montaña', 'Ciudad', 'Pueblo', 'Parque', 'Museo', 'Mirador', 'Restaurante']
   },
   {
-    id: 'pelicula', plural: 'Películas', nombre: 'Película', inicio: '¿Qué película viste?', desc: 'Ficha, plones y reseña', ask: '¿Qué película <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'escena',
+    id: 'pelicula', plural: 'Películas', nombre: 'Película', inicio: '¿Qué película viste?', desc: 'Datos, plones y reseña', ask: '¿Qué película <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'escena',
     ficha: true, nota: true, imgL: 'Póster', tituloL: 'Nombre de la película', tituloPh: 'Ej: El padrino', fechaL: '¿Cuándo la viste?',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das a la película?',
     campos: [{ k: 'director', l: 'Director', ph: 'Ej: Francis Ford Coppola', sug: 'director' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 1972', num: true, h: 1 }],
     etq: ['Acción', 'Comedia', 'Drama', 'Terror', 'Ciencia ficción', 'Animación', 'Suspenso', 'Romance', 'Documental', 'Fantasía', 'Colombiana']
   },
   {
-    id: 'serie', plural: 'Series', nombre: 'Serie', inicio: '¿Qué serie viste?', desc: 'Ficha, plones y reseña', ask: '¿Qué serie <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'capitulo',
+    id: 'serie', plural: 'Series', nombre: 'Serie', inicio: '¿Qué serie viste?', desc: 'Datos, plones y reseña', ask: '¿Qué serie <b>viste</b>?', ph: 'Lo que te dejó…', tejido: 'capitulo',
     ficha: true, nota: true, imgL: 'Póster', tituloL: 'Nombre de la serie', tituloPh: 'Ej: Breaking Bad', fechaL: '¿Cuándo la viste?',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das a la serie?',
     campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: Netflix', sug: 'plat_serie' }, { k: 'estreno', l: 'Año de estreno', ph: 'Ej: 2008', num: true, h: 1 }, { k: 'temporadas', l: 'Temporadas vistas', ph: 'Ej: 1 a 3', h: 1 }],
     etq: ['Drama', 'Comedia', 'Policial', 'Ciencia ficción', 'Terror', 'Miniserie', 'Anime', 'Documental', 'Fantasía']
   },
   {
-    id: 'juego', plural: 'Juegos', nombre: 'Juego', inicio: '¿Qué juego jugaste?', desc: 'Ficha, plones y reseña', ask: '¿Qué juego <b>jugaste</b>?', ph: 'Lo que te dejó…', tejido: 'partida',
+    id: 'juego', plural: 'Juegos', nombre: 'Juego', inicio: '¿Qué juego jugaste?', desc: 'Datos, plones y reseña', ask: '¿Qué juego <b>jugaste</b>?', ph: 'Lo que te dejó…', tejido: 'partida',
     ficha: true, nota: true, imgL: 'Portada', tituloL: 'Nombre del juego', tituloPh: 'Ej: The Last of Us', fechaL: '¿Cuándo lo jugaste?',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das al juego?',
     campos: [{ k: 'plataforma', l: 'Plataforma', ph: 'Ej: PlayStation, PC, celular', sug: 'plat_juego' }, { k: 'estreno', l: 'Año de lanzamiento', ph: 'Ej: 2013', num: true, h: 1 }],
     etq: ['Aventura', 'Acción', 'RPG', 'Terror', 'Estrategia', 'Deportes', 'Indie', 'Mundo abierto', 'Cooperativo']
   },
   {
-    id: 'libro', plural: 'Libros', nombre: 'Libro', inicio: '¿Qué libro leíste?', desc: 'Ficha, plones y reseña', ask: '¿Qué libro <b>leíste</b>?', ph: 'Lo que te dejó…', tejido: 'paginas',
+    id: 'libro', plural: 'Libros', nombre: 'Libro', inicio: '¿Qué libro leíste?', desc: 'Datos, plones y reseña', ask: '¿Qué libro <b>leíste</b>?', ph: 'Lo que te dejó…', tejido: 'paginas',
     ficha: true, nota: true, imgL: 'Portada', tituloL: 'Título del libro', tituloPh: 'Ej: Cien años de soledad', fechaL: '¿Cuándo lo leíste?',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das al libro?',
     campos: [{ k: 'autor', l: 'Autor', ph: 'Ej: Gabriel García Márquez', sug: 'autor' }, { k: 'estreno', l: 'Año de publicación', ph: 'Ej: 1967', num: true, h: 1 }],
@@ -3690,14 +3844,14 @@ function vistaTejidos() {
     if (!dueno && !c) return '';
     hilos++;
     return '<a class="tl-fila' + (aparte ? ' tl-apar' : '') + (c ? '' : ' tl-cero') + '" href="#tejido-' + tj.id + '" style="--hc:' + tj.color + ';--i:' + (i++) + '">' +
-      '<span class="tl-nom"><b>' + esc(tj.nombre) + (tj.privado ? TL_LOCK : '') + '</b><small>' + (c ? c + (c === 1 ? ' ficha' : ' fichas') : '0') + '</small></span>' +
+      '<span class="tl-nom"><b>' + esc(tj.nombre) + (tj.privado ? TL_LOCK : '') + '</b><small>' + (c ? c + (c === 1 ? ' semilla' : ' semillas') : '0') + '</small></span>' +
       '<span class="tl-urd">' + tlCuerda(c, max, tj.color) + '</span></a>';
   };
   const filaPer = function (rol) {   // los hilos punteados: gente de cine (se arman con las obras, no son un tejido)
     const c = perLista(rol, dueno).length; if (!dueno && !c) return '';
     hilos++;
     return '<a class="tl-fila tl-pt' + (c ? '' : ' tl-cero') + '" href="#tejido-' + (rol === 'actor' ? 'actores' : 'directores') + '" style="--hc:' + PER_COLOR + ';--i:' + (i++) + '">' +
-      '<span class="tl-nom"><b>' + (rol === 'actor' ? 'Actores' : 'Directores') + '</b><small>' + (c ? c + (c === 1 ? ' ficha' : ' fichas') : '0') + '</small></span>' +
+      '<span class="tl-nom"><b>' + (rol === 'actor' ? 'Actores' : 'Directores') + '</b><small>' + (c ? c + (c === 1 ? ' semilla' : ' semillas') : '0') + '</small></span>' +
       '<span class="tl-urd">' + tlPunteada(c, max, PER_COLOR) + '</span></a>';
   };
   const est = ESTANTES[0], cEst = TEJIDOS.filter(function (t) { return t.est === est.id; }).reduce(function (a, t) { return a + cuenta(t.id); }, 0);
@@ -3705,7 +3859,7 @@ function vistaTejidos() {
   const cuerpo = ['raiz', 'suenos', 'ideas', 'saber', 'experiencias', 'ruta'].map(function (id) { return fila(id); }).join('') + sep +
     ['escena', 'capitulo', 'partida'].map(function (id) { return fila(id); }).join('') + filaPer('director') + filaPer('actor') + fila('paginas', true) + fila('musica');
   const conNota = todos.some(function (s) { return notaDe(s) != null; });
-  const h = '<div class="tl"><header class="tl-cab"><div><h1 class="pag">' + (dueno ? 'Tus <span>tejidos</span>' : 'Tejidos') + '</h1><p class="tl-sub">' + hilos + (hilos === 1 ? ' hilo' : ' hilos') + ' · ' + todos.length + (todos.length === 1 ? ' ficha' : ' fichas') +
+  const h = '<div class="tl"><header class="tl-cab"><div><h1 class="pag">' + (dueno ? 'Tus <span>tejidos</span>' : 'Tejidos') + '</h1><p class="tl-sub">' + hilos + (hilos === 1 ? ' hilo' : ' hilos') + ' · ' + todos.length + (todos.length === 1 ? ' semilla' : ' semillas') +
     (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</p></div></header>' + avisosSemillas();
   if (estado.cargando && !todos.length) return h + '<div class="vacio-box"><strong>Cargando…</strong></div></div>';
   if (!todos.length) {
@@ -3774,7 +3928,7 @@ function vistaColeccion(scope) {
   }
   const tabsEst = al.estante ? '<div class="tj-fil tj-tabs tl-chips" role="group" aria-label="Tejidos del estante"><a class="chip" aria-pressed="true" href="#estante-' + al.id + '">Todo</a>' +
     al.ids.map(function (id) { return '<a class="chip" aria-pressed="false" href="#tejido-' + id + '">' + esc(tejidoDe(id).nombre) + '</a>'; }).join('') + '</div>' : '';
-  const sub = [al.desc, base.length + (base.length === 1 ? ' ficha' : ' fichas')];
+  const sub = [al.desc, base.length + (base.length === 1 ? ' semilla' : ' semillas')];
   if (al.tejido && al.tejido.est) sub.push('estante ' + estanteDe(al.tejido.est).nombre);
   if (al.tejido && al.tejido.privado) sub.push('solo tú');
   return '<div class="tl"><header class="tl-cab tl-cab-in" style="--hc:' + al.color + '"><a class="tl-atras" href="#tejidos" aria-label="Volver a Tejidos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>' +
@@ -3918,8 +4072,8 @@ function musRelHTML(b) {
   }
   if (!k) return '';
   const ban = estado.semillas.find(function (x) { return x.tipo === 'banda' && vis(x) && norm(String(x.titulo || '').trim()) === k; });
-  const enlace = ban ? '<a class="mus-ban" href="#modulo-' + ban.id + '" style="--tc:' + tejidoDe('musica').color + '">Ficha de ' + esc(ban.titulo) + ' ›</a>'
-    : (dueno ? '<button type="button" class="btn" data-action="mus-crear-banda" data-n="' + esc(banda) + '">Crear la ficha de ' + esc(banda) + '</button>' : '');
+  const enlace = ban ? '<a class="mus-ban" href="#modulo-' + ban.id + '" style="--tc:' + tejidoDe('musica').color + '">Semilla de ' + esc(ban.titulo) + ' ›</a>'
+    : (dueno ? '<button type="button" class="btn" data-action="mus-crear-banda" data-n="' + esc(banda) + '">Crear la semilla de ' + esc(banda) + '</button>' : '');
   return '<section class="mus-rel" aria-label="La banda">' + enlace + (lista ? '<h2 class="sec">Más de ' + esc(banda) + '</h2>' + lista : '') + '</section>';
 }
 function vistaModulo_v31(id) {
@@ -3978,7 +4132,7 @@ function vistaRecs() {
   let cuerpo;
   if (estado.cargando && !estado.semillas.length) cuerpo = '<div class="vacio-box"><strong>Cargando…</strong></div>';
   else if (tab === 'pend') {
-    cuerpo = p.length ? '<p class="rc-nota">Las más antiguas primero. Toca el check cuando la hayas visto: se abre la ficha ya llenita para calificarla.</p><div class="rc-lista">' + p.map(function (s) {
+    cuerpo = p.length ? '<p class="rc-nota">Las más antiguas primero. Toca el check cuando la hayas visto: se abre la semilla ya llenita para calificarla.</p><div class="rc-lista">' + p.map(function (s) {
       const x = recSub(s), c = recFmtColor(recFmt(s));
       const fin = estado.recQ === s.id
         ? '<span class="rc-q"><button type="button" class="btn peligro" data-action="rec-borrar-si" data-id="' + s.id + '">Quitar</button><button type="button" class="btn" data-action="rec-borrar-no">No</button></span>'
@@ -4323,7 +4477,7 @@ function vistaPersonas(rol) {
     [['director', 'Directores', '#tejido-directores'], ['actor', 'Actores', '#tejido-actores']].map(function (t) { return '<a class="chip" aria-pressed="' + (t[0] === rol) + '" href="' + t[2] + '">' + t[1] + ' <small>' + cuenta(t[0]) + '</small></a>'; }).join('') + '</div>';
   const panel = base.length > 1 ? flCajaHTML('per', f, flPanelHTML('per', ['q', 'an', 'gen', 'min', 'nivel', 'orden'], f, flOpciones(perObrasPool(rol, dueno)), { anLab: 'Año de sus obras', orden: FL_ORDEN_PER }), false) : '';
   const r = (estado.cargando && !estado.semillas.length) ? { html: '<div class="vacio-box"><strong>Cargando…</strong></div>' } : flResPer();
-  const sub = ['Estante Pantalla', base.length + (base.length === 1 ? ' ficha' : ' fichas'), 'por el promedio de sus obras'];
+  const sub = ['Estante Pantalla', base.length + (base.length === 1 ? ' semilla' : ' semillas'), 'por el promedio de sus obras'];
   return '<div class="tl"><header class="tl-cab tl-cab-in" style="--hc:' + PER_COLOR + '"><a class="tl-atras" href="#tejidos" aria-label="Volver a Tejidos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>' +
     '<div class="tl-tt"><h1 class="pag">' + nombre + '</h1><p class="tl-sub">' + esc(sub.join(' · ')) + '</p></div>' +
     (dueno ? '<button type="button" class="btn prim tl-sem" data-action="per-nueva" data-r="' + rol + '">+ Sembrar</button>' : '') + '</header>' +
@@ -4343,14 +4497,14 @@ function perRelHTML(b) {
   };
   let h = '';
   if (perEsDir(b) || o.dir.length) h += sec('Dirigió', o.dir, 'Todavía no hay películas tuyas dirigidas por ' + esc(b.titulo) + '. Escribe su nombre en el campo Director de una película.');
-  if (perEsAct(b) || o.act.length) h += sec('Actuó en', o.act, 'Todavía no hay películas o series con ' + esc(b.titulo) + ' en el reparto. Agrégalo en el Reparto de la ficha.');
+  if (perEsAct(b) || o.act.length) h += sec('Actuó en', o.act, 'Todavía no hay películas o series con ' + esc(b.titulo) + ' en el reparto. Agrégalo en el Reparto de la semilla.');
   return h ? '<section class="ser-rel per-obras" aria-label="Sus obras">' + h + '</section>' : '';
 }
 /* --- En la ficha de una película o serie: quién dirigió y quién actuó, con enlace a su ficha --- */
 function perChip(n, rol, dueno) {
   const p = perDe(n, dueno);
   if (p) { const u = fichaImgUrl(p, false); return '<a class="per-c" href="#modulo-' + p.id + '"><span class="per-av">' + (u ? '<img src="' + esc(u) + '" alt="">' : esc(n.slice(0, 1).toUpperCase())) + '</span>' + esc(n) + '</a>'; }
-  if (dueno) return '<button type="button" class="per-c per-n" data-action="per-crear" data-n="' + esc(n) + '" data-r="' + rol + '"><span class="per-av">+</span>' + esc(n) + '<small>Crear ficha</small></button>';
+  if (dueno) return '<button type="button" class="per-c per-n" data-action="per-crear" data-n="' + esc(n) + '" data-r="' + rol + '"><span class="per-av">+</span>' + esc(n) + '<small>Crear semilla</small></button>';
   return '<span class="per-c per-x">' + esc(n) + '</span>';
 }
 function perGenteHTML(b) {
@@ -4376,20 +4530,20 @@ function vistaModulo_v34(id) {
   if (g) { const j = k >= 0 ? k : i >= 0 ? i : h.lastIndexOf('</article>'); if (j >= 0) h = h.slice(0, j) + g + h.slice(j); }
   if (dueno && b.tipo === 'pelicula') {
     const a = h.indexOf(acc), e = a >= 0 ? h.indexOf('</div>', a) : -1;
-    if (e >= 0) h = h.slice(0, e) + '<button type="button" class="btn per-conv" data-action="per-convertir" data-id="' + b.id + '">Convertir en ficha de persona</button>' + h.slice(e);
+    if (e >= 0) h = h.slice(0, e) + '<button type="button" class="btn per-conv" data-action="per-convertir" data-id="' + b.id + '">Convertir en semilla de persona</button>' + h.slice(e);
   }
   return h;
 }
 // De una película que en realidad es una persona (como las reseñas viejas de un director) a su ficha de persona
 function perPreguntarConvertir(id) {
   const b = estado.semillas.filter(function (x) { return x.id === id; })[0]; if (!b) return;
-  const h = abrirHoja('hoja-conv', '<div class="hoja-c enc"><h2 class="hoja-t">¿Convertir «' + esc(b.titulo) + '» en ficha de persona?</h2>' +
+  const h = abrirHoja('hoja-conv', '<div class="hoja-c enc"><h2 class="hoja-t">¿Convertir «' + esc(b.titulo) + '» en semilla de persona?</h2>' +
     '<p class="ayuda">Deja de ser una película y pasa a Directores y actores. Se quedan su foto, sus plones y su reseña. ¿Qué es?</p>' +
     '<div class="hoja-pie" style="width:100%"><button type="button" class="btn prim" data-action="per-conv-ok" data-id="' + b.id + '" data-r="director">Director</button>' +
     '<button type="button" class="btn prim" data-action="per-conv-ok" data-id="' + b.id + '" data-r="actor">Actor</button>' +
     '<button type="button" class="btn prim" data-action="per-conv-ok" data-id="' + b.id + '" data-r="ambos">Los dos</button>' +
     '<button type="button" class="btn" data-action="per-conv-no">Cancelar</button></div></div>');
-  h.setAttribute('aria-label', 'Convertir en ficha de persona');
+  h.setAttribute('aria-label', 'Convertir en semilla de persona');
 }
 function modControlesHTML(b) {
   if (b.tipo !== 'persona') return modControlesHTML_v33(b);   // una persona no se mueve de tejido
@@ -4686,8 +4840,8 @@ function flResPersonas(rol, f) {
   const ranking = o === 'prom' || o === 'peor'; let k = 0;
   const html = filas.length ? '<div class="tl-lista">' + filas.map(function (x) { return perFila(x.p, rol, ranking && x.st.prom ? ++k : 0, dueno, x.st); }).join('') + '</div>'
     : (estado.cargando && !estado.semillas.length ? '<div class="vacio-box"><strong>Cargando…</strong></div>'
-      : '<div class="vacio-box"><strong>' + (todas.length ? 'Nada con esos filtros.' : (dueno ? 'Todavía no hay fichas de ' + (rol === 'actor' ? 'actores' : 'directores') + '.' : 'Todavía no hay nada público aquí.')) + '</strong><span>' +
-        (todas.length ? 'Cambia o quita algún filtro.' : (dueno ? 'Toca «+ Sembrar», o abre una película y usa «Crear ficha» junto al nombre.' : 'Vuelve pronto.')) + '</span></div>');
+      : '<div class="vacio-box"><strong>' + (todas.length ? 'Nada con esos filtros.' : (dueno ? 'Todavía no hay semillas de ' + (rol === 'actor' ? 'actores' : 'directores') + '.' : 'Todavía no hay nada público aquí.')) + '</strong><span>' +
+        (todas.length ? 'Cambia o quita algún filtro.' : (dueno ? 'Toca «+ Sembrar», o abre una película y usa «Crear semilla» junto al nombre.' : 'Vuelve pronto.')) + '</span></div>');
   return { n: filas.length, html: html };
 }
 function flResRk() {
@@ -4828,7 +4982,7 @@ function albRelHTML(b) {
     const a = albDe(b);
     if (a && (dueno || a.publica)) return '<section class="mus-rel alb-rel" aria-label="El álbum"><a class="mus-ban" href="#modulo-' + a.id + '" style="--tc:' + tejidoDe('musica').color + '">Álbum · ' + esc(a.titulo) + ' ›</a></section>';
     return '<section class="mus-rel alb-rel" aria-label="El álbum"><p class="ayuda">Álbum: ' + esc(nombre) + '</p>' +
-      (dueno ? '<button type="button" class="btn" data-action="mus-crear-album" data-n="' + esc(nombre) + '" data-b="' + esc(String((b.datos || {}).banda || '')) + '">Crear la ficha del álbum</button>' : '') + '</section>';
+      (dueno ? '<button type="button" class="btn" data-action="mus-crear-album" data-n="' + esc(nombre) + '" data-b="' + esc(String((b.datos || {}).banda || '')) + '">Crear la semilla del álbum</button>' : '') + '</section>';
   }
   return '';
 }
@@ -4839,7 +4993,7 @@ function vistaModulo_v35(id) {
   if (r) { const i = h.indexOf('<section class="mus-rel"'), j = i >= 0 ? i : (h.indexOf('<div class="acciones mo-acc">') >= 0 ? h.indexOf('<div class="acciones mo-acc">') : h.lastIndexOf('</article>')); if (j >= 0) h = h.slice(0, j) + r + h.slice(j); }
   if (serEsHijo(b) && !serieDe(b) && estado.sesion) {   // la serie todavía no tiene ficha: botón para crearla con ese nombre
     const n = String((b.datos || {}).serie || '').trim(), m = '<p class="ayuda">Serie: ' + esc(n) + '</p>';
-    if (n && h.indexOf(m) >= 0) h = h.replace(m, m + '<button type="button" class="btn" data-action="ser-crear" data-n="' + esc(n) + '">Crear ficha de la serie</button>');
+    if (n && h.indexOf(m) >= 0) h = h.replace(m, m + '<button type="button" class="btn" data-action="ser-crear" data-n="' + esc(n) + '">Crear la semilla de la serie</button>');
   }
   return h;
 }
@@ -4957,11 +5111,11 @@ function fcFilaG(o) {
     '<div class="tb-c">' + (o.cuerpo || '') + '</div></div>';
 }
 const fcFila = (x, o) => fcFilaG(Object.assign({ key: 'f.' + x.id + ((o && o.k) || ''), titulo: x.titulo || 'Sin título', nt: notaDe(x), cuerpo: fcDesc(fcTxt(x)) }, o || {}));
-const fcAbrir = x => '<a class="btn tb-ab" href="#modulo-' + x.id + '">Abrir ficha completa ›</a>';
+const fcAbrir = x => '<a class="btn tb-ab" href="#modulo-' + x.id + '">Abrir semilla completa ›</a>';
 function fcPlay(x, txt) {   // ▶ de una canción con enlace: YouTube suena aquí mismo; lo demás abre el enlace
   const u = String((x.datos || {}).url || ''); if (!urlOk(u)) return '';
   const lab = txt ? '<span>' + txt + '</span>' : '';
-  return ytId(u) ? '<button type="button" class="cn-play' + (txt ? ' cn-play-t' : '') + '" data-action="yt" data-u="' + esc(u) + '" aria-pressed="false" aria-label="Escuchar ' + esc(x.titulo || 'la canción') + '">' + FC_I.play + lab + '</button>'
+  return (ytId(u) || spId(u)) ? '<button type="button" class="cn-play' + (txt ? ' cn-play-t' : '') + '" data-action="yt" data-u="' + esc(u) + '" aria-pressed="false" aria-label="Escuchar ' + esc(x.titulo || 'la canción') + '">' + FC_I.play + lab + '</button>'
     : '<a class="cn-play' + (txt ? ' cn-play-t' : '') + '" href="' + esc(u) + '" target="_blank" rel="noopener noreferrer" aria-label="Abrir el enlace de ' + esc(x.titulo || 'la canción') + '">' + FC_I.play + lab + '</a>';
 }
 function fcCan(x, sub) {   // una canción (o episodio) dentro de otra tabla: nombre, plones, ▶ y su descripción
@@ -4971,15 +5125,15 @@ const fcCanLista = (l, sub) => l.length ? '<div class="cn-l">' + l.map(function 
 const fcPorPlones = l => l.slice().sort(function (a, b) { return tlNota(b) - tlNota(a) || b.creado - a.creado; });
 
 /* --- La cabeza: imagen que se funde con el fondo, nombre, plones y el menú ⋯ --- */
-function fcMenuHTML(b, tj) {
+function fcMenuHTML_v36(b, tj) {
   const ab = fcSt().menu === b.id;
   let h = '<div class="fc-menu-w' + (ab ? ' ab' : '') + '"><button type="button" class="fc-btn" data-action="fc-menu" data-id="' + b.id + '" aria-label="Más opciones" aria-haspopup="true" aria-expanded="' + ab + '">' + FC_I.mas + '</button><div class="fc-menu" role="menu">';
-  h += '<a class="fc-mi" role="menuitem" href="#semilla-' + b.id + '">Editar ficha completa</a>';
+  h += '<a class="fc-mi" role="menuitem" href="#semilla-' + b.id + '">Editar semilla completa</a>';
   if (tj.privado) h += '<span class="fc-mi fc-mi-i">Solo tú. Aquí nada se publica.</span>';
   else h += '<button type="button" class="fc-mi" role="menuitem" data-action="mod-pub" data-id="' + b.id + '" aria-pressed="' + !!b.publica + '">' + (b.publica ? 'Volver privada' : 'Hacer pública') + '<small>' + (b.publica ? 'Pública' : 'Privada') + '</small></button>';
   if (b.tipo !== 'persona') h += '<button type="button" class="fc-mi" role="menuitem" data-action="mod-mover" data-id="' + b.id + '" aria-expanded="' + (estado.moMover === b.id) + '">Mover de tejido<small>' + esc(tj.nombre) + '</small></button>';
   if (b.tipo !== 'persona' && estado.moMover === b.id) h += '<div class="chips sm mo-mv">' + TEJIDOS.filter(function (x) { return !x.oculto; }).map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x.id === b.tejido) + '" data-action="mod-tej" data-id="' + b.id + '" data-t="' + x.id + '">' + esc(x.nombre) + '</button>'; }).join('') + '</div>';
-  if (b.tipo === 'pelicula') h += '<button type="button" class="fc-mi per-conv" role="menuitem" data-action="per-convertir" data-id="' + b.id + '">Convertir en ficha de persona</button>';
+  if (b.tipo === 'pelicula') h += '<button type="button" class="fc-mi per-conv" role="menuitem" data-action="per-convertir" data-id="' + b.id + '">Convertir en semilla de persona</button>';
   return h + '</div></div>';
 }
 function fcHeroHTML(b, t, tj, dueno) {
@@ -5040,7 +5194,7 @@ function fcAlbCuerpo(x, dueno) {
   return fcDesc(fcTxt(x)) + (cs.length ? '<p class="tb-l">Canciones favoritas</p>' + fcCanLista(cs) : '<p class="ayuda tb-v">Todavía no hay canciones de este álbum.</p>') +
     '<div class="tb-pie">' + (dueno ? '<button type="button" class="btn" data-action="fc-nueva-can" data-id="' + x.id + '">+ Canción</button>' : '') + fcAbrir(x) + '</div>';
 }
-function fcAlbumesHTML(b, dueno) {
+function fcAlbumesHTML_v36(b, dueno) {
   const o = fcMusObras(b, dueno), l = fcOrdenar(o.albs, 'alb', fcNum), p = serProm(o.albs);
   return (p ? perProm(p.v, p.n) : '') + fcOrdHTML('alb', 'Año', l.length) +
     (l.length ? '<div class="tbl">' + l.map(function (x) { return fcFila(x, { sub: (x.datos || {}).estreno || '', cuerpo: fcAlbCuerpo(x, dueno) }); }).join('') + '</div>' : '<p class="ayuda">Todavía no hay álbumes de esta banda.' + (dueno ? ' Toca «+ Álbum».' : '') + '</p>');
@@ -5052,7 +5206,7 @@ function fcCancionesBandaHTML(b, dueno) {
   const o = fcMusObras(b, dueno), l = fcOrdenar(o.cans, 'can', function () { return 0; });
   return fcOrdHTML('can', 'Orden', l.length) + (l.length ? '<div class="tbl">' + l.map(function (x) { return fcCancionFila(x, (x.datos || {}).album || ''); }).join('') + '</div>' : '<p class="ayuda">Todavía no hay canciones de esta banda.</p>');
 }
-function fcCancionesAlbumHTML(b, dueno) {
+function fcCancionesAlbumHTML_v36(b, dueno) {
   const l0 = albCanciones(b, dueno), l = fcOrdenar(l0, 'can', function () { return 0; }), p = serProm(l0);
   return (p ? perProm(p.v, p.n) : '') + fcOrdHTML('can', 'Orden', l.length) + (l.length ? '<div class="tbl">' + l.map(function (x) { return fcCancionFila(x, ''); }).join('') + '</div>' : '<p class="ayuda">Todavía no hay canciones de este álbum.' + (dueno ? ' Toca «+ Canción».' : '') + '</p>');
 }
@@ -5061,13 +5215,13 @@ function fcMusLinks(b, dueno) {   // la banda y el álbum de una canción, o la 
   let h = '';
   if (k) {
     const ban = estado.semillas.filter(function (x) { return x.tipo === 'banda' && vis(x) && norm(String(x.titulo || '').trim()) === k; })[0];
-    h += ban ? '<a class="mus-ban" href="#modulo-' + ban.id + '" style="--tc:' + tejidoDe('musica').color + '">Ficha de ' + esc(ban.titulo) + ' ›</a>'
-      : (dueno ? '<button type="button" class="btn" data-action="mus-crear-banda" data-n="' + esc(banda) + '">Crear la ficha de ' + esc(banda) + '</button>' : '');
+    h += ban ? '<a class="mus-ban" href="#modulo-' + ban.id + '" style="--tc:' + tejidoDe('musica').color + '">Semilla de ' + esc(ban.titulo) + ' ›</a>'
+      : (dueno ? '<button type="button" class="btn" data-action="mus-crear-banda" data-n="' + esc(banda) + '">Crear la semilla de ' + esc(banda) + '</button>' : '');
   }
   if (b.tipo === 'cancion' && String((b.datos || {}).album || '').trim()) {
     const nombre = String(b.datos.album).trim(), a = albDe(b);
     h += a && vis(a) ? '<a class="mus-ban" href="#modulo-' + a.id + '" style="--tc:' + tejidoDe('musica').color + '">Álbum · ' + esc(a.titulo) + ' ›</a>'
-      : (dueno ? '<button type="button" class="btn" data-action="mus-crear-album" data-n="' + esc(nombre) + '" data-b="' + esc(banda) + '">Crear la ficha del álbum</button>' : '<span class="ayuda">Álbum: ' + esc(nombre) + '</span>');
+      : (dueno ? '<button type="button" class="btn" data-action="mus-crear-album" data-n="' + esc(nombre) + '" data-b="' + esc(banda) + '">Crear la semilla del álbum</button>' : '<span class="ayuda">Álbum: ' + esc(nombre) + '</span>');
   }
   return h;
 }
@@ -5076,14 +5230,14 @@ function fcMusLinks(b, dueno) {   // la banda y el álbum de una canción, o la 
 function fcSerieLink(b, dueno) {
   const p = serieDe(b), nombre = String((b.datos || {}).serie || '').trim(); let h = '';
   if (p) h += '<a class="mus-ban" href="#modulo-' + p.id + '" style="--tc:' + tejidoDe(p.tejido).color + '">Serie · ' + esc(p.titulo) + ' ›</a>';
-  else if (nombre) h += '<span class="ayuda">Serie: ' + esc(nombre) + '</span>' + (dueno ? '<button type="button" class="btn" data-action="ser-crear" data-n="' + esc(nombre) + '">Crear ficha de la serie</button>' : '');
+  else if (nombre) h += '<span class="ayuda">Serie: ' + esc(nombre) + '</span>' + (dueno ? '<button type="button" class="btn" data-action="ser-crear" data-n="' + esc(nombre) + '">Crear la semilla de la serie</button>' : '');
   if (b.tipo === 'episodio' && p && serNum(b)) {
     const tm = serHijas(p, 'temporada', dueno).filter(function (x) { return serNum(x) === serNum(b); })[0];
     if (tm) h += '<a class="mus-ban" href="#modulo-' + tm.id + '" style="--tc:' + tejidoDe(tm.tejido).color + '">Temporada ' + serNum(b) + ' ›</a>';
   }
   return h;
 }
-function fcTemporadasHTML(b, dueno) {
+function fcTemporadasHTML_v36(b, dueno) {
   const tmps = serHijas(b, 'temporada', dueno), epis = serHijas(b, 'episodio', dueno), nums = {};
   tmps.concat(epis).forEach(function (x) { const n = serNum(x); if (n) nums[n] = 1; });
   let filas = Object.keys(nums).map(function (n) { n = +n; return { n: n, tm: tmps.filter(function (x) { return serNum(x) === n; })[0] || null, es: epis.filter(function (x) { return serNum(x) === n; }) }; });
@@ -5122,7 +5276,7 @@ function fcPersonaHTML(b, dueno) {
   };
   let h = '';
   if (perEsDir(b) || o.dir.length) h += caja('dir', 'Dirigió', o.dir, 'Todavía no hay películas tuyas dirigidas por ' + esc(b.titulo) + '. Escribe su nombre en el campo Director de una película.');
-  if (perEsAct(b) || o.act.length) h += caja('act', 'Actuó en', o.act, 'Todavía no hay películas o series con ' + esc(b.titulo) + ' en el reparto. Agrégalo en el Reparto de la ficha.');
+  if (perEsAct(b) || o.act.length) h += caja('act', 'Actuó en', o.act, 'Todavía no hay películas o series con ' + esc(b.titulo) + ' en el reparto. Agrégalo en el Reparto de la semilla.');
   return h;
 }
 
@@ -5139,7 +5293,7 @@ function vistaModulo(id) {
   };
   const ficha = function () {
     const f = fcFichaHTML(b, t); if (!f && !dueno) return;
-    cajas.push(fcCaja(b, 'ficha', 'Ficha', null, f || '<p class="ayuda">Todavía no hay datos.</p>', { ac: dueno ? fcLapiz('#semilla-' + b.id, 'Editar la ficha') : '' }));
+    cajas.push(fcCaja(b, 'ficha', 'Datos', null, f || '<p class="ayuda">Todavía no hay datos.</p>', { ac: dueno ? fcLapiz('#semilla-' + b.id, 'Editar los datos') : '' }));
   };
   const gente = function (tit, def) {
     const g = fcGenteHTML(b, dueno); if (!g) return;
@@ -5180,12 +5334,12 @@ function vistaModulo(id) {
     resena(); ficha();
     const h = fcHermanosHTML(b, dueno); if (h) cajas.push(fcCaja(b, 'otros', 'Otros episodios', null, h));
   } else { resena(); ficha(); }
-  return '<article class="mo fc" style="--tc:' + tj.color + (nv ? ';--vc:' + nv.color : '') + '">' + fcHeroHTML(b, t, tj, dueno) +
+  return '<article class="mo fc" style="--tc:' + tj.color + (nv ? ';--vc:' + nv.color : '') + '">' + fcHeroHTML(b, t, tj, dueno) + fcMiniHTML(b, tj) +
     (links ? '<div class="fc-links ser-rel">' + links + '</div>' : '') + '<div class="fc-cajas">' + cajas.filter(hay).join('') + '</div></article>';
 }
 
 /* --- Reproductor de YouTube: solo se carga al tocar ▶, uno a la vez, debajo de la canción --- */
-function ytToggle(btn) {
+function ytToggle_v36(btn) {
   const fila = btn.closest('.cn'); if (!fila) return;
   const abierto = fila.querySelector('.yt-box');
   document.querySelectorAll('.yt-box').forEach(function (x) { x.remove(); });
@@ -5223,7 +5377,7 @@ function iniciarSemilla(tipo, id) {
   if (en && en !== '0' && m.tipo === 'episodio') { m.datos.temporada = String(en); m.tocado = true; }
 }
 // el pop-up de un álbum o canción nuevo: descripción larga que crece sola, y el ✕ vuelve de donde venías
-function popHTML(s) {
+function popHTML_v36(s) {
   let h = popHTML_v35(s); const t = tipoDe(s.tipo);
   if (t.descPop) {
     const i = h.indexOf('<section class="pop-nota"');
@@ -5236,7 +5390,7 @@ document.addEventListener('input', function (e) {
   const t = e.target, s = estado.sem; if (!t || !s) return;
   if (t.id === 'pop-desc') { s.contenido = t.value; autoTam(t); marcarSem(); }
 });
-async function guardarSemilla() {
+async function guardarSemilla_v36() {
   const s = estado.sem, vol = s && !s.base ? s.volver : '';
   if (s && s.datos && s.datos.url) s.datos.url = urlLimpia(s.datos.url);
   await guardarSemilla_v35();
@@ -5267,7 +5421,7 @@ document.addEventListener('click', function (e) {   // el menú ⋯ se cierra al
   st.menu = ''; const w = document.querySelector('.fc-menu-w.ab');
   if (w) { w.classList.remove('ab'); const bt = w.querySelector('[data-action="fc-menu"]'); if (bt) bt.setAttribute('aria-expanded', 'false'); }
 });
-function fcClic(a, b) {
+function fcClic_v36(a, b) {
   const st = fcSt();
   switch (a) {
     case 'cj': {
@@ -5283,6 +5437,659 @@ function fcClic(a, b) {
     case 'fc-nuevo-alb': fcNuevoAlbum(b.dataset.id); return true;
     case 'fc-nueva-can': fcNuevaCancion(b.dataset.id); return true;
     case 'fc-nuevo-epi': fcNuevoEpisodio(b.dataset.id, b.dataset.n); return true;
+  }
+  return false;
+}
+
+/* --- Discografía: busca la banda en MusicBrainz (con portadas de Cover Art Archive) y, si no hay conexión con ese, en iTunes --- */
+const DC = {
+  _ult: 0,
+  esperar(ms) { return new Promise(function (r) { setTimeout(r, ms); }); },
+  async json(url) {
+    const ctl = typeof AbortController !== 'undefined' ? new AbortController() : null, t = ctl ? setTimeout(function () { ctl.abort(); }, 15000) : null;
+    try {
+      const r = await fetch(url, { headers: { Accept: 'application/json' }, signal: ctl ? ctl.signal : undefined });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return await r.json();
+    } finally { if (t) clearTimeout(t); }
+  },
+  async mb(ruta) {   // MusicBrainz pide como máximo una consulta por segundo
+    const w = DC._ult + 1100 - Date.now(); if (w > 0) await DC.esperar(w);
+    DC._ult = Date.now();
+    return DC.json('https://musicbrainz.org/ws/2/' + ruta + (ruta.indexOf('?') < 0 ? '?' : '&') + 'fmt=json');
+  },
+  anio(f) { const m = /^(\d{4})/.exec(String(f || '')); return m ? m[1] : ''; },
+  limpiarTitulo(t) { return String(t || '').replace(/\s*[\(\[](deluxe|remaster|expanded|anniversary|bonus|special|limited|edition)[^\)\]]*[\)\]]\s*/ig, ' ').replace(/\s+-\s+(EP|Single)$/i, '').replace(/\s+/g, ' ').trim(); },
+  // ---- MusicBrainz ----
+  async mbBuscar(nombre) {
+    const d = await DC.mb('artist/?query=' + encodeURIComponent(nombre) + '&limit=8');
+    return (d.artists || []).filter(function (a) { return (a.score || 0) >= 40; }).slice(0, 6).map(function (a) {
+      return { fuente: 'mb', id: a.id, nombre: a.name, pais: a.country || (a.area && a.area['iso-3166-1-codes'] && a.area['iso-3166-1-codes'][0]) || '', desde: DC.anio(a['life-span'] && a['life-span'].begin), hasta: DC.anio(a['life-span'] && a['life-span'].end), nota: a.disambiguation || '', tipo: a.type || '' };
+    });
+  },
+  async mbAlbumes(id) {
+    let todos = [], off = 0;
+    for (let i = 0; i < 3; i++) {
+      const d = await DC.mb('release-group?artist=' + id + '&type=album%7Cep&limit=100&offset=' + off);
+      const l = d['release-groups'] || []; todos = todos.concat(l); off += l.length;
+      if (!l.length || off >= (d['release-group-count'] || 0)) break;
+    }
+    return todos.map(function (g) {
+      const sec = g['secondary-types'] || [], tipo = sec.length ? (sec.indexOf('Live') >= 0 ? 'vivo' : sec.indexOf('Compilation') >= 0 ? 'recop' : 'otro') : (g['primary-type'] === 'EP' ? 'ep' : 'estudio');
+      return { fuente: 'mb', id: g.id, titulo: g.title, anio: DC.anio(g['first-release-date']), tipo: tipo,
+        portada: 'https://coverartarchive.org/release-group/' + g.id + '/front-250', img: 'https://coverartarchive.org/release-group/' + g.id + '/front-500', thumb: 'https://coverartarchive.org/release-group/' + g.id + '/front-250' };
+    }).sort(function (a, b) { return (a.anio || '9999').localeCompare(b.anio || '9999') || a.titulo.localeCompare(b.titulo); });
+  },
+  async mbPistas(rg) {
+    const d = await DC.mb('release?release-group=' + rg + '&inc=recordings&limit=12');
+    const rs = (d.releases || []).filter(function (r) { return (r.media || []).some(function (m) { return (m.tracks || []).length; }); });
+    rs.sort(function (a, b) { return (a.status === 'Official' ? 0 : 1) - (b.status === 'Official' ? 0 : 1) || (a.date || '9999').localeCompare(b.date || '9999'); });
+    if (!rs.length) return [];
+    const out = []; rs[0].media.forEach(function (m) { (m.tracks || []).forEach(function (t) { if (t.title) out.push(String(t.title)); }); });
+    return out.slice(0, 80);
+  },
+  // ---- iTunes (plan B) ----
+  async itBuscar(nombre) {
+    const d = await DC.json('https://itunes.apple.com/search?media=music&entity=musicArtist&limit=6&term=' + encodeURIComponent(nombre));
+    return (d.results || []).filter(function (a) { return a.artistId; }).map(function (a) { return { fuente: 'it', id: String(a.artistId), nombre: a.artistName, pais: '', desde: '', hasta: '', nota: a.primaryGenreName || '', tipo: '' }; });
+  },
+  async itAlbumes(id) {
+    const d = await DC.json('https://itunes.apple.com/lookup?entity=album&limit=200&id=' + encodeURIComponent(id)), vistos = {};
+    return (d.results || []).filter(function (x) { return x.collectionType === 'Album' && x.collectionId; }).map(function (x) {
+      const t = DC.limpiarTitulo(x.collectionName), ep = /\s-\sEP$/i.test(x.collectionName) || /\bEP\b/.test(x.collectionName) && (x.trackCount || 0) <= 7;
+      const a = String(x.artworkUrl100 || '');
+      return { fuente: 'it', id: String(x.collectionId), titulo: t, anio: DC.anio(x.releaseDate), tipo: ep ? 'ep' : 'estudio', portada: a.replace('100x100bb', '300x300bb'), img: a.replace('100x100bb', '600x600bb'), thumb: a.replace('100x100bb', '300x300bb') };
+    }).filter(function (x) { const k = x.titulo.toLowerCase(); if (vistos[k]) return false; vistos[k] = 1; return true; }).sort(function (a, b) { return (a.anio || '9999').localeCompare(b.anio || '9999'); });
+  },
+  async itPistas(id) {
+    const d = await DC.json('https://itunes.apple.com/lookup?entity=song&limit=200&id=' + encodeURIComponent(id));
+    return (d.results || []).filter(function (x) { return x.wrapperType === 'track' && x.trackName; }).sort(function (a, b) { return (a.discNumber || 1) - (b.discNumber || 1) || (a.trackNumber || 0) - (b.trackNumber || 0); }).map(function (x) { return String(x.trackName); }).slice(0, 80);
+  },
+  buscar(f, nombre) { return f === 'it' ? DC.itBuscar(nombre) : DC.mbBuscar(nombre); },
+  albumes(f, id) { return f === 'it' ? DC.itAlbumes(id) : DC.mbAlbumes(id); },
+  pistas(f, id) { return f === 'it' ? DC.itPistas(id) : DC.mbPistas(id); }
+};
+const DC_PAISES = { FI: 'Finlandia', SE: 'Suecia', NO: 'Noruega', DK: 'Dinamarca', IS: 'Islandia', US: 'Estados Unidos', GB: 'Reino Unido', DE: 'Alemania', FR: 'Francia', ES: 'España', IT: 'Italia', PT: 'Portugal', NL: 'Países Bajos', BE: 'Bélgica', CH: 'Suiza', AT: 'Austria', IE: 'Irlanda', PL: 'Polonia', CZ: 'República Checa', HU: 'Hungría', RO: 'Rumania', UA: 'Ucrania', RU: 'Rusia', GR: 'Grecia', TR: 'Turquía', CA: 'Canadá', AU: 'Australia', NZ: 'Nueva Zelanda', JP: 'Japón', KR: 'Corea del Sur', CN: 'China', HK: 'Hong Kong', TW: 'Taiwán', IN: 'India', TH: 'Tailandia', ID: 'Indonesia', PH: 'Filipinas', IL: 'Israel', EG: 'Egipto', ZA: 'Sudáfrica', NG: 'Nigeria', CO: 'Colombia', AR: 'Argentina', CL: 'Chile', PE: 'Perú', BR: 'Brasil', VE: 'Venezuela', EC: 'Ecuador', UY: 'Uruguay', BO: 'Bolivia', PY: 'Paraguay', CU: 'Cuba', CR: 'Costa Rica', PA: 'Panamá', PR: 'Puerto Rico', DO: 'República Dominicana', MX: 'México' };
+
+/* ---------- v37: carrusel de vinilos (álbumes) y de VHS (temporadas), canciones rápidas, edición ligera y portadas ---------- */
+const fcS = () => { const s = fcSt(); s.sel = s.sel || {}; return s; };
+const CA_COD = i => String.fromCharCode(65 + Math.floor(i / 9) % 26) + '-' + (i % 9 + 1);
+const caHue = s => { let h = 0; String(s || '').split('').forEach(function (c) { h = (h * 31 + c.charCodeAt(0)) % 360; }); return h; };
+const caFoto = (x) => fichaImgUrl(x, true);
+
+/* --- Una portada del carrusel --- */
+function caItemAlb(x, i, on) {
+  const u = caFoto(x), nt = notaDe(x), ano = (x.datos || {}).estreno || '', ini = (String(x.titulo || '?').trim()[0] || '?').toUpperCase();
+  return '<button type="button" class="ca-it' + (on ? ' on' : '') + '" data-action="ca-ir" data-id="' + x.id + '" data-i="' + i + '" style="--h:' + caHue(x.titulo) + '" aria-label="' + esc((x.titulo || 'Sin título') + (ano ? ', ' + ano : '')) + '">' +
+    '<span class="ca-cv"><span class="ca-disco" aria-hidden="true"></span><span class="ca-port' + (u ? '' : ' sin') + '"><b>' + esc(ini) + '</b>' + (u ? '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async" onerror="this.remove()">' : '') + '</span>' +
+    '<span class="ca-cod">' + CA_COD(i) + '</span>' + (nt != null ? '<span class="ca-pl">' + TL_NUBE + nt.toFixed(1) + '</span>' : '') + '</span>' +
+    '<span class="ca-n">' + esc(x.titulo || 'Sin título') + (ano ? ' <small>' + esc(ano) + '</small>' : '') + '</span></button>';
+}
+/* --- Un VHS del carrusel (una temporada) --- */
+function caItemVhs(f, i, on, serie) {
+  const nt = f.nt;
+  return '<button type="button" class="ca-it ca-vh' + (on ? ' on' : '') + '" data-action="ca-ir" data-id="' + f.id + '" data-i="' + i + '" style="--h:' + caHue(serie + f.id) + '" aria-label="' + esc(f.nombre) + '">' +
+    '<span class="ca-cv"><span class="ca-vhs"><span class="ca-et"><b>' + esc(f.corto) + '</b>' + (nt != null ? '<span class="ca-vpl">' + TL_NUBE + nt.toFixed(1) + '</span>' : '') + '</span>' +
+    '<span class="ca-ven"><i></i><i></i></span><span class="ca-ser">' + esc(serie) + '</span></span></span>' +
+    '<span class="ca-n">' + esc(f.nombre) + (f.sub ? ' <small>' + esc(f.sub) + '</small>' : '') + '</span></button>';
+}
+function caHTML(key, items, tipo, dueno, itemFn, panelFn) {
+  const S = fcS(); let sel = S.sel[key];
+  if (!items.some(function (x) { return x.id === sel; })) sel = items[0].id;
+  return '<div class="ca ca-t-' + tipo + '" data-ca="' + esc(key) + '" data-sel="' + esc(sel) + '"><button type="button" class="ca-fl ca-fl-i" data-action="ca-paso" data-d="-1" aria-label="Anterior">' + FC_I.atras + '</button><button type="button" class="ca-fl ca-fl-d" data-action="ca-paso" data-d="1" aria-label="Siguiente">' + FC_I.atras + '</button>' +
+    '<div class="ca-pista" role="group" aria-label="' + (tipo === 'alb' ? 'Álbumes' : 'Temporadas') + '">' + items.map(function (it, i) { return itemFn(it, i, it.id === sel); }).join('') + '</div>' +
+    '<div class="ca-paneles">' + items.map(function (it, i) { return panelFn(it, i, it.id === sel, dueno); }).join('') + '</div></div>';
+}
+
+/* --- Canciones de un álbum: una lista en la que se agrega, se califica y se quita sin salir de la pantalla --- */
+const fcLineas = t => String(t || '').split(/\r?\n/).map(function (l) {
+  return l.replace(/^\s*(?:track\s*)?\d{1,3}\s*[\.\)\-–:]\s*/i, '').replace(/\s+\d{1,2}:\d{2}(?::\d{2})?\s*$/, '').replace(/\s+/g, ' ').trim().slice(0, 200);
+}).filter(Boolean);
+const caPista = c => parseInt((c.datos || {}).pista, 10) || 0;
+function caOrdenCanciones(l) {
+  return l.slice().sort(function (a, b) {
+    const na = tlNota(a), nb = tlNota(b);
+    if (na >= 0 || nb >= 0) { if (na !== nb) return nb - na; }
+    return (caPista(a) || 1e9) - (caPista(b) || 1e9) || a.creado - b.creado;
+  });
+}
+function caTira(c) {
+  const v = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5], nt = notaDe(c);
+  return '<div class="ca-tira" role="group" aria-label="Plones de ' + esc(c.titulo || 'la canción') + '">' + v.map(function (n) {
+    return '<button type="button" class="ca-tn' + (nt != null && Math.abs(nt - n) < 0.05 ? ' on' : '') + '" data-action="ca-poner" data-id="' + c.id + '" data-v="' + n + '">' + (n % 1 ? n.toFixed(1) : String(n)) + '</button>';
+  }).join('') + (nt != null ? '<button type="button" class="ca-tn ca-tq" data-action="ca-poner" data-id="' + c.id + '" data-v="">Quitar</button>' : '') + '</div>';
+}
+function caCancion(c, dueno) {
+  const nt = notaDe(c), ab = fcS().rt === c.id;
+  return '<div class="cn ca-c' + (nt == null ? ' sin' : '') + '" data-id="' + c.id + '"><div class="cn-r">' +
+    (dueno ? '<button type="button" class="cn-n ca-nom" data-action="ca-edit" data-id="' + c.id + '">' + esc(c.titulo || 'Sin título') + '</button>' : '<a class="cn-n" href="#modulo-' + c.id + '">' + esc(c.titulo || 'Sin título') + '</a>') +
+    (dueno ? '<button type="button" class="ca-nt' + (nt == null ? ' vacio' : '') + '" data-action="ca-nota" data-id="' + c.id + '" aria-expanded="' + ab + '">' + (nt == null ? 'Calificar' : TL_NUBE + nt.toFixed(1)) + '</button>' : (nt != null ? fcPlN(nt) : '')) +
+    fcPlay(c) + (dueno ? '<button type="button" class="ca-x" data-action="ca-quitar" data-id="' + c.id + '" aria-label="Quitar ' + esc(c.titulo || 'la canción') + '">×</button>' : '') +
+    '</div>' + (ab && dueno ? caTira(c) : '') + fcDesc(fcTxt(c)) + '</div>';
+}
+function caLista(alb, dueno) {
+  const l = caOrdenCanciones(albCanciones(alb, dueno));
+  if (!l.length) return '<p class="ayuda tb-v">' + (dueno ? 'Todavía no hay canciones. Escribe una abajo y dale Enter, o pega la lista del álbum.' : 'Todavía no hay canciones de este álbum.') + '</p>';
+  return '<div class="cn-l">' + l.map(function (c) { return caCancion(c, dueno); }).join('') + '</div>';
+}
+function caAddHTML(alb) {
+  return '<div class="ca-add"><textarea class="in ca-in" rows="1" enterkeyhint="send" autocapitalize="sentences" maxlength="6000" placeholder="Agregar canción… (Enter) o pega la lista" aria-label="Agregar canciones a ' + esc(alb.titulo || 'el álbum') + '"></textarea>' +
+    '<button type="button" class="btn prim ca-go" data-action="ca-add" data-id="' + alb.id + '">Agregar</button></div><p class="ayuda ca-hint" hidden></p>';
+}
+function caPortadaBtn(x) {
+  const tiene = !!caFoto(x);
+  return '<label class="btn ca-foto">' + (tiene ? 'Cambiar portada' : 'Poner portada') + '<input type="file" accept="image/*" hidden data-ca-foto="' + x.id + '"></label>';
+}
+function caPanelAlb(x, i, on, dueno) {
+  const nt = notaDe(x), d = x.datos || {};
+  return '<div class="ca-pn' + (on ? ' on' : '') + '" data-id="' + x.id + '"><div class="ca-pt"><div class="ca-pm"><span class="ca-cd">' + CA_COD(i) + '</span><h3 class="ca-nm">' + esc(x.titulo || 'Sin título') + '</h3>' + (d.estreno ? '<small>' + esc(d.estreno) + '</small>' : '') + '</div>' + fcPlN(nt) + '</div>' +
+    fcDesc(fcTxt(x)) + '<p class="tb-l">Canciones</p><div class="ca-lista">' + caLista(x, dueno) + '</div>' + (dueno ? caAddHTML(x) : '') +
+    '<div class="tb-pie ca-pie">' + (dueno ? '<button type="button" class="btn" data-action="ca-edit" data-id="' + x.id + '">Editar</button>' + caPortadaBtn(x) : '') + fcAbrir(x) + '</div></div>';
+}
+
+/* --- Los álbumes de una banda --- */
+function fcAlbumesHTML(b, dueno) {
+  const o = fcMusObras(b, dueno), l = fcOrdenar(o.albs, 'alb', fcNum), p = serProm(o.albs);
+  const disco = dueno ? '<button type="button" class="btn dc-b" data-action="dc-abrir" data-id="' + b.id + '">Traer discografía</button>' : '';
+  if (!l.length) return (dueno ? '<div class="dc-vacio">' + disco + '</div>' : '') + '<p class="ayuda">Todavía no hay álbumes de esta banda.' + (dueno ? ' Toca «+ Álbum» o trae la discografía completa.' : '') + '</p>';
+  return (p ? perProm(p.v, p.n) : '') + fcOrdHTML('alb', 'Año', l.length) + caHTML(b.id + '.alb', l, 'alb', dueno, caItemAlb, caPanelAlb) + (dueno ? '<div class="dc-vacio">' + disco + '</div>' : '');
+}
+/* --- Las canciones de un álbum (su propia página) --- */
+function fcCancionesAlbumHTML(b, dueno) {
+  const l0 = albCanciones(b, dueno), p = serProm(l0);
+  return '<div class="ca-pn on solo" data-id="' + b.id + '">' + (p ? perProm(p.v, p.n) : '') + '<div class="ca-lista">' + caLista(b, dueno) + '</div>' + (dueno ? caAddHTML(b) : '') + '</div>';
+}
+
+/* --- Las temporadas de una serie, como VHS --- */
+function fcTemporadasHTML(b, dueno) {
+  const tmps = serHijas(b, 'temporada', dueno), epis = serHijas(b, 'episodio', dueno), nums = {};
+  tmps.concat(epis).forEach(function (x) { const n = serNum(x); if (n) nums[n] = 1; });
+  let filas = Object.keys(nums).map(function (n) { n = +n; return { n: n, tm: tmps.filter(function (x) { return serNum(x) === n; })[0] || null, es: epis.filter(function (x) { return serNum(x) === n; }) }; });
+  if (fcOrd('tmp') === 'plones') filas.sort(function (a, c) { return (c.tm ? tlNota(c.tm) : -1) - (a.tm ? tlNota(a.tm) : -1) || a.n - c.n; }); else filas.sort(function (a, c) { return a.n - c.n; });
+  const sueltos = epis.filter(function (x) { return !serNum(x); }), p = serProm(tmps);
+  if (!filas.length && !sueltos.length) return (p ? perProm(p.v, p.n) : '') + '<p class="ayuda">Todavía no has calificado temporadas ni episodios de esta serie.</p>';
+  const items = filas.map(function (f) { return { id: 'T' + f.n, n: f.n, tm: f.tm, es: f.es, nt: f.tm ? notaDe(f.tm) : null, nombre: 'Temporada ' + f.n, corto: 'TEMPORADA ' + f.n, sub: f.es.length ? f.es.length + (f.es.length === 1 ? ' episodio' : ' episodios') : '' }; });
+  if (sueltos.length) items.push({ id: 'T0', n: 0, tm: null, es: sueltos, nt: null, nombre: 'Otros episodios', corto: 'OTROS', sub: sueltos.length + '' });
+  const panel = function (f, i, on) {
+    return '<div class="ca-pn' + (on ? ' on' : '') + '" data-id="' + f.id + '"><div class="ca-pt"><div class="ca-pm"><span class="ca-cd">' + esc(f.n ? 'T' + f.n : '—') + '</span><h3 class="ca-nm">' + esc(f.nombre) + '</h3></div>' + fcPlN(f.nt) + '</div>' +
+      (f.n ? (f.tm ? fcDesc(fcTxt(f.tm)) : '<p class="ayuda tb-v">Temporada sin calificar.</p>') : '') +
+      (f.es.length ? '<p class="tb-l">Episodios</p>' + fcCanLista(fcPorPlones(f.es)) : '') +
+      '<div class="tb-pie">' + (dueno && f.n ? '<button type="button" class="btn" data-action="fc-nuevo-epi" data-id="' + b.id + '" data-n="' + f.n + '">+ Episodio</button>' : '') +
+      (dueno && f.tm ? '<button type="button" class="btn" data-action="ca-edit" data-id="' + f.tm.id + '">Editar</button>' : '') +
+      (f.tm ? fcAbrir(f.tm) : (dueno && f.n ? '<button type="button" class="btn" data-action="ser-temp" data-id="' + b.id + '">Calificar la temporada</button>' : '')) + '</div></div>';
+  };
+  return (p ? perProm(p.v, p.n) : '') + fcOrdHTML('tmp', 'Número', filas.length) + caHTML(b.id + '.tmp', items, 'vhs', dueno, function (f, i, on) { return caItemVhs(f, i, on, b.titulo || ''); }, panel);
+}
+
+/* --- Movimiento del carrusel: la portada del centro es la elegida --- */
+function caFx(ca) {
+  const pista = ca.querySelector('.ca-pista'); if (!pista || !pista.clientWidth) return;
+  const c = pista.scrollLeft + pista.clientWidth / 2;
+  pista.querySelectorAll('.ca-it').forEach(function (it) {
+    const d = (it.offsetLeft + it.offsetWidth / 2 - c) / (it.offsetWidth * 0.95);
+    it.style.setProperty('--e', Math.min(1, Math.abs(d)).toFixed(3)); it.style.setProperty('--r', Math.max(-1, Math.min(1, d)).toFixed(3));
+  });
+}
+function caCentro(ca, id, suave) {
+  const pista = ca.querySelector('.ca-pista'), it = pista && pista.querySelector('.ca-it[data-id="' + id + '"]'); if (!it || !pista.clientWidth) return;
+  const x = it.offsetLeft - (pista.clientWidth - it.offsetWidth) / 2;
+  if (suave && pista.scrollTo) pista.scrollTo({ left: x, behavior: 'smooth' }); else pista.scrollLeft = x;
+}
+function caElegir(ca, id) {
+  if (ca.dataset.sel === id) return;
+  ca.dataset.sel = id; fcS().sel[ca.dataset.ca] = id;
+  ca.querySelectorAll('.ca-it').forEach(function (it) { const on = it.dataset.id === id; it.classList.toggle('on', on); if (!on) it.classList.remove('gira'); });
+  ca.querySelectorAll('.ca-pn').forEach(function (p) { p.classList.toggle('on', p.dataset.id === id); });
+}
+function caAjustar() {
+  document.querySelectorAll('.ca').forEach(function (ca) { const id = ca.dataset.sel; if (id) caCentro(ca, id, false); caFx(ca); });
+  const S = fcS(), f = S.foco;   // «+ Álbum» recién guardado: el cursor va a «Agregar canción» (vale unos segundos)
+  if (f && Date.now() - (S.focoT || 0) > 3500) S.foco = '';
+  else if (f) { const i = document.querySelector('.ca-pn[data-id="' + f + '"] .ca-in'); if (i && document.activeElement !== i) { const ca = i.closest('.ca'); if (ca) caCentro(ca, f, false); try { i.focus(); } catch (e) { /* nada */ } } }
+}
+let caRaf = 0, caTm = 0;
+document.addEventListener('scroll', function (e) {
+  const p = e.target; if (!p || !p.classList || !p.classList.contains('ca-pista')) return;
+  const ca = p.closest('.ca'); if (!ca) return;
+  if (!caRaf) caRaf = requestAnimationFrame(function () { caRaf = 0; caFx(ca); });
+  clearTimeout(caTm); caTm = setTimeout(function () {
+    const c = p.scrollLeft + p.clientWidth / 2; let mejor = null, md = 1e9;
+    p.querySelectorAll('.ca-it').forEach(function (it) { const d = Math.abs(it.offsetLeft + it.offsetWidth / 2 - c); if (d < md) { md = d; mejor = it; } });
+    if (mejor) caElegir(ca, mejor.dataset.id);
+  }, 90);
+}, true);
+window.addEventListener('resize', function () { caAjustar(); });
+
+/* --- Agregar canciones (una o toda la lista), calificar y quitar --- */
+async function caAgregar(albId) {
+  const alb = fcPorId(albId), box = document.querySelector('.ca-pn[data-id="' + albId + '"] .ca-in'); if (!alb || !box) return;
+  if (!estado.sesion || !sb) { toast('Necesitas iniciar sesión para guardar.'); return; }
+  const lineas = fcLineas(box.value); if (!lineas.length) { box.focus(); return; }
+  const ya = {}; let n0 = 0; albCanciones(alb, true).forEach(function (c) { ya[albClave(c.titulo)] = 1; n0++; });
+  const nuevas = []; lineas.forEach(function (l) { const k = albClave(l); if (k && !ya[k]) { ya[k] = 1; nuevas.push(l); } });
+  if (!nuevas.length) { toast(lineas.length > 1 ? 'Esas canciones ya están.' : 'Esa canción ya está.'); box.value = ''; caHint(box); return; }
+  const banda = String((alb.datos || {}).banda || '').trim(), tj = tipoDe('cancion').tejido || 'musica';
+  const filas = nuevas.slice(0, 80).map(function (t, i) {
+    const datos = { album: alb.titulo || '', pista: String(n0 + i + 1) }; if (banda) datos.banda = banda;
+    return { id: nuevoId(), tipo: 'cancion', titulo: t.slice(0, 200), contenido: '', publica: !!alb.publica && !tejidoDe(tj).privado, tejido: tj, datos: datos, etiquetas: [], fecha: null };
+  });
+  const bt = document.querySelector('.ca-pn[data-id="' + albId + '"] .ca-go'); if (bt) bt.disabled = true;
+  try {
+    const r = await sb.from('semillas').insert(filas); if (r.error) throw r.error;
+    box.value = ''; caHint(box); box.style.height = '';
+    try { await cargarSemillas(); } catch (e2) { /* se verá al recargar */ }
+    caRefrescar(albId); toast(filas.length === 1 ? 'Canción agregada' : filas.length + ' canciones agregadas');
+    const nb = document.querySelector('.ca-pn[data-id="' + albId + '"] .ca-in'); if (nb) { try { nb.focus(); } catch (e3) { /* nada */ } }
+  } catch (e) { console.error(e); toast('No se pudo guardar. Revisa tu internet e intenta otra vez.'); }
+  finally { const b2 = document.querySelector('.ca-pn[data-id="' + albId + '"] .ca-go'); if (b2) b2.disabled = false; }
+}
+function caHint(box) {
+  const h = box.closest('.ca-pn') && box.closest('.ca-pn').querySelector('.ca-hint'); if (!h) return;
+  const alb = fcPorId(box.closest('.ca-pn').dataset.id), ya = {}; if (alb) albCanciones(alb, true).forEach(function (c) { ya[albClave(c.titulo)] = 1; });
+  const vistas = {}, n = fcLineas(box.value).filter(function (l) { const k = albClave(l); if (!k || ya[k] || vistas[k]) return false; vistas[k] = 1; return true; }).length;
+  h.hidden = fcLineas(box.value).length < 2; h.textContent = fcLineas(box.value).length >= 2 ? (n ? 'Se van a agregar ' + n + (n === 1 ? ' canción' : ' canciones') + ' (las que ya están se saltan).' : 'Esas canciones ya están.') : '';
+}
+function caRefrescar(albId) {
+  const alb = fcPorId(albId), l = document.querySelector('.ca-pn[data-id="' + albId + '"] .ca-lista'); if (alb && l) l.innerHTML = caLista(alb, !!estado.sesion);
+}
+function caAlbumDe(el) { const p = el.closest('.ca-pn'); return p ? p.dataset.id : ''; }
+async function caPoner(id, v) {
+  const x = fcPorId(id); if (!x || !sb || !estado.sesion) return;
+  const nota = (v === '' || v == null) ? null : redondear(Number(v)), alb = albDe(x);
+  const r = await sb.from('semillas').update({ nota: nota }).eq('id', id);
+  if (r.error) { toast('No se pudo guardar. Intenta otra vez.'); return; }
+  x.nota = nota; fcS().rt = ''; try { Copia.escribir(claveSem(), estado.semillas); } catch (e) { /* nada */ }
+  if (alb) caRefrescar(alb.id);
+}
+async function caQuitar(btn) {
+  if (btn.dataset.c !== '1') {
+    btn.dataset.c = '1'; btn.textContent = '¿Quitar?'; btn.classList.add('conf'); clearTimeout(btn._t);
+    btn._t = setTimeout(function () { btn.dataset.c = ''; btn.textContent = '×'; btn.classList.remove('conf'); }, 3200); return;
+  }
+  const albId = caAlbumDe(btn);
+  try { await borrarSemilla(btn.dataset.id); } catch (e) { console.error(e); toast('No se pudo quitar. Intenta otra vez.'); return; }
+  caRefrescar(albId); toast('Canción quitada');
+}
+
+/* --- Portada: se pone o se cambia con una foto de la galería --- */
+async function caPonerPortada(id, archivo) {
+  const x = fcPorId(id); if (!x || !archivo || !sb || !estado.sesion) return;
+  try {
+    toast('Subiendo la portada…');
+    const img = await cargarImagen(archivo);
+    const full = await aBlob(img, 1000, 0.82), thumb = await aBlob(img, 480, 0.8);
+    if (img._url) { try { URL.revokeObjectURL(img._url); } catch (e) { /* nada */ } }
+    const sello = Date.now().toString(36), base = estado.sesion.id + '/' + id + '/' + sello, pf = base + '-g.jpg', pt = base + '-m.jpg';
+    await subirFoto(pf, full); await subirFoto(pt, thumb);
+    const d = Object.assign({}, x.datos, { img: pf, thumb: pt });
+    const r = await sb.from('semillas').update({ datos: d }).eq('id', id);
+    if (r.error) { sb.storage.from(BUCKET).remove([pf, pt]); throw r.error; }
+    const viejos = (x.datos && !x.datos.migrada) ? [x.datos.img, x.datos.thumb].filter(function (v) { return v && !/^https?:\/\//i.test(v); }) : [];
+    if (viejos.length) sb.storage.from(BUCKET).remove(viejos);
+    x.datos = d; try { Copia.escribir(claveSem(), estado.semillas); } catch (e) { /* nada */ }
+    toast('Portada puesta'); render(false);
+  } catch (e) { console.error(e); toast('No pude subir esa portada. Prueba con otra.'); }
+}
+
+/* --- Editar un álbum, una canción o una temporada en una sola pantallita --- */
+function e37HTML(x) {
+  const t = tipoDe(x.tipo), d = x.datos || {}, E = estado.e37, v = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+  const campo = function (id, lab, val, extra) { return '<label class="fx-c"><span class="fi-l">' + lab + '</span><input id="' + id + '" class="in" type="text" value="' + esc(val || '') + '" autocomplete="off"' + (extra || '') + '></label>'; };
+  return '<div class="hoja-c pop e37"><div class="pop-cab"><h2 class="pop-t">Editar ' + esc(t.nombre.toLowerCase()) + '</h2><button type="button" class="pop-x" data-action="e37-cerrar" aria-label="Cerrar">' + ICO_X + '</button></div>' +
+    (x.tipo === 'temporada' ? '' : campo('e37-titulo', esc(t.tituloL || 'Nombre'), x.titulo, ' maxlength="200"')) +
+    (x.tipo === 'album' ? campo('e37-estreno', 'Año de lanzamiento', d.estreno, ' inputmode="numeric" maxlength="4"') : '') +
+    (x.tipo === 'cancion' ? campo('e37-url', 'Enlace (YouTube, Spotify…)', d.url, ' inputmode="url" autocapitalize="none" maxlength="200" placeholder="Pega aquí el enlace de la canción"') : '') +
+    '<div class="fx-c"><span class="fi-l">Plones</span><div class="ca-tira e37-tira" role="group" aria-label="Plones">' + v.map(function (n) { return '<button type="button" class="ca-tn' + (E.nota != null && Math.abs(E.nota - n) < 0.05 ? ' on' : '') + '" data-action="e37-nota" data-v="' + n + '">' + (n % 1 ? n.toFixed(1) : String(n)) + '</button>'; }).join('') + '<button type="button" class="ca-tn ca-tq" data-action="e37-nota" data-v="">Sin plones</button></div></div>' +
+    '<label class="fx-c fc-dsc"><span class="fi-l">Descripción</span><textarea id="e37-desc" class="in fc-ta" rows="4" placeholder="Lo que quieras contar. Puede ser largo.">' + esc(x.contenido || '') + '</textarea></label>' +
+    '<p class="error" id="e37-error" role="alert" hidden></p>' +
+    '<div class="pop-pie e37-pie"><button type="button" class="btn peligro pop-b" data-action="e37-borrar">Borrar</button><button type="submit" class="btn prim pop-g" data-action="e37-guardar" id="e37-g">Guardar</button></div>' +
+    '<a class="link-b e37-mas" href="#semilla-' + x.id + '">Editar todo en la semilla completa ›</a></div>';
+}
+function e37Abrir(id) {
+  const x = fcPorId(id); if (!x || !estado.sesion) return;
+  estado.e37 = { id: id, nota: x.nota == null ? null : Number(x.nota) };
+  const h = abrirHoja('hoja-edit', e37HTML(x)); h.classList.add('hoja-pop'); h.setAttribute('aria-label', 'Editar');
+  const ta = $('#e37-desc'); if (ta) autoTam(ta);
+}
+function e37Cerrar() { estado.e37 = null; cerrarHoja('hoja-edit'); }
+function e37Error(t) { const e = $('#e37-error'); if (!e) { toast(t); return; } e.textContent = t; e.hidden = !t; }
+async function e37Guardar() {
+  const E = estado.e37, x = E && fcPorId(E.id); if (!x || !sb || !estado.sesion || estado.guardando) return;
+  const val = function (id) { const e = $('#' + id); return e ? e.value.trim() : null; };
+  const titulo = x.tipo === 'temporada' ? x.titulo : val('e37-titulo');
+  if (x.tipo !== 'temporada' && !titulo) { e37Error('Ponle un nombre para poder guardarla.'); return; }
+  const datos = Object.assign({}, x.datos);
+  if (x.tipo === 'album') { const a = val('e37-estreno'); if (a) datos.estreno = a.slice(0, 4); else delete datos.estreno; }
+  if (x.tipo === 'cancion') { const u = urlLimpia(val('e37-url')); if (u) datos.url = u; else delete datos.url; }
+  const fila = { titulo: String(titulo || '').slice(0, 200), contenido: (val('e37-desc') || '').slice(0, 30000), nota: E.nota, datos: datos };
+  const g = $('#e37-g'); estado.guardando = true; if (g) { g.disabled = true; g.textContent = 'Guardando…'; }
+  try {
+    const hijas = x.tipo === 'album' && fila.titulo !== x.titulo ? albCanciones(x, true) : [];
+    const r = await sb.from('semillas').update(fila).eq('id', x.id); if (r.error) throw r.error;
+    if (hijas.length) {   // las canciones dicen a qué álbum pertenecen con su nombre: se actualizan con él
+      const res = await Promise.all(hijas.map(function (c) { const d = Object.assign({}, c.datos, { album: fila.titulo }); return sb.from('semillas').update({ datos: d }).eq('id', c.id).then(function (q) { if (!q.error) c.datos = d; return q; }); }));
+      if (res.some(function (q) { return q.error; })) toast('Se cambió el nombre, pero algunas canciones no se actualizaron.');
+    }
+    Object.assign(x, fila); try { Copia.escribir(claveSem(), estado.semillas); } catch (e) { /* nada */ }
+    e37Cerrar(); toast('Cambios guardados'); render(false);
+  } catch (e) { console.error(e); e37Error('No se pudo guardar. Revisa tu internet e intenta otra vez.'); }
+  finally { estado.guardando = false; const g2 = $('#e37-g'); if (g2) { g2.disabled = false; g2.textContent = 'Guardar'; } }
+}
+async function e37Borrar(btn) {
+  if (btn.dataset.c !== '1') { btn.dataset.c = '1'; btn.textContent = '¿Seguro? Toca otra vez'; clearTimeout(btn._t); btn._t = setTimeout(function () { btn.dataset.c = ''; btn.textContent = 'Borrar'; }, 3500); return; }
+  const E = estado.e37; if (!E) return;
+  try { await borrarSemilla(E.id); } catch (e) { console.error(e); e37Error('No se pudo borrar. Intenta otra vez.'); return; }
+  e37Cerrar(); toast('Borrado'); render(false);
+}
+
+/* --- Pop-up de «+ Álbum» más liviano: lo demás queda detrás de «Más detalles» --- */
+function popHTML(s) {
+  const h = popHTML_v36(s);
+  if (s.tipo !== 'album' || s.base) return h;
+  const i = h.indexOf('<section class="pop-nota"');
+  const mas = '<button type="button" class="link-b pop-mas-b" data-action="pop-mas" aria-expanded="false">+ Más detalles (descripción, país, etiquetas)</button>';
+  return '<div class="pop-lw pop-lite" id="pop-lw">' + (i < 0 ? h : h.slice(0, i) + mas + h.slice(i)) + '</div>';
+}
+
+/* --- Álbum nuevo desde la banda: vuelve a la banda con el álbum abierto y listo para agregar canciones --- */
+async function guardarSemilla() {
+  const s = estado.sem, nuevo = s && !s.base && s.tipo === 'album' && s.volver && /^#modulo-/.test(s.volver) ? { b: s.volver.slice(8), id: s.id } : null;
+  await guardarSemilla_v36();
+  if (nuevo && fcPorId(nuevo.id)) { const S = fcS(); S.sel[nuevo.b + '.alb'] = nuevo.id; S.cj[nuevo.b + '.alb'] = true; S.foco = nuevo.id; S.focoT = Date.now(); [120, 400, 800, 1300, 2000].forEach(function (ms) { setTimeout(function () { try { caAjustar(); } catch (e) { /* nada */ } }, ms); }); }
+}
+
+/* --- Menú ⋯: traer la discografía --- */
+function fcMenuHTML(b, tj) {
+  const h = fcMenuHTML_v36(b, tj);
+  if (b.tipo !== 'banda') return h;
+  const i = h.indexOf('</a>'); if (i < 0) return h;
+  return h.slice(0, i + 4) + '<button type="button" class="fc-mi" role="menuitem" data-action="dc-abrir" data-id="' + b.id + '">Traer discografía</button>' + h.slice(i + 4);
+}
+
+/* --- Imagen del artista grande, con parallax, y una barrita fija al bajar --- */
+function fcMiniHTML(b, tj) {
+  const u = fichaImgUrl(b, false), nt = notaDe(b), t = tipoDe(b.tipo);
+  const atras = b.tipo === 'persona' ? '#tejido-' + (perRol(b) === 'actor' ? 'actores' : 'directores') : '#tejido-' + tj.id;
+  return '<div class="fc-mini" aria-hidden="true"><a class="fc-mb" href="' + atras + '" tabindex="-1">' + FC_I.atras + '</a>' + (u ? '<span class="fc-mf"><img src="' + esc(u) + '" alt=""></span>' : '') +
+    '<b class="fc-mn">' + esc(b.titulo || 'Sin título') + '</b>' + (nt != null ? '<span class="fc-mp">' + TL_NUBE + nt.toFixed(1) + '</span>' : '') + '</div>';
+}
+let fcRafH = 0;
+function fcScrollHero() {
+  fcRafH = 0;
+  const fc = document.querySelector('.fc'); if (!fc) { document.body.classList.remove('fc-mini-on'); return; }
+  const y = Math.max(0, window.pageYOffset || document.documentElement.scrollTop || 0), im = fc.querySelector('.fc-img');
+  if (im) { im.style.transform = 'translate3d(0,' + Math.round(y * 0.42) + 'px,0)'; im.style.opacity = String(Math.max(0.18, 1 - y / 520)); }
+  document.body.classList.toggle('fc-mini-on', y > 240);
+}
+window.addEventListener('scroll', function () { if (!fcRafH) fcRafH = requestAnimationFrame(fcScrollHero); }, { passive: true });
+
+/* --- Después de pintar la pantalla: centrar el carrusel y acomodar la imagen --- */
+function render(cambioDeRuta) {
+  render_v36(cambioDeRuta);
+  try { caAjustar(); fcScrollHero(); } catch (e) { console.error(e); }
+}
+document.addEventListener('input', function (e) {
+  const t = e.target; if (!t || !t.classList) return;
+  if (t.classList.contains('ca-in')) { t.style.height = 'auto'; t.style.height = Math.min(150, t.scrollHeight + 2) + 'px'; caHint(t); }
+  if (t.id === 'e37-desc') autoTam(t);
+});
+document.addEventListener('keydown', function (e) {
+  const t = e.target; if (!t || !t.classList) return;
+  if (t.classList.contains('ca-in') && e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); caAgregar(caAlbumDe(t)); }
+  if (e.key === 'Escape' && document.getElementById('hoja-edit')) { e.preventDefault(); e37Cerrar(); }
+});
+document.addEventListener('pointerdown', function (e) {   // el teclado no se cierra al tocar «Agregar»
+  const b = e.target.closest ? e.target.closest('[data-action="ca-add"]') : null; if (b) e.preventDefault();
+});
+document.addEventListener('change', function (e) {
+  const t = e.target; if (t && t.dataset && t.dataset.caFoto) { const f = t.files && t.files[0]; if (f) caPonerPortada(t.dataset.caFoto, f); t.value = ''; }
+});
+function fc37Clic(a, b) {
+  switch (a) {
+    case 'ca-ir': {
+      const ca = b.closest('.ca'); if (!ca) return true;
+      if (ca.dataset.sel === b.dataset.id) { if (ca.classList.contains('ca-t-alb')) b.classList.toggle('gira'); return true; }
+      caElegir(ca, b.dataset.id); caCentro(ca, b.dataset.id, true); return true;
+    }
+    case 'ca-paso': {
+      const ca = b.closest('.ca'); if (!ca) return true;
+      const its = Array.prototype.slice.call(ca.querySelectorAll('.ca-it')), i = its.findIndex(function (x) { return x.dataset.id === ca.dataset.sel; }), n = its[Math.max(0, Math.min(its.length - 1, i + (+b.dataset.d)))];
+      if (n) { caElegir(ca, n.dataset.id); caCentro(ca, n.dataset.id, true); } return true;
+    }
+    case 'ca-add': caAgregar(b.dataset.id); return true;
+    case 'ca-nota': { const S = fcS(); S.rt = S.rt === b.dataset.id ? '' : b.dataset.id; const alb = albDe(fcPorId(b.dataset.id) || {}); if (alb) caRefrescar(alb.id); return true; }
+    case 'ca-poner': caPoner(b.dataset.id, b.dataset.v); return true;
+    case 'ca-quitar': caQuitar(b); return true;
+    case 'ca-edit': e37Abrir(b.dataset.id); return true;
+    case 'e37-cerrar': e37Cerrar(); return true;
+    case 'e37-guardar': e37Guardar(); return true;
+    case 'e37-borrar': e37Borrar(b); return true;
+    case 'e37-nota': {
+      const E = estado.e37; if (!E) return true; E.nota = b.dataset.v === '' ? null : Number(b.dataset.v);
+      document.querySelectorAll('#hoja-edit .ca-tn').forEach(function (x) { x.classList.toggle('on', x.dataset.v !== '' && E.nota != null && Math.abs(E.nota - Number(x.dataset.v)) < 0.05); }); return true;
+    }
+    case 'pop-mas': { const w = document.getElementById('pop-lw'); if (!w) return true; const l = w.classList.toggle('pop-lite'); b.textContent = l ? '+ Más detalles (descripción, país, etiquetas)' : '− Menos detalles'; b.setAttribute('aria-expanded', String(!l)); return true; }
+  }
+  return false;
+}
+function fcClic(a, b) {
+  if (fc37Clic(a, b) || fcDiscoClic(a, b) || fbClic(a, b)) return true;
+  const r = fcClic_v36(a, b);
+  if (a === 'cj') setTimeout(function () { try { caAjustar(); } catch (e) { /* nada */ } }, 0);
+  return r;
+}
+
+/* ---------- v37: la barrita del reproductor (suena mientras sigues mirando la app) ---------- */
+const spId = u => {
+  try {
+    const x = new URL(String(u || '')); if (x.hostname.replace(/^(www\.|m\.)/, '') !== 'open.spotify.com') return null;
+    const m = x.pathname.match(/^\/(?:intl-[a-z-]+\/)?(track|album|playlist|episode|show)\/([A-Za-z0-9]{6,40})/); return m ? { t: m[1], id: m[2] } : null;
+  } catch (e) { return null; }
+};
+const FB = { lista: [], i: 0, play: false };
+const FB_I = {
+  ant: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6h2v12H6zM20 6v12L9.5 12z"/></svg>',
+  sig: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 6h2v12h-2zM4 6l10.500 6L4 18z"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.500v13l11-6.500z"/></svg>',
+  pausa: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+};
+function fbEl() {
+  let b = document.getElementById('fc-barra');
+  if (!b) { b = document.createElement('div'); b.id = 'fc-barra'; b.className = 'fc-barra'; b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Reproductor'); document.body.appendChild(b); }
+  return b;
+}
+function fbCmd(fn) { const f = document.getElementById('fb-if'); if (f && f.contentWindow) { try { f.contentWindow.postMessage(JSON.stringify({ event: 'command', func: fn, args: '' }), '*'); } catch (e) { /* nada */ } } }
+function fbMarcar() {
+  const it = FB.lista[FB.i], on = !!document.getElementById('fc-barra') && !!it;
+  document.querySelectorAll('.cn-play[data-action="yt"]').forEach(function (b) { b.setAttribute('aria-pressed', String(on && b.dataset.u === it.u)); });
+  const pp = document.querySelector('#fc-barra [data-action="fb-pp"]'); if (pp) { pp.innerHTML = FB.play ? FB_I.pausa : FB_I.play; pp.setAttribute('aria-label', FB.play ? 'Pausar' : 'Reproducir'); }
+}
+function fbAbrir(lista, i) {
+  const it = lista[i]; if (!it) return;
+  FB.lista = lista; FB.i = i; FB.play = true;
+  const b = fbEl(), yid = ytId(it.u), sp = spId(it.u);
+  document.body.classList.add('fb-on');
+  if (yid) {
+    b.className = 'fc-barra';
+    b.innerHTML = '<div class="fb-vid"><iframe id="fb-if" src="https://www.youtube-nocookie.com/embed/' + yid + '?autoplay=1&playsinline=1&rel=0&enablejsapi=1&origin=' + encodeURIComponent(location.origin) + '" title="Reproductor de YouTube" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>' +
+      '<div class="fb-cu"><div class="fb-i"><b class="fb-t">' + esc(it.t) + '</b><small class="fb-s">' + esc(it.s || '') + (lista.length > 1 ? ' · ' + (i + 1) + ' de ' + lista.length : '') + '</small></div>' +
+      '<div class="fb-c"><button type="button" class="fb-b" data-action="fb-ant" aria-label="Anterior"' + (lista.length < 2 ? ' disabled' : '') + '>' + FB_I.ant + '</button><button type="button" class="fb-b fb-pp" data-action="fb-pp" aria-label="Pausar">' + FB_I.pausa + '</button><button type="button" class="fb-b" data-action="fb-sig" aria-label="Siguiente"' + (lista.length < 2 ? ' disabled' : '') + '>' + FB_I.sig + '</button><a class="fb-m" href="https://music.youtube.com/watch?v=' + yid + '" target="_blank" rel="noopener noreferrer">YouTube Music</a><button type="button" class="fb-b fb-x" data-action="fb-x" aria-label="Cerrar el reproductor">' + FB_I.x + '</button></div></div>';
+  } else if (sp) {
+    b.className = 'fc-barra fb-spo'; FB.play = false;
+    b.innerHTML = '<iframe class="fb-sp" src="https://open.spotify.com/embed/' + sp.t + '/' + sp.id + '?utm_source=generator" height="' + (sp.t === 'track' || sp.t === 'episode' ? 80 : 152) + '" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Reproductor de Spotify"></iframe><button type="button" class="fb-b fb-x" data-action="fb-x" aria-label="Cerrar el reproductor">' + FB_I.x + '</button>';
+  } else return;
+  fbMarcar();
+}
+function fbCerrar() {
+  const b = document.getElementById('fc-barra'); if (b) b.remove();
+  FB.lista = []; FB.i = 0; FB.play = false; document.body.classList.remove('fb-on'); fbMarcar();
+}
+function fbSig(d) { if (FB.lista.length < 2) return; const n = (FB.i + d + FB.lista.length) % FB.lista.length; fbAbrir(FB.lista, n); }
+function ytToggle(btn) {
+  const u = btn.dataset.u;
+  if (!ytId(u) && !spId(u)) { window.open(u, '_blank', 'noopener'); return; }
+  const it0 = FB.lista[FB.i];
+  if (document.getElementById('fc-barra') && it0 && it0.u === u && ytId(u)) { FB.play = !FB.play; fbCmd(FB.play ? 'playVideo' : 'pauseVideo'); fbMarcar(); return; }
+  const wrap = btn.closest('.ca-lista, .cn-l, .tb-c, .cj-c') || document, hero = document.querySelector('.fc-h'), sub = hero ? hero.textContent.trim() : '';
+  const btns = Array.prototype.slice.call(wrap.querySelectorAll('.cn-play[data-action="yt"]'));
+  const lista = btns.map(function (x) { const n = x.closest('.cn') && x.closest('.cn').querySelector('.cn-n'); return { u: x.dataset.u, t: n ? (n.childNodes[0] && n.childNodes[0].textContent.trim()) || n.textContent.trim() : 'Canción', s: sub }; });
+  fbAbrir(lista, Math.max(0, btns.indexOf(btn)));
+}
+window.addEventListener('message', function (e) {
+  if (!/^https:\/\/(www\.)?youtube(-nocookie)?\.com$/.test(e.origin)) return;
+  let d = e.data; if (typeof d === 'string') { try { d = JSON.parse(d); } catch (x) { return; } }
+  if (!d || typeof d !== 'object') return;
+  let st = null;
+  if (d.event === 'onStateChange') st = d.info; else if (d.event === 'infoDelivery' && d.info && typeof d.info.playerState === 'number') st = d.info.playerState;
+  if (st == null) return;
+  if (st === 0) { FB.play = false; fbSig(1); return; }
+  if (st === 1 || st === 2) { FB.play = st === 1; fbMarcar(); }
+});
+document.addEventListener('load', function (e) {
+  const t = e.target;
+  if (t && t.id === 'fb-if' && t.contentWindow) { try { t.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1, channel: 'widget' }), '*'); } catch (x) { /* nada */ } }
+}, true);
+function fbClic(a, b) {
+  switch (a) {
+    case 'yt': ytToggle(b); return true;
+    case 'fb-pp': FB.play = !FB.play; fbCmd(FB.play ? 'playVideo' : 'pauseVideo'); fbMarcar(); return true;
+    case 'fb-ant': fbSig(-1); return true;
+    case 'fb-sig': fbSig(1); return true;
+    case 'fb-x': fbCerrar(); return true;
+  }
+  return false;
+}
+
+/* ---------- v37: traer la discografía de una banda (álbumes con portada y, si quieres, sus canciones) ---------- */
+function dcYa(a, banda) {
+  const bk = albClave(banda.titulo), k = albClave(a.titulo);
+  return estado.semillas.some(function (x) { return x.tipo === 'album' && albClave(x.titulo) === k && albClave((x.datos || {}).banda) === bk; });
+}
+const DC_TIPOS = [['estudio', 'Estudio'], ['ep', 'EP'], ['vivo', 'En vivo'], ['recop', 'Recopilaciones'], ['otro', 'Otros']];
+function dcPintar() {
+  const D = estado.dc, h = document.getElementById('hoja-disco'); if (!D || !h) return;
+  const q = h.querySelector('#dc-q'); if (q) D.q = q.value;
+  h.innerHTML = '<div class="hoja-c pop dc">' + dcHTML() + '</div>';
+}
+function dcHTML() {
+  const D = estado.dc, banda = fcPorId(D.banda), cab = '<div class="pop-cab"><h2 class="pop-t">Discografía de <b>' + esc(banda ? banda.titulo : '') + '</b></h2><button type="button" class="pop-x" data-action="dc-cerrar" aria-label="Cerrar">' + ICO_X + '</button></div>';
+  if (D.paso === 'buscar') {
+    return cab + '<p class="ayuda">Busca la banda en el catálogo y escoge cuáles álbumes quieres. Después tú los calificas.</p>' +
+      '<div class="fx-c"><span class="fi-l">Nombre de la banda</span><div class="dc-bus"><input id="dc-q" class="in" type="text" maxlength="80" value="' + esc(D.q || '') + '" autocomplete="off" enterkeyhint="search"><button type="button" class="btn prim" data-action="dc-buscar">Buscar</button></div></div>' +
+      (D.cargando ? '<p class="ayuda dc-est">Buscando…</p>' : D.err ? '<p class="error dc-est" role="alert">' + esc(D.err) + '</p>' : '') +
+      (D.arts && D.arts.length ? '<p class="tb-l">¿Cuál es?</p><div class="dc-arts">' + D.arts.map(function (a, i) {
+        return '<button type="button" class="dc-art" data-action="dc-elegir" data-i="' + i + '"><b>' + esc(a.nombre) + '</b><small>' + esc([DC_PAISES[a.pais] || a.pais, a.desde ? 'desde ' + a.desde : '', a.nota, a.tipo].filter(Boolean).join(' · ')) + '</small></button>';
+      }).join('') + '</div>' : '') +
+      (D.fuente === 'it' && D.arts && D.arts.length ? '<p class="ayuda">Esta vez salió del catálogo de iTunes.</p>' : '');
+  }
+  if (D.paso === 'albs') {
+    const cuenta = {}; D.albs.forEach(function (a) { cuenta[a.tipo] = (cuenta[a.tipo] || 0) + 1; });
+    const ver = D.albs.filter(function (a) { return D.tipos[a.tipo]; }), nsel = D.albs.filter(function (a) { return D.sel[a.id] && !dcYa(a, banda); }).length;
+    return cab + '<p class="ayuda dc-q"><b>' + esc(D.art.nombre) + '</b> · ' + D.albs.length + ' lanzamientos</p>' +
+      '<div class="dc-chips" role="group" aria-label="Tipo de lanzamiento">' + DC_TIPOS.filter(function (t) { return cuenta[t[0]]; }).map(function (t) { return '<button type="button" class="chip" aria-pressed="' + !!D.tipos[t[0]] + '" data-action="dc-tipo" data-t="' + t[0] + '">' + t[1] + ' · ' + cuenta[t[0]] + '</button>'; }).join('') + '</div>' +
+      '<div class="dc-lista">' + (ver.length ? ver.map(function (a) {
+        const ya = dcYa(a, banda), ini = (a.titulo.trim()[0] || '?').toUpperCase();
+        return '<label class="dc-al' + (ya ? ' ya' : '') + '"><input type="checkbox" data-action="dc-sel" data-id="' + esc(a.id) + '"' + (D.sel[a.id] && !ya ? ' checked' : '') + (ya ? ' disabled' : '') + '><span class="dc-cv"><b>' + esc(ini) + '</b><img src="' + esc(a.portada) + '" alt="" loading="lazy" data-dc-id="' + esc(a.id) + '"></span><span class="dc-ti">' + esc(a.titulo) + '<small>' + esc(a.anio || 's/f') + (ya ? ' · ya la tienes' : '') + '</small></span></label>';
+      }).join('') : '<p class="ayuda">No hay lanzamientos de ese tipo.</p>') + '</div>' +
+      '<div class="dc-op"><button type="button" class="link-b" data-action="dc-todas" data-v="1">Marcar todos</button><button type="button" class="link-b" data-action="dc-todas" data-v="0">Quitar todos</button></div>' +
+      '<label class="dc-chk"><input type="checkbox" data-action="dc-pistas"' + (D.pistas ? ' checked' : '') + '><span>Traer también las canciones <small>Después quitas las que no quieras y dejas solo tus favoritas.</small></span></label>' +
+      '<p class="ayuda">Las que no tengan portada salen con una letra; luego puedes ponerles la tuya.</p>' +
+      '<div class="pop-pie"><button type="button" class="btn" data-action="dc-atras">Atrás</button><button type="button" class="btn prim pop-g" data-action="dc-importar" id="dc-go"' + (nsel ? '' : ' disabled') + '>' + dcTxtGo(nsel) + '</button></div>';
+  }
+  return cab + '<div class="dc-prog"><p class="dc-pt" id="dc-prog">' + esc(D.prog || '') + '</p><div class="dc-barra"><i id="dc-bi" style="width:' + (D.pct || 0) + '%"></i></div><p class="ayuda">No cierres la app: tarda un poquito porque el catálogo pide ir despacio.</p></div>';
+}
+const dcTxtGo = n => n ? 'Agregar ' + n + (n === 1 ? ' álbum' : ' álbumes') : 'Agregar';
+function dcAbrir(id) {
+  const b = fcPorId(id); if (!b || !estado.sesion) return;
+  estado.dc = { banda: id, paso: 'buscar', q: b.titulo || '', arts: [], err: '', fuente: 'mb', albs: [], tipos: { estudio: true, ep: false, vivo: false, recop: false, otro: false }, sel: {}, pistas: true, ok: {}, prog: '', pct: 0, cargando: false };
+  const h = abrirHoja('hoja-disco', '<div class="hoja-c pop dc">' + dcHTML() + '</div>'); h.classList.add('hoja-pop'); h.setAttribute('aria-label', 'Traer discografía');
+  dcBuscar();
+}
+function dcCerrar() { estado.dc = null; cerrarHoja('hoja-disco'); }
+async function dcBuscar() {
+  const D = estado.dc; if (!D) return;
+  const q = document.querySelector('#dc-q'); if (q) D.q = q.value;
+  const nombre = String(D.q || '').trim(); if (!nombre) return;
+  D.cargando = true; D.err = ''; D.arts = []; dcPintar();
+  let l = [], fallo = '';
+  try { D.fuente = 'mb'; l = await DC.buscar('mb', nombre); } catch (e) { fallo = 'mb'; }
+  if (!l.length) { try { D.fuente = 'it'; l = await DC.buscar('it', nombre); fallo = ''; } catch (e) { if (!fallo) fallo = 'it'; } }
+  if (estado.dc !== D) return;
+  D.cargando = false; D.arts = l;
+  if (!l.length) D.err = fallo ? 'No pude conectar con el catálogo desde este celular. Revisa tu internet e intenta otra vez.' : 'No encontré esa banda. Prueba con otra forma de escribir el nombre.';
+  dcPintar();
+}
+async function dcElegir(i) {
+  const D = estado.dc, a = D && D.arts[i]; if (!a) return;
+  D.art = a; D.cargando = true; D.err = ''; D.arts = [a]; dcPintar();
+  try {
+    D.albs = await DC.albumes(a.fuente, a.id);
+  } catch (e) { console.error(e); if (estado.dc !== D) return; D.cargando = false; D.err = 'No pude traer los álbumes. Revisa tu internet e intenta otra vez.'; D.arts = []; dcPintar(); return; }
+  if (estado.dc !== D) return;
+  D.cargando = false; D.paso = 'albs'; D.sel = {};
+  const banda = fcPorId(D.banda);
+  D.albs.forEach(function (x) { if (x.tipo === 'estudio' && !dcYa(x, banda)) D.sel[x.id] = true; });
+  if (!D.albs.length) { D.paso = 'buscar'; D.err = 'Esa banda no tiene álbumes en el catálogo.'; D.arts = []; }
+  dcPintar();
+}
+async function dcImportar() {
+  const D = estado.dc, banda = D && fcPorId(D.banda); if (!D || !banda || !sb || !estado.sesion) return;
+  const lista = D.albs.filter(function (a) { return D.sel[a.id] && !dcYa(a, banda); }); if (!lista.length) return;
+  D.paso = 'import'; D.prog = 'Empezando…'; D.pct = 2; dcPintar();
+  const tjA = tipoDe('album').tejido || 'musica', tjC = tipoDe('cancion').tejido || 'musica', pub = !!banda.publica;
+  let nAlb = 0, nCan = 0, sinPistas = 0, errorFinal = '';
+  for (let i = 0; i < lista.length; i++) {
+    const a = lista[i];
+    D.prog = 'Álbum ' + (i + 1) + ' de ' + lista.length + ': ' + a.titulo; D.pct = Math.round(100 * i / lista.length) + 3;
+    const p = document.getElementById('dc-prog'), bi = document.getElementById('dc-bi'); if (p) p.textContent = D.prog; if (bi) bi.style.width = D.pct + '%';
+    const datos = { banda: banda.titulo }; if (a.anio) datos.estreno = a.anio; if (a.fuente === 'mb') datos.mb = a.id;
+    if (D.ok[a.id]) { datos.img = a.img; datos.thumb = a.thumb; }
+    try {
+      const r = await sb.from('semillas').insert({ id: nuevoId(), tipo: 'album', titulo: a.titulo.slice(0, 200), contenido: '', publica: pub, tejido: tjA, datos: datos, etiquetas: [], fecha: null });
+      if (r.error) throw r.error; nAlb++;
+    } catch (e) { console.error(e); errorFinal = 'No se pudo guardar «' + a.titulo + '». Revisa tu internet y vuelve a intentar con los que faltan.'; break; }
+    if (D.pistas) {
+      try {
+        const pistas = await DC.pistas(a.fuente, a.id);
+        if (!pistas.length) sinPistas++;
+        const vistas = {}, filas = [];
+        pistas.forEach(function (t) { const k = albClave(t); if (!k || vistas[k]) return; vistas[k] = 1; const d = { album: a.titulo, pista: String(filas.length + 1) }; d.banda = banda.titulo; filas.push({ id: nuevoId(), tipo: 'cancion', titulo: t.slice(0, 200), contenido: '', publica: pub, tejido: tjC, datos: d, etiquetas: [], fecha: null }); });
+        if (filas.length) { const r2 = await sb.from('semillas').insert(filas); if (r2.error) throw r2.error; nCan += filas.length; }
+      } catch (e) { console.error(e); sinPistas++; }
+    }
+  }
+  if (nAlb) {
+    const bd = Object.assign({}, banda.datos), art = D.art || {}; let cambio = false;
+    if (!bd.pais && DC_PAISES[art.pais]) { bd.pais = DC_PAISES[art.pais]; cambio = true; }
+    if (!bd.fundacion && art.desde) { bd.fundacion = art.desde; cambio = true; }
+    if (cambio) { try { await sb.from('semillas').update({ datos: bd }).eq('id', banda.id); } catch (e) { /* no pasa nada */ } }
+  }
+  try { await cargarSemillas(); } catch (e) { /* se verá al recargar */ }
+  if (estado.dc !== D) { render(false); return; }
+  if (errorFinal) { D.paso = 'albs'; D.sel = {}; D.err = errorFinal; dcPintar(); toast(nAlb ? nAlb + ' álbumes agregados' : 'No se agregó ninguno'); render(false); return; }
+  dcCerrar(); render(false);
+  toast(nAlb + (nAlb === 1 ? ' álbum' : ' álbumes') + (nCan ? ' y ' + nCan + ' canciones agregados' : ' agregados') + (sinPistas ? ' · ' + sinPistas + ' sin canciones en el catálogo' : ''));
+}
+document.addEventListener('load', function (e) { const t = e.target, D = estado.dc; if (t && t.tagName === 'IMG' && t.dataset && t.dataset.dcId && D) D.ok[t.dataset.dcId] = true; }, true);
+document.addEventListener('error', function (e) { const t = e.target, D = estado.dc; if (t && t.tagName === 'IMG' && t.dataset && t.dataset.dcId) { if (D) delete D.ok[t.dataset.dcId]; t.remove(); } }, true);
+document.addEventListener('keydown', function (e) {
+  if (e.target && e.target.id === 'dc-q' && e.key === 'Enter') { e.preventDefault(); dcBuscar(); }
+  if (e.key === 'Escape' && document.getElementById('hoja-disco') && estado.dc && estado.dc.paso !== 'import') { e.preventDefault(); dcCerrar(); }
+});
+function fcDiscoClic(a, b) {
+  const D = estado.dc;
+  switch (a) {
+    case 'dc-abrir': dcAbrir(b.dataset.id); return true;
+    case 'dc-cerrar': dcCerrar(); return true;
+    case 'dc-buscar': dcBuscar(); return true;
+    case 'dc-elegir': dcElegir(+b.dataset.i); return true;
+    case 'dc-tipo': if (D) { D.tipos[b.dataset.t] = !D.tipos[b.dataset.t]; dcPintar(); } return true;
+    case 'dc-sel': if (D) { D.sel[b.dataset.id] = b.checked; const g = document.getElementById('dc-go'), n = D.albs.filter(function (x) { return D.sel[x.id] && !dcYa(x, fcPorId(D.banda)); }).length; if (g) { g.disabled = !n; g.textContent = dcTxtGo(n); } } return true;
+    case 'dc-pistas': if (D) D.pistas = b.checked; return true;
+    case 'dc-todas': if (D) { const banda = fcPorId(D.banda), v = b.dataset.v === '1'; D.albs.forEach(function (x) { if (D.tipos[x.tipo]) D.sel[x.id] = v && !dcYa(x, banda); }); dcPintar(); } return true;
+    case 'dc-atras': if (D) { D.paso = 'buscar'; D.arts = []; D.err = ''; D.albs = []; dcPintar(); dcBuscar(); } return true;
+    case 'dc-importar': dcImportar(); return true;
   }
   return false;
 }
@@ -5309,7 +6116,7 @@ function vistaModulo_v30(id) {
   } else if (texto) {
     res = '<section class="mo-res-s" aria-label="Reseña"><h2 class="sec">Reseña</h2><div class="prosa">' + texto.split(/\n{2,}/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join('') + '</div></section>';
   }
-  const acc = dueno ? '<div class="acciones mo-acc"><a class="btn prim" href="#semilla-' + b.id + '">Editar ficha</a>' + (!hoja && !texto ? '<a class="btn" href="#semilla-' + b.id + '" data-action="mod-resena" data-id="' + b.id + '">+ Escribir reseña</a>' : '') + '</div>' : '';
+  const acc = dueno ? '<div class="acciones mo-acc"><a class="btn prim" href="#semilla-' + b.id + '">Editar semilla</a>' + (!hoja && !texto ? '<a class="btn" href="#semilla-' + b.id + '" data-action="mod-resena" data-id="' + b.id + '">+ Escribir reseña</a>' : '') + '</div>' : '';
   return '<a class="volver" href="#tejido-' + tj.id + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>' + esc(tj.nombre) + '</a>' +
     '<article class="mo" style="--tc:' + tj.color + (nv ? ';--vc:' + nv.color : '') + '"><div class="mo-hero"><div class="mo-poster">' + (u ? '<img src="' + esc(u) + '" alt="' + esc(b.titulo) + '">' : '<span class="mo-sin">' + esc(t.nombre) + '</span>') + '</div>' +
     '<div class="mo-info"><p class="sem-ey">' + esc(tj.nombre) + ' · ' + esc(t.nombre) + '</p><h1 class="mo-h">' + esc(b.titulo || 'Sin título') + '</h1>' +
@@ -7028,7 +7835,7 @@ function etqListaHTML() {
 function hojaEtqHTML() {
   const s = estado.sem, t = tipoDe(s.tipo);
   return '<div class="hoja-c gen"><h2 class="hoja-t">Etiquetas · ' + esc(t.nombre) + '</h2>' +
-    '<p class="ayuda">Marca las que quieras. Aquí ves qué significa cada una; en la ficha solo queda el nombre.</p>' +
+    '<p class="ayuda">Marca las que quieras. Aquí ves qué significa cada una; en la semilla solo queda el nombre.</p>' +
     '<label class="vh" for="etq-q">Buscar etiqueta</label><input id="etq-q" class="in" type="search" placeholder="Buscar o escribir una nueva…" autocomplete="off" maxlength="30">' +
     '<button type="button" class="btn etq-nueva" id="etq-nueva" data-action="etq-nueva" hidden></button>' +
     '<div class="gen-lista" id="etq-lista">' + etqListaHTML() + '</div>' +
@@ -7379,7 +8186,7 @@ async function guardarSemilla_v35() {
     const id = s.id, nueva = !s.base, quiere = nueva && !!s.quiereResena && !hojaPropia && !contenido;
     estado.sem = null;
     try { await cargarSemillas(); } catch (e2) { /* se verá al recargar */ }
-    toast(avisoHoja || (nueva ? (t.ficha ? 'Ficha guardada' : 'Semilla sembrada') : 'Cambios guardados'));
+    toast(avisoHoja || (nueva ? (t.ficha ? 'Semilla guardada' : 'Semilla sembrada') : 'Cambios guardados'));
     if (t.ficha) { if (quiere) { estado.pedirResena = id; location.hash = '#semilla-' + id; } else location.hash = '#modulo-' + id; }
     else location.hash = '#tejido-' + tej;
   } catch (e) {
@@ -7395,7 +8202,7 @@ async function guardarSemilla_v35() {
 }
 function preguntarResena(id) {
   const h = abrirHoja('hoja-resena', '<div class="hoja-c enc"><h2 class="hoja-t">¿Quieres agregar una reseña?</h2>' +
-    '<p class="ayuda">Se abre un cuaderno para escribirla (a mano o con teclado) y queda guardada junto a la ficha.</p>' +
+    '<p class="ayuda">Se abre un cuaderno para escribirla (a mano o con teclado) y queda guardada junto a la semilla.</p>' +
     '<div class="hoja-pie" style="width:100%"><button type="button" class="btn prim" data-action="resena-si" data-id="' + id + '">Sí, escribirla</button><button type="button" class="btn" data-action="resena-no">No, así está bien</button></div></div>');
   h.setAttribute('aria-label', 'Agregar una reseña');
 }
@@ -7423,7 +8230,7 @@ function v24PostRender(h) {
 /* ---------- Ajustes: el paso nuevo ---------- */
 function v24Aj() {
   if (!estado.sesion || estado.semColumnas !== false || estado.semTabla === false) return '';
-  return '<div class="ajuste"><h2>Paso nuevo: tejidos</h2><p>Para usar los tejidos, las fichas y el ranking, pega esto <b>una sola vez</b> en Supabase: <b>SQL Editor → New query → pegar → Run</b>. Después recarga la app dos veces. No borra nada: tus reseñas viejas pasan a ser fichas.</p>' +
+  return '<div class="ajuste"><h2>Paso nuevo: tejidos</h2><p>Para usar los tejidos, las semillas y el ranking, pega esto <b>una sola vez</b> en Supabase: <b>SQL Editor → New query → pegar → Run</b>. Después recarga la app dos veces. No borra nada: tus reseñas viejas pasan a ser semillas.</p>' +
     '<pre class="sql" id="sql-v24">' + esc(SQL_V24) + '</pre><button class="btn" data-action="copiar-sql" data-sql="v24">Copiar el SQL</button></div>';
 }
 
@@ -7844,7 +8651,7 @@ function vistaAjustes() {
 /* =====================================================================
    6. RUTAS: según el # de la dirección se dibuja una pantalla u otra
    ===================================================================== */
-function render(cambioDeRuta) {
+function render_v36(cambioDeRuta) {
   const h = location.hash.slice(1);
   if (bvPendiente) {
     if (document.querySelector('.bienvenida')) return;
@@ -7927,8 +8734,8 @@ function renderSuave() {
   if (h === 'agregar' || h.indexOf('editar-') === 0 || h.indexOf('borrador-') === 0) { if (estado.iniciado && !estado.sesion) render(true); return; }
   const a = document.activeElement;
   if (a && /^(com-texto|login-email|login-clave|olvide-email|clave-1|clave-2)$/.test(a.id)) return;
-  if (a && a.classList && (a.classList.contains('fl-c') || a.classList.contains('fl-bus'))) return;
-  if (document.querySelector('.yt-box')) return;
+  if (a && a.classList && (a.classList.contains('fl-c') || a.classList.contains('fl-bus') || a.classList.contains('ca-in'))) return;
+  if (document.querySelector('#vista .yt-box')) return;
   render(false);
 }
 
@@ -8477,7 +9284,7 @@ function importar(archivo) {
       try { d = JSON.parse(lector.result); } catch (e) { toast('Ese archivo no es un respaldo de Aluna.'); return; }
       const lista = (Array.isArray(d) ? d : (d && d.items)) || [];
       const validas = lista.filter(r => r && typeof r.titulo === 'string');
-      if (!validas.length && d && Array.isArray(d.semillas) && d.semillas.length) { toast('Este respaldo guarda tus fichas y semillas para tenerlas a salvo. Importarlas desde la app todavía no se puede.'); return; }
+      if (!validas.length && d && Array.isArray(d.semillas) && d.semillas.length) { toast('Este respaldo guarda tus semillas para tenerlas a salvo. Importarlas desde la app todavía no se puede.'); return; }
       if (!validas.length) { toast('Ese archivo no es un respaldo de Aluna.'); return; }
       const r = await subirALaNube(validas);
       await cargarItems();
@@ -8648,7 +9455,7 @@ document.addEventListener('click', function (e) {
       const x = estado.semillas.filter(function (q) { return q.id === id; })[0]; if (!x) break;
       const d = {}; Object.keys(x.datos).forEach(function (k) { if (k !== 'director' && k !== 'estreno' && k !== 'reparto') d[k] = x.datos[k]; });
       d.rol = b.dataset.r === 'actor' || b.dataset.r === 'ambos' ? b.dataset.r : 'director';
-      modCambiar(x.id, { tipo: 'persona', tejido: 'personas', datos: d, etiquetas: [], fecha: null }, 'Ahora es una ficha de persona'); break;
+      modCambiar(x.id, { tipo: 'persona', tejido: 'personas', datos: d, etiquetas: [], fecha: null }, 'Ahora es una semilla de persona'); break;
     }
     case 'rep-add': { repCommit(true); const i = $('#rep-in'); if (i) i.focus(); break; }
     case 'rep-quitar': { const s = estado.sem; if (!s) break; repLista(s).splice(parseInt(b.dataset.i, 10), 1); const c = $('#rep-chips'); if (c) c.innerHTML = repChipsHTML(s); repSync(s); marcarSem(); break; }
@@ -8657,7 +9464,7 @@ document.addEventListener('click', function (e) {
     case 'per-ambos': { const s = estado.sem; if (s && s.tipo === 'persona') { const prim = s.perPrim || (perRol(s) === 'actor' ? 'actor' : 'director'); s.datos.rol = b.checked ? 'ambos' : prim; s.perPrim = prim; marcarSem(); } break; }
     case 'ser-crear': estado.serNueva = b.dataset.n || ''; location.hash = '#sembrar-serie'; break;
     case 'mus-crear-album': estado.albPre = { n: b.dataset.n || '', b: b.dataset.b || '' }; location.hash = '#sembrar-album'; break;
-    case 'cj': case 'tb': case 'fc-vm': case 'fc-ord': case 'fc-menu': case 'yt': case 'fc-nuevo-alb': case 'fc-nueva-can': case 'fc-nuevo-epi': fcClic(a, b); break;
+    case 'cj': case 'tb': case 'fc-vm': case 'fc-ord': case 'fc-menu': case 'yt': case 'fc-nuevo-alb': case 'fc-nueva-can': case 'fc-nuevo-epi': case 'ca-ir': case 'ca-paso': case 'ca-add': case 'ca-nota': case 'ca-poner': case 'ca-quitar': case 'ca-edit': case 'e37-cerrar': case 'e37-guardar': case 'e37-borrar': case 'e37-nota': case 'pop-mas': case 'dc-abrir': case 'dc-cerrar': case 'dc-buscar': case 'dc-elegir': case 'dc-tipo': case 'dc-sel': case 'dc-todas': case 'dc-pistas': case 'dc-importar': case 'dc-atras': case 'fb-ant': case 'fb-pp': case 'fb-sig': case 'fb-x': fcClic(a, b); break;
     case 'rec-nueva': recAbrir(); break;
     case 'rec-cerrar': estado.recF = null; cerrarHoja('hoja-rec'); break;
     case 'rec-fmt': recFormato(b.dataset.f); break;

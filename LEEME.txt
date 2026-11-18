@@ -1,3 +1,16 @@
+NOVEDAD v37 - Carrusel de vinilos y VHS, canciones rápidas, barrita de reproductor y discografía:
+ - "Ficha" ahora se llama "semilla" en toda la app. La cajita que antes decía "Ficha" ahora dice "Datos".
+ - Banda: los álbumes salen en un carrusel tipo rockola (portada con el disco asomando, código A-1, A-2...). Deslizas, el álbum del centro es el elegido; tocarlo lo gira y abajo ves su descripción y sus canciones. Las series muestran sus temporadas como cintas VHS.
+ - Canciones rápidas: dentro del álbum hay un cuadro "Agregar canción..." (Enter agrega una, o pega la lista completa y se crean todas). Cada canción lleva su tirita 1-5 de plones y una X para quitarla (dos toques).
+ - Editar sin tantos pasos: el botón "Editar" del álbum, canción o temporada abre una hoja de una sola pantalla (nombre, año, descripción, portada). El lápiz de "Datos" sigue abriendo la semilla completa.
+ - Portada: si no hay, tú la pones con "Poner portada" / "Cambiar portada".
+ - Imagen del artista: una sola imagen grande arriba que se queda atrás al bajar y deja una barrita fija con su nombre y plones.
+ - Barrita de reproductor: al tocar un ▶ se abre abajo una barrita con YouTube pequeño (o Spotify); siguiente/anterior y "Abrir en YouTube Music" para seguir con la pantalla apagada. Con YouTube Premium no hay anuncios SOLO si estás con tu cuenta en el mismo navegador.
+ - Discografía automática: en la banda, "Traer discografía" busca el artista y trae álbumes con portada (MusicBrainz + Cover Art Archive, y iTunes de respaldo). Puedes traer también las canciones de cada álbum y quitar las que no quieras.
+ - PRUEBA PRIMERO la página de discografía: https://vjuanch0.github.io/claquetazo/discografia.html (botón "Probar conexión"). Si ahí funciona, funciona dentro de ALUNA.
+ - Arreglo: el menú ⋯ de la semilla ya no queda tapado por las cajitas.
+ (No hay que correr ningún SQL nuevo. Sube TODO el contenido del zip, incluido discografia.html.)
+
 NOVEDAD v36 - Fichas en cajitas, tablas que se abren, reproductor y país:
  - Todas las fichas (banda, álbum, canción, película, serie, temporada, episodio, director, actor, libro, juego...) tienen el mismo diseño: la imagen se funde con el fondo arriba, el nombre grande con los plones a la derecha, y debajo cajitas que se abren y se cierran. Cada cajita (menos la de Escuchar) tiene un lápiz para editar solo esa parte: el lápiz de "Mi reseña" abre la reseña; el de "Ficha" abre el pop-up de edición.
  - El menú ⋯ de arriba tiene: Editar ficha completa, Hacer pública/privada, Mover de tejido y (en películas) Convertir en ficha de persona.

@@ -1,6 +1,6 @@
 // Service worker: deja la app funcionar sin internet.
 // Si cambias index.html y no ves el cambio, sube el número de VERSION.
-const VERSION = 'aluna-v36';
+const VERSION = 'aluna-v37';
 const BASE = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'favicon.svg', 'apple-touch-icon.png', 'fonts/inter-latin-wght-normal.woff2', 'fonts/outfit-latin-wght-normal.woff2', 'fonts/newsreader-latin-wght-normal.woff2', 'fonts/newsreader-latin-wght-italic.woff2', 'fonts/patrick-hand-latin-400-normal.woff2', 'fonts/caveat-latin-wght-normal.woff2', 'fonts/special-elite-latin-400-normal.woff2', 'fonts/playfair-display-latin-wght-normal.woff2', 'fonts/playfair-display-latin-wght-italic.woff2'];
 
 self.addEventListener('install', e => {
@@ -16,6 +16,8 @@ self.addEventListener('fetch', e => {
   if (url.hostname.endsWith('.supabase.co')) return;
   // El reproductor de YouTube (dentro de la ficha) va directo a internet.
   if (/(^|\.)(youtube|youtube-nocookie|ytimg|googlevideo)\.com$/.test(url.hostname)) return;
+  // El catálogo de discos (MusicBrainz, portadas, iTunes) también va directo a internet.
+  if (/(^|\.)(musicbrainz\.org|coverartarchive\.org|archive\.org|itunes\.apple\.com|mzstatic\.com|spotify\.com|scdn\.co)$/.test(url.hostname)) return;
   const guardar = r => { if (r && (r.ok || r.type === 'opaque')) { const copia = r.clone(); caches.open(VERSION).then(c => c.put(e.request, copia)); } return r; };
   if (e.request.mode === 'navigate') {
     // La página: primero internet (para recibir cambios), si no hay, la copia guardada.
