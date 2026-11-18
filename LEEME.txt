@@ -1,3 +1,16 @@
+NOVEDAD v36 - Fichas en cajitas, tablas que se abren, reproductor y país:
+ - Todas las fichas (banda, álbum, canción, película, serie, temporada, episodio, director, actor, libro, juego...) tienen el mismo diseño: la imagen se funde con el fondo arriba, el nombre grande con los plones a la derecha, y debajo cajitas que se abren y se cierran. Cada cajita (menos la de Escuchar) tiene un lápiz para editar solo esa parte: el lápiz de "Mi reseña" abre la reseña; el de "Ficha" abre el pop-up de edición.
+ - El menú ⋯ de arriba tiene: Editar ficha completa, Hacer pública/privada, Mover de tejido y (en películas) Convertir en ficha de persona.
+ - Banda: Álbumes, Canciones, Mi reseña, Ficha. Álbum: Canciones, Mi reseña, Ficha. Serie: Temporadas, Reparto, Mi reseña, Ficha. Director/actor: Dirigió / Actuó en. Película: Mi reseña, Dirección y reparto, Ficha.
+ - Tablas desplegables: tocas una fila y se abre ahí mismo. En la banda, cada álbum abre su descripción y sus canciones favoritas (con descripción, plones y ▶), y los botones "+ Canción" y "Abrir ficha completa". En la serie, cada temporada abre su comentario y sus episodios (cada uno con su comentario). En el director/actor, cada película abre su descripción.
+ - Todo sale ordenado por plones (de mejor a peor, lo que no tiene plones va al final). Un botoncito deja cambiar a Año / Número / Orden.
+ - Las descripciones pueden ser largas: el cuadro crece solo mientras escribes y en las tablas se ven 2 líneas con "Ver más".
+ - "+ Álbum" (en la banda): portada, nombre, año, país, plones, descripción larga y ¿reseña? Sí/No. "+ Canción" (en la banda o en el álbum): nombre, plones, descripción y enlace. Al guardar vuelves a la ficha de donde venías.
+ - Enlace de canciones: pega el enlace de YouTube o Spotify (se limpia solo lo que sobra después del "?"). Con YouTube, el ▶ abre un mini reproductor debajo de la canción (se carga solo al tocar, uno a la vez, con el botón "Abrir en YouTube" por si acaso). Con Spotify el ▶ abre el enlace. Ojo: con el reproductor dentro de la app los anuncios de YouTube pueden salir y la música se corta si bloqueas el celular o cambias de app; confírmalo en tu Tecno y me cuentas.
+ - Campo País (película, serie, banda, álbum y libro): puedes poner varios separados por coma, con sugerencias. Hay un filtro País en Ranking y en cada tejido.
+ - Título de la reseña: en la página de la reseña hay un campo "Título de tu reseña" y ese título sale en "Mi reseña" de la ficha.
+ (No hay que correr ningún SQL nuevo.)
+
 NOVEDAD v35 - Teclado, Ranking en el menú y filtros por campos:
  - El teclado del celular ya no tapa el pop-up: cuando sale, el pop-up se sube justo encima, se achica a lo que queda libre y el campo donde escribes se mueve a la vista. El menú de abajo se esconde mientras escribes. (Pruébalo en tu Tecno con Gboard y me cuentas.)
  - Al sembrar, arriba del pop-up sale el selector Película | Director | Actor (Director y Actor guardan una ficha de persona; el nombre que ya escribiste se conserva al cambiar).

@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=35">
-<link rel="icon" href="favicon.svg?v=35" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=35" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=35">
+<link rel="manifest" href="manifest.webmanifest?v=36">
+<link rel="icon" href="favicon.svg?v=36" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=36" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=36">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1462,6 +1462,103 @@ html.kb-abierto .hoja-c.pop{padding-bottom:12px}
 .fl-r .in::placeholder{text-align:center}
 .per-tb{display:flex;align-items:center;gap:10px;min-height:38px;margin:2px 0 6px;font-size:.88rem;color:var(--ink-dim);cursor:pointer}
 .per-tb input{width:20px;height:20px;accent-color:var(--accent);flex:none}
+/* ---------- v36: ficha en cajitas (diseño C) ---------- */
+.fc{display:block}
+.fc-hero{position:relative;display:grid;gap:6px;padding:66px 0 2px;min-height:236px;align-content:end;isolation:isolate}
+.fc-hero.sin{min-height:0;padding-top:62px}
+.fc-img{position:absolute;z-index:-1;top:0;left:0;right:0;height:310px;overflow:hidden;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,#000 30%,transparent 100%),linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,#000 30%,transparent 100%),linear-gradient(to right,transparent 0,#000 16%,#000 84%,transparent 100%);mask-composite:intersect}
+.fc-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.fc-bar{position:absolute;top:6px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.fc-btn{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;margin:0;padding:0;border:0;border-radius:50%;background:rgba(5,24,28,.6);color:var(--ink);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.fc-btn svg{width:20px;height:20px}
+.fc .volver.fc-btn{margin-bottom:0}
+.fc-tit{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.fc-tx{min-width:0}
+.fc-ey{margin:0 0 6px;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);font-weight:600}
+.fc-h{font-size:clamp(1.8rem,8.4vw,2.5rem)}
+.fc-pl{display:grid;justify-items:end;gap:0;flex:none;padding-bottom:3px}
+.fc-pn{display:flex;align-items:center;gap:6px;color:var(--plon-on);font:700 1.3rem var(--display)}
+.fc-pn svg{width:26px;height:26px;fill:currentColor}
+.fc-pl small{font-size:.72rem;color:var(--ink-dim);letter-spacing:.04em}
+.fc-sub{display:flex;flex-wrap:wrap;margin:2px 0 0;color:var(--ink-dim);font-size:.86rem}
+.fc-sub span+span::before{content:"·";margin:0 7px;color:var(--ink-faint)}
+.fc .mo-rec{margin:4px 0 0}
+.fc-menu-w{position:relative}
+.fc-menu{display:none;position:absolute;right:0;top:48px;min-width:236px;padding:6px;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);box-shadow:0 14px 34px rgba(0,0,0,.55);z-index:20;text-align:left}
+.fc-menu-w.ab .fc-menu{display:grid;gap:2px}
+.fc-mi{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:42px;padding:0 12px;border:0;border-radius:10px;background:none;color:var(--ink);font:500 .9rem var(--ui);text-align:left;text-decoration:none}
+.fc-mi small{color:var(--ink-faint);font-size:.72rem}
+.fc-mi:hover,.fc-mi:focus-visible{background:rgba(255,255,255,.07)}
+.fc-mi-i{color:var(--ink-faint);font-size:.8rem;min-height:36px}
+.fc-menu .mo-mv{padding:4px 6px 8px}
+.fc-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+.fc-cajas{display:grid;gap:10px;margin-top:14px}
+.cj{border-radius:16px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+.cj-h{display:flex;align-items:center;gap:6px;padding:0 6px 0 2px}
+.cj-t{flex:1;min-width:0;display:flex;align-items:center;gap:6px;min-height:52px;padding:0 14px;border:0;background:none;color:var(--ink);font:700 1rem var(--display);text-align:left}
+.cj-t small{color:var(--ink-faint);font-weight:500;font-size:.8rem}
+.cj-ac{display:flex;align-items:center;gap:6px}
+.cj-b{display:inline-flex;align-items:center;justify-content:center;min-height:34px;min-width:34px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);font:600 .8rem var(--ui);text-decoration:none}
+.cj-lp{padding:0;color:var(--ink-dim);border-color:transparent}
+.cj-lp svg{width:18px;height:18px}
+.cj-b:hover{border-color:var(--ink-faint)}
+.cj-v{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border:0;background:none;color:var(--ink-faint)}
+.fc-chev{width:18px;height:18px;transition:transform .2s}
+.cj.ab>.cj-h .fc-chev,.tb-f.ab>.tb-h .fc-chev{transform:rotate(180deg)}
+.cj-c{display:none;padding:2px 14px 14px;border-top:1px solid var(--line)}
+.cj.ab>.cj-c{display:block}
+.cj-c .prosa{margin-top:10px;font-size:1.02rem}
+.cj-c .prosa>p:first-child::first-letter{float:none;font-size:inherit;font-weight:inherit;padding:0;line-height:inherit;color:inherit}
+.cj-c .mo-datos{margin-top:12px}
+.cj-c .chips-ro{margin-top:12px}
+.cj-c .per-gente{margin-top:6px}
+.cj-c .mus-prom{margin-top:10px}
+.cj-c .ayuda{margin-top:10px}
+.cj-c .fc-esc{margin-top:10px}
+.fc-rt{margin:12px 0 0;font:700 1.12rem/1.25 var(--display);color:var(--ink)}
+.fc-ord{display:flex;align-items:center;gap:6px;margin:10px 0 2px;font-size:.74rem;color:var(--ink-faint)}
+.fc-ord button{min-height:30px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink-dim);font:600 .76rem var(--ui)}
+.fc-ord button[aria-pressed="true"]{background:var(--surface-2);color:var(--ink);border-color:var(--ink-faint)}
+.tbl{display:grid;margin-top:4px}
+.tb-f{border-top:1px solid color-mix(in srgb,var(--line) 75%,transparent)}
+.tb-f:first-child{border-top:0}
+.tb-h{display:flex;align-items:center;gap:10px;width:100%;min-height:50px;padding:0;border:0;background:none;color:var(--ink);text-align:left}
+.tb-n{flex:1;min-width:0;font:600 .98rem var(--display);overflow-wrap:anywhere}
+.tb-n small,.cn-n small{font-weight:400;font-size:.76rem;color:var(--ink-faint)}
+.tb-sin{color:var(--ink-faint);font-size:.9rem;padding-right:2px}
+.tb-h .fc-chev{color:var(--ink-faint);flex:none}
+.tb-c{display:none;padding:0 0 12px}
+.tb-f.ab>.tb-c{display:block}
+.tb-l{margin:10px 0 2px;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+.tb-v{margin:6px 0}
+.tb-pie{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tb-pie .btn,.cn-r .btn{min-height:38px;padding:0 14px;font-size:.84rem}
+.fc-desc{margin-top:2px}
+.fc-d{margin:0;color:var(--ink-dim);font-size:.92rem;line-height:1.5;white-space:pre-line;overflow-wrap:anywhere;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.fc-d.todo{display:block;-webkit-line-clamp:unset;overflow:visible}
+.fc-vm{padding:4px 0 0}
+.cn-l{display:grid;margin-top:2px}
+.cn{padding:7px 0;border-top:1px solid color-mix(in srgb,var(--line) 55%,transparent)}
+.cn-l .cn:first-child{border-top:0}
+.cn-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cn-n{flex:1;min-width:0;color:var(--ink);font:600 .92rem var(--display);overflow-wrap:anywhere;text-decoration:none}
+.cn-b{border-top:0;padding:8px 0 0}
+.cn-play{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:none;width:36px;height:36px;padding:0;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink);text-decoration:none;font:600 .84rem var(--ui)}
+.cn-play svg{width:16px;height:16px}
+.cn-play-t{width:auto;min-height:38px;padding:0 14px;border-radius:999px}
+.cn-play[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.cn-play:hover{border-color:var(--ink-faint)}
+.yt-box{margin-top:8px}
+.yt-v{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000}
+.yt-v iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-a{display:inline-block;margin-top:4px}
+.fc-dsc{display:grid;gap:4px;margin-top:10px}
+.fc-ta{min-height:76px;resize:none;font:inherit;line-height:1.4;overflow:hidden}
+.rt-c{display:grid;gap:4px;margin-bottom:14px}
+.fc-menu .fc-mi::after,.fc-menu .fc-mi::before{content:none!important}
+.fc{max-width:760px;margin-inline:auto}
 </style>
 </head>
 <body>
@@ -3663,7 +3760,7 @@ function vistaColeccion(scope) {
   if (tk.length > 1) campos.push('tipo');
   if (Object.keys(op.gen).length) campos.push('gen');
   if (conAnio) campos.push('an');
-  ['dir', 'actor', 'plat', 'autor', 'banda', 'album', 'serie'].forEach(function (k) { if (hay[k]) campos.push(k); });
+  ['dir', 'actor', 'plat', 'autor', 'banda', 'album', 'serie', 'pais'].forEach(function (k) { if (hay[k]) campos.push(k); });
   if (conNota) { campos.push('nivel'); }
   campos.push('orden');
   const ordenes = conNota ? [['recientes', 'Recientes'], ['mejores', 'Las mejores'], ['peores', 'Las peores']] : [['recientes', 'Recientes']];
@@ -4444,13 +4541,13 @@ const FL_TXT = {
 };
 const FL_TXT_K = Object.keys(FL_TXT);
 function flNuevo(extra) {
-  return Object.assign({ q: '', tipo: '', orden: '', nivel: 0, ya: '', yb: '', va: '', vb: '', gen: [], dir: '', actor: '', plat: '', autor: '', banda: '', album: '', serie: '', res: '', min: 0 }, extra || {});
+  return Object.assign({ q: '', tipo: '', orden: '', nivel: 0, ya: '', yb: '', va: '', vb: '', gen: [], dir: '', actor: '', plat: '', autor: '', banda: '', album: '', serie: '', pais: '', res: '', min: 0 }, extra || {});
 }
 const flAnio = s => { const d = s.datos || {}, y = parseInt(s.tipo === 'banda' ? d.fundacion : d.estreno, 10); return y > 0 ? y : 0; };
 const flVisto = s => { const y = parseInt(String(s.fecha || '').slice(0, 4), 10); return y > 0 ? y : 0; };
 function flActivos(f) {
   let n = 0;
-  ['q', 'tipo', 'dir', 'actor', 'plat', 'autor', 'banda', 'album', 'serie', 'res'].forEach(function (k) { if (f[k]) n++; });
+  ['q', 'tipo', 'dir', 'actor', 'plat', 'autor', 'banda', 'album', 'serie', 'pais', 'res'].forEach(function (k) { if (f[k]) n++; });
   if (f.nivel) n++; if (f.min) n++; if (f.ya || f.yb) n++; if (f.va || f.vb) n++; if (f.gen && f.gen.length) n++;
   return n;
 }
@@ -4532,11 +4629,11 @@ function flCajaHTML(fs, f, panel, abierto) {
 const RK_TIPOS = [['pelicula', 'Películas'], ['serie', 'Series'], ['temporada', 'Temporadas'], ['episodio', 'Episodios'], ['banda', 'Bandas'], ['cancion', 'Canciones'], ['album', 'Álbumes'], ['juego', 'Juegos'], ['libro', 'Libros'], ['director', 'Directores'], ['actor', 'Actores']];
 const RK_GRUPOS = [['Cine y series', ['pelicula', 'serie', 'temporada', 'episodio']], ['Música', ['banda', 'cancion', 'album']], ['Juegos y libros', ['juego', 'libro']], ['Gente de cine', ['director', 'actor']]];
 const RK_CAMPOS = {
-  pelicula: ['q', 'an', 'vis', 'gen', 'dir', 'actor', 'nivel', 'res', 'orden'],
-  serie: ['q', 'an', 'vis', 'gen', 'plat', 'actor', 'nivel', 'res', 'orden'],
+  pelicula: ['q', 'an', 'vis', 'gen', 'pais', 'dir', 'actor', 'nivel', 'res', 'orden'],
+  serie: ['q', 'an', 'vis', 'gen', 'pais', 'plat', 'actor', 'nivel', 'res', 'orden'],
   temporada: ['q', 'serie', 'nivel', 'orden'], episodio: ['q', 'serie', 'nivel', 'orden'],
-  juego: ['q', 'an', 'vis', 'gen', 'plat', 'nivel', 'res', 'orden'], libro: ['q', 'an', 'vis', 'gen', 'autor', 'nivel', 'res', 'orden'],
-  banda: ['q', 'an', 'gen', 'nivel', 'res', 'orden'], cancion: ['q', 'gen', 'banda', 'album', 'nivel', 'res', 'orden'], album: ['q', 'an', 'gen', 'banda', 'nivel', 'res', 'orden'],
+  juego: ['q', 'an', 'vis', 'gen', 'plat', 'nivel', 'res', 'orden'], libro: ['q', 'an', 'vis', 'gen', 'pais', 'autor', 'nivel', 'res', 'orden'],
+  banda: ['q', 'an', 'gen', 'pais', 'nivel', 'res', 'orden'], cancion: ['q', 'gen', 'banda', 'album', 'nivel', 'res', 'orden'], album: ['q', 'an', 'gen', 'banda', 'pais', 'nivel', 'res', 'orden'],
   director: ['q', 'an', 'gen', 'min', 'nivel', 'orden'], actor: ['q', 'an', 'gen', 'min', 'nivel', 'orden']
 };
 const RK_AN = { pelicula: 'Año de estreno', serie: 'Año de estreno', juego: 'Año de lanzamiento', libro: 'Año de publicación', banda: 'Año de fundación', album: 'Año de lanzamiento', director: 'Año de sus obras', actor: 'Año de sus obras' };
@@ -4680,7 +4777,7 @@ function cineSelHTML(s) {
   return '<div class="mus-sel cine-sel"><div class="seg fx-seg" role="group" aria-label="¿Qué vas a guardar?">' +
     [['pelicula', 'Película'], ['director', 'Director'], ['actor', 'Actor']].map(function (x) { return '<button type="button" aria-pressed="' + (x[0] === a) + '" data-action="cine-tipo" data-t="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>';
 }
-function popHTML(s) {
+function popHTML_v35(s) {
   const h = popHTML_v34(s), c = cineSelHTML(s); if (!c) return h;
   const i = h.indexOf('<form id="fs"');
   return i < 0 ? h : h.slice(0, i) + c + h.slice(i);
@@ -4735,7 +4832,7 @@ function albRelHTML(b) {
   }
   return '';
 }
-function vistaModulo(id) {
+function vistaModulo_v35(id) {
   let h = vistaModulo_v34(id);
   const b = estado.semillas.filter(function (x) { return x.id === id; })[0]; if (!b) return h;
   const r = albRelHTML(b);
@@ -4752,19 +4849,442 @@ function fichaImgUrl(s, grande) {
   if (u || !s || s.tipo !== 'cancion') return u;
   const a = albDe(s); return a ? fichaImgUrl_v34(a, grande) : null;
 }
-function sugerenciasCampo(t, c) {
+function sugerenciasCampo_v35(t, c) {
   if (c.sug !== 'album') return sugerenciasCampo_v34(t, c);
   const vistas = {}, out = [], poner = function (n) { n = String(n || '').trim(); const k = albClave(n); if (k && !vistas[k]) { vistas[k] = 1; out.push(n); } };
   estado.semillas.forEach(function (x) { if (x.tipo === 'album') poner(x.titulo); });
   estado.semillas.forEach(function (x) { if (x.tipo === 'cancion') poner((x.datos || {}).album); });
   return out;
 }
-function iniciarSemilla(tipo, id) {
+function iniciarSemilla_v35(tipo, id) {
   iniciarSemilla_v34(tipo, id);
   const m = estado.sem, sp = estado.serNueva, ap = estado.albPre; estado.serNueva = null; estado.albPre = null;
   if (!m || m.faltante || id) return;
   if (sp != null && m.tipo === 'serie') { m.titulo = sp; m.tocado = true; }
   if (ap && m.tipo === 'album') { m.titulo = ap.n; if (ap.b) m.datos.banda = ap.b; m.tocado = true; }
+}
+
+/* ---------- v36: la ficha en cajitas (diseño C), tablas que se abren, reproductor, país y título de reseña ---------- */
+// Campos nuevos (se agregan al final para no cambiar lo que ya se ve en las listas)
+(function () {
+  const PAIS = { k: 'pais', l: 'País', ph: 'Ej: Colombia, España', sug: 'pais' };
+  ['pelicula', 'serie', 'banda', 'album', 'libro'].forEach(function (id) { const t = TIPOS.filter(function (x) { return x.id === id; })[0]; if (t && t.campos && !t.campos.some(function (c) { return c.k === 'pais'; })) t.campos.push(Object.assign({}, PAIS)); });
+  const c = TIPOS.filter(function (x) { return x.id === 'cancion'; })[0];
+  if (c && !c.campos.some(function (x) { return x.k === 'url'; })) c.campos.push({ k: 'url', l: 'Enlace (YouTube, Spotify…)', ph: 'Pega aquí el enlace de la canción', url: true });
+  TIPOS.forEach(function (t) { if (t.id === 'cancion') t.descPop = 'Descripción (opcional)'; if (t.id === 'album') t.descPop = 'Descripción (opcional)'; });
+})();
+const PAISES = ['Colombia', 'Estados Unidos', 'España', 'Argentina', 'Chile', 'Perú', 'Brasil', 'Venezuela', 'Ecuador', 'Uruguay', 'Bolivia', 'Paraguay', 'Cuba', 'Costa Rica', 'Panamá', 'Puerto Rico', 'República Dominicana', 'México',
+  'Reino Unido', 'Francia', 'Alemania', 'Italia', 'Portugal', 'Irlanda', 'Países Bajos', 'Bélgica', 'Suiza', 'Austria', 'Suecia', 'Noruega', 'Finlandia', 'Dinamarca', 'Islandia', 'Polonia', 'República Checa', 'Hungría', 'Rumania', 'Ucrania', 'Rusia', 'Grecia', 'Turquía',
+  'Canadá', 'Australia', 'Nueva Zelanda', 'Japón', 'Corea del Sur', 'China', 'Hong Kong', 'Taiwán', 'India', 'Tailandia', 'Indonesia', 'Filipinas', 'Irán', 'Israel', 'Egipto', 'Sudáfrica', 'Nigeria'];
+
+/* --- Enlaces de canciones: limpiar lo que sobra y reconocer YouTube --- */
+const urlOk = u => /^https?:\/\/[^\s/]+\.[^\s]+$/i.test(String(u || '').trim());
+function urlLimpia(u) {
+  u = String(u || '').trim(); if (!u) return '';
+  if (!/^https?:\/\//i.test(u)) u = 'https://' + u.replace(/^\/+/, '');
+  try {
+    const x = new URL(u), h = x.hostname.replace(/^(www\.|m\.)/, '');
+    let q = '';
+    if ((h === 'youtube.com' || h === 'music.youtube.com') && x.pathname === '/watch' && x.searchParams.get('v')) q = '?v=' + x.searchParams.get('v');
+    return (x.protocol + '//' + (h === 'youtube.com' ? 'www.youtube.com' : x.hostname) + x.pathname.replace(/\/+$/, '') + q).slice(0, 200);
+  } catch (e) { return u.slice(0, 200); }
+}
+function ytId(u) {
+  try {
+    const x = new URL(String(u || '')), h = x.hostname.replace(/^(www\.|m\.)/, '');
+    let id = '';
+    if (h === 'youtu.be') id = x.pathname.slice(1).split('/')[0];
+    else if (h === 'youtube.com' || h === 'music.youtube.com' || h === 'youtube-nocookie.com') {
+      if (x.pathname === '/watch') id = x.searchParams.get('v') || '';
+      else { const m = x.pathname.match(/^\/(shorts|embed|live|v)\/([\w-]{6,})/); if (m) id = m[2]; }
+    }
+    return /^[\w-]{6,20}$/.test(id) ? id : '';
+  } catch (e) { return ''; }
+}
+
+/* --- Iconos y estado de la ficha --- */
+const FC_I = {
+  atras: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+  mas: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>',
+  lapiz: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M14.5 6.5l3 3"/></svg>',
+  chev: '<svg class="ic fc-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>'
+};
+const fcSt = () => (estado.fc = estado.fc || { cj: {}, tb: {}, ord: {}, menu: '' });
+const fcPorId = id => estado.semillas.filter(function (x) { return x.id === id; })[0];
+const fcTxt = x => String(x.contenido || '').trim();
+const fcNum = x => parseInt((x.datos || {}).estreno, 10) || 0;
+function fcAbierta(key, def) { const v = fcSt().cj[key]; return v == null ? !!def : !!v; }
+
+/* --- Una cajita que se abre y se cierra --- */
+function fcCaja(b, k, tit, n, cuerpo, o) {
+  o = o || {};
+  const key = b.id + '.' + k, ab = fcAbierta(key, o.def);
+  return '<section class="cj cj-' + k + (ab ? ' ab' : '') + '" data-cj="' + key + '" aria-label="' + esc(tit) + '">' +
+    '<div class="cj-h"><button type="button" class="cj-t" data-action="cj" data-k="' + key + '" aria-expanded="' + ab + '">' + esc(tit) + (n != null ? ' <small>· ' + n + '</small>' : '') + '</button>' +
+    '<span class="cj-ac">' + (o.ac || '') + '</span><button type="button" class="cj-v" data-action="cj" data-k="' + key + '" tabindex="-1" aria-hidden="true">' + FC_I.chev + '</button></div>' +
+    '<div class="cj-c">' + cuerpo + '</div></section>';
+}
+const fcLapiz = (href, lab, extra) => '<a class="cj-b cj-lp" href="' + href + '" aria-label="' + esc(lab) + '"' + (extra || '') + '>' + FC_I.lapiz + '</a>';
+const fcMas = (accion, id, txt, extra) => '<button type="button" class="cj-b cj-mas" data-action="' + accion + '" data-id="' + id + '"' + (extra || '') + '>' + txt + '</button>';
+
+/* --- Plones, orden y descripciones largas --- */
+const fcPlN = nt => nt == null ? '<span class="tb-sin">–</span>' : '<span class="tl-nv">' + TL_NUBE + nt.toFixed(1) + '</span>';
+const fcOrd = k => fcSt().ord[k] || 'plones';
+function fcOrdenar(l, k, clave) {   // por plones (los sin calificar al final) o por año / número
+  const c = l.slice();
+  if (fcOrd(k) === 'plones') c.sort(function (a, b) { return tlNota(b) - tlNota(a) || b.creado - a.creado; });
+  else c.sort(function (a, b) { return (clave(a) || 1e9) - (clave(b) || 1e9) || a.creado - b.creado; });
+  return c;
+}
+function fcOrdHTML(k, lab, n) {
+  if (n < 2) return '';
+  const o = fcOrd(k);
+  return '<div class="fc-ord" role="group" aria-label="Ordenar por"><span>Ordenar</span><button type="button" aria-pressed="' + (o === 'plones') + '" data-action="fc-ord" data-k="' + k + '" data-o="plones">Plones</button>' +
+    '<button type="button" aria-pressed="' + (o !== 'plones') + '" data-action="fc-ord" data-k="' + k + '" data-o="num">' + esc(lab) + '</button></div>';
+}
+function fcDesc(txt) {   // dos líneas y «Ver más» si es larga
+  if (!txt) return '';
+  const largo = txt.length > 110 || txt.split('\n').length > 2;
+  return '<div class="fc-desc"><p class="fc-d">' + esc(txt) + '</p>' + (largo ? '<button type="button" class="link-b fc-vm" data-action="fc-vm" aria-expanded="false">Ver más</button>' : '') + '</div>';
+}
+
+/* --- Tabla desplegable: una fila que se abre dentro de la misma lista --- */
+function fcFilaG(o) {
+  const key = o.key, ab = !!fcSt().tb[key], nv = o.nt != null ? nivel(o.nt) : null;
+  return '<div class="tb-f' + (ab ? ' ab' : '') + '" data-tb="' + esc(key) + '"' + (nv ? ' style="--vc:' + nv.color + '"' : '') + '>' +
+    '<button type="button" class="tb-h" data-action="tb" data-k="' + esc(key) + '" aria-expanded="' + ab + '"><span class="tb-n">' + esc(o.titulo) + (o.sub ? ' <small>· ' + esc(o.sub) + '</small>' : '') + '</span>' + fcPlN(o.nt) + FC_I.chev + '</button>' +
+    '<div class="tb-c">' + (o.cuerpo || '') + '</div></div>';
+}
+const fcFila = (x, o) => fcFilaG(Object.assign({ key: 'f.' + x.id + ((o && o.k) || ''), titulo: x.titulo || 'Sin título', nt: notaDe(x), cuerpo: fcDesc(fcTxt(x)) }, o || {}));
+const fcAbrir = x => '<a class="btn tb-ab" href="#modulo-' + x.id + '">Abrir ficha completa ›</a>';
+function fcPlay(x, txt) {   // ▶ de una canción con enlace: YouTube suena aquí mismo; lo demás abre el enlace
+  const u = String((x.datos || {}).url || ''); if (!urlOk(u)) return '';
+  const lab = txt ? '<span>' + txt + '</span>' : '';
+  return ytId(u) ? '<button type="button" class="cn-play' + (txt ? ' cn-play-t' : '') + '" data-action="yt" data-u="' + esc(u) + '" aria-pressed="false" aria-label="Escuchar ' + esc(x.titulo || 'la canción') + '">' + FC_I.play + lab + '</button>'
+    : '<a class="cn-play' + (txt ? ' cn-play-t' : '') + '" href="' + esc(u) + '" target="_blank" rel="noopener noreferrer" aria-label="Abrir el enlace de ' + esc(x.titulo || 'la canción') + '">' + FC_I.play + lab + '</a>';
+}
+function fcCan(x, sub) {   // una canción (o episodio) dentro de otra tabla: nombre, plones, ▶ y su descripción
+  return '<div class="cn"><div class="cn-r"><a class="cn-n" href="#modulo-' + x.id + '">' + esc(x.titulo || 'Sin título') + (sub ? ' <small>· ' + esc(sub) + '</small>' : '') + '</a>' + fcPlN(notaDe(x)) + fcPlay(x) + '</div>' + fcDesc(fcTxt(x)) + '</div>';
+}
+const fcCanLista = (l, sub) => l.length ? '<div class="cn-l">' + l.map(function (x) { return fcCan(x, sub ? sub(x) : ''); }).join('') + '</div>' : '';
+const fcPorPlones = l => l.slice().sort(function (a, b) { return tlNota(b) - tlNota(a) || b.creado - a.creado; });
+
+/* --- La cabeza: imagen que se funde con el fondo, nombre, plones y el menú ⋯ --- */
+function fcMenuHTML(b, tj) {
+  const ab = fcSt().menu === b.id;
+  let h = '<div class="fc-menu-w' + (ab ? ' ab' : '') + '"><button type="button" class="fc-btn" data-action="fc-menu" data-id="' + b.id + '" aria-label="Más opciones" aria-haspopup="true" aria-expanded="' + ab + '">' + FC_I.mas + '</button><div class="fc-menu" role="menu">';
+  h += '<a class="fc-mi" role="menuitem" href="#semilla-' + b.id + '">Editar ficha completa</a>';
+  if (tj.privado) h += '<span class="fc-mi fc-mi-i">Solo tú. Aquí nada se publica.</span>';
+  else h += '<button type="button" class="fc-mi" role="menuitem" data-action="mod-pub" data-id="' + b.id + '" aria-pressed="' + !!b.publica + '">' + (b.publica ? 'Volver privada' : 'Hacer pública') + '<small>' + (b.publica ? 'Pública' : 'Privada') + '</small></button>';
+  if (b.tipo !== 'persona') h += '<button type="button" class="fc-mi" role="menuitem" data-action="mod-mover" data-id="' + b.id + '" aria-expanded="' + (estado.moMover === b.id) + '">Mover de tejido<small>' + esc(tj.nombre) + '</small></button>';
+  if (b.tipo !== 'persona' && estado.moMover === b.id) h += '<div class="chips sm mo-mv">' + TEJIDOS.filter(function (x) { return !x.oculto; }).map(function (x) { return '<button type="button" class="chip" aria-pressed="' + (x.id === b.tejido) + '" data-action="mod-tej" data-id="' + b.id + '" data-t="' + x.id + '">' + esc(x.nombre) + '</button>'; }).join('') + '</div>';
+  if (b.tipo === 'pelicula') h += '<button type="button" class="fc-mi per-conv" role="menuitem" data-action="per-convertir" data-id="' + b.id + '">Convertir en ficha de persona</button>';
+  return h + '</div></div>';
+}
+function fcHeroHTML(b, t, tj, dueno) {
+  const u = fichaImgUrl(b, true), d = b.datos || {}, nt = notaDe(b), nv = nt != null ? nivel(nt) : null;
+  const ano = b.tipo === 'banda' ? (d.fundacion ? 'Desde ' + d.fundacion : '') : b.tipo === 'persona' ? (d.nacio ? 'Nació en ' + d.nacio : '') : (d.estreno ? String(d.estreno) : '');
+  const ey = (b.tipo === 'persona' ? ['Persona', perRolTxt(b), ano] : [tj.nombre, t.nombre, ano]).filter(Boolean).map(esc).join(' · ');
+  const atras = b.tipo === 'persona' ? ['#tejido-' + (perRol(b) === 'actor' ? 'actores' : 'directores'), perRol(b) === 'actor' ? 'Actores' : 'Directores'] : ['#tejido-' + tj.id, tj.nombre];
+  const sub = (b.etiquetas || []).slice(0, 3).concat(d.pais ? [d.pais] : [], !b.publica ? ['Privada'] : []);
+  return '<header class="fc-hero' + (u ? '' : ' sin') + '">' + (u ? '<div class="fc-img"><img src="' + esc(u) + '" alt="' + esc(b.titulo) + '"></div>' : '') +
+    '<div class="fc-bar"><a class="volver fc-btn" href="' + atras[0] + '"><span class="vh">' + esc(atras[1]) + '</span>' + FC_I.atras + '</a>' + (dueno ? fcMenuHTML(b, tj) : '') + '</div>' +
+    '<div class="fc-tit"><div class="fc-tx"><p class="sem-ey fc-ey">' + ey + '</p><h1 class="mo-h fc-h">' + esc(b.titulo || 'Sin título') + '</h1></div>' +
+    (nv ? '<div class="mo-nota fc-pl" style="--vc:' + nv.color + '"><span class="fc-pn">' + TL_NUBE + '<b>' + nt.toFixed(1) + '</b></span><small class="vb-pal">' + esc(nv.nombre) + '</small></div>' : '') + '</div>' +
+    (sub.length ? '<p class="fc-sub">' + sub.map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</p>' : '') + recLineaHTML(b) + '</header>';
+}
+
+/* --- Mi reseña (con su título), Ficha y Reparto --- */
+function fcResenaHTML(b, dueno) {
+  const hoja = !!estado.minis[hjClave('semilla', b.id)], mini = estado.minis[hjClave('semilla', b.id)], texto = fcTxt(b), rt = String((b.datos || {}).rtit || '').trim();
+  let h = rt ? '<h3 class="fc-rt">' + esc(rt) + '</h3>' : '';
+  if (hoja) {
+    h += '<div class="mo-res-s"><button type="button" class="mo-cuaderno" data-action="mod-libro" data-id="' + b.id + '" aria-label="Abrir la reseña como un libro">' + (hjUrlOk(mini) ? '<img src="' + mini + '" alt="Primera página de la reseña">' : '<span class="mo-cv">Cuaderno</span>') + '<span class="mo-cv-b">Abrir el cuaderno</span></button>' +
+      '<button type="button" class="link-b mo-txt-b" data-action="mod-leer" data-id="' + b.id + '" aria-expanded="' + (estado.moLeer === b.id) + '">' + (estado.moLeer === b.id ? 'Ocultar el texto' : 'Leer como texto') + '</button>' +
+      (estado.moLeer === b.id ? '<div class="mo-lee">' + hojaLecturaHTML('semilla', b.id) + '</div>' : '') + '</div>';
+  } else if (texto) {
+    h += '<div class="prosa">' + texto.split(/\n{2,}/).map(function (p) { return '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>'; }).join('') + '</div>';
+  } else {
+    h += '<p class="ayuda">' + (dueno ? 'Todavía no escribes tu reseña.' : 'Sin reseña todavía.') + '</p>' + (dueno ? '<a class="btn fc-esc" href="#semilla-' + b.id + '" data-action="mod-resena" data-id="' + b.id + '">+ Escribir reseña</a>' : '');
+  }
+  return h;
+}
+function fcFichaHTML(b, t) {
+  const d = b.datos || {}, filas = [];
+  (t.campos || []).forEach(function (c) {
+    const v = d[c.k]; if (!v || (b.tipo === 'pelicula' && c.k === 'director')) return;
+    filas.push([c.l.replace(/ \(.*\)$/, ''), c.k === 'url' ? (urlOk(v) ? '<a href="' + esc(v) + '" target="_blank" rel="noopener noreferrer">Abrir el enlace</a>' : esc(v)) : esc(v)]);
+  });
+  if (b.tipo === 'persona') filas.unshift(['Rol', esc(perRolTxt(b))]);
+  if (b.fecha) filas.push([(t.fechaL || 'Fecha').replace(/^¿/, '').replace(/\?$/, ''), esc(fechaFicha(b.fecha))]);
+  const chips = (b.etiquetas || []).length ? '<div class="chips-ro">' + b.etiquetas.map(function (e) { return '<span>#' + esc(e) + '</span>'; }).join('') + '</div>' : '';
+  if (!filas.length && !chips) return '';
+  return (filas.length ? '<dl class="mo-datos">' + filas.map(function (f) { return '<div><dt>' + esc(f[0]) + '</dt><dd>' + f[1] + '</dd></div>'; }).join('') + '</dl>' : '') + chips;
+}
+function fcGenteHTML(b, dueno) {
+  const dir = b.tipo === 'pelicula' ? perNombres(b.datos.director) : [], rep = perNombres(b.datos.reparto);
+  if (!dir.length && !rep.length) return '';
+  return '<div class="per-gente">' + (dir.length ? '<p class="per-l">Dirección</p><div class="per-cs">' + dir.map(function (n) { return perChip(n, 'director', dueno); }).join('') + '</div>' : '') +
+    (rep.length ? '<p class="per-l">Reparto</p><div class="per-cs">' + rep.map(function (n) { return perChip(n, 'actor', dueno); }).join('') + '</div>' : '') + '</div>';
+}
+
+/* --- Música: álbumes y canciones de una banda, canciones de un álbum --- */
+function fcMusObras(b, dueno) {
+  const k = norm(String(b.titulo || '').trim());
+  const mias = function (x) { return x.id !== b.id && (dueno || x.publica) && k && norm(String((x.datos || {}).banda || '').trim()) === k; };
+  return { albs: estado.semillas.filter(function (x) { return x.tipo === 'album' && mias(x); }), cans: estado.semillas.filter(function (x) { return x.tipo === 'cancion' && mias(x); }) };
+}
+function fcAlbCuerpo(x, dueno) {
+  const cs = fcPorPlones(albCanciones(x, dueno));
+  return fcDesc(fcTxt(x)) + (cs.length ? '<p class="tb-l">Canciones favoritas</p>' + fcCanLista(cs) : '<p class="ayuda tb-v">Todavía no hay canciones de este álbum.</p>') +
+    '<div class="tb-pie">' + (dueno ? '<button type="button" class="btn" data-action="fc-nueva-can" data-id="' + x.id + '">+ Canción</button>' : '') + fcAbrir(x) + '</div>';
+}
+function fcAlbumesHTML(b, dueno) {
+  const o = fcMusObras(b, dueno), l = fcOrdenar(o.albs, 'alb', fcNum), p = serProm(o.albs);
+  return (p ? perProm(p.v, p.n) : '') + fcOrdHTML('alb', 'Año', l.length) +
+    (l.length ? '<div class="tbl">' + l.map(function (x) { return fcFila(x, { sub: (x.datos || {}).estreno || '', cuerpo: fcAlbCuerpo(x, dueno) }); }).join('') + '</div>' : '<p class="ayuda">Todavía no hay álbumes de esta banda.' + (dueno ? ' Toca «+ Álbum».' : '') + '</p>');
+}
+function fcCancionFila(x, sub) {
+  return fcFila(x, { sub: sub || '', cuerpo: fcDesc(fcTxt(x)) + '<div class="cn cn-b"><div class="cn-r">' + fcPlay(x, 'Escuchar') + fcAbrir(x) + '</div></div>' });
+}
+function fcCancionesBandaHTML(b, dueno) {
+  const o = fcMusObras(b, dueno), l = fcOrdenar(o.cans, 'can', function () { return 0; });
+  return fcOrdHTML('can', 'Orden', l.length) + (l.length ? '<div class="tbl">' + l.map(function (x) { return fcCancionFila(x, (x.datos || {}).album || ''); }).join('') + '</div>' : '<p class="ayuda">Todavía no hay canciones de esta banda.</p>');
+}
+function fcCancionesAlbumHTML(b, dueno) {
+  const l0 = albCanciones(b, dueno), l = fcOrdenar(l0, 'can', function () { return 0; }), p = serProm(l0);
+  return (p ? perProm(p.v, p.n) : '') + fcOrdHTML('can', 'Orden', l.length) + (l.length ? '<div class="tbl">' + l.map(function (x) { return fcCancionFila(x, ''); }).join('') + '</div>' : '<p class="ayuda">Todavía no hay canciones de este álbum.' + (dueno ? ' Toca «+ Canción».' : '') + '</p>');
+}
+function fcMusLinks(b, dueno) {   // la banda y el álbum de una canción, o la banda de un álbum
+  const vis = function (x) { return dueno || x.publica; }, banda = String((b.datos || {}).banda || '').trim(), k = norm(banda);
+  let h = '';
+  if (k) {
+    const ban = estado.semillas.filter(function (x) { return x.tipo === 'banda' && vis(x) && norm(String(x.titulo || '').trim()) === k; })[0];
+    h += ban ? '<a class="mus-ban" href="#modulo-' + ban.id + '" style="--tc:' + tejidoDe('musica').color + '">Ficha de ' + esc(ban.titulo) + ' ›</a>'
+      : (dueno ? '<button type="button" class="btn" data-action="mus-crear-banda" data-n="' + esc(banda) + '">Crear la ficha de ' + esc(banda) + '</button>' : '');
+  }
+  if (b.tipo === 'cancion' && String((b.datos || {}).album || '').trim()) {
+    const nombre = String(b.datos.album).trim(), a = albDe(b);
+    h += a && vis(a) ? '<a class="mus-ban" href="#modulo-' + a.id + '" style="--tc:' + tejidoDe('musica').color + '">Álbum · ' + esc(a.titulo) + ' ›</a>'
+      : (dueno ? '<button type="button" class="btn" data-action="mus-crear-album" data-n="' + esc(nombre) + '" data-b="' + esc(banda) + '">Crear la ficha del álbum</button>' : '<span class="ayuda">Álbum: ' + esc(nombre) + '</span>');
+  }
+  return h;
+}
+
+/* --- Series: temporadas → episodios --- */
+function fcSerieLink(b, dueno) {
+  const p = serieDe(b), nombre = String((b.datos || {}).serie || '').trim(); let h = '';
+  if (p) h += '<a class="mus-ban" href="#modulo-' + p.id + '" style="--tc:' + tejidoDe(p.tejido).color + '">Serie · ' + esc(p.titulo) + ' ›</a>';
+  else if (nombre) h += '<span class="ayuda">Serie: ' + esc(nombre) + '</span>' + (dueno ? '<button type="button" class="btn" data-action="ser-crear" data-n="' + esc(nombre) + '">Crear ficha de la serie</button>' : '');
+  if (b.tipo === 'episodio' && p && serNum(b)) {
+    const tm = serHijas(p, 'temporada', dueno).filter(function (x) { return serNum(x) === serNum(b); })[0];
+    if (tm) h += '<a class="mus-ban" href="#modulo-' + tm.id + '" style="--tc:' + tejidoDe(tm.tejido).color + '">Temporada ' + serNum(b) + ' ›</a>';
+  }
+  return h;
+}
+function fcTemporadasHTML(b, dueno) {
+  const tmps = serHijas(b, 'temporada', dueno), epis = serHijas(b, 'episodio', dueno), nums = {};
+  tmps.concat(epis).forEach(function (x) { const n = serNum(x); if (n) nums[n] = 1; });
+  let filas = Object.keys(nums).map(function (n) { n = +n; return { n: n, tm: tmps.filter(function (x) { return serNum(x) === n; })[0] || null, es: epis.filter(function (x) { return serNum(x) === n; }) }; });
+  if (fcOrd('tmp') === 'plones') filas.sort(function (a, c) { return (c.tm ? tlNota(c.tm) : -1) - (a.tm ? tlNota(a.tm) : -1) || a.n - c.n; }); else filas.sort(function (a, c) { return a.n - c.n; });
+  const sueltos = epis.filter(function (x) { return !serNum(x); }), p = serProm(tmps);
+  const cuerpoT = function (f) {
+    return (f.tm ? fcDesc(fcTxt(f.tm)) : '<p class="ayuda tb-v">Temporada sin calificar.</p>') +
+      (f.es.length ? '<p class="tb-l">Episodios</p>' + fcCanLista(fcPorPlones(f.es)) : '') +
+      '<div class="tb-pie">' + (dueno ? '<button type="button" class="btn" data-action="fc-nuevo-epi" data-id="' + b.id + '" data-n="' + f.n + '">+ Episodio</button>' : '') + (f.tm ? fcAbrir(f.tm) : (dueno ? '<button type="button" class="btn" data-action="ser-temp" data-id="' + b.id + '">Calificar la temporada</button>' : '')) + '</div>';
+  };
+  let h = (p ? perProm(p.v, p.n) : '') + fcOrdHTML('tmp', 'Número', filas.length);
+  h += filas.length || sueltos.length ? '<div class="tbl ser-ts">' + filas.map(function (f) { return fcFilaG({ key: 't.' + b.id + '.' + f.n, titulo: 'Temporada ' + f.n, nt: f.tm ? notaDe(f.tm) : null, sub: f.es.length ? f.es.length + (f.es.length === 1 ? ' episodio' : ' episodios') : '', cuerpo: cuerpoT(f) }); }).join('') +
+    (sueltos.length ? fcFilaG({ key: 't.' + b.id + '.0', titulo: 'Otros episodios', nt: null, sub: sueltos.length + '', cuerpo: fcCanLista(fcPorPlones(sueltos)) }) : '') + '</div>'
+    : '<p class="ayuda">Todavía no has calificado temporadas ni episodios de esta serie.</p>';
+  return h;
+}
+function fcEpisodiosHTML(b, dueno) {   // los episodios de una temporada
+  const p = serieDe(b), n = serNum(b);
+  const l = p && n ? serHijas(p, 'episodio', dueno).filter(function (x) { return serNum(x) === n; }) : [], pr = serProm(l);
+  return (pr ? perProm(pr.v, pr.n) : '') + fcOrdHTML('epi', 'Orden', l.length) +
+    (l.length ? '<div class="tbl">' + fcOrdenar(l, 'epi', function () { return 0; }).map(function (x) { return fcFila(x, {}); }).join('') + '</div>' : '<p class="ayuda">Todavía no hay episodios calificados de esta temporada.</p>');
+}
+function fcHermanosHTML(b, dueno) {
+  const p = serieDe(b); if (!p) return '';
+  const l = serHijas(p, b.tipo, dueno).filter(function (x) { return x.id !== b.id && (b.tipo !== 'episodio' || serNum(x) === serNum(b)); }).sort(function (a, c) { return serNum(a) - serNum(c) || a.creado - c.creado; });
+  return l.length ? '<div class="tl-lista">' + l.map(function (x) { return tlFila(x, 0); }).join('') + '</div>' : '';
+}
+
+/* --- Director o actor: sus películas y series --- */
+function fcPersonaHTML(b, dueno) {
+  const o = perObras(b, dueno);
+  const caja = function (k, tit, l, ayuda) {
+    const p = serProm(l);
+    return fcCaja(b, k, tit, l.length, (p ? perProm(p.v, p.n) : '') + fcOrdHTML(k, 'Año', l.length) +
+      (l.length ? '<div class="tbl">' + fcOrdenar(l, k, fcNum).map(function (x) { return fcFila(x, { sub: [x.tipo === 'serie' ? 'Serie' : '', (x.datos || {}).estreno || ''].filter(Boolean).join(' · '), cuerpo: fcDesc(fcTxt(x)) + '<div class="tb-pie">' + fcAbrir(x) + '</div>' }); }).join('') + '</div>' : '<p class="ayuda">' + ayuda + '</p>'), { def: true });
+  };
+  let h = '';
+  if (perEsDir(b) || o.dir.length) h += caja('dir', 'Dirigió', o.dir, 'Todavía no hay películas tuyas dirigidas por ' + esc(b.titulo) + '. Escribe su nombre en el campo Director de una película.');
+  if (perEsAct(b) || o.act.length) h += caja('act', 'Actuó en', o.act, 'Todavía no hay películas o series con ' + esc(b.titulo) + ' en el reparto. Agrégalo en el Reparto de la ficha.');
+  return h;
+}
+
+/* --- La ficha completa --- */
+function vistaModulo(id) {
+  const b = fcPorId(id);
+  if (!b || !tipoDe(b.tipo).ficha) return vistaModulo_v35(id);
+  const dueno = !!estado.sesion, t = tipoDe(b.tipo), tj = tejidoDe(b.tejido), nt = notaDe(b), nv = nt != null ? nivel(nt) : null;
+  const cajas = [], hay = function (x) { return !!x; };
+  const resena = function () {
+    const tiene = !!estado.minis[hjClave('semilla', b.id)] || fcTxt(b) || (b.datos || {}).rtit;
+    if (!tiene && !dueno) return;
+    cajas.push(fcCaja(b, 'resena', 'Mi reseña', null, fcResenaHTML(b, dueno), { def: !!tiene, ac: dueno ? fcLapiz('#semilla-' + b.id, 'Editar la reseña', ' data-action="mod-resena" data-id="' + b.id + '"') : '' }));
+  };
+  const ficha = function () {
+    const f = fcFichaHTML(b, t); if (!f && !dueno) return;
+    cajas.push(fcCaja(b, 'ficha', 'Ficha', null, f || '<p class="ayuda">Todavía no hay datos.</p>', { ac: dueno ? fcLapiz('#semilla-' + b.id, 'Editar la ficha') : '' }));
+  };
+  const gente = function (tit, def) {
+    const g = fcGenteHTML(b, dueno); if (!g) return;
+    cajas.push(fcCaja(b, 'gente', tit, null, g, { def: def, ac: dueno ? fcLapiz('#semilla-' + b.id, 'Editar la dirección y el reparto') : '' }));
+  };
+  let links = '';
+  if (b.tipo === 'banda') {
+    const o = fcMusObras(b, dueno);
+    cajas.push(fcCaja(b, 'alb', 'Álbumes', o.albs.length, fcAlbumesHTML(b, dueno), { def: true, ac: dueno ? fcMas('fc-nuevo-alb', b.id, '+ Álbum') : '' }));
+    cajas.push(fcCaja(b, 'can', 'Canciones', o.cans.length, fcCancionesBandaHTML(b, dueno), { ac: dueno ? fcMas('fc-nueva-can', b.id, '+ Canción') : '' }));
+    resena(); ficha();
+  } else if (b.tipo === 'album') {
+    links = fcMusLinks(b, dueno);
+    cajas.push(fcCaja(b, 'can', 'Canciones', albCanciones(b, dueno).length, fcCancionesAlbumHTML(b, dueno), { def: true, ac: dueno ? fcMas('fc-nueva-can', b.id, '+ Canción') : '' }));
+    resena(); ficha();
+  } else if (b.tipo === 'cancion') {
+    links = fcMusLinks(b, dueno);
+    const pl = fcPlay(b, 'Escuchar');
+    if (pl) cajas.push(fcCaja(b, 'oir', 'Escuchar', null, '<div class="cn cn-b"><div class="cn-r">' + pl + '</div></div>', { def: true }));
+    resena(); ficha();
+  } else if (b.tipo === 'pelicula') {
+    resena(); gente('Dirección y reparto', true); ficha();
+  } else if (b.tipo === 'serie') {
+    const tm = serHijas(b, 'temporada', dueno), ep = serHijas(b, 'episodio', dueno), nn = {};
+    tm.concat(ep).forEach(function (x) { if (serNum(x)) nn[serNum(x)] = 1; });
+    if (dueno || tm.length || ep.length) cajas.push(fcCaja(b, 'tmp', 'Temporadas', Object.keys(nn).length, fcTemporadasHTML(b, dueno), { def: true, ac: dueno ? fcMas('ser-temp', b.id, '+ Temporada') : '' }));
+    gente('Reparto', false); resena(); ficha();
+  } else if (b.tipo === 'persona') {
+    cajas.push(fcPersonaHTML(b, dueno)); resena(); ficha();
+  } else if (b.tipo === 'temporada') {
+    links = fcSerieLink(b, dueno);
+    const ne = serieDe(b) && serNum(b) ? serHijas(serieDe(b), 'episodio', dueno).filter(function (x) { return serNum(x) === serNum(b); }).length : 0;
+    cajas.push(fcCaja(b, 'epi', 'Episodios', ne, fcEpisodiosHTML(b, dueno), { def: true, ac: dueno && serieDe(b) ? fcMas('fc-nuevo-epi', b.id, '+ Episodio') : '' }));
+    resena(); ficha();
+    const h = fcHermanosHTML(b, dueno); if (h) cajas.push(fcCaja(b, 'otras', 'Otras temporadas', null, h));
+  } else if (b.tipo === 'episodio') {
+    links = fcSerieLink(b, dueno);
+    resena(); ficha();
+    const h = fcHermanosHTML(b, dueno); if (h) cajas.push(fcCaja(b, 'otros', 'Otros episodios', null, h));
+  } else { resena(); ficha(); }
+  return '<article class="mo fc" style="--tc:' + tj.color + (nv ? ';--vc:' + nv.color : '') + '">' + fcHeroHTML(b, t, tj, dueno) +
+    (links ? '<div class="fc-links ser-rel">' + links + '</div>' : '') + '<div class="fc-cajas">' + cajas.filter(hay).join('') + '</div></article>';
+}
+
+/* --- Reproductor de YouTube: solo se carga al tocar ▶, uno a la vez, debajo de la canción --- */
+function ytToggle(btn) {
+  const fila = btn.closest('.cn'); if (!fila) return;
+  const abierto = fila.querySelector('.yt-box');
+  document.querySelectorAll('.yt-box').forEach(function (x) { x.remove(); });
+  document.querySelectorAll('.cn-play[aria-pressed="true"]').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+  if (abierto) return;
+  const u = btn.dataset.u, id = ytId(u); if (!id) { window.open(u, '_blank', 'noopener'); return; }
+  const box = document.createElement('div'); box.className = 'yt-box';
+  box.innerHTML = '<div class="yt-v"><iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&playsinline=1&rel=0" title="Reproductor de YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>' +
+    '<a class="link-b yt-a" href="' + esc(u) + '" target="_blank" rel="noopener noreferrer">Abrir en YouTube</a>';
+  fila.appendChild(box); btn.setAttribute('aria-pressed', 'true');
+}
+
+/* --- Crear desde la ficha: álbum de una banda, canción de un álbum o banda, episodio de una temporada --- */
+function fcNuevoAlbum(id) {
+  const x = fcPorId(id); if (!x || x.tipo !== 'banda') return;
+  estado.albPre = { n: '', b: x.titulo }; estado.volverPre = '#modulo-' + x.id; location.hash = '#sembrar-album';
+}
+function fcNuevaCancion(id) {
+  const x = fcPorId(id); if (!x) return;
+  estado.canPre = x.tipo === 'album' ? { b: String((x.datos || {}).banda || ''), a: x.titulo || '' } : { b: x.titulo || '', a: '' };
+  estado.volverPre = '#modulo-' + x.id; location.hash = '#sembrar-cancion';
+}
+function fcNuevoEpisodio(id, n) {
+  const x = fcPorId(id); if (!x) return;
+  const p = x.tipo === 'serie' ? x : serieDe(x), nom = p ? p.titulo : String((x.datos || {}).serie || '');
+  estado.serPre = { id: p ? p.id : '', titulo: nom }; estado.epiN = String(n != null && n !== '' ? n : (x.tipo === 'temporada' ? serNum(x) : '')) || '';
+  estado.volverPre = '#modulo-' + x.id; location.hash = '#sembrar-episodio';
+}
+function iniciarSemilla(tipo, id) {
+  const vol = estado.volverPre, cp = estado.canPre, en = estado.epiN; estado.volverPre = null; estado.canPre = null; estado.epiN = null;
+  iniciarSemilla_v35(tipo, id);
+  const m = estado.sem; if (!m || m.faltante || id) return;
+  if (vol) m.volver = vol;
+  if (cp && m.tipo === 'cancion') { if (cp.b) m.datos.banda = cp.b; if (cp.a) m.datos.album = cp.a; m.tocado = true; }
+  if (en && en !== '0' && m.tipo === 'episodio') { m.datos.temporada = String(en); m.tocado = true; }
+}
+// el pop-up de un álbum o canción nuevo: descripción larga que crece sola, y el ✕ vuelve de donde venías
+function popHTML(s) {
+  let h = popHTML_v35(s); const t = tipoDe(s.tipo);
+  if (t.descPop) {
+    const i = h.indexOf('<section class="pop-nota"');
+    if (i >= 0) h = h.slice(0, i) + '<label class="fx-c fc-dsc"><span class="fi-l">' + esc(t.descPop) + '</span><textarea id="pop-desc" class="in fc-ta" rows="3" placeholder="Lo que quieras contar. Puede ser largo.">' + esc(s.contenido || '') + '</textarea></label>' + h.slice(i);
+  }
+  if (s.volver && !s.base) h = h.replace('href="#inicio" aria-label="Cerrar"', function () { return 'href="' + esc(s.volver) + '" aria-label="Cerrar"'; });
+  return h;
+}
+document.addEventListener('input', function (e) {
+  const t = e.target, s = estado.sem; if (!t || !s) return;
+  if (t.id === 'pop-desc') { s.contenido = t.value; autoTam(t); marcarSem(); }
+});
+async function guardarSemilla() {
+  const s = estado.sem, vol = s && !s.base ? s.volver : '';
+  if (s && s.datos && s.datos.url) s.datos.url = urlLimpia(s.datos.url);
+  await guardarSemilla_v35();
+  if (vol && !estado.sem && /^#modulo-/.test(location.hash)) location.hash = vol;
+}
+// el título de la reseña, arriba de la página donde la escribes
+function formSemillaHTML(s) {
+  const h = formSemillaHTML_v35(s);
+  if (!tipoDe(s.tipo).ficha) return h;
+  const m = '<section class="mod fi-resena">'; if (h.indexOf(m) < 0) return h;
+  return h.replace(m, function () { return m + '<label class="fx-c rt-c"><span class="fi-l">Título de tu reseña</span><input class="in rt-in" type="text" maxlength="100" data-campo="rtit" placeholder="Ej: Pantano, frío y guitarras" value="' + esc((s.datos || {}).rtit || '') + '" autocomplete="off"></label>'; });
+}
+function sugerenciasCampo(t, c) {
+  if (c.sug !== 'pais') return sugerenciasCampo_v35(t, c);
+  const vistas = {}, out = [], poner = function (n) { n = String(n || '').trim(); const k = norm(n); if (k && !vistas[k]) { vistas[k] = 1; out.push(n); } };
+  estado.semillas.forEach(function (x) { String((x.datos || {}).pais || '').split(',').forEach(poner); });
+  PAISES.forEach(poner);
+  return out;
+}
+FL_TXT.pais = { lab: 'País', f: function (s) { return String((s.datos || {}).pais || '').split(',').map(function (x) { return x.trim(); }).filter(Boolean); } };
+FL_TXT_K.push('pais');
+
+/* --- Clics de la ficha nueva --- */
+document.addEventListener('click', function (e) {   // el menú ⋯ se cierra al tocar fuera
+  const st = estado.fc; if (!st || !st.menu) return;
+  const a = e.target.closest ? e.target.closest('[data-action]') : null, ac = a ? a.dataset.action : '';
+  if (ac === 'fc-menu' || ac === 'mod-mover') return;
+  st.menu = ''; const w = document.querySelector('.fc-menu-w.ab');
+  if (w) { w.classList.remove('ab'); const bt = w.querySelector('[data-action="fc-menu"]'); if (bt) bt.setAttribute('aria-expanded', 'false'); }
+});
+function fcClic(a, b) {
+  const st = fcSt();
+  switch (a) {
+    case 'cj': {
+      const caja = b.closest('.cj'); if (!caja) return true;
+      const n = !caja.classList.contains('ab'); caja.classList.toggle('ab', n); st.cj[b.dataset.k] = n;
+      const t = caja.querySelector('.cj-t'); if (t) t.setAttribute('aria-expanded', String(n)); return true;
+    }
+    case 'tb': { const f = b.closest('.tb-f'); if (!f) return true; const n = !f.classList.contains('ab'); f.classList.toggle('ab', n); b.setAttribute('aria-expanded', String(n)); st.tb[b.dataset.k] = n; return true; }
+    case 'fc-vm': { const p = b.parentNode.querySelector('.fc-d'); if (!p) return true; const t = p.classList.toggle('todo'); b.textContent = t ? 'Ver menos' : 'Ver más'; b.setAttribute('aria-expanded', String(t)); return true; }
+    case 'fc-ord': st.ord[b.dataset.k] = b.dataset.o; render(false); return true;
+    case 'fc-menu': { const w = b.closest('.fc-menu-w'); if (!w) return true; const n = !w.classList.contains('ab'); w.classList.toggle('ab', n); b.setAttribute('aria-expanded', String(n)); st.menu = n ? b.dataset.id : ''; return true; }
+    case 'yt': ytToggle(b); return true;
+    case 'fc-nuevo-alb': fcNuevoAlbum(b.dataset.id); return true;
+    case 'fc-nueva-can': fcNuevaCancion(b.dataset.id); return true;
+    case 'fc-nuevo-epi': fcNuevoEpisodio(b.dataset.id, b.dataset.n); return true;
+  }
+  return false;
 }
 
 /* --- Un módulo: la ficha completa y su reseña --- */
@@ -6599,7 +7119,7 @@ function campoHTML(t, s, c, dl) {
   const lista = sugerenciasCampo(t, c);
   if (lista.length) dl.push('<datalist id="dl-' + c.k + '">' + lista.map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>');
   return '<label class="fx-c"><span class="fi-l">' + esc(c.lab || (c.num ? 'Año' : c.l)) + '</span><input class="in" type="text" data-campo="' + c.k + '"' + (lista.length ? ' list="dl-' + c.k + '"' : '') +
-    (c.num ? ' inputmode="numeric" maxlength="4"' : ' maxlength="80"') + ' placeholder="' + esc(c.ph || '') + '" value="' + esc(s.datos[c.k] || '') + '" autocomplete="off"></label>';
+    (c.num ? ' inputmode="numeric" maxlength="4"' : c.url ? ' inputmode="url" autocapitalize="none" maxlength="200"' : ' maxlength="80"') + ' placeholder="' + esc(c.ph || '') + '" value="' + esc(s.datos[c.k] || '') + '" autocomplete="off"></label>';
 }
 const ICO_X = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 function popHTML_v32(s) {
@@ -6639,7 +7159,7 @@ function abrirPop() {
 }
 
 /* ---------- La pantalla completa: textos, y la página de la reseña de una ficha ---------- */
-function formSemillaHTML(s) {
+function formSemillaHTML_v35(s) {
   const t = tipoDe(s.tipo);
   const atras = !s.base ? '#inicio' : (t.ficha ? '#modulo-' + s.id : '#tejido-' + s.tejido);
   const volver = '<a class="volver" href="' + atras + '"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Volver</a>';
@@ -6814,7 +7334,7 @@ function modTejido(id, t) {
 /* ---------- La ficha / el formulario de una semilla ---------- */
 
 /* ---------- Guardar ---------- */
-async function guardarSemilla() {
+async function guardarSemilla_v35() {
   const s = estado.sem; if (!s || s.faltante || estado.guardando) return;
   if (!estado.sesion || !sb) { errorSem('Necesitas iniciar sesión para guardar.'); return; }
   const t = tipoDe(s.tipo);
@@ -7408,6 +7928,7 @@ function renderSuave() {
   const a = document.activeElement;
   if (a && /^(com-texto|login-email|login-clave|olvide-email|clave-1|clave-2)$/.test(a.id)) return;
   if (a && a.classList && (a.classList.contains('fl-c') || a.classList.contains('fl-bus'))) return;
+  if (document.querySelector('.yt-box')) return;
   render(false);
 }
 
@@ -8136,6 +8657,7 @@ document.addEventListener('click', function (e) {
     case 'per-ambos': { const s = estado.sem; if (s && s.tipo === 'persona') { const prim = s.perPrim || (perRol(s) === 'actor' ? 'actor' : 'director'); s.datos.rol = b.checked ? 'ambos' : prim; s.perPrim = prim; marcarSem(); } break; }
     case 'ser-crear': estado.serNueva = b.dataset.n || ''; location.hash = '#sembrar-serie'; break;
     case 'mus-crear-album': estado.albPre = { n: b.dataset.n || '', b: b.dataset.b || '' }; location.hash = '#sembrar-album'; break;
+    case 'cj': case 'tb': case 'fc-vm': case 'fc-ord': case 'fc-menu': case 'yt': case 'fc-nuevo-alb': case 'fc-nueva-can': case 'fc-nuevo-epi': fcClic(a, b); break;
     case 'rec-nueva': recAbrir(); break;
     case 'rec-cerrar': estado.recF = null; cerrarHoja('hoja-rec'); break;
     case 'rec-fmt': recFormato(b.dataset.f); break;
