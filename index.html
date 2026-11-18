@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=30">
-<link rel="icon" href="favicon.svg?v=30" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=30" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=30">
+<link rel="manifest" href="manifest.webmanifest?v=31">
+<link rel="icon" href="favicon.svg?v=31" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=31" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=31">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1145,7 +1145,7 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .humo-p.humo-c{background:radial-gradient(circle at 35% 35%,rgba(255,226,180,.95),rgba(255,154,60,.8) 60%,rgba(255,106,19,.45))}
 .humo-aro{border:2px solid rgba(255,154,60,.85);box-shadow:0 0 14px rgba(255,154,60,.5)}
 @media(prefers-reduced-motion:reduce){.pl-pop{animation:none}.humo-p,.humo-aro{display:none}}
-/* ---------- El telar (v30) ---------- */
+/* ---------- El telar (v30) y la madeja (v31) ---------- */
 .tl{max-width:720px}
 .tl-cab{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:2px 0 0}
 .tl-cab h1.pag{margin:0;font-size:clamp(1.7rem,7vw,2.1rem);line-height:1.05;color:var(--ink)}
@@ -1154,21 +1154,29 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .tl-rkb{flex:none;display:inline-flex;align-items:center;min-height:34px;padding:0 14px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim);font-weight:600;font-size:.8rem;background:rgba(255,255,255,.04);transition:border-color .2s,color .2s}
 .tl-rkb:hover,.tl-rkb:focus-visible{border-color:#ff9a3c;color:var(--ink)}
 .tl-hilos{display:grid;margin:14px 0 0}
-.tl-fila{display:flex;align-items:center;gap:10px;min-height:48px;min-width:0;color:inherit;border-radius:12px;transition:background .2s}
+.tl-fila{display:flex;align-items:center;gap:10px;min-height:42px;min-width:0;color:inherit;border-radius:12px;transition:background .2s}
 .tl-fila:hover,.tl-fila:focus-visible{background:rgba(255,255,255,.04)}
 .tl-apar{margin-top:6px}
 .tl-nom{flex:none;width:112px;display:grid;gap:2px}
 .tl-nom b{display:flex;align-items:center;gap:5px;font:600 .95rem/1.1 var(--display)}
 .tl-nom small{font-size:.7rem;color:var(--ink-dim)}
+.tl-cero .tl-nom b{color:var(--ink-dim)}
+.tl-cero .tl-nom small{color:var(--ink-faint)}
+/* la madeja: hebras que se cruzan, amarres y una cuenta en la punta; encima, la urdimbre da el por-encima / por-debajo */
+.tl-urd::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.2) 0 1px,transparent 1px 28px)}
+.tl-cd{position:absolute;left:0;top:0;display:block;width:100%;height:26px;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round;animation:tlOnda 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*-.7s)}
+.tl-cd path{stroke-dasharray:1;stroke-dashoffset:1;animation:tlDibuja 1.1s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i,0)*55ms)}
+.tl-cd .tl-am,.tl-cd .tl-bd{stroke-dasharray:none;stroke-dashoffset:0;opacity:0;animation:tlAparece .45s ease forwards;animation-delay:calc(var(--i,0)*55ms + .85s)}
+.tl-cd .tl-bd{stroke:none}
+@keyframes tlDibuja{to{stroke-dashoffset:0}}
+@keyframes tlAparece{to{opacity:1}}
+@keyframes tlOnda{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2px)}}
 .tl-lk{width:11px;height:11px;fill:none;stroke:var(--ink-faint);stroke-width:2.4;stroke-linecap:round}
-.tl-urd{position:relative;flex:1;height:24px;margin-right:10px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,transparent 1px 14px)}
-.tl-hilo,.tl-barra{background-color:var(--hc);background-image:repeating-linear-gradient(90deg,rgba(0,0,0,0) 0 5px,rgba(0,0,0,.32) 5px 8px),linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 45%,rgba(0,0,0,.28));transform-origin:left center;animation:tlEntra .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*45ms)}
-.tl-hilo{position:absolute;left:0;top:4px;height:16px;width:var(--w);border-radius:8px;overflow:hidden}
+.tl-urd{position:relative;flex:1;height:26px;margin-right:10px;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,transparent 1px 14px)}
+.tl-barra{background-color:var(--hc);background-image:repeating-linear-gradient(90deg,rgba(0,0,0,0) 0 5px,rgba(0,0,0,.32) 5px 8px),linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 45%,rgba(0,0,0,.28));transform-origin:left center;animation:tlEntra .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*45ms)}
 .tl-brillo{position:absolute;top:0;bottom:0;left:0;width:34%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);animation:tlBrillo 3.6s ease-in-out infinite}
-.tl-perla{position:absolute;top:3px;left:var(--w);width:18px;height:18px;margin-left:-4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.55),var(--hc) 60%);box-shadow:0 0 12px var(--hc);animation:tlPerla .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*45ms)}
 @keyframes tlEntra{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes tlBrillo{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
-@keyframes tlPerla{from{left:0;opacity:0}to{opacity:1}}
 .tl-sep{display:flex;align-items:center;gap:8px;height:26px;margin-top:6px;color:var(--ink-faint)}
 .tl-sep span{font:600 .62rem var(--display);letter-spacing:.16em;text-transform:uppercase}
 .tl-sep span:last-child{letter-spacing:0;text-transform:none;font-size:.66rem}
@@ -1222,12 +1230,28 @@ html.hj-abierto,html.hj-abierto body{overflow:hidden;overscroll-behavior:none}
 .tl-nv svg{width:17px;height:17px;fill:currentColor}
 .tl-n small{font-size:.62rem;color:var(--ink-dim)}
 @media(min-width:700px){
+  .tl-urd{height:34px}.tl-cd{height:34px}
   .tl-rec{grid-template-columns:repeat(6,minmax(0,1fr))}
   .tl-rec .tl-rc:nth-child(n+4){display:flex}
   .tl-nom{width:140px}
 }
 @media(min-width:900px){.tl-cu{width:112px}.tl-cu-t{font-size:.78rem}}
-@media(prefers-reduced-motion:reduce){.tl-hilo,.tl-barra,.tl-perla,.tl-brillo{animation:none}.tl-rc,.tl-cu,.tl-fila{transition:none}}
+@media(prefers-reduced-motion:reduce){.tl-barra,.tl-brillo,.tl-cd{animation:none}.tl-cd path{animation:none;stroke-dashoffset:0}.tl-cd .tl-am,.tl-cd .tl-bd{animation:none;opacity:1}.tl-rc,.tl-cu,.tl-fila{transition:none}}
+
+/* ---------- v31: Cuerdas (música) ---------- */
+.tl-tp{padding:1px 6px;border-radius:999px;background:color-mix(in srgb,var(--tc) 22%,transparent);color:var(--tc);font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.mus-sel{margin:0 0 10px}
+.pop .mus-sel .fx-seg,.mus-sel .fx-seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;min-width:0}
+.mus-sel .fx-seg button{min-width:0;padding-left:6px;padding-right:6px}
+.pop-a.pop-1{grid-template-columns:minmax(0,1fr)}
+.mus-rel{margin-top:18px}
+.mus-rel .tl-lista{margin-top:4px}
+.mus-prom{margin:2px 0 6px;font-size:.8rem;color:var(--ink-dim)}
+.mus-prom b{color:var(--plon-on,#ff9a3c);font-family:var(--display)}
+.mus-ban{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--tc);color:var(--ink);font-weight:600;font-size:.84rem;background:color-mix(in srgb,var(--tc) 14%,transparent)}
+@media(max-width:699px){.sem-gr-l .sem-gr:last-child:nth-child(odd){grid-column:1 / -1}}
+@media(min-width:700px) and (max-width:999px){.sem-gr-l .sem-gr:last-child:nth-child(odd){grid-column:span 2}}
+@media(min-width:1000px){.sem-gr-l{grid-template-columns:repeat(5,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -2646,6 +2670,24 @@ const TIPOS = [
     campos: [{ k: 'autor', l: 'Autor', ph: 'Ej: Gabriel García Márquez', sug: 'autor' }, { k: 'estreno', l: 'Año de publicación', ph: 'Ej: 1967', num: true, h: 1 }],
     etq: ['Novela', 'Cuento', 'Poesía', 'Ensayo', 'Ciencia ficción', 'Fantasía', 'Historia', 'Biografía', 'Colombiano']
   },
+  {
+    id: 'banda', nombre: 'Banda', grupo: 'musica', oculto: true, inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
+    ficha: true, nota: true, sinFecha: true, imgL: 'Foto', tituloL: 'Nombre de la banda', tituloPh: 'Ej: Soda Stereo',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das a la banda?',
+    campos: [{ k: 'fundacion', l: 'Año de fundación', lab: 'Año de fundación', num: true, ph: 'Ej: 1982' }]
+  },
+  {
+    id: 'cancion', nombre: 'Canción', grupo: 'musica', card: 'Música', inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
+    ficha: true, nota: true, sinFecha: true, imgL: 'Portada', tituloL: 'Nombre de la canción', tituloPh: 'Ej: De música ligera',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das a la canción?',
+    campos: [{ k: 'banda', l: 'Banda', ph: 'Ej: Soda Stereo', sug: 'banda' }]
+  },
+  {
+    id: 'album', nombre: 'Álbum', grupo: 'musica', oculto: true, inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
+    ficha: true, nota: true, sinFecha: true, imgL: 'Portada', tituloL: 'Nombre del álbum', tituloPh: 'Ej: Dynamo',
+    calQ: '¿Cuántos <b class="resalta">plones</b> le das al álbum?',
+    campos: [{ k: 'banda', l: 'Banda', ph: 'Ej: Soda Stereo', sug: 'banda' }, { k: 'estreno', l: 'Año de lanzamiento', num: true, ph: 'Ej: 1992' }]
+  },
   { id: 'random', nombre: 'Random', desc: 'Lo que no cabe en otro lado', ask: 'Lo que <b>sea</b>.', ph: 'Lo que se te ocurra…', tejido: null }
 ];
 const tipoDe = id => TIPOS.find(t => t.id === id) || TIPOS[TIPOS.length - 1];
@@ -2662,7 +2704,8 @@ const TEJIDOS = [
   { id: 'escena', nombre: 'Escena', desc: 'Películas', est: 'pantalla', color: '#e24cc2' },
   { id: 'capitulo', nombre: 'Capítulo', desc: 'Series', est: 'pantalla', color: '#c06ad6' },
   { id: 'partida', nombre: 'Partida', desc: 'Juegos', est: 'pantalla', color: '#4cc9f0' },
-  { id: 'paginas', nombre: 'Páginas', desc: 'Libros', color: '#e6a85c' }
+  { id: 'paginas', nombre: 'Páginas', desc: 'Libros', color: '#e6a85c' },
+  { id: 'musica', nombre: 'Cuerdas', desc: 'Bandas, canciones y álbumes', color: '#b5e04a', sembrar: 'cancion' }
 ];
 const ESTANTES = [{ id: 'pantalla', nombre: 'Pantalla', desc: 'Películas, series y juegos', color: '#e24cc2' }];
 const tejidoOk = id => TEJIDOS.some(t => t.id === id);
@@ -2964,7 +3007,7 @@ function vistaDiario() {
 }
 
 /* ---------- Sembrar: escribir una semilla ---------- */
-function iniciarSemilla(tipo, id) {
+function iniciarSemilla_v30(tipo, id) {
   const ruta = location.hash.slice(1), base = id ? (estado.semillas.find(x => x.id === id) || null) : null;
   if (id && !base) { estado.sem = { faltante: true, ruta: ruta }; return; }
   const t = base ? base.tipo : (TIPOS.some(x => x.id === tipo) ? tipo : 'random');
@@ -2974,7 +3017,7 @@ function iniciarSemilla(tipo, id) {
     base: base, ruta: ruta, tocado: false, recuperado: 0,
     hoja: null, hojaTocada: false, hojaCargada: !base, hojaMini: '',
     tejido: base ? base.tejido : (tipoDe(t).tejido || 'raiz'), datos: base ? Object.assign({}, base.datos) : {}, etiquetas: base ? base.etiquetas.slice() : [],
-    fecha: base ? base.fecha : (tipoDe(t).ficha ? diaClave(Date.now()) : ''), img: { nueva: null, vista: '', quitar: false }, verTej: t === 'random', quiereResena: false
+    fecha: base ? base.fecha : (tipoDe(t).ficha && !tipoDe(t).sinFecha ? diaClave(Date.now()) : ''), img: { nueva: null, vista: '', quitar: false }, verTej: t === 'random', quiereResena: false
   };
   cargarHojaSem();
   restaurarSemilla();
@@ -3256,12 +3299,13 @@ const vistaTejido = id => vistaColeccion(id);
 const vistaEstante = id => vistaColeccion(id);
 const vistaRanking = () => vistaColeccion('todo');
 
-/* ---------- El telar (v30): los tejidos como hilos, y dentro de cada uno su carrusel y su lista compacta ---------- */
+/* ---------- El telar (v30) y la madeja (v31): cada tejido es un cordón trenzado, y dentro de cada uno su carrusel y su lista compacta ---------- */
 const TL_LOCK = '<svg class="tl-lk" viewBox="0 0 24 24" aria-label="Solo tú" role="img"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>';
 const TL_NUBE = '<svg viewBox="0 0 24 24" aria-hidden="true"><use href="#plon"/></svg>';
 const tlNota = s => { const n = notaDe(s); return n == null ? -1 : n; };
 function tlSub(s) {   // la segunda línea de una ficha: director · año, autor · año, plataforma…
   const d = s.datos || {}, a = [];
+  if (s.tipo === 'banda') return d.fundacion ? 'Desde ' + d.fundacion : '';
   (tipoDe(s.tipo).campos || []).forEach(function (c) { if (d[c.k] && a.length < 2) a.push(d[c.k]); });
   if (!a.length && s.fecha) a.push(fechaFicha(s.fecha));
   return a.join(' · ');
@@ -3272,7 +3316,31 @@ function tlMini(s) {   // «Recién tejido»
     '<span class="tl-rc-x"><b>' + esc(tjTitulo(s)) + '</b><small>' + esc(tejidoDe(s.tejido).nombre) + (nt != null ? ' · ' + nt.toFixed(1) : '') + '</small></span></a>';
 }
 
-/* --- Pantalla principal de Tejidos: cada tejido es un hilo, más largo mientras más fichas tiene --- */
+/* --- La madeja: cada tejido es un cordón de varias hebras que se cruzan. Más fichas = más hebras y más largo; un amarre cada 5 fichas --- */
+const tlMix = (h, t, a) => { const p = function (x) { return [1, 3, 5].map(function (i) { return parseInt(x.slice(i, i + 2), 16); }); }; const c = p(h), d = p(t); return '#' + c.map(function (v, i) { return Math.round(v + (d[i] - v) * a).toString(16).padStart(2, '0'); }).join(''); };
+const tlLt = (h, a) => tlMix(h, '#ffffff', a), tlDk = (h, a) => tlMix(h, '#000000', a);
+function tlCuerda(k, max, c) {
+  if (!k) return '';   // sin fichas no hay cordón: solo el cero
+  const n = k < 5 ? 1 : k < 10 ? 2 : k < 20 ? 3 : k < 30 ? 4 : 5;
+  const cols = [c, tlLt(c, .35), tlDk(c, .3), tlLt(c, .18), tlDk(c, .5)].slice(0, n);
+  const L = Math.round(36 + k / Math.max(max, 1) * 170), amp = n > 1 ? 3.4 : 1.1, w = n === 1 ? 3.4 : 2.2;
+  let h = '<svg class="tl-cd" viewBox="0 0 260 26" preserveAspectRatio="xMinYMid meet" data-l="' + L + '" data-n="' + n + '" aria-hidden="true" focusable="false">';
+  for (let j = 0; j < n; j++) {
+    let d = '';
+    for (let x = 0; x <= L; x += 3) {
+      const tt = Math.max(0, (x - (L - 26)) / 26);
+      const y = 13 + amp * Math.sin(x / 9 + j * 6.2832 / n) + (j - (n - 1) / 2) * tt * 5.5 + tt * tt * 3 * Math.sin(j * 2.3 + 1);
+      d += (x ? 'L' : 'M') + x + ' ' + y.toFixed(1) + ' ';
+    }
+    h += '<path pathLength="1" d="' + d + '" stroke="' + cols[j] + '" stroke-width="' + w + '"/>';
+  }
+  const nw = Math.floor(k / 5); let wr = '';
+  for (let i = 0; i < nw; i++) { const x = 14 + (i + .5) * (L - 40) / Math.max(nw, 1); wr += 'M' + x.toFixed(1) + ' 5L' + x.toFixed(1) + ' 21'; }
+  if (wr) h += '<path class="tl-am" d="' + wr + '" stroke="' + tlDk(c, .45) + '" stroke-width="4"/>';
+  return h + '<circle class="tl-bd" cx="' + (L + 5) + '" cy="13" r="5.5" fill="' + tlLt(c, .2) + '"/></svg>';
+}
+
+/* --- Pantalla principal de Tejidos --- */
 function vistaTejidos() {
   const dueno = !!estado.sesion;
   const todos = estado.semillas.filter(function (s) { return dueno || s.publica; });
@@ -3283,14 +3351,14 @@ function vistaTejidos() {
     const tj = tejidoDe(id), c = cuenta(id);
     if (!dueno && !c) return '';
     hilos++;
-    return '<a class="tl-fila' + (aparte ? ' tl-apar' : '') + '" href="#tejido-' + tj.id + '" style="--hc:' + tj.color + ';--w:' + Math.round(16 + c / max * 76) + '%;--i:' + (i++) + '">' +
-      '<span class="tl-nom"><b>' + esc(tj.nombre) + (tj.privado ? TL_LOCK : '') + '</b><small>' + c + (c === 1 ? ' ficha' : ' fichas') + '</small></span>' +
-      '<span class="tl-urd"><span class="tl-hilo"><i class="tl-brillo"></i></span><span class="tl-perla"></span></span></a>';
+    return '<a class="tl-fila' + (aparte ? ' tl-apar' : '') + (c ? '' : ' tl-cero') + '" href="#tejido-' + tj.id + '" style="--hc:' + tj.color + ';--i:' + (i++) + '">' +
+      '<span class="tl-nom"><b>' + esc(tj.nombre) + (tj.privado ? TL_LOCK : '') + '</b><small>' + (c ? c + (c === 1 ? ' ficha' : ' fichas') : '0') + '</small></span>' +
+      '<span class="tl-urd">' + tlCuerda(c, max, tj.color) + '</span></a>';
   };
   const est = ESTANTES[0], cEst = TEJIDOS.filter(function (t) { return t.est === est.id; }).reduce(function (a, t) { return a + cuenta(t.id); }, 0);
   const sep = (dueno || cEst) ? '<a class="tl-sep" href="#estante-' + est.id + '"><span>' + esc(est.nombre) + '</span><i></i><span>estante ›</span></a>' : '';
   const cuerpo = ['raiz', 'suenos', 'ideas', 'saber', 'experiencias', 'ruta'].map(function (id) { return fila(id); }).join('') + sep +
-    ['escena', 'capitulo', 'partida'].map(function (id) { return fila(id); }).join('') + fila('paginas', true);
+    ['escena', 'capitulo', 'partida'].map(function (id) { return fila(id); }).join('') + fila('paginas', true) + fila('musica');
   const conNota = todos.some(function (s) { return notaDe(s) != null; });
   const h = '<div class="tl"><header class="tl-cab"><div><h1 class="pag">' + (dueno ? 'Tus <span>tejidos</span>' : 'Tejidos') + '</h1><p class="tl-sub">' + hilos + (hilos === 1 ? ' hilo' : ' hilos') + ' · ' + todos.length + (todos.length === 1 ? ' ficha' : ' fichas') +
     (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</p></div>' + (conNota ? '<a class="tl-rkb" href="#top">Ranking</a>' : '') + '</header>' + avisosSemillas();
@@ -3308,7 +3376,7 @@ function tlFila(s, rank) {
   return '<a class="tl-r" href="#modulo-' + s.id + '" style="--tc:' + tejidoDe(s.tejido).color + (nv ? ';--vc:' + nv.color : '') + '">' +
     (rank ? '<span class="tl-rk">' + rank + '</span>' : '') +
     '<span class="tl-th">' + (u ? '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async">' : '<em>' + esc(t.nombre.slice(0, 1)) + '</em>') + '</span>' +
-    '<span class="tl-x"><strong class="tl-t">' + esc(s.titulo || 'Sin título') + '</strong><span class="tl-s">' + (sub ? '<span>' + esc(sub) + '</span>' : '') +
+    '<span class="tl-x"><strong class="tl-t">' + esc(s.titulo || 'Sin título') + '</strong><span class="tl-s">' + (t.grupo ? '<b class="tl-tp">' + esc(t.nombre) + '</b>' : '') + (sub ? '<span>' + esc(sub) + '</span>' : '') +
     (tieneResena(s) ? '<b class="tl-res">Reseña</b>' : '') + (!s.publica ? '<b class="tl-priv">Privada</b>' : '') + '</span></span>' +
     '<span class="tl-n">' + (nv ? '<span class="tl-nv">' + TL_NUBE + nt.toFixed(1) + '</span><small>' + esc(nv.nombre) + '</small>' : '<small>Sin plones</small>') + '</span></a>';
 }
@@ -3379,7 +3447,7 @@ function vistaColeccion(scope) {
   let sembrar = '';
   if (dueno && al.tejido) {
     const tp = TIPOS.filter(function (t) { return t.tejido === al.tejido.id; });
-    sembrar = '<a class="btn prim tl-sem" href="' + (tp.length === 1 ? '#sembrar-' + tp[0].id : '#inicio') + '">+ Sembrar</a>';
+    sembrar = '<a class="btn prim tl-sem" href="' + (tp.length === 1 ? '#sembrar-' + tp[0].id : al.tejido.sembrar ? '#sembrar-' + al.tejido.sembrar : '#inicio') + '">+ Sembrar</a>';
   }
   const tabsEst = al.estante ? '<div class="tj-fil tj-tabs tl-chips" role="group" aria-label="Tejidos del estante"><a class="chip" aria-pressed="true" href="#estante-' + al.id + '">Todo</a>' +
     al.ids.map(function (id) { return '<a class="chip" aria-pressed="false" href="#tejido-' + id + '">' + esc(tejidoDe(id).nombre) + '</a>'; }).join('') + '</div>' : '';
@@ -3391,8 +3459,160 @@ function vistaColeccion(scope) {
     avisosSemillas() + (al.rk || cargando ? '' : tlColgante(base, al.color)) + tabsEst + ctl + '<div class="tl-cuerpo">' + cuerpo + '</div></div>';
 }
 
-/* --- Un módulo: la ficha completa y su reseña --- */
+/* ---------- v31: Cuerdas, el tejido de la música (bandas, canciones y álbumes) ---------- */
+TAXO.musica = [
+  G('Rock', 'Guitarras, batería y mucha actitud.', [
+    ['Rock clásico', 'El rock de los 60, 70 y 80.'],
+    ['Rock alternativo', 'Rock fuera de lo comercial, de los 90 en adelante.'],
+    ['Rock en español', 'Rock latino y español.'],
+    ['Hard rock', 'Guitarras pesadas y voces potentes.'],
+    ['Punk', 'Rápido, crudo y rebelde.'],
+    ['Indie', 'Independiente, de sonido propio.'],
+    ['Grunge', 'Rock sucio y melancólico de Seattle.'],
+    ['Rock progresivo', 'Canciones largas y complejas.'],
+    ['Pop rock', 'Rock con melodías para cantar.'],
+    ['Post-punk', 'Oscuro, nervioso, con bajos marcados.']]),
+  G('Metal', 'Distorsión, velocidad y fuerza.', [
+    ['Heavy metal', 'El metal clásico.'],
+    ['Thrash metal', 'Rápido y agresivo.'],
+    ['Death metal', 'Voces guturales y mucha técnica.'],
+    ['Black metal', 'Oscuro y crudo.'],
+    ['Metal progresivo', 'Metal de estructuras complejas.'],
+    ['Nu metal', 'Metal con rap y ritmos modernos.'],
+    ['Power metal', 'Épico, veloz y melódico.'],
+    ['Metalcore', 'Metal mezclado con hardcore.']]),
+  G('Pop', 'Melodías pegajosas para todo el mundo.', [
+    ['Pop', 'El pop de siempre.'],
+    ['Pop latino', 'Pop cantado en español.'],
+    ['Balada', 'Canciones lentas y románticas.'],
+    ['Synth-pop', 'Pop con sintetizadores.'],
+    ['Dance pop', 'Pop para bailar.'],
+    ['Indie pop', 'Pop suave e independiente.'],
+    ['K-pop', 'Pop de Corea del Sur.']]),
+  G('Urbana', 'Música de la calle y de la cultura urbana.', [
+    ['Reggaetón', 'Ritmo de dembow para perrear.'],
+    ['Rap / Hip hop', 'Rimas sobre bases rítmicas.'],
+    ['Trap', 'Bases lentas, graves fuertes y hi-hats veloces.'],
+    ['R&B', 'Voces suaves, ritmo y sentimiento.'],
+    ['Dembow', 'Ritmo caribeño seco y bailable.'],
+    ['Neoperreo', 'Reggaetón experimental y electrónico.'],
+    ['Drill', 'Trap oscuro y violento.']]),
+  G('Tropical y latina', 'Para bailar y para sentir.', [
+    ['Salsa', 'Ritmo caribeño de metales y percusión.'],
+    ['Vallenato', 'Acordeón, caja y guacharaca de la costa.'],
+    ['Cumbia', 'Ritmo colombiano de tambores y gaitas.'],
+    ['Champeta', 'Música afro de Cartagena.'],
+    ['Merengue', 'Ritmo rápido y alegre del Caribe.'],
+    ['Bachata', 'Romántica, con guitarras caribeñas.'],
+    ['Bolero', 'Romántico y clásico.'],
+    ['Tango', 'Música rioplatense, dramática y elegante.'],
+    ['Porro', 'Ritmo de banda de la costa colombiana.'],
+    ['Currulao', 'Música del Pacífico colombiano.']]),
+  G('Electrónica', 'Sintetizadores, bases y mucha pista.', [
+    ['House', 'Ritmo constante para bailar.'],
+    ['Techno', 'Repetitivo, oscuro y de club.'],
+    ['Trance', 'Melódico, hipnótico y en crescendo.'],
+    ['EDM', 'Electrónica de festival.'],
+    ['Drum and bass', 'Ritmos rotos muy rápidos.'],
+    ['Ambient', 'Atmosférica y calmada.'],
+    ['Dubstep', 'Graves enormes y ritmos lentos.'],
+    ['Lo-fi', 'Suave y relajada, para estudiar.'],
+    ['Synthwave', 'Nostalgia ochentera con sintetizadores.']]),
+  G('Jazz, blues y clásica', 'Música de raíces y de academia.', [
+    ['Jazz', 'Improvisación y armonías ricas.'],
+    ['Blues', 'Lamento sobre doce compases.'],
+    ['Soul', 'Voces con mucha alma.'],
+    ['Funk', 'Groove y bajo protagonista.'],
+    ['Bossa nova', 'Jazz brasileño suave.'],
+    ['Clásica', 'Música de orquesta y de cámara.'],
+    ['Ópera', 'Teatro cantado.'],
+    ['Banda sonora', 'Música hecha para cine, series o juegos.']]),
+  G('Raíces y folk', 'Lo tradicional y lo de la tierra.', [
+    ['Folk', 'Acústica y de cantautor.'],
+    ['Country', 'Guitarras y relatos del campo.'],
+    ['Carranga', 'Música campesina de Boyacá y Cundinamarca.'],
+    ['Música llanera', 'Arpa, cuatro y maracas del llano.'],
+    ['Música andina', 'Quenas, charango y zampoñas.'],
+    ['Bambuco', 'Ritmo tradicional andino colombiano.'],
+    ['Reggae', 'Ritmo jamaiquino relajado.'],
+    ['Ska', 'Reggae acelerado y con metales.'],
+    ['Gaita', 'Música de la región Caribe colombiana.']])
+];
+const MUS_BANDAS = ['Soda Stereo', 'Charly García', 'Gustavo Cerati', 'Los Prisioneros', 'Café Tacvba', 'Caifanes', 'Maná', 'Enanitos Verdes', 'Los Fabulosos Cadillacs', 'Divididos',
+  'Aterciopelados', 'Bomba Estéreo', 'Carlos Vives', 'Systema Solar', 'Monsieur Periné', 'Juanes', 'Shakira', 'Fonseca', 'Silvestre Dangond', 'Diomedes Díaz', 'Binomio de Oro',
+  'Grupo Niche', 'Joe Arroyo', 'Fruko y sus Tesos', 'Héctor Lavoe', 'Celia Cruz', 'Rubén Blades', 'Gilberto Santa Rosa', 'Marc Anthony', 'Bad Bunny', 'J Balvin', 'Karol G', 'Maluma',
+  'Feid', 'Daddy Yankee', 'Don Omar', 'Residente', 'Calle 13', 'Kendrick Lamar', 'Eminem', 'Tupac', 'The Notorious B.I.G.', 'Drake', 'Travis Scott', 'Kanye West', 'Nas', 'Jay-Z',
+  'The Beatles', 'The Rolling Stones', 'Led Zeppelin', 'Pink Floyd', 'Queen', 'The Doors', 'Jimi Hendrix', 'David Bowie', 'AC/DC', 'Guns N\' Roses', 'Metallica', 'Iron Maiden',
+  'Black Sabbath', 'Megadeth', 'Slayer', 'Pantera', 'Nirvana', 'Pearl Jam', 'Foo Fighters', 'Red Hot Chili Peppers', 'Radiohead', 'Oasis', 'Arctic Monkeys', 'The Strokes',
+  'Coldplay', 'U2', 'Linkin Park', 'Green Day', 'Blink-182', 'System of a Down', 'Rage Against the Machine', 'Tame Impala', 'Gorillaz', 'Daft Punk', 'Michael Jackson', 'Prince',
+  'Madonna', 'Taylor Swift', 'Billie Eilish', 'The Weeknd', 'Dua Lipa', 'Bob Marley', 'Bob Dylan', 'Fleetwood Mac', 'ABBA', 'Depeche Mode', 'The Cure', 'Joy Division', 'Muse',
+  'Los Tigres del Norte', 'Los Ángeles Azules', 'Rosalía', 'Natalia Lafourcade', 'Mon Laferte', 'Vicente Fernández', 'Juan Luis Guerra'];
+
+/* --- El selector «Banda | Canción | Álbum» dentro del pop-up (solo al sembrar) --- */
+function musSelHTML(s) {
+  const t = tipoDe(s.tipo); if (t.grupo !== 'musica' || s.base) return '';
+  return '<div class="mus-sel"><div class="seg fx-seg" role="group" aria-label="¿Qué escuchaste?">' +
+    ['banda', 'cancion', 'album'].map(function (id) { return '<button type="button" aria-pressed="' + (id === s.tipo) + '" data-action="mus-tipo" data-t="' + id + '">' + esc(tipoDe(id).nombre) + '</button>'; }).join('') + '</div></div>';
+}
+function musCambiar(id) {
+  const s = estado.sem; if (!s || s.base || s.tipo === id || tipoDe(id).grupo !== 'musica') return;
+  const ti = $('#s-titulo'); if (ti) s.titulo = ti.value;
+  try { Copia.borrar(claveSemBor(s)); } catch (e) { /* nada */ }
+  const ok = {}; (tipoDe(id).campos || []).forEach(function (c) { ok[c.k] = 1; });
+  Object.keys(s.datos).forEach(function (k) { if (!ok[k] && k !== 'img' && k !== 'thumb') delete s.datos[k]; });
+  s.tipo = id; s.refrescarPop = true; s.tocado = true;
+  history.replaceState(null, '', '#sembrar-' + id); s.ruta = 'sembrar-' + id;
+  render(false);
+}
+
+/* --- Sugerencias de banda: las que ya tienes (fichas de banda y bandas de tus canciones y álbumes) y algunas conocidas --- */
+function sugerenciasCampo(t, c) {
+  if (c.sug !== 'banda') return sugerenciasCampo_v30(t, c);
+  const vistas = {}, out = [];
+  const poner = function (x) { const k = norm(x); if (!k || vistas[k]) return; vistas[k] = 1; out.push(x); };
+  estado.semillas.forEach(function (x) { if (x.tipo === 'banda') poner(x.titulo); });
+  estado.semillas.forEach(function (x) { if ((x.tipo === 'cancion' || x.tipo === 'album') && x.datos && x.datos.banda) poner(String(x.datos.banda)); });
+  MUS_BANDAS.forEach(poner);
+  return out;
+}
+
+/* --- En la ficha: una banda lista sus canciones y álbumes; una canción o álbum enlaza a su banda --- */
+const musEsObra = x => x.tipo === 'cancion' || x.tipo === 'album';
+function musRelHTML(b) {
+  if (tipoDe(b.tipo).grupo !== 'musica') return '';
+  const dueno = !!estado.sesion, vis = function (x) { return dueno || x.publica; };
+  const banda = b.tipo === 'banda' ? String(b.titulo || '') : String((b.datos || {}).banda || '');
+  const k = norm(banda.trim());
+  const obras = estado.semillas.filter(function (x) { return x.id !== b.id && vis(x) && musEsObra(x) && k && norm(String((x.datos || {}).banda || '').trim()) === k; })
+    .sort(function (a, c) { return tlNota(c) - tlNota(a) || c.creado - a.creado; });
+  const lista = obras.length ? '<div class="tl-lista">' + obras.map(function (x) { return tlFila(x, 0); }).join('') + '</div>' : '';
+  if (b.tipo === 'banda') {
+    const conNota = obras.filter(function (x) { return notaDe(x) != null; });
+    const prom = conNota.length ? conNota.reduce(function (a, x) { return a + notaDe(x); }, 0) / conNota.length : null;
+    return '<section class="mus-rel" aria-label="Canciones y álbumes"><h2 class="sec">Canciones y álbumes</h2>' +
+      (prom != null ? '<p class="mus-prom">Promedio de lo que has escuchado de ellos: <b>' + prom.toFixed(1) + '</b> · ' + conNota.length + (conNota.length === 1 ? ' calificación' : ' calificaciones') + '</p>' : '') +
+      (lista || '<p class="ayuda">Todavía no hay nada de esta banda. Cuando siembres una canción o un álbum con su nombre, aparece aquí.</p>') + '</section>';
+  }
+  if (!k) return '';
+  const ban = estado.semillas.find(function (x) { return x.tipo === 'banda' && vis(x) && norm(String(x.titulo || '').trim()) === k; });
+  const enlace = ban ? '<a class="mus-ban" href="#modulo-' + ban.id + '" style="--tc:' + tejidoDe('musica').color + '">Ficha de ' + esc(ban.titulo) + ' ›</a>'
+    : (dueno ? '<button type="button" class="btn" data-action="mus-crear-banda" data-n="' + esc(banda) + '">Crear la ficha de ' + esc(banda) + '</button>' : '');
+  return '<section class="mus-rel" aria-label="La banda">' + enlace + (lista ? '<h2 class="sec">Más de ' + esc(banda) + '</h2>' + lista : '') + '</section>';
+}
 function vistaModulo(id) {
+  const h = vistaModulo_v30(id), b = estado.semillas.find(function (x) { return x.id === id; });
+  if (!b) return h;
+  const r = musRelHTML(b); if (!r) return h;
+  const i = h.indexOf('<div class="acciones mo-acc">'), j = i >= 0 ? i : h.lastIndexOf('</article>');
+  return j < 0 ? h : h.slice(0, j) + r + h.slice(j);
+}
+
+function iniciarSemilla(tipo, id) {
+  iniciarSemilla_v30(tipo, id);
+  if (!id && estado.musPre) { if (estado.sem && estado.sem.tipo === 'banda') estado.sem.titulo = estado.musPre; estado.musPre = ''; }
+}
+/* --- Un módulo: la ficha completa y su reseña --- */
+function vistaModulo_v30(id) {
   const b = estado.semillas.find(function (x) { return x.id === id; }), dueno = !!estado.sesion;
   if (!b) {
     if (estado.cargando || !estado.iniciado) return '<a class="volver" href="#tejidos">Tejidos</a><p class="ayuda">Cargando…</p>';
@@ -5051,19 +5271,20 @@ function cambiarTejido(id) {
 }
 
 /* ---------- v26: Inicio con lo principal arriba ---------- */
-const TIPOS_TOP = ['pelicula', 'serie', 'juego', 'libro'];
+const TIPOS_TOP = ['pelicula', 'serie', 'juego', 'libro', 'cancion'];
 const ICO_TIPO = {
   pelicula: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 9.5h18M7.5 5l2.5 4.5M13 5l2.5 4.5M18 5l2 4.5"/></svg>',
   serie: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M9 3l3 3 3-3M8 21h8"/></svg>',
   juego: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h10a4 4 0 014 4v2.5a3 3 0 01-5.3 1.9L14.5 15h-5l-1.2 1.4A3 3 0 013 14.500V12a4 4 0 014-4z"/><path d="M8 10.500v3M6.500 12h3"/><circle cx="15.500" cy="11.500" r=".7"/><circle cx="17.500" cy="13.500" r=".7"/></svg>',
-  libro: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5a2 2 0 012-2h11v15H7a2 2 0 00-2 2V5z"/><path d="M5 20a2 2 0 002 2h11M9 7h6"/></svg>'
+  libro: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5a2 2 0 012-2h11v15H7a2 2 0 00-2 2V5z"/><path d="M5 20a2 2 0 002 2h11M9 7h6"/></svg>',
+  cancion: '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l11-2v12"/><circle cx="6.500" cy="18" r="2.500"/><circle cx="17.500" cy="16" r="2.500"/></svg>'
 };
 function vistaSembrar() {
   const gr = TIPOS_TOP.map(tipoDe).map(function (t) {
     return '<a class="sem-gr" href="#sembrar-' + t.id + '" style="--tc:' + tejidoDe(t.tejido).color + '"><span class="sem-gr-i">' + ICO_TIPO[t.id] + '</span>' +
-      '<span class="sem-gr-n">' + esc(t.nombre) + '</span><span class="sem-gr-d">' + esc(t.inicio) + '</span></a>';
+      '<span class="sem-gr-n">' + esc(t.card || t.nombre) + '</span><span class="sem-gr-d">' + esc(t.inicio) + '</span></a>';
   }).join('');
-  const filas = TIPOS.filter(function (t) { return TIPOS_TOP.indexOf(t.id) < 0; }).map(function (t) {
+  const filas = TIPOS.filter(function (t) { return TIPOS_TOP.indexOf(t.id) < 0 && !t.oculto; }).map(function (t) {
     return '<li><a class="sem-f" href="#sembrar-' + t.id + '"><span class="sem-fn">' + esc(t.inicio || t.nombre) + '</span><span class="sem-fd">' + esc(t.desc) + '</span>' + FLECHA_DER + '</a></li>';
   }).join('');
   return '<header class="sem-cab"><p class="sem-saludo">' + saludo() + ' · ' + fechaLarga() + '</p>' +
@@ -5100,14 +5321,14 @@ function agregarEtq(x) {
   s.etiquetas.push(e); marcarSem(); pintarEtq(); return true;
 }
 function quitarEtq(x) { const s = estado.sem; if (!s) return; s.etiquetas = s.etiquetas.filter(function (y) { return y !== x; }); marcarSem(); pintarEtq(); }
-function taxoDe(t) { return t.id === 'pelicula' ? TAXO.cine : t.id === 'serie' ? TAXO.series : t.id === 'juego' ? TAXO.videojuegos : t.id === 'libro' ? TAXO.libros : null; }
+function taxoDe(t) { return t.id === 'pelicula' ? TAXO.cine : t.id === 'serie' ? TAXO.series : t.id === 'juego' ? TAXO.videojuegos : t.id === 'libro' ? TAXO.libros : t.grupo === 'musica' ? TAXO.musica : null; }
 // Las etiquetas que ya usaste en este tipo y no están en la lista de géneros: se van guardando solas
 function etqPropias(t, tx) {
   const enTaxo = {}; tx.forEach(function (g) { enTaxo[norm(g.g)] = 1; g.s.forEach(function (x) { enTaxo[norm(x[0])] = 1; }); });
   const vistas = {}, out = [];
   const poner = function (e) { const k = norm(e); if (!k || enTaxo[k] || vistas[k]) return; vistas[k] = 1; out.push(e); };
   (t.etq || []).forEach(poner);
-  estado.semillas.forEach(function (x) { if (x.tipo === t.id) (x.etiquetas || []).forEach(poner); });
+  estado.semillas.forEach(function (x) { if (x.tipo === t.id || (t.grupo && tipoDe(x.tipo).grupo === t.grupo)) (x.etiquetas || []).forEach(poner); });
   estado.sem.etiquetas.forEach(poner);
   return out;
 }
@@ -5193,7 +5414,7 @@ function visSemHTML() {
 /* ---------- Reseña: Sí o No en el mismo formulario ---------- */
 
 /* ---------- Sugerencias para director, autor y plataforma: las de la lista + las que ya escribiste ---------- */
-function sugerenciasCampo(t, c) {
+function sugerenciasCampo_v30(t, c) {
   if (!c.sug) return [];
   const vistas = {}, out = [];
   const poner = function (x) { const k = norm(x); if (!k || vistas[k]) return; vistas[k] = 1; out.push(x); };
@@ -5221,23 +5442,23 @@ function vistaSemilla() {
 function campoHTML(t, s, c, dl) {
   const lista = sugerenciasCampo(t, c);
   if (lista.length) dl.push('<datalist id="dl-' + c.k + '">' + lista.map(function (x) { return '<option value="' + esc(x) + '">'; }).join('') + '</datalist>');
-  return '<label class="fx-c"><span class="fi-l">' + esc(c.num ? 'Año' : c.l) + '</span><input class="in" type="text" data-campo="' + c.k + '"' + (lista.length ? ' list="dl-' + c.k + '"' : '') +
+  return '<label class="fx-c"><span class="fi-l">' + esc(c.lab || (c.num ? 'Año' : c.l)) + '</span><input class="in" type="text" data-campo="' + c.k + '"' + (lista.length ? ' list="dl-' + c.k + '"' : '') +
     (c.num ? ' inputmode="numeric" maxlength="4"' : ' maxlength="80"') + ' placeholder="' + esc(c.ph || '') + '" value="' + esc(s.datos[c.k] || '') + '" autocomplete="off"></label>';
 }
 const ICO_X = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 function popHTML(s) {
   const t = tipoDe(s.tipo), nueva = !s.base, camp = t.campos || [], dl = [];
-  const c0 = camp[0] || null, cB = camp.filter(function (c) { return c.num; })[0] || camp[1] || null;
+  const c0 = camp[0] || null, cB = camp.filter(function (c) { return c.num && c !== c0; })[0] || camp[1] || null;
   const resto = camp.filter(function (c) { return c !== c0 && c !== cB; });
   const fecha = '<label class="fx-c"><span class="fi-l">' + esc(t.fechaL) + '</span><input class="in" type="date" id="s-fecha" value="' + esc(s.fecha || '') + '"></label>';
-  const items = resto.map(function (c) { return campoHTML(t, s, c, dl); }).concat([fecha]);
+  const items = resto.map(function (c) { return campoHTML(t, s, c, dl); }).concat(t.sinFecha ? [] : [fecha]);
   let filas = '';
   for (let i = 0; i < items.length; i += 2) filas += (i + 1 < items.length) ? '<div class="pop-par">' + items[i] + items[i + 1] + '</div>' : items[i];
-  const a = c0 ? '<div class="pop-a' + (cB && cB.num ? ' pop-a-n' : '') + '">' + campoHTML(t, s, c0, dl) + (cB ? campoHTML(t, s, cB, dl) : '') + '</div>' : '';
+  const a = c0 ? '<div class="pop-a' + (cB && cB.num ? ' pop-a-n' : '') + (cB ? '' : ' pop-1') + '">' + campoHTML(t, s, c0, dl) + (cB ? campoHTML(t, s, cB, dl) : '') + '</div>' : '';
   const atras = nueva ? '#inicio' : '#modulo-' + s.id;
   return '<div class="pop-cab"><h2 class="pop-t">' + t.ask + '</h2><a class="pop-x" href="' + atras + '" aria-label="Cerrar">' + ICO_X + '</a></div>' +
     (s.recuperado ? '<div class="aviso"><span>Recuperé lo que tenías sin guardar (' + hace(s.recuperado) + ').</span><button type="button" class="btn" data-action="sem-descartar">Descartar</button></div>' : '') +
-    '<form id="fs" class="pop-form" novalidate>' +
+    musSelHTML(s) + '<form id="fs" class="pop-form" novalidate>' +
       '<div class="pop-cuerpo"><div class="fx-poster" id="s-img">' + imgHTML() + '</div>' +
       '<div class="pop-datos"><label class="fx-c fx-ti"><span class="fi-l">' + esc(t.tituloL) + '</span>' +
       '<input id="s-titulo" class="sem-tit" type="text" maxlength="200" placeholder="' + esc(t.tituloPh) + '" value="' + esc(s.titulo) + '" autocomplete="off" required></label>' +
@@ -6731,6 +6952,8 @@ document.addEventListener('click', function (e) {
     case 'resena-no': cerrarHoja('hoja-resena'); break;
     case 'sem-etq-add': agregarEtq(b.dataset.e); break;
     case 'sem-etq-add-in': { const i0 = $('#s-etq'); if (i0) { agregarEtq(i0.value); i0.value = ''; i0.focus(); } break; }
+    case 'mus-tipo': musCambiar(b.dataset.t); break;
+    case 'mus-crear-banda': estado.musPre = b.dataset.n || ''; location.hash = '#sembrar-banda'; break;
     case 'sem-etq-quitar': quitarEtq(b.dataset.e); break;
     case 'sem-img-quitar': estado.sem.img.nueva = null; estado.sem.img.vista = ''; estado.sem.img.quitar = true; pintarImg(); marcarSem(); break;
     case 'sem-tej-ver': estado.sem.verTej = !estado.sem.verTej; pintarTej(); break;

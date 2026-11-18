@@ -5,6 +5,19 @@ Para actualizar: copia TODO el contenido de esta carpeta dentro de tu carpeta
 Documents\GitHub\claquetazo (reemplazando), y en GitHub Desktop: Summary -> Commit to main -> Push origin.
 Abre la app dos veces para que tome la versión nueva (si no ves el cambio, sube el número de VERSION en sw.js).
 
+NOVEDAD v31 - La madeja y el tejido de música "Cuerdas":
+ - En Tejidos, cada tejido ahora es una madeja: un cordón de varias hebras que se cruzan. Más fichas = más hebras y más largo, con un amarre cada 5 fichas y la punta deshilachada. Si un tejido tiene 0 fichas, solo dice "0" (sin cordón).
+ - Dentro de un tejido todo sigue igual: pósters colgando arriba, filtros y la lista con los plones.
+ - Nuevo tejido "Cuerdas" (música). En Inicio hay una quinta tarjeta, "Música" (¿Qué escuchaste?). El pop-up tiene arriba un selector Banda | Canción | Álbum que cambia los campos sin cerrar nada.
+   * Banda: nombre, año de fundación, género, plones y reseña (sí/no).
+   * Canción: nombre, banda, género, plones y reseña.
+   * Álbum: nombre, banda, año de lanzamiento, género, plones y reseña.
+   * Sin fecha de "cuándo la escuché". Portada o foto igual que en las películas.
+ - Géneros de música con subgéneros (Rock, Metal, Pop, Urbana, Tropical y latina, Electrónica, Jazz/blues/clásica, Raíces y folk). Puedes agregar los tuyos.
+ - La banda tiene sugerencias (las que ya sembraste + algunas conocidas). La ficha de una banda lista sus canciones y álbumes con el promedio; una canción o álbum enlaza a la ficha de su banda, o te deja crearla con un toque.
+ - En el ranking y dentro de Cuerdas hay filtros por Banda, Canción y Álbum.
+ (No hay que correr ningún SQL nuevo.)
+
 NOVEDAD v30 - Tejidos como un telar:
  - La lista de Tejidos ahora son hilos: cada tejido es un hilo con brillo y una cuenta al final, más largo mientras más fichas tiene. Raíz y Sueños llevan candadito.
  - El estante Pantalla es un separador que te lleva al estante; abajo queda "Recién tejido" (3 en celular, 6 en tablet y PC).
