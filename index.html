@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=34">
-<link rel="icon" href="favicon.svg?v=34" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=34" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=34">
+<link rel="manifest" href="manifest.webmanifest?v=35">
+<link rel="icon" href="favicon.svg?v=35" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=35" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=35">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1415,6 +1415,53 @@ a.per-c:hover,a.per-c:focus-visible,button.per-c:hover{background:rgba(255,255,2
 .rep-mas{flex:none;min-width:42px;padding:0 12px;font-size:1.1rem}
 .per-sel .fx-seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
 .per-sel .fx-seg button{padding-left:6px;padding-right:6px;font-size:.78rem}
+/* ---------- v35: teclado, Ranking, filtros por campos ---------- */
+.hoja{bottom:var(--kb,0px)}
+.hoja-c{max-height:min(92dvh,calc(100dvh - var(--kb,0px) - 8px))}
+.hoja-c.pop{max-height:min(96dvh,calc(100dvh - var(--kb,0px) - 4px))}
+@media(min-width:720px){.hoja-c{max-height:min(88dvh,calc(100dvh - var(--kb,0px) - 8px))}.hoja-c.pop{max-height:min(96dvh,calc(100dvh - var(--kb,0px) - 4px))}}
+html.kb-abierto #nav{display:none}
+html.kb-abierto .hoja-c.pop{padding-bottom:12px}
+.pop input,.pop textarea,.pop select{scroll-margin:84px 0 120px}
+.cine-sel{margin:0 0 10px}
+/* el menú de abajo con cuatro entradas */
+#nav .nav-i{min-width:0}
+#nav .nav-i span{white-space:nowrap}
+/* —— los filtros por campos —— */
+.fl [hidden]{display:none!important}
+.fl-kind{display:flex;flex-direction:column;gap:6px;margin:4px 0 10px}
+.fl-kind-s{font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;min-height:50px;padding:0 14px;border-color:rgba(255,154,60,.45);background:linear-gradient(135deg,rgba(255,154,60,.13),rgba(255,154,60,.03))}
+.fl-caja{margin:0 0 10px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);overflow:hidden}
+.fl-caja>summary{list-style:none;display:flex;align-items:center;gap:10px;min-height:46px;padding:0 16px;cursor:pointer;font-weight:600;font-size:.92rem;user-select:none;-webkit-tap-highlight-color:transparent}
+.fl-caja>summary::-webkit-details-marker{display:none}
+.fl-caja>summary::after{content:'';margin-left:auto;width:8px;height:8px;border-right:2px solid var(--ink-dim);border-bottom:2px solid var(--ink-dim);transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+.fl-caja[open]>summary::after{transform:rotate(-135deg) translateY(-2px)}
+.fl-act{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:var(--accent);color:#fff;font-size:.75rem}
+.fl-cuerpo{padding:0 14px 14px}
+.fl-top{display:flex;justify-content:flex-end;margin:0 0 4px}
+.fl-lim{font-size:.82rem}
+.fl-g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.fl-f{display:flex;flex-direction:column;gap:4px;min-width:0}
+.fl-f.fl-2{grid-column:1/-1}
+.fl-f .in{width:100%;min-width:0;min-height:42px}
+.fl-r{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:6px;color:var(--ink-dim);font-size:.85rem}
+.fl-det{display:block}
+.fl-det>summary{list-style:none;display:flex;align-items:center;min-height:42px;cursor:pointer}
+.fl-det>summary::-webkit-details-marker{display:none}
+.fl-det>summary span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fl-det>summary::after{content:'';width:7px;height:7px;border-right:2px solid var(--ink-dim);border-bottom:2px solid var(--ink-dim);transform:rotate(45deg) translateY(-2px);margin-left:8px;flex:none}
+.fl-gp{margin-top:8px;display:flex;flex-direction:column;gap:8px}
+.fl-gl{display:flex;flex-direction:column;max-height:196px;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:4px 6px;overscroll-behavior:contain}
+.fl-o{display:flex;align-items:center;gap:10px;min-height:40px;font-size:.9rem;cursor:pointer}
+.fl-o span{flex:1;min-width:0}
+.fl-o small{color:var(--ink-dim)}
+.fl-o input{width:20px;height:20px;accent-color:var(--accent);flex:none}
+.fl-n{margin:2px 4px 8px;font-size:.8rem;color:var(--ink-dim)}
+@media(min-width:720px){.fl-g{grid-template-columns:repeat(4,minmax(0,1fr))}.fl-f.fl-2{grid-column:span 2}}
+.fl-r .in{padding-left:10px;padding-right:6px;text-align:center}
+.fl-r .in::placeholder{text-align:center}
+.per-tb{display:flex;align-items:center;gap:10px;min-height:38px;margin:2px 0 6px;font-size:.88rem;color:var(--ink-dim);cursor:pointer}
+.per-tb input{width:20px;height:20px;accent-color:var(--accent);flex:none}
 </style>
 </head>
 <body>
@@ -1425,6 +1472,7 @@ a.per-c:hover,a.per-c:focus-visible,button.per-c:hover{background:rgba(255,255,2
 <nav id="nav" aria-label="Principal">
   <a class="nav-i solo-sesion" data-sec="inicio" href="#inicio"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12C12 8 9 6 5 6c0 4 3 6 7 6z"/><path d="M12 14c0-3 2.5-5 6-5 0 3.2-2.5 5-6 5z"/></svg><span>Inicio</span></a>
   <a class="nav-i" data-sec="tejidos" href="#tejidos"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7c3-3 6 3 9 0s6-3 9 0"/><path d="M3 12c3-3 6 3 9 0s6-3 9 0"/><path d="M3 17c3-3 6 3 9 0s6-3 9 0"/></svg><span>Tejidos</span></a>
+  <a class="nav-i" data-sec="ranking" href="#ranking"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M6 20v-6h3.2v6M10.4 20V5h3.2v15M14.8 20v-9H18v9"/></svg><span>Ranking</span></a>
   <a class="nav-i" data-sec="ajustes" href="#ajustes"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h8M18 7h2M4 17h2M12 17h8"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></svg><span>Ajustes</span></a>
 </nav>
 <div id="toast" role="status" aria-live="polite"></div>
@@ -2855,7 +2903,7 @@ const TIPOS = [
     id: 'cancion', plural: 'Canciones', nombre: 'Canción', grupo: 'musica', card: 'Música', inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
     ficha: true, nota: true, sinFecha: true, imgL: 'Portada', tituloL: 'Nombre de la canción', tituloPh: 'Ej: De música ligera',
     calQ: '¿Cuántos <b class="resalta">plones</b> le das a la canción?',
-    campos: [{ k: 'banda', l: 'Banda', ph: 'Ej: Soda Stereo', sug: 'banda' }]
+    campos: [{ k: 'banda', l: 'Banda', ph: 'Ej: Soda Stereo', sug: 'banda' }, { k: 'album', l: 'Álbum', ph: 'Ej: Dynamo', sug: 'album' }]
   },
   {
     id: 'album', plural: 'Álbumes', nombre: 'Álbum', grupo: 'musica', oculto: true, inicio: '¿Qué escuchaste?', desc: 'Banda, canción o álbum', ask: '¿Qué <b>escuchaste</b>?', ph: 'Lo que te dejó…', tejido: 'musica',
@@ -3480,7 +3528,7 @@ function vistaColeccion_v29(scope) {
 }
 const vistaTejido = id => vistaColeccion(id);
 const vistaEstante = id => vistaColeccion(id);
-const vistaRanking = () => vistaColeccion('todo');
+const vistaRanking_v34 = () => vistaColeccion('todo');
 
 /* ---------- El telar (v30) y la madeja (v31): cada tejido es un cordón trenzado, y dentro de cada uno su carrusel y su lista compacta ---------- */
 const TL_LOCK = '<svg class="tl-lk" viewBox="0 0 24 24" aria-label="Solo tú" role="img"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>';
@@ -3561,7 +3609,7 @@ function vistaTejidos() {
     ['escena', 'capitulo', 'partida'].map(function (id) { return fila(id); }).join('') + filaPer('director') + filaPer('actor') + fila('paginas', true) + fila('musica');
   const conNota = todos.some(function (s) { return notaDe(s) != null; });
   const h = '<div class="tl"><header class="tl-cab"><div><h1 class="pag">' + (dueno ? 'Tus <span>tejidos</span>' : 'Tejidos') + '</h1><p class="tl-sub">' + hilos + (hilos === 1 ? ' hilo' : ' hilos') + ' · ' + todos.length + (todos.length === 1 ? ' ficha' : ' fichas') +
-    (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</p></div>' + (conNota ? '<a class="tl-rkb" href="#top">Ranking</a>' : '') + '</header>' + avisosSemillas();
+    (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</p></div></header>' + avisosSemillas();
   if (estado.cargando && !todos.length) return h + '<div class="vacio-box"><strong>Cargando…</strong></div></div>';
   if (!todos.length) {
     return h + '<div class="vacio-box"><strong>El tejido está vacío.</strong><span>' + (dueno ? 'Siembra algo y aquí empieza a tejerse.' : 'Todavía no hay nada público. Vuelve pronto.') + '</span>' + (dueno ? '<a class="btn prim" href="#inicio">Sembrar algo</a>' : '') + '</div>' + recTiraHTML() + '</div>';
@@ -3592,61 +3640,36 @@ function tlColgante(base, color) {
   }).join('') + '</div></div>';
 }
 
-/* --- Una colección: un tejido, un estante o todo (con filtros y ranking) --- */
+/* --- Una colección: un tejido, un estante o todo (con filtros por campos y ranking) --- */
+function tjBase(scope) {
+  const al = tjAlcance(scope), dueno = !!estado.sesion; if (!al) return [];
+  return estado.semillas.filter(function (s) { return (dueno || s.publica) && !esFuera(s) && (!al.ids || al.ids.indexOf(s.tejido) >= 0); });
+}
 function vistaColeccion(scope) {
   const al = tjAlcance(scope);
   if (scope === 'recomendaciones') return vistaRecs();
   if (scope === 'directores' || scope === 'actores' || scope === 'personas') return vistaPersonas(scope === 'actores' ? 'actor' : 'director');
   if (!al) return '<a class="volver" href="#tejidos">Tejidos</a><div class="vacio-box"><strong>Ese tejido no existe.</strong><a class="btn prim" href="#tejidos">Ir a los tejidos</a></div>';
-  if (estado.tj.scope !== scope) estado.tj = { scope: scope, orden: al.rk ? 'mejores' : 'recientes', nivel: 0, etq: '', tipo: '' };
-  const f = estado.tj, dueno = !!estado.sesion;
-  const base = estado.semillas.filter(function (s) { return (dueno || s.publica) && !esFuera(s) && (!al.ids || al.ids.indexOf(s.tejido) >= 0); });
-  const cargando = estado.cargando && !estado.semillas.length;
-  const tipos = {}, etqs = {}; let conNota = 0;
-  base.forEach(function (s) { tipos[s.tipo] = (tipos[s.tipo] || 0) + 1; s.etiquetas.forEach(function (e) { etqs[e] = (etqs[e] || 0) + 1; }); if (notaDe(s) != null) conNota++; });
-  let l = base;
-  if (f.tipo) l = l.filter(function (s) { return s.tipo === f.tipo; });
-  if (f.etq) l = l.filter(function (s) { return s.etiquetas.indexOf(f.etq) >= 0; });
-  if (f.nivel) l = l.filter(function (s) { const x = notaDe(s); return x != null && nivel(x) === NIVELES[f.nivel]; });
-  const rk = f.orden === 'mejores' || f.orden === 'peores';
-  if (rk) {
-    l = l.filter(function (s) { return notaDe(s) != null; });
-    l.sort(function (a, b) { return (f.orden === 'mejores' ? notaDe(b) - notaDe(a) : notaDe(a) - notaDe(b)) || b.creado - a.creado; });
-  } else l = l.slice().sort(function (a, b) { return b.creado - a.creado; });
-
-  const chip = function (accion, dato, txt, activo, extra) { return '<button type="button" class="chip" aria-pressed="' + (!!activo) + '" data-action="' + accion + '" ' + dato + (extra || '') + '>' + txt + '</button>'; };
-  const tk = Object.keys(tipos), ek = Object.keys(etqs).sort(function (a, b) { return etqs[b] - etqs[a] || a.localeCompare(b); }).slice(0, 12);
-  let ctl = '';
-  if (tk.length > 1 || ek.length) {
-    ctl += '<div class="tj-fil tl-chips" role="group" aria-label="Filtros">' + chip('tj-todas', '', 'Todas', !f.tipo && !f.etq && !f.nivel) +
-      (tk.length > 1 ? tk.map(function (k) { return chip('tj-tipo', 'data-t="' + k + '"', esc(tipoDe(k).plural || tipoDe(k).nombre) + ' <small>' + tipos[k] + '</small>', f.tipo === k); }).join('') : '') +
-      ek.map(function (e) { return chip('tj-etq', 'data-e="' + esc(e) + '"', '#' + esc(e), f.etq === e); }).join('') + '</div>';
-  }
-  if (conNota) {
-    ctl += '<div class="tj-fil tl-chips" role="group" aria-label="Orden y nivel">' + chip('tj-orden', 'data-o="recientes"', 'Recientes', f.orden === 'recientes') + chip('tj-orden', 'data-o="mejores"', 'Las mejores', f.orden === 'mejores') + chip('tj-orden', 'data-o="peores"', 'Las peores', f.orden === 'peores') +
-      [5, 4, 3, 2, 1].map(function (i) { return chip('tj-nivel', 'data-n="' + i + '"', esc(NIVELES[i].nombre), f.nivel === i, ' style="--vc:' + NIVELES[i].color + '"'); }).join('') + '</div>';
-  }
-
-  if (al.rk) ctl += perChipsHTML();
-  let cuerpo;
-  if (cargando) cuerpo = '<div class="vacio-box"><strong>Cargando…</strong></div>';
-  else if (!l.length) {
-    cuerpo = base.length ? '<div class="vacio-box"><strong>Nada con ese filtro.</strong><span>Cambia o quita el filtro.</span></div>'
-      : '<div class="vacio-box"><strong>' + (dueno ? 'Aquí todavía no hay nada.' : 'Todavía no hay nada público aquí.') + '</strong><span>' + (dueno ? 'Lo que siembres en este tejido aparece aquí.' : 'Vuelve pronto.') + '</span></div>';
-  } else {
-    const conFicha = l.some(function (s) { return tipoDe(s.tipo).ficha; });
-    if (!conFicha && !rk) {   // solo textos: se agrupan por día, como un diario
-      let h = '', dia = '';
-      l.forEach(function (s) {
-        const k = diaClave(s.creado);
-        if (k !== dia) { if (dia) h += '</div>'; dia = k; h += '<h2 class="sec sem-dia">' + esc(etiquetaDia(s.creado)) + '</h2><div class="sem-grid">'; }
-        h += semTarjeta(s);
-      });
-      cuerpo = h + '</div>';
-    } else {
-      cuerpo = '<div class="tl-lista">' + l.map(function (s, i) { return tipoDe(s.tipo).ficha ? tlFila(s, rk ? i + 1 : 0) : tjFila(s); }).join('') + '</div>';
-    }
-  }
+  if (estado.tj.scope !== scope) estado.tj = flNuevo({ scope: scope, orden: al.rk ? 'mejores' : 'recientes' });
+  const f = estado.tj, dueno = !!estado.sesion, base = tjBase(scope), cargando = estado.cargando && !estado.semillas.length;
+  const tipos = {}; let conNota = 0, conAnio = false;
+  const hay = {}; FL_TXT_K.forEach(function (k) { hay[k] = false; });
+  base.forEach(function (s) {
+    tipos[s.tipo] = (tipos[s.tipo] || 0) + 1; if (notaDe(s) != null) conNota++; if (flAnio(s)) conAnio = true;
+    FL_TXT_K.forEach(function (k) { if (!hay[k] && FL_TXT[k].f(s).some(function (v) { return String(v || '').trim(); })) hay[k] = true; });
+  });
+  const tk = Object.keys(tipos), op = flOpciones(base);
+  const campos = ['q'];
+  if (tk.length > 1) campos.push('tipo');
+  if (Object.keys(op.gen).length) campos.push('gen');
+  if (conAnio) campos.push('an');
+  ['dir', 'actor', 'plat', 'autor', 'banda', 'album', 'serie'].forEach(function (k) { if (hay[k]) campos.push(k); });
+  if (conNota) { campos.push('nivel'); }
+  campos.push('orden');
+  const ordenes = conNota ? [['recientes', 'Recientes'], ['mejores', 'Las mejores'], ['peores', 'Las peores']] : [['recientes', 'Recientes']];
+  const tipoOp = [['', 'Todos']].concat(tk.map(function (k) { return [k, (tipoDe(k).plural || tipoDe(k).nombre) + ' (' + tipos[k] + ')']; }));
+  const panel = base.length > 1 && !cargando ? flCajaHTML('tj', f, flPanelHTML('tj', campos, f, op, { tipos: tipoOp, orden: ordenes, anLab: 'Año de estreno' }), false) : '';
+  const r = cargando ? { n: 0, html: '<div class="vacio-box"><strong>Cargando…</strong></div>' } : flResTejido();
   let sembrar = '';
   if (dueno && al.tejido) {
     const tp = TIPOS.filter(function (t) { return t.tejido === al.tejido.id; });
@@ -3659,7 +3682,7 @@ function vistaColeccion(scope) {
   if (al.tejido && al.tejido.privado) sub.push('solo tú');
   return '<div class="tl"><header class="tl-cab tl-cab-in" style="--hc:' + al.color + '"><a class="tl-atras" href="#tejidos" aria-label="Volver a Tejidos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>' +
     '<div class="tl-tt"><h1 class="pag">' + esc(al.nombre) + '</h1><p class="tl-sub">' + esc(sub.join(' · ')) + '</p></div>' + sembrar + '</header>' +
-    avisosSemillas() + (al.rk || cargando ? '' : tlColgante(base, al.color)) + tabsEst + ctl + '<div class="tl-cuerpo">' + cuerpo + '</div></div>';
+    avisosSemillas() + (al.rk || cargando ? '' : tlColgante(base, al.color)) + tabsEst + panel + '<p class="fl-n" id="fl-n">' + (panel ? flNTxt(r.n) : '') + '</p><div class="tl-cuerpo" id="fl-res">' + r.html + '</div></div>';
 }
 
 /* ---------- v31: Cuerdas, el tejido de la música (bandas, canciones y álbumes) ---------- */
@@ -4008,7 +4031,7 @@ const serNum = x => parseInt((x.datos || {}).temporada, 10) || 0;
 const serProm = l => { const n = l.filter(function (x) { return notaDe(x) != null; }); return n.length ? { v: n.reduce(function (a, x) { return a + notaDe(x); }, 0) / n.length, n: n.length } : null; };
 
 /* --- La imagen de una temporada o un episodio sin imagen propia es la de su serie --- */
-function fichaImgUrl(s, grande) {
+function fichaImgUrl_v34(s, grande) {
   const u = fichaImgUrl_v32(s, grande);
   if (u || !s || !serEsHijo(s)) return u;
   const p = serieDe(s); return p ? fichaImgUrl_v32(p, grande) : null;
@@ -4165,9 +4188,15 @@ function perObras(p, dueno) {   // lo que dirigió (películas) y en lo que actu
     act: estado.semillas.filter(function (x) { return (x.tipo === 'pelicula' || x.tipo === 'serie') && vis(x) && esMio(x.datos.reparto); })
   };
 }
-function perStats(p, rol, dueno) {
-  const o = perObras(p, dueno), l = rol === 'actor' ? o.act : o.dir;
+function perStats(p, rol, dueno, ok) {   // ok (opcional): deja solo las obras que cumplen los filtros
+  const o = perObras(p, dueno); let l = rol === 'actor' ? o.act : o.dir;
+  if (ok) l = l.filter(ok);
   return { l: l, prom: serProm(l) };
+}
+function perObrasPool(rol, dueno) {   // todas las obras de las personas de esa lista (sirve para armar las opciones de los filtros)
+  const vistos = {}, out = [];
+  perLista(rol, dueno).forEach(function (p) { perStats(p, rol, dueno).l.forEach(function (x) { if (!vistos[x.id]) { vistos[x.id] = 1; out.push(x); } }); });
+  return out;
 }
 function perSubTxt(s) {
   const o = perObras(s, !!estado.sesion), ids = {}; o.dir.concat(o.act).forEach(function (x) { ids[x.id] = 1; });
@@ -4177,8 +4206,8 @@ function perSubTxt(s) {
 const perProm = (v, n) => '<p class="mus-prom">Promedio: <b>' + v.toFixed(1) + '</b> · ' + n + (n === 1 ? ' calificación' : ' calificaciones') + '</p>';
 
 /* --- Una fila de la lista de directores / actores: foto, nombre, cuántas obras y el promedio de ellas --- */
-function perFila(p, rol, rank, dueno) {
-  const st = perStats(p, rol, dueno), u = fichaImgUrl(p, false), nv = st.prom ? nivel(st.prom.v) : null, n = st.l.length;
+function perFila(p, rol, rank, dueno, st0) {
+  const st = st0 || perStats(p, rol, dueno), u = fichaImgUrl(p, false), nv = st.prom ? nivel(st.prom.v) : null, n = st.l.length;
   return '<a class="tl-r per-r" href="#modulo-' + p.id + '" style="--tc:' + PER_COLOR + (nv ? ';--vc:' + nv.color : '') + '">' +
     (rank ? '<span class="tl-rk">' + rank + '</span>' : '') +
     '<span class="tl-th per-th">' + (u ? '<img src="' + esc(u) + '" alt="" loading="lazy" decoding="async">' : '<em>' + esc((p.titulo || '?').slice(0, 1).toUpperCase()) + '</em>') + '</span>' +
@@ -4187,44 +4216,24 @@ function perFila(p, rol, rank, dueno) {
     (tieneResena(p) ? '<b class="tl-res">Reseña</b>' : '') + (!p.publica ? '<b class="tl-priv">Privada</b>' : '') + '</span></span>' +
     '<span class="tl-n">' + (nv ? '<span class="tl-nv">' + TL_NUBE + st.prom.v.toFixed(1) + '</span><small>promedio · ' + esc(nv.nombre) + '</small>' : '<small>Sin promedio</small>') + '</span></a>';
 }
-/* --- La página «Directores» o «Actores»: un ranking por el promedio de sus obras --- */
+/* --- La página «Directores» o «Actores»: un ranking por el promedio de sus obras, con filtros por campos --- */
 function vistaPersonas(rol) {
-  const dueno = !!estado.sesion, f = estado.perOrden || 'prom', nombre = rol === 'actor' ? 'Actores' : 'Directores';
-  const base = perLista(rol, dueno);
-  const filas = base.map(function (p) { return { p: p, st: perStats(p, rol, dueno) }; });
-  const cmpN = function (a, b) { return String(a.p.titulo).localeCompare(String(b.p.titulo), 'es'); };
-  filas.sort(function (a, b) {
-    if (f === 'az') return cmpN(a, b);
-    if (f === 'obras') return b.st.l.length - a.st.l.length || cmpN(a, b);
-    const va = a.st.prom ? a.st.prom.v : null, vb = b.st.prom ? b.st.prom.v : null;
-    if (va == null || vb == null) return va == null && vb == null ? cmpN(a, b) : va == null ? 1 : -1;
-    return (f === 'peor' ? va - vb : vb - va) || b.st.prom.n - a.st.prom.n || cmpN(a, b);
-  });
-  const ranking = f === 'prom' || f === 'peor';
-  let k = 0;
-  const lista = filas.map(function (x) { return perFila(x.p, rol, ranking && x.st.prom ? ++k : 0, dueno); }).join('');
+  const dueno = !!estado.sesion, nombre = rol === 'actor' ? 'Actores' : 'Directores';
+  if (!estado.per || estado.per.rol !== rol) estado.per = flNuevo({ rol: rol, orden: 'prom' });
+  const f = estado.per, base = perLista(rol, dueno);
   const cuenta = function (r) { return perLista(r, dueno).length; };
-  const chip = function (o, txt) { return '<button type="button" class="chip" aria-pressed="' + (f === o) + '" data-action="per-orden" data-o="' + o + '">' + txt + '</button>'; };
   const tabs = '<div class="tj-fil tj-tabs tl-chips" role="group" aria-label="Gente de cine">' +
     [['director', 'Directores', '#tejido-directores'], ['actor', 'Actores', '#tejido-actores']].map(function (t) { return '<a class="chip" aria-pressed="' + (t[0] === rol) + '" href="' + t[2] + '">' + t[1] + ' <small>' + cuenta(t[0]) + '</small></a>'; }).join('') + '</div>';
-  const orden = base.length > 1 ? '<div class="tj-fil tl-chips" role="group" aria-label="Orden">' + chip('prom', 'Mejor promedio') + chip('peor', 'Peor promedio') + chip('obras', 'Más obras') + chip('az', 'A–Z') + '</div>' : '';
-  let cuerpo;
-  if (estado.cargando && !estado.semillas.length) cuerpo = '<div class="vacio-box"><strong>Cargando…</strong></div>';
-  else if (!base.length) cuerpo = '<div class="vacio-box"><strong>' + (dueno ? 'Todavía no hay fichas de ' + nombre.toLowerCase() + '.' : 'Todavía no hay nada público aquí.') + '</strong><span>' +
-    (dueno ? 'Toca «+ Sembrar», o abre una película y usa «Crear ficha» junto al nombre de quien la dirigió o actuó.' : 'Vuelve pronto.') + '</span></div>';
-  else cuerpo = '<div class="tl-lista">' + lista + '</div>';
+  const panel = base.length > 1 ? flCajaHTML('per', f, flPanelHTML('per', ['q', 'an', 'gen', 'min', 'nivel', 'orden'], f, flOpciones(perObrasPool(rol, dueno)), { anLab: 'Año de sus obras', orden: FL_ORDEN_PER }), false) : '';
+  const r = (estado.cargando && !estado.semillas.length) ? { html: '<div class="vacio-box"><strong>Cargando…</strong></div>' } : flResPer();
   const sub = ['Estante Pantalla', base.length + (base.length === 1 ? ' ficha' : ' fichas'), 'por el promedio de sus obras'];
   return '<div class="tl"><header class="tl-cab tl-cab-in" style="--hc:' + PER_COLOR + '"><a class="tl-atras" href="#tejidos" aria-label="Volver a Tejidos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>' +
     '<div class="tl-tt"><h1 class="pag">' + nombre + '</h1><p class="tl-sub">' + esc(sub.join(' · ')) + '</p></div>' +
     (dueno ? '<button type="button" class="btn prim tl-sem" data-action="per-nueva" data-r="' + rol + '">+ Sembrar</button>' : '') + '</header>' +
-    avisosSemillas() + tabs + orden + '<div class="tl-cuerpo">' + cuerpo + '</div></div>';
+    avisosSemillas() + tabs + panel + '<p class="fl-n" id="fl-n">' + (base.length > 1 ? flNTxt(r.n) : '') + '</p><div class="tl-cuerpo" id="fl-res">' + r.html + '</div></div>';
 }
 /* --- En el Ranking: atajos a las listas de directores y actores --- */
-function perChipsHTML() {
-  const dueno = !!estado.sesion, d = perLista('director', dueno).length, a = perLista('actor', dueno).length;
-  if (!d && !a) return '';
-  return '<div class="tj-fil tl-chips per-ch" role="group" aria-label="Gente de cine">' + (d ? '<a class="chip" href="#tejido-directores">Directores <small>' + d + '</small></a>' : '') + (a ? '<a class="chip" href="#tejido-actores">Actores <small>' + a + '</small></a>' : '') + '</div>';
-}
+function perChipsHTML() { return ''; }
 
 /* --- La ficha de una persona: lo que dirigió, en lo que actuó y el promedio de cada cosa --- */
 function perRelHTML(b) {
@@ -4254,7 +4263,7 @@ function perGenteHTML(b) {
     (dir.length ? '<p class="per-l">Dirección</p><div class="per-cs">' + dir.map(function (n) { return perChip(n, 'director', dueno); }).join('') + '</div>' : '') +
     (rep.length ? '<p class="per-l">Reparto</p><div class="per-cs">' + rep.map(function (n) { return perChip(n, 'actor', dueno); }).join('') + '</div>' : '') + '</section>';
 }
-function vistaModulo(id) {
+function vistaModulo_v34(id) {
   let h = vistaModulo_v33(id); const b = estado.semillas.filter(function (x) { return x.id === id; })[0];
   if (!b) return h;
   const dueno = !!estado.sesion, acc = '<div class="acciones mo-acc">';
@@ -4299,7 +4308,7 @@ const PER_ACTORES = ['Al Pacino', 'Robert De Niro', 'Marlon Brando', 'Jack Nicho
   'Meryl Streep', 'Cate Blanchett', 'Kate Winslet', 'Natalie Portman', 'Scarlett Johansson', 'Emma Stone', 'Margot Robbie', 'Jennifer Lawrence', 'Anne Hathaway', 'Julia Roberts',
   'Sandra Bullock', 'Nicole Kidman', 'Charlize Theron', 'Frances McDormand', 'Viola Davis', 'Zendaya', 'Florence Pugh', 'Penélope Cruz', 'Salma Hayek', 'Sigourney Weaver',
   'Steve Carell', 'John Krasinski', 'Bryan Cranston', 'Aaron Paul', 'Bob Odenkirk', 'Millie Bobby Brown', 'Winona Ryder', 'Catalina Sandino Moreno', 'Sofía Vergara', 'Carmen Maura'];
-function sugerenciasCampo(t, c) {
+function sugerenciasCampo_v34(t, c) {
   const l = sugerenciasCampo_v33(t, c);
   if (c.sug !== 'director') return l;
   const vistas = {}, out = [], poner = function (x) { const k = norm(x); if (!k || vistas[k]) return; vistas[k] = 1; out.push(x); };
@@ -4356,6 +4365,10 @@ document.addEventListener('focusout', function (e) { if (e.target && e.target.id
 /* --- El pop-up de una persona: foto, nombre, qué es, año de nacimiento y plones --- */
 function perSelHTML(s) {
   const r = perRol(s);
+  if (!s.base) {   // al sembrar, el rol se elige arriba (Película | Director | Actor) y aquí solo se marca si hace las dos cosas
+    const prim = s.perPrim || (r === 'actor' ? 'actor' : 'director');
+    return '<label class="per-tb"><input type="checkbox" data-action="per-ambos"' + (r === 'ambos' ? ' checked' : '') + '><span id="per-tb-t">También ' + (prim === 'actor' ? 'dirige' : 'actúa') + '</span></label>';
+  }
   return '<div class="fx-c per-sel"><span class="fi-l">¿Qué es?</span><div class="seg fx-seg" role="group" aria-label="Rol">' +
     PER_ROLES.map(function (x) { return '<button type="button" aria-pressed="' + (x[0] === r) + '" data-action="per-rol" data-r="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>';
 }
@@ -4372,7 +4385,7 @@ function popPerHTML(s) {
     '<div class="pop-pie">' + (nueva ? '<div class="pop-res" id="s-res">' + resenaSiNoHTML() + '</div>' : '<button type="button" class="btn peligro pop-b" data-action="sem-borrar">Borrar</button>') +
     '<button type="submit" id="s-guardar" class="btn prim pop-g">' + textoGuardar() + '</button></div></form>';
 }
-function popHTML(s) {
+function popHTML_v34(s) {
   const t = tipoDe(s.tipo);
   if (t.id === 'persona') return popPerHTML(s);
   const h = popHTML_v33(s);
@@ -4382,13 +4395,376 @@ function popHTML(s) {
   return i < 0 ? h : h.slice(0, i) + repHTML(s) + h.slice(i);
 }
 // al abrir una persona desde «+ Sembrar» o desde «Crear ficha de X» ya viene con el nombre y el rol
-function iniciarSemilla(tipo, id) {
+function iniciarSemilla_v34(tipo, id) {
   iniciarSemilla_v33(tipo, id);
   const m = estado.sem; if (!m || m.faltante || id) return;
   if (m.tipo !== 'persona') { estado.perPre = null; return; }
   const r = estado.perPre; estado.perPre = null;
   if (!m.datos.rol) m.datos.rol = 'director';
   if (r) { if (r.n) m.titulo = r.n; if (r.r) m.datos.rol = r.r; m.tocado = true; }
+}
+
+/* ---------- v35: el teclado del celular no tapa los pop-ups ---------- */
+// Cuando sale el teclado, el pop-up se sube justo encima de él (variable --kb), se achica a lo que queda libre y el campo en el que escribes se desliza hasta quedar a la vista.
+(function () {
+  const vv = window.visualViewport, h = document.documentElement; if (!vv) return;
+  const tactil = window.matchMedia && matchMedia('(pointer:coarse)').matches;
+  let base = Math.max(window.innerHeight, vv.height), ancho = window.innerWidth, tm = null;
+  function visible() {
+    clearTimeout(tm);
+    tm = setTimeout(function () {
+      const a = document.activeElement;
+      if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) && a.type !== 'checkbox' && a.scrollIntoView) { try { a.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { /* nada */ } }
+    }, 140);
+  }
+  function medir() {
+    if (window.innerWidth !== ancho) { ancho = window.innerWidth; base = Math.max(window.innerHeight, vv.height); }
+    base = Math.max(base, window.innerHeight);
+    if (vv.scale > 1.05) return;
+    const kb = Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop)), abierto = tactil && base - vv.height > 140;
+    h.style.setProperty('--kb', (tactil ? kb : 0) + 'px'); h.classList.toggle('kb-abierto', abierto);
+    if (abierto) visible();
+  }
+  vv.addEventListener('resize', medir); vv.addEventListener('scroll', medir);
+  document.addEventListener('focusin', function (e) { if (e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) setTimeout(medir, 350); });
+  medir();
+})();
+
+/* ---------- v35: filtros por campos (Ranking, tejidos, directores y actores) ---------- */
+// Un solo panel de campos (desplegables con buscador, años «de … a …», nombres con sugerencias) que se usa en el Ranking, dentro de cada tejido y en las páginas de directores y actores.
+// Al escribir o elegir solo se repinta la lista de abajo (así el campo no pierde el cursor).
+const FL_TXT = {
+  dir: { lab: 'Director', f: function (s) { return perNombres((s.datos || {}).director); } },
+  actor: { lab: 'Actor o actriz', f: function (s) { return perNombres((s.datos || {}).reparto); } },
+  plat: { lab: 'Plataforma', f: function (s) { return [String((s.datos || {}).plataforma || '')]; } },
+  autor: { lab: 'Autor', f: function (s) { return [String((s.datos || {}).autor || '')]; } },
+  banda: { lab: 'Banda', f: function (s) { return [s.tipo === 'banda' ? String(s.titulo || '') : String((s.datos || {}).banda || '')]; } },
+  album: { lab: 'Álbum', f: function (s) { return [String((s.datos || {}).album || '')]; } },
+  serie: { lab: 'Serie', f: function (s) { return [String((s.datos || {}).serie || '')]; } }
+};
+const FL_TXT_K = Object.keys(FL_TXT);
+function flNuevo(extra) {
+  return Object.assign({ q: '', tipo: '', orden: '', nivel: 0, ya: '', yb: '', va: '', vb: '', gen: [], dir: '', actor: '', plat: '', autor: '', banda: '', album: '', serie: '', res: '', min: 0 }, extra || {});
+}
+const flAnio = s => { const d = s.datos || {}, y = parseInt(s.tipo === 'banda' ? d.fundacion : d.estreno, 10); return y > 0 ? y : 0; };
+const flVisto = s => { const y = parseInt(String(s.fecha || '').slice(0, 4), 10); return y > 0 ? y : 0; };
+function flActivos(f) {
+  let n = 0;
+  ['q', 'tipo', 'dir', 'actor', 'plat', 'autor', 'banda', 'album', 'serie', 'res'].forEach(function (k) { if (f[k]) n++; });
+  if (f.nivel) n++; if (f.min) n++; if (f.ya || f.yb) n++; if (f.va || f.vb) n++; if (f.gen && f.gen.length) n++;
+  return n;
+}
+function flCoincide(s, f) {
+  if (f.tipo && s.tipo !== f.tipo) return false;
+  if (f.q) {
+    const k = norm(f.q.trim());
+    if (k && norm(s.titulo || '').indexOf(k) < 0 && (tipoDe(s.tipo).ficha || norm(s.contenido || '').indexOf(k) < 0)) return false;
+  }
+  if (f.nivel) { const n = notaDe(s); if (n == null || nivel(n) !== NIVELES[f.nivel]) return false; }
+  if (f.ya || f.yb) { const y = flAnio(s); if (!y || (f.ya && y < f.ya) || (f.yb && y > f.yb)) return false; }
+  if (f.va || f.vb) { const y = flVisto(s); if (!y || (f.va && y < f.va) || (f.vb && y > f.vb)) return false; }
+  if (f.gen && f.gen.length && !s.etiquetas.some(function (e) { return f.gen.indexOf(e) >= 0; })) return false;
+  for (let i = 0; i < FL_TXT_K.length; i++) {
+    const k = FL_TXT_K[i]; if (!f[k]) continue;
+    const q = norm(String(f[k]).trim()); if (!q) continue;
+    if (!FL_TXT[k].f(s).some(function (v) { return norm(v).indexOf(q) >= 0; })) return false;
+  }
+  if (f.res === '1' && !tieneResena(s)) return false;
+  return true;
+}
+// Lo que se puede elegir en cada campo sale de lo que ya tienes guardado (con cuántas fichas hay de cada cosa)
+function flOpciones(pool) {
+  const gen = {}, txt = {}; FL_TXT_K.forEach(function (k) { txt[k] = {}; });
+  pool.forEach(function (s) {
+    s.etiquetas.forEach(function (e) { gen[e] = (gen[e] || 0) + 1; });
+    FL_TXT_K.forEach(function (k) { FL_TXT[k].f(s).forEach(function (v) { v = String(v || '').trim(); if (v) txt[k][v] = (txt[k][v] || 0) + 1; }); });
+  });
+  return { gen: gen, txt: txt };
+}
+function flSel(k, f, opts) {
+  return '<select class="in fl-c" data-fl="' + k + '">' + opts.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (String(f[k]) === String(o[0]) ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
+}
+function flGenHTML(f, op) {
+  const nombres = Object.keys(op.gen); (f.gen || []).forEach(function (g) { if (nombres.indexOf(g) < 0) nombres.push(g); });
+  nombres.sort(function (a, b) { return (op.gen[b] || 0) - (op.gen[a] || 0) || a.localeCompare(b, 'es'); });
+  const resumen = f.gen && f.gen.length ? f.gen.join(', ') : 'Todos';
+  return '<details class="fl-det"><summary class="in"><span>' + esc(resumen) + '</span></summary><div class="fl-gp"><input class="in fl-bus" type="search" placeholder="Buscar género…" autocomplete="off" aria-label="Buscar género"><div class="fl-gl">' +
+    (nombres.length ? nombres.map(function (g) {
+      return '<label class="fl-o"><input type="checkbox" class="fl-c" data-fl="gen" value="' + esc(g) + '"' + (f.gen.indexOf(g) >= 0 ? ' checked' : '') + '><span>' + esc(g) + '</span><small>' + (op.gen[g] || 0) + '</small></label>';
+    }).join('') : '<p class="ayuda">Todavía no hay géneros guardados.</p>') + '</div></div></details>';
+}
+// El panel: «campos» dice cuáles se muestran y en qué orden
+function flPanelHTML(fs, campos, f, op, ctx) {
+  ctx = ctx || {};
+  const c = function (lab, inner, ancho) { return '<div class="fl-f' + (ancho ? ' fl-2' : '') + '"><span class="fi-l">' + esc(lab) + '</span>' + inner + '</div>'; };
+  const rango = function (lab, ka, kb) {
+    return c(lab, '<div class="fl-r"><input class="in fl-c" type="number" inputmode="numeric" min="1" max="2999" data-fl="' + ka + '" value="' + esc(f[ka] || '') + '" placeholder="De" aria-label="' + esc(lab) + ' desde"><span>a</span>' +
+      '<input class="in fl-c" type="number" inputmode="numeric" min="1" max="2999" data-fl="' + kb + '" value="' + esc(f[kb] || '') + '" placeholder="A" aria-label="' + esc(lab) + ' hasta"></div>', false);
+  };
+  let dl = '', h = '';
+  campos.forEach(function (k) {
+    if (k === 'q') h += c('Buscar', '<input class="in fl-c" type="search" data-fl="q" value="' + esc(f.q || '') + '" placeholder="Nombre…" autocomplete="off">', true);
+    else if (k === 'tipo') h += c('Tipo', flSel('tipo', f, ctx.tipos || [['', 'Todos']]));
+    else if (k === 'gen') h += c('Género', flGenHTML(f, op), true);
+    else if (k === 'an') h += rango(ctx.anLab || 'Año', 'ya', 'yb');
+    else if (k === 'vis') h += rango('Visto entre', 'va', 'vb');
+    else if (FL_TXT[k]) {
+      const vals = Object.keys(op.txt[k] || {}).sort(function (a, b) { return a.localeCompare(b, 'es'); });
+      dl += '<datalist id="dl-fl-' + k + '">' + vals.map(function (v) { return '<option value="' + esc(v) + '">'; }).join('') + '</datalist>';
+      h += c(FL_TXT[k].lab, '<input class="in fl-c" type="text" data-fl="' + k + '" list="dl-fl-' + k + '" value="' + esc(f[k] || '') + '" placeholder="Todos" autocomplete="off">');
+    }
+    else if (k === 'nivel') h += c('Nivel', flSel('nivel', f, [[0, 'Cualquiera']].concat([5, 4, 3, 2, 1].map(function (i) { return [i, NIVELES[i].nombre]; }))));
+    else if (k === 'res') h += c('Reseña', flSel('res', f, [['', 'Todas'], ['1', 'Con reseña']]));
+    else if (k === 'min') h += c('Mínimo de obras', flSel('min', f, [[0, 'Cualquiera'], [2, '2 o más'], [3, '3 o más'], [5, '5 o más']]));
+    else if (k === 'orden') h += c('Orden', flSel('orden', f, ctx.orden || [['mejores', 'De mejor a peor'], ['peores', 'De peor a mejor']]));
+  });
+  return '<div class="fl-g">' + h + '</div>' + dl;
+}
+// La caja plegable de filtros: arriba dice cuántos hay puestos; adentro está «Limpiar» y los campos
+const flNTxt = n => n + (n === 1 ? ' resultado' : ' resultados');
+function flCajaHTML(fs, f, panel, abierto) {
+  const n = flActivos(f), ab = estado.flAb && estado.flAb[fs] !== undefined ? estado.flAb[fs] : abierto;
+  return '<details class="fl fl-caja" id="fl-pleg" data-fs="' + fs + '"' + (ab ? ' open' : '') + '><summary><span>Filtros</span><b class="fl-act" id="fl-act"' + (n ? '' : ' hidden') + '>' + n + '</b></summary>' +
+    '<div class="fl-cuerpo"><div class="fl-top"><button type="button" class="link-b fl-lim" data-action="fl-limpiar" data-fs="' + fs + '"' + (n ? '' : ' hidden') + '>Limpiar filtros</button></div>' + panel + '</div></details>';
+}
+
+/* --- Qué estado tiene cada pantalla --- */
+const RK_TIPOS = [['pelicula', 'Películas'], ['serie', 'Series'], ['temporada', 'Temporadas'], ['episodio', 'Episodios'], ['banda', 'Bandas'], ['cancion', 'Canciones'], ['album', 'Álbumes'], ['juego', 'Juegos'], ['libro', 'Libros'], ['director', 'Directores'], ['actor', 'Actores']];
+const RK_GRUPOS = [['Cine y series', ['pelicula', 'serie', 'temporada', 'episodio']], ['Música', ['banda', 'cancion', 'album']], ['Juegos y libros', ['juego', 'libro']], ['Gente de cine', ['director', 'actor']]];
+const RK_CAMPOS = {
+  pelicula: ['q', 'an', 'vis', 'gen', 'dir', 'actor', 'nivel', 'res', 'orden'],
+  serie: ['q', 'an', 'vis', 'gen', 'plat', 'actor', 'nivel', 'res', 'orden'],
+  temporada: ['q', 'serie', 'nivel', 'orden'], episodio: ['q', 'serie', 'nivel', 'orden'],
+  juego: ['q', 'an', 'vis', 'gen', 'plat', 'nivel', 'res', 'orden'], libro: ['q', 'an', 'vis', 'gen', 'autor', 'nivel', 'res', 'orden'],
+  banda: ['q', 'an', 'gen', 'nivel', 'res', 'orden'], cancion: ['q', 'gen', 'banda', 'album', 'nivel', 'res', 'orden'], album: ['q', 'an', 'gen', 'banda', 'nivel', 'res', 'orden'],
+  director: ['q', 'an', 'gen', 'min', 'nivel', 'orden'], actor: ['q', 'an', 'gen', 'min', 'nivel', 'orden']
+};
+const RK_AN = { pelicula: 'Año de estreno', serie: 'Año de estreno', juego: 'Año de lanzamiento', libro: 'Año de publicación', banda: 'Año de fundación', album: 'Año de lanzamiento', director: 'Año de sus obras', actor: 'Año de sus obras' };
+const FL_ORDEN_OBRA = [['mejores', 'De mejor a peor'], ['peores', 'De peor a mejor'], ['recientes', 'Recientes']];
+const FL_ORDEN_PER = [['prom', 'Mejor promedio'], ['peor', 'Peor promedio'], ['obras', 'Más obras'], ['az', 'A–Z']];
+const rkEsPer = k => k === 'director' || k === 'actor';
+function rkPool(kind) {
+  const dueno = !!estado.sesion;
+  if (rkEsPer(kind)) return perObrasPool(kind, dueno);
+  return estado.semillas.filter(function (s) { return s.tipo === kind && (dueno || s.publica) && notaDe(s) != null; });
+}
+function rkCuenta(kind) {
+  return rkEsPer(kind) ? perLista(kind, !!estado.sesion).length : rkPool(kind).length;
+}
+function rkEstado() {
+  if (!estado.rk) {
+    const k = RK_TIPOS.map(function (x) { return x[0]; }).filter(function (x) { return rkCuenta(x) > 0; })[0] || 'pelicula';
+    estado.rk = flNuevo({ kind: k, orden: rkEsPer(k) ? 'prom' : 'mejores' });
+  }
+  return estado.rk;
+}
+function flEstado(fs) { return fs === 'rk' ? rkEstado() : fs === 'tj' ? estado.tj : estado.per; }
+function flReset(fs) {
+  const f = flEstado(fs);
+  if (fs === 'rk') estado.rk = flNuevo({ kind: f.kind, orden: rkEsPer(f.kind) ? 'prom' : 'mejores' });
+  else if (fs === 'tj') estado.tj = flNuevo({ scope: f.scope, orden: 'recientes' });
+  else estado.per = flNuevo({ rol: f.rol, orden: 'prom' });
+}
+
+/* --- Los resultados de cada pantalla (solo esto se repinta al filtrar) --- */
+function flVacio(hay) {
+  return '<div class="vacio-box"><strong>' + (hay ? 'Nada con esos filtros.' : 'Todavía no hay nada aquí.') + '</strong><span>' + (hay ? 'Cambia o quita algún filtro.' : 'Cuando califiques algo, aparece aquí.') + '</span></div>';
+}
+function flResPersonas(rol, f) {
+  const dueno = !!estado.sesion, f2 = flNuevo({ ya: f.ya, yb: f.yb, gen: f.gen }), ok = function (o) { return flCoincide(o, f2); };
+  const todas = perLista(rol, dueno);
+  let filas = todas.map(function (p) { return { p: p, st: perStats(p, rol, dueno, ok) }; });
+  if (f.q) { const k = norm(f.q.trim()); filas = filas.filter(function (x) { return norm(x.p.titulo).indexOf(k) >= 0; }); }
+  if (f.min) filas = filas.filter(function (x) { return x.st.l.length >= f.min; });
+  if (f.nivel) filas = filas.filter(function (x) { return x.st.prom && nivel(x.st.prom.v) === NIVELES[f.nivel]; });
+  if (f.ya || f.yb || (f.gen && f.gen.length)) filas = filas.filter(function (x) { return x.st.l.length; });
+  const o = f.orden || 'prom', cmpN = function (a, b) { return String(a.p.titulo).localeCompare(String(b.p.titulo), 'es'); };
+  filas.sort(function (a, b) {
+    if (o === 'az') return cmpN(a, b);
+    if (o === 'obras') return b.st.l.length - a.st.l.length || cmpN(a, b);
+    const va = a.st.prom ? a.st.prom.v : null, vb = b.st.prom ? b.st.prom.v : null;
+    if (va == null || vb == null) return va == null && vb == null ? cmpN(a, b) : va == null ? 1 : -1;
+    return (o === 'peor' ? va - vb : vb - va) || b.st.prom.n - a.st.prom.n || cmpN(a, b);
+  });
+  const ranking = o === 'prom' || o === 'peor'; let k = 0;
+  const html = filas.length ? '<div class="tl-lista">' + filas.map(function (x) { return perFila(x.p, rol, ranking && x.st.prom ? ++k : 0, dueno, x.st); }).join('') + '</div>'
+    : (estado.cargando && !estado.semillas.length ? '<div class="vacio-box"><strong>Cargando…</strong></div>'
+      : '<div class="vacio-box"><strong>' + (todas.length ? 'Nada con esos filtros.' : (dueno ? 'Todavía no hay fichas de ' + (rol === 'actor' ? 'actores' : 'directores') + '.' : 'Todavía no hay nada público aquí.')) + '</strong><span>' +
+        (todas.length ? 'Cambia o quita algún filtro.' : (dueno ? 'Toca «+ Sembrar», o abre una película y usa «Crear ficha» junto al nombre.' : 'Vuelve pronto.')) + '</span></div>');
+  return { n: filas.length, html: html };
+}
+function flResRk() {
+  const f = rkEstado();
+  if (rkEsPer(f.kind)) return flResPersonas(f.kind, f);
+  const pool = rkPool(f.kind), o = f.orden || 'mejores';
+  const l = pool.filter(function (s) { return flCoincide(s, f); });
+  l.sort(o === 'recientes' ? function (a, b) { return b.creado - a.creado; } : o === 'peores' ? function (a, b) { return notaDe(a) - notaDe(b) || b.creado - a.creado; } : function (a, b) { return notaDe(b) - notaDe(a) || b.creado - a.creado; });
+  return { n: l.length, html: l.length ? '<div class="tl-lista">' + l.map(function (s, i) { return tlFila(s, o === 'recientes' ? 0 : i + 1); }).join('') + '</div>' : flVacio(pool.length) };
+}
+function flResTejido() {
+  const f = estado.tj, al = tjAlcance(f.scope), dueno = !!estado.sesion; if (!al) return { n: 0, html: '' };
+  const base = tjBase(f.scope), cargando = estado.cargando && !estado.semillas.length;
+  let l = base.filter(function (s) { return flCoincide(s, f); });
+  const rk = f.orden === 'mejores' || f.orden === 'peores';
+  if (rk) {
+    l = l.filter(function (s) { return notaDe(s) != null; });
+    l.sort(function (a, b) { return (f.orden === 'mejores' ? notaDe(b) - notaDe(a) : notaDe(a) - notaDe(b)) || b.creado - a.creado; });
+  } else l = l.slice().sort(function (a, b) { return b.creado - a.creado; });
+  let cuerpo;
+  if (cargando) cuerpo = '<div class="vacio-box"><strong>Cargando…</strong></div>';
+  else if (!l.length) {
+    cuerpo = base.length ? '<div class="vacio-box"><strong>Nada con esos filtros.</strong><span>Cambia o quita algún filtro.</span></div>'
+      : '<div class="vacio-box"><strong>' + (dueno ? 'Aquí todavía no hay nada.' : 'Todavía no hay nada público aquí.') + '</strong><span>' + (dueno ? 'Lo que siembres en este tejido aparece aquí.' : 'Vuelve pronto.') + '</span></div>';
+  } else if (!l.some(function (s) { return tipoDe(s.tipo).ficha; }) && !rk) {   // solo textos: se agrupan por día, como un diario
+    let h = '', dia = '';
+    l.forEach(function (s) {
+      const k = diaClave(s.creado);
+      if (k !== dia) { if (dia) h += '</div>'; dia = k; h += '<h2 class="sec sem-dia">' + esc(etiquetaDia(s.creado)) + '</h2><div class="sem-grid">'; }
+      h += semTarjeta(s);
+    });
+    cuerpo = h + '</div>';
+  } else cuerpo = '<div class="tl-lista">' + l.map(function (s, i) { return tipoDe(s.tipo).ficha ? tlFila(s, rk ? i + 1 : 0) : tjFila(s); }).join('') + '</div>';
+  return { n: l.length, html: cuerpo };
+}
+const flResPer = () => flResPersonas(estado.per.rol, estado.per);
+function flPintar(fs) {
+  const r = fs === 'rk' ? flResRk() : fs === 'tj' ? flResTejido() : flResPer();
+  const e = $('#fl-res'); if (e) e.innerHTML = r.html;
+  const n = $('#fl-n'); if (n) n.textContent = flNTxt(r.n);
+  const f = flEstado(fs), a = flActivos(f), b = $('#fl-act'); if (b) { b.textContent = a; b.hidden = !a; }
+  const l = document.querySelector('.fl-lim'); if (l) l.hidden = !a;
+  const g = document.querySelector('.fl-det summary span'); if (g) g.textContent = f.gen && f.gen.length ? f.gen.join(', ') : 'Todos';
+}
+
+/* --- La pantalla Ranking: primero eliges qué quieres rankear; los filtros cambian según eso --- */
+const RK_ORDEN_SEL = k => rkEsPer(k) ? FL_ORDEN_PER : FL_ORDEN_OBRA;
+function vistaRanking() {
+  const f = rkEstado(), dueno = !!estado.sesion, kind = f.kind, pool = rkPool(kind);
+  const nom = k => RK_TIPOS.filter(function (x) { return x[0] === k; })[0][1];
+  const sel = '<select class="in fl-c fl-kind-s" data-fl="kind" aria-label="Qué quieres rankear">' + RK_GRUPOS.map(function (g) {
+    return '<optgroup label="' + esc(g[0]) + '">' + g[1].map(function (k) { return '<option value="' + k + '"' + (k === kind ? ' selected' : '') + '>' + esc(nom(k)) + ' (' + rkCuenta(k) + ')</option>'; }).join('') + '</optgroup>';
+  }).join('') + '</select>';
+  const panel = flCajaHTML('rk', f, flPanelHTML('rk', RK_CAMPOS[kind], f, flOpciones(pool), { anLab: RK_AN[kind], orden: RK_ORDEN_SEL(kind) }), true);
+  const r = (estado.cargando && !estado.semillas.length) ? { n: 0, html: '<div class="vacio-box"><strong>Cargando…</strong></div>' } : flResRk();
+  return '<div class="tl"><header class="tl-cab"><div><h1 class="pag">Ran<span>king</span></h1><p class="tl-sub">Lo mejor y lo peor, a tu manera' + (dueno ? '' : ' · <a class="sub-l" href="#entrar">Entrar</a>') + '</p></div></header>' + avisosSemillas() +
+    '<div class="fl fl-kind" data-fs="rk"><span class="fi-l">¿Qué quieres rankear?</span>' + sel + '</div>' + panel +
+    '<p class="fl-n" id="fl-n">' + flNTxt(r.n) + '</p><div class="tl-cuerpo" id="fl-res">' + r.html + '</div></div>';
+}
+
+/* --- Los eventos: escribir o elegir en un campo repinta solo la lista --- */
+function flCambio(e) {
+  const t = e.target; if (!t || !t.classList || !t.classList.contains('fl-c')) return;
+  const box = t.closest('.fl'); if (!box) return;
+  const fs = box.dataset.fs, f = flEstado(fs), k = t.dataset.fl;
+  if (k === 'kind') { estado.rk = flNuevo({ kind: t.value, orden: rkEsPer(t.value) ? 'prom' : 'mejores' }); render(false); return; }
+  if (k === 'gen') f.gen = Array.prototype.map.call(box.querySelectorAll('input[data-fl="gen"]:checked'), function (x) { return x.value; });
+  else if (k === 'ya' || k === 'yb' || k === 'va' || k === 'vb') f[k] = parseInt(t.value, 10) > 0 ? parseInt(t.value, 10) : '';
+  else if (k === 'nivel' || k === 'min') f[k] = parseInt(t.value, 10) || 0;
+  else f[k] = t.value;
+  flPintar(fs);
+}
+document.addEventListener('input', flCambio);
+document.addEventListener('change', flCambio);
+document.addEventListener('input', function (e) {   // el buscador de géneros solo esconde y muestra opciones
+  const t = e.target; if (!t || !t.classList || !t.classList.contains('fl-bus')) return;
+  const q = norm(t.value.trim());
+  t.closest('.fl-gp').querySelectorAll('.fl-o').forEach(function (l) { l.hidden = !!q && norm(l.textContent).indexOf(q) < 0; });
+});
+document.addEventListener('toggle', function (e) { if (e.target && e.target.id === 'fl-pleg') (estado.flAb = estado.flAb || {})[e.target.dataset.fs] = !!e.target.open; }, true);
+
+/* ---------- v35: el selector Película | Director | Actor y los enlaces que faltaban ---------- */
+// Película, director y actor comparten pop-up: director y actor son una ficha de persona (con su rol); película es la ficha de siempre.
+function cineSelHTML(s) {
+  if (s.base || (s.tipo !== 'pelicula' && s.tipo !== 'persona')) return '';
+  const a = s.tipo === 'pelicula' ? 'pelicula' : (perRol(s) === 'actor' ? 'actor' : 'director');
+  return '<div class="mus-sel cine-sel"><div class="seg fx-seg" role="group" aria-label="¿Qué vas a guardar?">' +
+    [['pelicula', 'Película'], ['director', 'Director'], ['actor', 'Actor']].map(function (x) { return '<button type="button" aria-pressed="' + (x[0] === a) + '" data-action="cine-tipo" data-t="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>';
+}
+function popHTML(s) {
+  const h = popHTML_v34(s), c = cineSelHTML(s); if (!c) return h;
+  const i = h.indexOf('<form id="fs"');
+  return i < 0 ? h : h.slice(0, i) + c + h.slice(i);
+}
+function cineCambiar(id) {
+  const s = estado.sem; if (!s || s.base || (s.tipo !== 'pelicula' && s.tipo !== 'persona')) return;
+  const aTipo = id === 'pelicula' ? 'pelicula' : 'persona', ti = $('#s-titulo'); if (ti) s.titulo = ti.value;
+  if (aTipo === s.tipo) {   // sigue siendo una persona: solo cambia el rol
+    if (s.datos.rol === id) return;
+    s.datos.rol = id; s.perPrim = id; marcarSem();
+    document.querySelectorAll('.cine-sel [data-action="cine-tipo"]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.t === id)); });
+    const tb = $('#per-tb-t'); if (tb) tb.textContent = 'También ' + (id === 'actor' ? 'dirige' : 'actúa');
+    const ck = document.querySelector('[data-action="per-ambos"]'); if (ck) ck.checked = false;
+    return;
+  }
+  try { Copia.borrar(claveSemBor(s)); } catch (e) { /* nada */ }
+  const ok = {}; (tipoDe(aTipo).campos || []).forEach(function (c) { ok[c.k] = 1; });
+  Object.keys(s.datos).forEach(function (k) { if (!ok[k] && k !== 'img' && k !== 'thumb' && k !== 'recid' && k !== 'recpor' && k !== 'recdia') delete s.datos[k]; });
+  s.tipo = aTipo; s.tejido = tipoDe(aTipo).tejido || 'raiz'; s.repL = null;
+  if (aTipo === 'persona') { s.datos.rol = id; s.perPrim = id; }
+  s.refrescarPop = true; s.tocado = true;
+  history.replaceState(null, '', '#sembrar-' + aTipo); s.ruta = 'sembrar-' + aTipo;
+  render(false);
+}
+
+/* --- Canción ↔ álbum: el álbum de una canción, y las canciones de un álbum --- */
+const albClave = x => norm(String(x || '').replace(/\s+/g, ' ').trim());
+function albDe(c) {   // la ficha del álbum al que dice pertenecer una canción
+  const d = c.datos || {}, k = albClave(d.album); if (!k) return null;
+  const bk = albClave(d.banda);
+  const L = estado.semillas.filter(function (x) { return x.tipo === 'album' && albClave(x.titulo) === k; });
+  return L.filter(function (x) { const b = albClave((x.datos || {}).banda); return !bk || !b || b === bk; })[0] || null;
+}
+function albCanciones(b, dueno) {
+  return estado.semillas.filter(function (x) { return x.tipo === 'cancion' && (dueno || x.publica) && albDe(x) === b; });
+}
+function albRelHTML(b) {
+  const dueno = !!estado.sesion;
+  if (b.tipo === 'album') {
+    const l = albCanciones(b, dueno).sort(function (x, y) { return tlNota(y) - tlNota(x) || y.creado - x.creado; });
+    if (!l.length && !dueno) return '';
+    const p = serProm(l);
+    return '<section class="mus-rel alb-rel" aria-label="Canciones del álbum"><h2 class="sec">Canciones del álbum</h2>' + (p ? perProm(p.v, p.n) : '') +
+      (l.length ? '<div class="tl-lista">' + l.map(function (x) { return tlFila(x, 0); }).join('') + '</div>' : '<p class="ayuda">Todavía no hay canciones de este álbum. Cuando siembres una canción y escribas este álbum en su campo Álbum, aparece aquí.</p>') + '</section>';
+  }
+  if (b.tipo === 'cancion') {
+    const nombre = String((b.datos || {}).album || '').trim(); if (!nombre) return '';
+    const a = albDe(b);
+    if (a && (dueno || a.publica)) return '<section class="mus-rel alb-rel" aria-label="El álbum"><a class="mus-ban" href="#modulo-' + a.id + '" style="--tc:' + tejidoDe('musica').color + '">Álbum · ' + esc(a.titulo) + ' ›</a></section>';
+    return '<section class="mus-rel alb-rel" aria-label="El álbum"><p class="ayuda">Álbum: ' + esc(nombre) + '</p>' +
+      (dueno ? '<button type="button" class="btn" data-action="mus-crear-album" data-n="' + esc(nombre) + '" data-b="' + esc(String((b.datos || {}).banda || '')) + '">Crear la ficha del álbum</button>' : '') + '</section>';
+  }
+  return '';
+}
+function vistaModulo(id) {
+  let h = vistaModulo_v34(id);
+  const b = estado.semillas.filter(function (x) { return x.id === id; })[0]; if (!b) return h;
+  const r = albRelHTML(b);
+  if (r) { const i = h.indexOf('<section class="mus-rel"'), j = i >= 0 ? i : (h.indexOf('<div class="acciones mo-acc">') >= 0 ? h.indexOf('<div class="acciones mo-acc">') : h.lastIndexOf('</article>')); if (j >= 0) h = h.slice(0, j) + r + h.slice(j); }
+  if (serEsHijo(b) && !serieDe(b) && estado.sesion) {   // la serie todavía no tiene ficha: botón para crearla con ese nombre
+    const n = String((b.datos || {}).serie || '').trim(), m = '<p class="ayuda">Serie: ' + esc(n) + '</p>';
+    if (n && h.indexOf(m) >= 0) h = h.replace(m, m + '<button type="button" class="btn" data-action="ser-crear" data-n="' + esc(n) + '">Crear ficha de la serie</button>');
+  }
+  return h;
+}
+// La imagen de una canción sin imagen propia es la de su álbum
+function fichaImgUrl(s, grande) {
+  const u = fichaImgUrl_v34(s, grande);
+  if (u || !s || s.tipo !== 'cancion') return u;
+  const a = albDe(s); return a ? fichaImgUrl_v34(a, grande) : null;
+}
+function sugerenciasCampo(t, c) {
+  if (c.sug !== 'album') return sugerenciasCampo_v34(t, c);
+  const vistas = {}, out = [], poner = function (n) { n = String(n || '').trim(); const k = albClave(n); if (k && !vistas[k]) { vistas[k] = 1; out.push(n); } };
+  estado.semillas.forEach(function (x) { if (x.tipo === 'album') poner(x.titulo); });
+  estado.semillas.forEach(function (x) { if (x.tipo === 'cancion') poner((x.datos || {}).album); });
+  return out;
+}
+function iniciarSemilla(tipo, id) {
+  iniciarSemilla_v34(tipo, id);
+  const m = estado.sem, sp = estado.serNueva, ap = estado.albPre; estado.serNueva = null; estado.albPre = null;
+  if (!m || m.faltante || id) return;
+  if (sp != null && m.tipo === 'serie') { m.titulo = sp; m.tocado = true; }
+  if (ap && m.tipo === 'album') { m.titulo = ap.n; if (ap.b) m.datos.banda = ap.b; m.tocado = true; }
 }
 
 /* --- Un módulo: la ficha completa y su reseña --- */
@@ -6990,7 +7366,7 @@ function render(cambioDeRuta) {
   else if (h.indexOf('semilla-') === 0) { if (cambioDeRuta || !estado.sem) iniciarSemilla(null, h.slice(8)); html = vistaSemilla(); sec = 'tejidos'; }
   else if (rutaEditor && !estado.iniciado) { html = '<p class="ayuda">Cargando…</p>'; sec = 'agregar'; }
   else if (h === 'agregar' || h.indexOf('editar-') === 0 || h.indexOf('borrador-') === 0) { location.replace('#inicio'); return; }
-  else if (h === 'top') { html = vistaRanking(); sec = 'tejidos'; }
+  else if (h === 'top' || h === 'ranking') { html = vistaRanking(); sec = 'ranking'; }
   else if (h === 'ajustes') { html = vistaAjustes(); sec = 'ajustes'; }
   else if (h === 'entrar') { html = vistaEntrar(); sec = 'ajustes'; }
   else if (h === 'olvide') { if (cambioDeRuta && !avisoLink) estado.olvideEnviado = false; html = vistaOlvide(); sec = 'ajustes'; }
@@ -7031,6 +7407,7 @@ function renderSuave() {
   if (h === 'agregar' || h.indexOf('editar-') === 0 || h.indexOf('borrador-') === 0) { if (estado.iniciado && !estado.sesion) render(true); return; }
   const a = document.activeElement;
   if (a && /^(com-texto|login-email|login-clave|olvide-email|clave-1|clave-2)$/.test(a.id)) return;
+  if (a && a.classList && (a.classList.contains('fl-c') || a.classList.contains('fl-bus'))) return;
   render(false);
 }
 
@@ -7754,6 +8131,11 @@ document.addEventListener('click', function (e) {
     }
     case 'rep-add': { repCommit(true); const i = $('#rep-in'); if (i) i.focus(); break; }
     case 'rep-quitar': { const s = estado.sem; if (!s) break; repLista(s).splice(parseInt(b.dataset.i, 10), 1); const c = $('#rep-chips'); if (c) c.innerHTML = repChipsHTML(s); repSync(s); marcarSem(); break; }
+    case 'fl-limpiar': flReset(b.dataset.fs); render(false); break;
+    case 'cine-tipo': cineCambiar(b.dataset.t); break;
+    case 'per-ambos': { const s = estado.sem; if (s && s.tipo === 'persona') { const prim = s.perPrim || (perRol(s) === 'actor' ? 'actor' : 'director'); s.datos.rol = b.checked ? 'ambos' : prim; s.perPrim = prim; marcarSem(); } break; }
+    case 'ser-crear': estado.serNueva = b.dataset.n || ''; location.hash = '#sembrar-serie'; break;
+    case 'mus-crear-album': estado.albPre = { n: b.dataset.n || '', b: b.dataset.b || '' }; location.hash = '#sembrar-album'; break;
     case 'rec-nueva': recAbrir(); break;
     case 'rec-cerrar': estado.recF = null; cerrarHoja('hoja-rec'); break;
     case 'rec-fmt': recFormato(b.dataset.f); break;

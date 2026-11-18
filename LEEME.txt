@@ -1,3 +1,13 @@
+NOVEDAD v35 - Teclado, Ranking en el menú y filtros por campos:
+ - El teclado del celular ya no tapa el pop-up: cuando sale, el pop-up se sube justo encima, se achica a lo que queda libre y el campo donde escribes se mueve a la vista. El menú de abajo se esconde mientras escribes. (Pruébalo en tu Tecno con Gboard y me cuentas.)
+ - Al sembrar, arriba del pop-up sale el selector Película | Director | Actor (Director y Actor guardan una ficha de persona; el nombre que ya escribiste se conserva al cambiar).
+ - El menú ahora es: Inicio - Tejidos - Ranking - Ajustes. En Ranking eliges qué quieres rankear (películas, series, temporadas, episodios, bandas, canciones, álbumes, juegos, libros, directores, actores) y filtras por campos, no por selección: años de-a, género (lo que ya tienes guardado, con buscador), director, actor, banda, álbum, plataforma, autor, nivel, reseña y orden.
+ - Dentro de cada tejido (Escena, Música, etc.) y en Directores/Actores se quitaron los botones de selección: ahora hay una cajita "Filtros" con campos. Al escribir solo cambia la lista, el campo no pierde el cursor. Los que no sirven para ese tejido no aparecen.
+ - En Directores y Actores, si filtras por años o género, el promedio se calcula solo con las obras que cumplen el filtro.
+ - Canción tiene un campo nuevo "Álbum": la canción enlaza a su álbum (o "Crear la ficha del álbum"), el álbum lista sus canciones con promedio y la canción sin imagen usa la del álbum.
+ - En la ficha de un episodio o temporada cuya serie todavía no tiene ficha sale "Crear ficha de la serie".
+ (No hay que correr ningún SQL nuevo.)
+
 NOVEDAD v34 - Directores y actores con su ficha:
  - Nueva ficha de Persona: foto, nombre, "¿Qué es?" (Director, Actor o Director y actor), año de nacimiento, plones tuyos y cuaderno de reseña propio.
  - En Tejidos, debajo de Pantalla, salen dos hilos punteados: Directores y Actores (cada uno con su cantidad de fichas). Tocas uno y ves la lista ordenada por el promedio de sus obras (con cuántas obras tiene): Mejor promedio, Peor promedio, Más obras o A-Z. "+ Sembrar" crea una ficha desde ahí. En Ranking también hay atajos a las dos listas.
