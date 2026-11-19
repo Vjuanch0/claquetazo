@@ -42,7 +42,14 @@ pre{white-space:pre-wrap;color:var(--d);font-size:.85rem}
 </div>
 
 <div class="caja">
-  <h2 style="margin-top:0">2. Buscar una banda</h2>
+  <h2 style="margin-top:0">2. ¿Se pueden guardar las portadas?</h2>
+  <p>ALUNA baja cada portada una vez y la guarda en tu propio almacenamiento para que cargue rápido. Esto prueba si tu celular puede leer esas imágenes.</p>
+  <button class="p" id="b-por">Probar guardado de portadas</button>
+  <div id="por"></div>
+</div>
+
+<div class="caja">
+  <h2 style="margin-top:0">3. Buscar una banda</h2>
   <div class="fila"><input id="q" value="Kalmah" autocomplete="off" autocapitalize="words" enterkeyhint="search"><button class="p" id="b-bus">Buscar</button></div>
   <div id="arts"></div>
   <div id="albs"></div>
@@ -116,6 +123,27 @@ const DC = {
     const d = await DC.json('https://itunes.apple.com/lookup?entity=song&limit=200&id=' + encodeURIComponent(id));
     return (d.results || []).filter(function (x) { return x.wrapperType === 'track' && x.trackName; }).sort(function (a, b) { return (a.discNumber || 1) - (b.discNumber || 1) || (a.trackNumber || 0) - (b.trackNumber || 0); }).map(function (x) { return String(x.trackName); }).slice(0, 80);
   },
+  // ---- portadas: bajar la imagen para guardarla en tu propio almacenamiento ----
+  clave(t) { return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); },
+  async bajar(url, ms) {   // la imagen como archivo; falla si el servidor no deja leerla desde el navegador (CORS) o no existe
+    const ctl = typeof AbortController !== 'undefined' ? new AbortController() : null, t = ctl ? setTimeout(function () { ctl.abort(); }, ms || 20000) : null;
+    try {
+      const r = await fetch(url, { mode: 'cors', signal: ctl ? ctl.signal : undefined });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const b = await r.blob();
+      if (!/^image\//.test(b.type) || b.size < 1500) throw new Error('no es una imagen');
+      return b;
+    } finally { if (t) clearTimeout(t); }
+  },
+  async itPortada(titulo, banda) {   // la carátula de iTunes por nombre (plan B cuando MusicBrainz no tiene imagen)
+    const k = DC.clave(DC.limpiarTitulo(titulo)), kb = DC.clave(banda);
+    const d = await DC.json('https://itunes.apple.com/search?media=music&entity=album&limit=12&term=' + encodeURIComponent((banda + ' ' + titulo).trim()));
+    const r = (d.results || []).filter(function (x) { return x.artworkUrl100 && DC.clave(DC.limpiarTitulo(x.collectionName)) === k && (!kb || DC.clave(x.artistName).indexOf(kb) >= 0 || kb.indexOf(DC.clave(x.artistName)) >= 0); })[0];
+    return r ? String(r.artworkUrl100).replace('100x100bb', '600x600bb') : '';
+  },
+  async itLookupPortada(id) { const d = await DC.json('https://itunes.apple.com/lookup?id=' + encodeURIComponent(id)); const r = (d.results || [])[0]; return r && r.artworkUrl100 ? String(r.artworkUrl100).replace('100x100bb', '600x600bb') : ''; },
+  // las direcciones a probar, de mejor a peor
+  candidatas(a) { const l = []; [a.img, a.portada].forEach(function (u) { if (u && l.indexOf(u) < 0) l.push(u); }); return l; },
   buscar(f, nombre) { return f === 'it' ? DC.itBuscar(nombre) : DC.mbBuscar(nombre); },
   albumes(f, id) { return f === 'it' ? DC.itAlbumes(id) : DC.mbAlbumes(id); },
   pistas(f, id) { return f === 'it' ? DC.itPistas(id) : DC.mbPistas(id); }
@@ -160,6 +188,13 @@ async function elegir(a) {
     document.querySelectorAll('#albs button').forEach(function (b) { b.onclick = async function () { const x = l[+b.dataset.i]; $('#pis').innerHTML = '<p>Trayendo canciones de ' + esc(x.titulo) + '…</p>'; try { const p = await DC.pistas(x.fuente, x.id); $('#pis').innerHTML = '<p class="ok">' + p.length + ' canciones en ' + esc(x.titulo) + '</p><div class="caja">' + p.map(function (t, i) { return '<div class="r"><span>' + (i + 1) + '. ' + esc(t) + '</span></div>'; }).join('') + '</div>'; } catch (e) { $('#pis').innerHTML = '<p class="mal">' + esc(e.message) + '</p>'; } }; });
   } catch (e) { $('#albs').innerHTML = '<p class="mal">No pude traer los álbumes: ' + esc(e.message) + '</p>'; }
 }
+$('#b-por').onclick = async function () {
+  $('#por').innerHTML = '<p>Probando…</p>'; let x = '';
+  const kb = function (b) { return Math.round(b.size / 1024) + ' KB'; };
+  x += await medir('Portada de Cover Art Archive', async function () { const b = await DC.bajar('https://coverartarchive.org/release-group/1b022e01-4da6-387b-8658-8678046e4cef/front-500'); return kb(b); });
+  x += await medir('Portada de iTunes', async function () { const u = await DC.itPortada('Nevermind', 'Nirvana'); if (!u) throw new Error('no la encontró'); const b = await DC.bajar(u); return kb(b); });
+  $('#por').innerHTML = x + '<p>Si alguna dice «Sí», ALUNA guarda esas portadas en tu almacenamiento. Si las dos dicen «No», ALUNA igual las muestra (las deja como enlace) pero cargan más lento.</p>';
+};
 $('#b-bus').onclick = buscar;
 $('#q').addEventListener('keydown', function (e) { if (e.key === 'Enter') buscar(); });
 </script>

@@ -1,3 +1,18 @@
+NOVEDAD v38 - Portadas blindadas, encabezado limpio, menu de tres puntos completo y tejidos ordenados:
+ - Portadas y canciones blindadas: al traer una discografia, cada portada se baja una sola vez, se achica (grande y chica) y se guarda en TU Supabase. Asi ya no se pierde si el catalogo no responde y carga mucho mas rapido (el carrusel usa la chica).
+ - Si una portada no se puede bajar: prueba otra direccion, luego iTunes por nombre, y si nada, guarda el enlace (carga mas lento). Las canciones aparecen al instante y se reintentan solas hasta 3 veces.
+ - Al terminar sale un resumen (cuantos albumes, canciones, portadas guardadas, enlaces y sin portada) con "Reintentar lo que falta".
+ - Menu de tres puntos > "Completar portadas": arregla los albumes que ya habias importado (sin portada o con enlace) y las canciones que no alcanzaron a entrar.
+ - Encabezado igual en TODAS las semillas: se quito el rotulo "Cuerdas . banda"; nombre grande y chiquito al lado "desde 1998" (o el ano); abajo pais, genero(s) y estado (Privada/Publica) juntos; otros datos (plataforma, autor, lugar, fecha vista...) como linea chiquita. Los plones siguen a la derecha.
+ - Se quitaron las cajas "Datos" y "Canciones" (en bandas). La resena ahora es un bloque simple con titulo y lapiz (sin acordeon). Albumes y canciones no llevan resena.
+ - Menu de tres puntos (solo dueno): Cambiar/Poner imagen, Calificar, Editar info, Traer discografia, Completar portadas, Publica/Privada, Mover de tejido y (en peliculas) Convertir en semilla de persona.
+ - Albumes: boton "+ Album" mas bajito y naranja difuminado; "Editar" sutil a la derecha de "A-1 . titulo . ano" abre un pop-up con nombre, ano, plones animados, portada, descripcion y "Eliminar album y sus N canciones" (pide dos toques). Debajo: lista de canciones, agregar cancion y la descripcion del album.
+ - Canciones: "Calificar" abre los mismos plones animados de toda la app (nubes, arrastrar para decimales, - y +, x para quitar). Se acabaron los circulos.
+ - Tejidos: cada uno abre con su filtro por defecto (Cuerdas en Bandas, Escena en Peliculas, Capitulo en Series, Partida en Juegos, Paginas en Libros...). Siempre de mejor a peor plones y lo que no tiene plones al final.
+ - El inicio de Tejidos solo muestra lo que tiene cosas (sin tejidos vacios). Ranking no ofrece los tipos que estan en 0.
+ - Pagina de prueba (discografia.html): nuevo boton "Probar guardado de portadas" para ver, desde tu celular, si se pueden bajar las portadas del Cover Art Archive y de iTunes.
+ (No hay que correr ningun SQL nuevo. Sube TODO el contenido del zip, incluido discografia.html.)
+
 NOVEDAD v37 - Carrusel de vinilos y VHS, canciones rápidas, barrita de reproductor y discografía:
  - "Ficha" ahora se llama "semilla" en toda la app. La cajita que antes decía "Ficha" ahora dice "Datos".
  - Banda: los álbumes salen en un carrusel tipo rockola (portada con el disco asomando, código A-1, A-2...). Deslizas, el álbum del centro es el elegido; tocarlo lo gira y abajo ves su descripción y sus canciones. Las series muestran sus temporadas como cintas VHS.
