@@ -1,3 +1,14 @@
+NOVEDAD v39 - Temporadas como cajas de VHS en 3D, panel como el de los albumes y Personajes:
+ - Las temporadas de una serie ahora son CAJAS de VHS de verdad (con grosor, lomo y tapa): primero ves los lomos en fila, como en un videoclub; la elegida se saca de la fila, gira un poco para mostrar la caratula y deja asomar una cinta VHS por el lado derecho. Toca la caja del centro y la cinta sale casi completa; tocala otra vez y se guarda.
+ - Desliza con el dedo (o usa las flechitas) para cambiar de temporada. Orden: de mejor a peor plones (las sin calificar al final); el lomo dice el numero real (T1, T2...). La caratula es la imagen de la temporada o, si no tiene, el poster de la serie.
+ - Panel de abajo igual al de los albumes: "T2 . Temporada 2 . ano" con sus plones y un "Editar" sutil; luego los episodios con los mismos plones animados (nubes, arrastrar para decimales, - y +, x), un cuadro delgado "Agregar episodio..." (Enter) y al final la descripcion.
+ - "Editar" de la temporada abre un pop-up: nombre (opcional), ano, plones, imagen de la caja, descripcion y "Eliminar temporada y sus N episodios" (dos toques para confirmar). Si la temporada solo tenia episodios, "Editar" crea su ficha y la abre.
+ - Los episodios ya no piden imagen (en las listas siguen usando el poster de la serie, sin que tengas que hacer nada).
+ - NUEVO: Personajes. En la misma seccion Temporadas, debajo del estante, hay una franja de retratos redondos con un aro que se llena segun los plones; el nombre va debajo. Tocas uno y abajo sale su tarjeta: foto, nombre, insignia "El mejor", plones con su nivel, descripcion corta y "Editar". Boton "+ Personaje" arriba a la derecha de la franja.
+ - Pop-up de personaje: foto (galeria o camara), nombre, plones, descripcion corta (maximo 140 letras) y "Borrar personaje" (dos toques). Orden de mejor a peor plones. Los personajes son de la serie completa y no aparecen en rankings, tejidos ni en Sembrar.
+ - Nota tecnica: usa la misma tabla de semillas (tipo "personaje"), asi que NO hay que correr ningun SQL nuevo. Sube TODO el contenido del zip.
+ - Para revisar en el celular: la fluidez de las cajas en 3D (si va pesado, avisame y simplificamos el efecto).
+
 NOVEDAD v38 - Portadas blindadas, encabezado limpio, menu de tres puntos completo y tejidos ordenados:
  - Portadas y canciones blindadas: al traer una discografia, cada portada se baja una sola vez, se achica (grande y chica) y se guarda en TU Supabase. Asi ya no se pierde si el catalogo no responde y carga mucho mas rapido (el carrusel usa la chica).
  - Si una portada no se puede bajar: prueba otra direccion, luego iTunes por nombre, y si nada, guarda el enlace (carga mas lento). Las canciones aparecen al instante y se reintentan solas hasta 3 veces.
