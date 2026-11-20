@@ -1,3 +1,10 @@
+NOVEDAD v40 - La cinta sale al frente y "+ Temporada" sin salirte de la serie:
+ - La cinta VHS ahora sale POR DELANTE de las cajas vecinas: al sacarla, la caja se adelanta un poco, se endereza, la cinta viene hacia ti y las cajas de la derecha le abren paso (y se oscurecen). Al guardarla todo vuelve a su sitio.
+ - "+ Temporada" ya no te manda a otra pagina: abre un pop-up encima de la serie con TODO junto: numero de temporada (propone el siguiente libre; marca con check las que ya existen; "Otra" para numeros altos), imagen de la caja, nombre opcional, ano, plones y descripcion. Al guardar te quedas en la serie y la caja nueva queda elegida en el centro.
+ - Es el mismo pop-up de "Editar". Si cambias el numero de una temporada, sus episodios se van con el numero nuevo. Si el numero ya existe, te avisa.
+ - "Editar" en una temporada que solo tenia episodios abre ese pop-up con su numero puesto; la ficha se crea al guardar (ya no queda una ficha vacia si cierras).
+ (No hay que correr ningun SQL nuevo. Sube TODO el contenido del zip.)
+
 NOVEDAD v39 - Temporadas como cajas de VHS en 3D, panel como el de los albumes y Personajes:
  - Las temporadas de una serie ahora son CAJAS de VHS de verdad (con grosor, lomo y tapa): primero ves los lomos en fila, como en un videoclub; la elegida se saca de la fila, gira un poco para mostrar la caratula y deja asomar una cinta VHS por el lado derecho. Toca la caja del centro y la cinta sale casi completa; tocala otra vez y se guarda.
  - Desliza con el dedo (o usa las flechitas) para cambiar de temporada. Orden: de mejor a peor plones (las sin calificar al final); el lomo dice el numero real (T1, T2...). La caratula es la imagen de la temporada o, si no tiene, el poster de la serie.

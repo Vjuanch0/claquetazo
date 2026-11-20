@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=39">
-<link rel="icon" href="favicon.svg?v=39" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=39" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=39">
+<link rel="manifest" href="manifest.webmanifest?v=40">
+<link rel="icon" href="favicon.svg?v=40" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=40" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=40">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1865,6 +1865,9 @@ button.pop-x{background:none;padding:0;cursor:pointer}
 .pop-cuerpo.pop-1c{grid-template-columns:minmax(0,1fr)}
 .e37-th.e39-th{aspect-ratio:auto}
 .vh-stage img{pointer-events:none;-webkit-user-drag:none;user-select:none;-webkit-touch-callout:none}
+.e39-num .chips{margin-top:4px}
+.e39-num .tmp-num{width:64px;min-height:34px;padding:0 8px;text-align:center}
+.e39-2c{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:10px}
 </style>
 </head>
 <body>
@@ -6598,9 +6601,9 @@ function vistaModulo(id) {
 const VHD = { W: 108, H: 200, D: 30, TW: 94, TH: 188, TD: 22, esp: 44, peek: 0.3, out: 0.95 };
 const vhLerp = (a, b, t) => a + (b - a) * t;
 const vhClamp = (v, a, b) => Math.max(a, Math.min(b, v));
-function vhPos(d) {   // dónde queda cada caja según su distancia (d) a la elegida: la elegida casi de frente, el resto como lomos en fila
-  const a = Math.abs(d), t = Math.min(a, 1), sg = d < 0 ? -1 : 1;
-  return { x: a < 1 ? d * 84 : sg * (84 + (a - 1) * 34), y: vhLerp(-6, 0, t), z: vhLerp(80, 0, t), ry: vhLerp(22, 90, t), rx: -4, dim: a < 1 ? vhLerp(1, 0.75, a) : 0.75 };
+function vhPos(d, f) {   // f = 1 cuando la cinta está afuera: la caja se adelanta, se endereza y las de la derecha le abren paso
+  const a = Math.abs(d), t = Math.min(a, 1), sg = d < 0 ? -1 : 1, sel = 1 - t; f = f || 0;
+  return { x: (a < 1 ? d * 84 : sg * (84 + (a - 1) * 34)) + (d > 0 ? 60 * f * Math.min(d, 1) : 0), y: vhLerp(-6, 0, t), z: vhLerp(80, 0, t) + 44 * f * sel, ry: vhLerp(22, 90, t) - 12 * f * sel, rx: -4, dim: (a < 1 ? vhLerp(1, 0.75, a) : 0.75) * (1 - 0.22 * f * t) };
 }
 const vhSt = () => { const s = fcS(); s.vo = s.vo || {}; return s; };
 
@@ -6675,12 +6678,12 @@ function vhPintar(vh) {
   const open = !!vhSt().vo[vh.dataset.vh], pos = vh._pos, i0 = Math.round(pos), amt = function (d) { const a = Math.abs(d); return a >= 1 ? 0 : (open ? VHD.out : VHD.peek) * (1 - a); };
   vh.querySelector('.vh-track').style.transform = 'translateX(' + (-(amt(pos - i0)) * VHD.TW * 0.5).toFixed(1) + 'px)';
   its.forEach(function (el, i) {
-    const d = i - pos, p = vhPos(d), vis = Math.abs(d) < 3.2;
+    const d = i - pos, p = vhPos(d, open ? 1 : 0), vis = Math.abs(d) < 3.2;
     el.style.visibility = vis ? 'visible' : 'hidden'; el.style.pointerEvents = vis ? 'auto' : 'none';
     el.style.setProperty('--dim', p.dim.toFixed(2));
     el.style.transform = 'translate3d(' + p.x.toFixed(1) + 'px,' + p.y.toFixed(1) + 'px,' + p.z.toFixed(1) + 'px)';
     el._rot.style.transform = 'rotateX(' + p.rx + 'deg) rotateY(' + p.ry.toFixed(1) + 'deg)';
-    el._tape.style.transform = 'translateX(' + (amt(d) * VHD.TW).toFixed(1) + 'px)';
+    el._tape.style.transform = 'translateX(' + (amt(d) * VHD.TW).toFixed(1) + 'px) translateZ(' + (open ? 24 * (1 - Math.min(Math.abs(d), 1)) : 0).toFixed(1) + 'px)';
     el.style.zIndex = String(Math.round(100 - Math.abs(d) * 10));
   });
   const h = vh.querySelector('.vh-hint'); if (h) h.textContent = open ? 'Toca otra vez para guardar la cinta' : 'Toca la caja del centro: sale la cinta';
@@ -6762,15 +6765,7 @@ async function vhQuitar(btn) {
   try { await borrarSemilla(btn.dataset.id); } catch (e) { console.error(e); toast('No se pudo quitar. Intenta otra vez.'); return; }
   vhRefrescar(serieId, n); toast('Episodio quitado');
 }
-async function vhCrearTemporada(serieId, n) {   // «Editar» de una temporada que solo tiene episodios: primero se crea su ficha
-  const b = fcPorId(serieId); if (!b || !sb || !estado.sesion || estado.guardando) return;
-  const tj = tipoDe('temporada').tejido || 'capitulo', id = nuevoId();
-  const fila = { id: id, tipo: 'temporada', titulo: String((b.titulo || 'Serie') + ' · Temporada ' + n).slice(0, 200), contenido: '', publica: !!b.publica && !tejidoDe(tj).privado, tejido: tj, datos: { serie: b.titulo || '', serieid: b.id, temporada: String(n) }, etiquetas: [], fecha: null };
-  try {
-    const r = await sb.from('semillas').insert([fila]); if (r.error) throw r.error;
-    await cargarSemillas(); e37Abrir(id);
-  } catch (e) { console.error(e); toast('No se pudo abrir la temporada. Revisa tu internet.'); }
-}
+function vhCrearTemporada(serieId, n) { tmNuevo(serieId, +n); }   // «Editar» de una temporada que solo tiene episodios: se abre el pop-up con su número y la ficha se crea al guardar
 function vhClic(a, b) {
   switch (a) {
     case 'vh-paso': { const vh = b.closest('.vh-w'); if (!vh || !vh._its) return true; const i = vh._its.findIndex(function (x) { return x.dataset.id === vh.dataset.sel; }); vhElegir(vh, i + (+b.dataset.d)); return true; }
@@ -6843,17 +6838,45 @@ function e39Foto(x) {   // la imagen propia (no la de la serie), o la que acabas
   const E = estado.e37; if (E && E.prev) return E.prev;
   const d = x.datos || {}, p = d.thumb || d.img; return p ? urlFoto(p) : null;
 }
+function e39ChipsHTML(x) {   // 1–6, «Otra» y el campo de número; ✓ las que ya tienen ficha
+  const E = estado.e37, p = serieDe(x), hechas = {};
+  if (p) serHijas(p, 'temporada', true).forEach(function (t) { if (t.id !== x.id && serNum(t)) hechas[serNum(t)] = 1; });
+  const act = String(E.num || ''), otra = !!E.otra; let h = '';
+  for (let n = 1; n <= 6; n++) h += '<button type="button" class="chip' + (hechas[n] ? ' tmp-hecha' : '') + '" aria-pressed="' + (!otra && act === String(n)) + '" data-action="e39-tmp" data-n="' + n + '">' + n + (hechas[n] ? ' <i aria-label="ya tiene ficha">✓</i>' : '') + '</button>';
+  h += '<button type="button" class="chip" aria-pressed="' + otra + '" data-action="e39-otra">Otra</button>';
+  if (otra) h += '<input class="in tmp-num" type="text" inputmode="numeric" maxlength="3" data-e39-num aria-label="Número de la temporada" placeholder="Nº" value="' + esc(act) + '" autocomplete="off">';
+  return h;
+}
+function e39Chips() { const E = estado.e37, x = E && (E.nuevo || fcPorId(E.id)), el = $('#e39-tmp'); if (x && el) el.innerHTML = e39ChipsHTML(x); }
+function tmNuevo(serieId, n) {   // «+ Temporada»: el pop-up se abre encima de la serie, con el siguiente número libre
+  const p = fcPorId(serieId); if (!p || !estado.sesion) return;
+  const hechas = {}; serHijas(p, 'temporada', true).forEach(function (t) { if (serNum(t)) hechas[serNum(t)] = 1; });
+  if (!n) { n = 1; while (hechas[n]) n++; }
+  const tj = tipoDe('temporada').tejido || 'capitulo';
+  e39AbrirNuevo({ id: nuevoId(), tipo: 'temporada', titulo: '', contenido: '', nota: null, publica: !!p.publica && !tejidoDe(tj).privado, tejido: tj, datos: { serie: p.titulo || '', serieid: p.id, temporada: String(n) }, etiquetas: [], fecha: null, creado: Date.now() });
+}
+function e39Clic(a, b) {
+  const E = estado.e37; if (!E) return false;
+  if (a === 'e39-tmp') { E.num = b.dataset.n; E.otra = false; e39Chips(); return true; }
+  if (a === 'e39-otra') { E.otra = true; E.num = ''; e39Chips(); const i = $('.e39 .tmp-num'); if (i) { try { i.focus(); } catch (e) { /* nada */ } } return true; }
+  return false;
+}
+document.addEventListener('input', function (e) {
+  const t = e.target, E = estado.e37; if (!t || !E || !t.hasAttribute || !t.hasAttribute('data-e39-num')) return;
+  E.num = t.value.replace(/\D/g, '').slice(0, 3);
+});
 function e39HTML(x) {
   const E = estado.e37, d = x.datos || {}, esP = x.tipo === 'personaje', u = e39Foto(x);
+  if (!esP && E.num === undefined) { E.num = String(d.temporada || ''); E.otra = parseInt(E.num, 10) > 6; }
   const campo = function (id, lab, val, extra) { return '<label class="fx-c"><span class="fi-l">' + lab + '</span><input id="' + id + '" class="in" type="text" value="' + esc(val || '') + '" autocomplete="off"' + (extra || '') + '></label>'; };
   const ini = esc((String(esP ? x.titulo : (d.nombre || 'T' + (d.temporada || '')) || '?').trim()[0] || '?').toUpperCase());
   const nEp = !esP && !E.nuevo ? serHijas(serieDe(x) || { id: '' }, 'episodio', true).filter(function (e) { return serNum(e) === serNum(x); }).length : 0;
-  return '<div class="hoja-c pop e37 e39"><div class="pop-cab"><h2 class="pop-t">' + (esP ? (E.nuevo ? 'Nuevo personaje' : 'Editar personaje') : 'Editar temporada') + '</h2><button type="button" class="pop-x" data-action="e37-cerrar" aria-label="Cerrar">' + ICO_X + '</button></div>' +
-    '<div class="fx-c e37-por e39-por"><span class="fi-l">' + (esP ? 'Foto' : 'Imagen de la caja') + '</span><div class="e37-pf"><span class="e37-th e39-th' + (esP ? ' e39-ret' : ' e39-caj') + (u ? '' : ' sin') + '"><b>' + ini + '</b>' + (u ? '<img id="e39-img" src="' + esc(u) + '" alt="">' : '') + '</span>' +
+  return '<div class="hoja-c pop e37 e39"><div class="pop-cab"><h2 class="pop-t">' + (esP ? (E.nuevo ? 'Nuevo personaje' : 'Editar personaje') : (E.nuevo ? 'Nueva temporada' : 'Editar temporada')) + '</h2><button type="button" class="pop-x" data-action="e37-cerrar" aria-label="Cerrar">' + ICO_X + '</button></div>' +
+    (esP ? '' : '<div class="fx-c e39-num"><span class="fi-l">Temporada</span><div class="chips sm tmp-ch" id="e39-tmp">' + e39ChipsHTML(x) + '</div></div>') + '<div class="fx-c e37-por e39-por"><span class="fi-l">' + (esP ? 'Foto' : 'Imagen de la caja') + '</span><div class="e37-pf"><span class="e37-th e39-th' + (esP ? ' e39-ret' : ' e39-caj') + (u ? '' : ' sin') + '"><b>' + ini + '</b>' + (u ? '<img id="e39-img" src="' + esc(u) + '" alt="">' : '') + '</span>' +
     '<span class="e39-fc"><label class="btn ca-foto e37-fb">' + (u ? 'Cambiar ' + (esP ? 'foto' : 'imagen') : 'Poner ' + (esP ? 'foto' : 'imagen')) + '<input type="file" accept="image/*" hidden data-e39-foto="1"></label>' +
     '<small class="ayuda">' + (esP ? 'Galería o cámara' : 'Si no pones una, la caja usa el póster de la serie') + '</small></span></div></div>' +
     (esP ? campo('e37-titulo', 'Nombre del personaje', x.titulo, ' maxlength="80" placeholder="Ej: Marta Lozano" autocapitalize="words"')
-      : campo('e37-nombre', 'Nombre (opcional)', d.nombre, ' maxlength="80" placeholder="Temporada ' + esc(d.temporada || '') + '"') + campo('e37-estreno', 'Año', d.estreno, ' inputmode="numeric" maxlength="4"')) +
+      : '<div class="e39-2c">' + campo('e37-nombre', 'Nombre (opcional)', d.nombre, ' maxlength="80" placeholder="Temporada ' + esc(E.num || '') + '"') + campo('e37-estreno', 'Año', d.estreno, ' inputmode="numeric" maxlength="4"') + '</div>') +
     '<div class="fx-c e37-pl"><span class="fi-l">Plones</span>' + pcHTML('e37', E.nota) + '</div>' +
     '<label class="fx-c fc-dsc"><span class="fi-l">' + (esP ? 'Descripción corta' : 'Descripción') + '</span><textarea id="e37-desc" class="in fc-ta" rows="' + (esP ? 3 : 4) + '"' + (esP ? ' maxlength="' + PJ_MAX + '" placeholder="Una o dos líneas"' : ' placeholder="Lo que quieras contar. Puede ser largo."') + '>' + esc(x.contenido || '') + '</textarea></label>' +
     '<p class="error" id="e37-error" role="alert" hidden></p>' +
@@ -6893,7 +6916,14 @@ async function e39Guardar() {
     if (nm) datos.nombre = nm.slice(0, 80); else delete datos.nombre;
     if (an) datos.estreno = an.slice(0, 4); else delete datos.estreno;
   }
-  const fila = { titulo: esP ? nombre.slice(0, 80) : String(x.titulo || '').slice(0, 200), contenido: val('e37-desc').slice(0, esP ? PJ_MAX : 30000), nota: E.nota, datos: datos };
+  const serieP = esP ? null : serieDe(x), nViejo = esP ? 0 : serNum(x); let nNuevo = nViejo;
+  if (!esP) {
+    nNuevo = parseInt(E.num, 10);
+    if (!(nNuevo >= 1 && nNuevo <= 999)) { e37Error('Pon el número de la temporada.'); return; }
+    if (serieP && serHijas(serieP, 'temporada', true).some(function (t) { return t.id !== x.id && serNum(t) === nNuevo; })) { e37Error('Ya tienes la temporada ' + nNuevo + '. Elige otro número o edítala desde su caja.'); return; }
+    datos.temporada = String(nNuevo);
+  }
+  const fila = { titulo: esP ? nombre.slice(0, 80) : ((serieP ? serieP.titulo : String(datos.serie || 'Serie')) + ' · Temporada ' + nNuevo).slice(0, 200), contenido: val('e37-desc').slice(0, esP ? PJ_MAX : 30000), nota: E.nota, datos: datos };
   const g = $('#e37-g'); estado.guardando = true; if (g) { g.disabled = true; g.textContent = 'Guardando…'; }
   let nueva = null, viejas = [];
   try {
@@ -6902,10 +6932,16 @@ async function e39Guardar() {
       : await sb.from('semillas').update(fila).eq('id', x.id);
     if (r.error) { if (nueva) { try { sb.storage.from(BUCKET).remove([nueva.img, nueva.thumb]); } catch (e0) { /* nada */ } } throw r.error; }
     if (viejas.length) { try { sb.storage.from(BUCKET).remove(viejas); } catch (e1) { /* nada */ } }
-    if (E.nuevo) { try { await cargarSemillas(); } catch (e2) { /* se verá al recargar */ } const S = fcS(); S.pj = S.pj || {}; if (datos.serieid) S.pj[datos.serieid] = x.id; }
+    if (!E.nuevo && !esP && nNuevo !== nViejo && serieP) {   // sus episodios se van con el número nuevo
+      const eps = serHijas(serieP, 'episodio', true).filter(function (q) { return serNum(q) === nViejo; });
+      const res = await Promise.all(eps.map(function (q) { const dq = Object.assign({}, q.datos, { temporada: String(nNuevo) }); return sb.from('semillas').update({ datos: dq }).eq('id', q.id).then(function (w) { if (!w.error) q.datos = dq; return w; }); }));
+      if (res.some(function (w) { return w.error; })) toast('Se cambió el número, pero algunos episodios no se movieron.');
+    }
+    if (E.nuevo) { try { await cargarSemillas(); } catch (e2) { /* se verá al recargar */ } const S = fcS(); S.pj = S.pj || {}; if (datos.serieid && esP) S.pj[datos.serieid] = x.id; }
     else { Object.assign(x, fila); try { Copia.escribir(claveSem(), estado.semillas); } catch (e3) { /* nada */ } }
+    if (!esP && datos.serieid) { const SV = vhSt(); SV.sel[datos.serieid + '.tmp'] = 'T' + nNuevo; SV.vo[datos.serieid + '.tmp'] = false; }
     if (E.prev) { try { URL.revokeObjectURL(E.prev); } catch (e4) { /* nada */ } }
-    const nuevoP = E.nuevo && esP; e37Cerrar(); toast(nuevoP ? 'Personaje agregado' : 'Cambios guardados'); render(false);
+    const nuevoP = E.nuevo && esP, nuevaT = E.nuevo && !esP; e37Cerrar(); toast(nuevoP ? 'Personaje agregado' : nuevaT ? 'Temporada agregada' : 'Cambios guardados'); render(false);
   } catch (e) { console.error(e); e37Error('No se pudo guardar. Revisa tu internet e intenta otra vez.'); }
   finally { estado.guardando = false; const g2 = $('#e37-g'); if (g2) { g2.disabled = false; g2.textContent = 'Guardar'; } }
 }
@@ -6942,7 +6978,7 @@ function render(cambioDeRuta) {
   render_v38(cambioDeRuta);
   try { vhAjustar(); } catch (e) { console.error(e); }
 }
-function fcClic(a, b) { return vhClic(a, b) || pjClic(a, b) || fcClic_v38(a, b); }
+function fcClic(a, b) { return vhClic(a, b) || pjClic(a, b) || e39Clic(a, b) || fcClic_v38(a, b); }
 /* --- Un módulo: la ficha completa y su reseña --- */
 function vistaModulo_v30(id) {
   const b = estado.semillas.find(function (x) { return x.id === id; }), dueno = !!estado.sesion;
@@ -10287,7 +10323,8 @@ document.addEventListener('click', function (e) {
     case 'resena-no': cerrarHoja('hoja-resena'); break;
     case 'sem-etq-add': agregarEtq(b.dataset.e); break;
     case 'sem-etq-add-in': { const i0 = $('#s-etq'); if (i0) { agregarEtq(i0.value); i0.value = ''; i0.focus(); } break; }
-    case 'ser-temp': case 'ser-epi': {
+    case 'ser-temp': tmNuevo(b.dataset.id); break;
+    case 'ser-epi': {
       const p = estado.semillas.filter(function (x) { return x.id === b.dataset.id; })[0]; if (!p) break;
       estado.serPre = { id: p.id, titulo: p.titulo }; location.hash = '#sembrar-' + (b.dataset.action === 'ser-temp' ? 'temporada' : 'episodio'); break;
     }
@@ -10313,7 +10350,7 @@ document.addEventListener('click', function (e) {
     case 'per-ambos': { const s = estado.sem; if (s && s.tipo === 'persona') { const prim = s.perPrim || (perRol(s) === 'actor' ? 'actor' : 'director'); s.datos.rol = b.checked ? 'ambos' : prim; s.perPrim = prim; marcarSem(); } break; }
     case 'ser-crear': estado.serNueva = b.dataset.n || ''; location.hash = '#sembrar-serie'; break;
     case 'mus-crear-album': estado.albPre = { n: b.dataset.n || '', b: b.dataset.b || '' }; location.hash = '#sembrar-album'; break;
-    case 'cj': case 'tb': case 'fc-vm': case 'fc-ord': case 'fc-menu': case 'yt': case 'fc-nuevo-alb': case 'fc-nueva-can': case 'fc-nuevo-epi': case 'ca-ir': case 'ca-paso': case 'ca-add': case 'ca-nota': case 'ca-poner': case 'ca-quitar': case 'ca-edit': case 'e37-cerrar': case 'e37-guardar': case 'e37-borrar': case 'e37-nota': case 'pop-mas': case 'pc-menos': case 'pc-mas': case 'pc-quitar': case 'e37-nota-abrir': case 'vh-paso': case 'vh-add': case 'vh-quitar': case 'vh-crear': case 'vh-nota': case 'pj-sel': case 'pj-nuevo': case 'pj-edit': case 'dc-completar': case 'dc-abrir': case 'dc-cerrar': case 'dc-buscar': case 'dc-elegir': case 'dc-tipo': case 'dc-sel': case 'dc-todas': case 'dc-pistas': case 'dc-importar': case 'dc-atras': case 'fb-ant': case 'fb-pp': case 'fb-sig': case 'fb-x': fcClic(a, b); break;
+    case 'cj': case 'tb': case 'fc-vm': case 'fc-ord': case 'fc-menu': case 'yt': case 'fc-nuevo-alb': case 'fc-nueva-can': case 'fc-nuevo-epi': case 'ca-ir': case 'ca-paso': case 'ca-add': case 'ca-nota': case 'ca-poner': case 'ca-quitar': case 'ca-edit': case 'e37-cerrar': case 'e37-guardar': case 'e37-borrar': case 'e37-nota': case 'pop-mas': case 'pc-menos': case 'pc-mas': case 'pc-quitar': case 'e37-nota-abrir': case 'vh-paso': case 'vh-add': case 'vh-quitar': case 'vh-crear': case 'vh-nota': case 'pj-sel': case 'pj-nuevo': case 'pj-edit': case 'e39-tmp': case 'e39-otra': case 'dc-completar': case 'dc-abrir': case 'dc-cerrar': case 'dc-buscar': case 'dc-elegir': case 'dc-tipo': case 'dc-sel': case 'dc-todas': case 'dc-pistas': case 'dc-importar': case 'dc-atras': case 'fb-ant': case 'fb-pp': case 'fb-sig': case 'fb-x': fcClic(a, b); break;
     case 'rec-nueva': recAbrir(); break;
     case 'rec-cerrar': estado.recF = null; cerrarHoja('hoja-rec'); break;
     case 'rec-fmt': recFormato(b.dataset.f); break;
