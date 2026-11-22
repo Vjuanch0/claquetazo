@@ -1,3 +1,8 @@
+NOVEDAD v42 - La imagen se ve en las tarjetas del hilo (diseño B):
+ - Las tarjetas de albumes y temporadas ahora miden 56 px y la imagen se ve a la derecha, difuminada suave, y se funde hacia la izquierda donde esta el nombre. La nota va en una pastillita oscura para que siempre se lea.
+ - Es igual en albumes y en temporadas. Lo demas (hilo, botones, personajes) no cambia.
+ (No hay que correr ningun SQL nuevo. Sube TODO el contenido del zip.)
+
 NOVEDAD v41 - "El hilo": temporadas y albumes en una linea vertical, personajes solo con la bolita:
  - Las cajas VHS y el carrusel de vinilos ya no estan. Ahora las TEMPORADAS (en una serie) y los ALBUMES (en una banda) cuelgan de una linea vertical con un punto (T1, T2... / A1, A2...). Cada una es una tarjeta bajita: nombre, año, plones y la palabra del nivel (melo, suave...). Ya no dice cuantos episodios tiene.
  - Siempre van ordenadas por calificacion, de mejor a peor; las que no tienen nota quedan al final.
