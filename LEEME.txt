@@ -1,3 +1,10 @@
+NOVEDAD v44 - El punto que gira a lapiz, y acciones mas compactas:
+ - Al abrir un album o una temporada, el punto de la izquierda (A1, T2...) gira como una moneda y muestra un lapiz. Tocas el lapiz y se abre la edicion (nombre, año, portada, plones, descripcion, eliminar). Al cerrar vuelve a A1. Si la seccion esta cerrada, tocar el punto solo la abre.
+ - Se acabaron los botones grandes de abajo (+ Cancion, Editar descripcion y el lapiz). Ahora hay una linea delgada para escribir directo: "+ Cancion" (o "+ Episodio") y Enter. En albumes tambien puedes pegar la lista completa.
+ - La descripcion se edita tocandola. Si no tiene, sale un "+ Descripcion" chiquito.
+ - Con "reducir movimiento" el giro no se anima. El visitante no ve nada de esto.
+ (No hay que correr ningun SQL nuevo. Sube TODO el contenido del zip.)
+
 NOVEDAD v43 - La imagen de las tarjetas se ve nitida (opcion 2):
  - En albumes y temporadas la imagen ocupa la mitad derecha de la tarjeta, sin difuminar, y solo se funde suave hacia el nombre. Ahora usa la imagen grande, asi se ve con mas detalle.
  - La puntuacion (nube, numero y palabra del nivel) pasa debajo del nombre, junto al año, para no tapar la imagen.

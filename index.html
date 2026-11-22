@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=43">
-<link rel="icon" href="favicon.svg?v=43" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=43" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=43">
+<link rel="manifest" href="manifest.webmanifest?v=44">
+<link rel="icon" href="favicon.svg?v=44" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=44" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=44">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1803,20 +1803,13 @@ button.pop-x{background:none;padding:0;cursor:pointer}
 .hl-desc .fc-desc{margin-top:0}
 .hl-cap{margin:12px 0 0;font:600 .64rem var(--ui);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
 .hl-b .cn-l{margin-top:0}
-.hl-bt{display:flex;gap:8px;align-items:center;margin-top:12px}
-.hl-btn{flex:1;min-width:0;min-height:44px;padding:0 8px;border:1px dashed var(--plon-on);border-radius:22px;background:none;color:var(--plon-on);font:600 .8rem var(--ui);cursor:pointer}
-.hl-btn:hover,.hl-btn:focus-visible{background:rgba(255,154,60,.08)}
-.hl-ed{flex:none;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:none;color:var(--ink-dim);cursor:pointer}
-.hl-ed svg{width:18px;height:18px}
-.hl-ed:hover,.hl-ed:focus-visible{color:var(--ink);border-color:var(--ink-faint)}
 .hl-ver{display:block;margin:2px 0 0;min-height:44px;padding:0;border:0;background:none;color:var(--plon-on);font:600 .82rem var(--ui);cursor:pointer;text-align:left}
 .hl-b .ca-add{margin-top:10px}
 .hl-b .vh-add{margin-top:10px}
 .vh-in{flex:1;min-width:0;min-height:38px;padding:8px 12px}
 .hl-b .ayuda{margin:10px 0 0}
 .ca-pn.solo{display:block;padding-top:0}
-.ca-pn.solo .hl-bt{margin-top:12px}
-@media (prefers-reduced-motion:reduce){.hl-ch,.hl-pt{transition:none}}
+.ca-pn.solo @media (prefers-reduced-motion:reduce){.hl-ch,.hl-pt,.pt-in{transition:none}}
 
 /* ---------- Personajes: la bolita, el nombre y la puntuación ---------- */
 .pj{margin-top:20px}
@@ -1840,6 +1833,28 @@ button.pj-av:focus-visible{outline:2px solid var(--plon-on);outline-offset:3px;b
 .hl-b .ca-c .pc .pn-v{min-width:44px}
 
 /* la imagen ocupa la mitad derecha; la nota va debajo del nombre, junto al año */
+
+/* v44: el punto gira a lápiz al abrir; la línea para escribir; descripción tocable */
+.hl-pt.bt{padding:0;border:0;background:none;cursor:pointer;perspective:200px;color:inherit}
+.hl-it.on .hl-pt.bt{background:none}
+.hl-pt.bt::after{content:"";position:absolute;inset:-6px}
+.pt-in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.3,.7,.3,1)}
+.hl-it.on .pt-in{transform:rotateY(180deg)}
+.pt-f{position:absolute;inset:0;box-sizing:border-box;border:3px solid var(--bg);border-radius:50%;display:grid;place-items:center;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.pt-a{background:var(--surface-2);color:var(--ink)}
+.pt-r{background:var(--plon-on);color:var(--bg);transform:rotateY(180deg)}
+.pt-r svg{width:14px;height:14px}
+.hl-pt.bt:focus-visible{outline:2px solid var(--plon-on);outline-offset:2px;border-radius:50%}
+.hl-b .ca-add,.hl-b .vh-add{margin-top:8px;gap:6px;align-items:center}
+.hl-b .ca-in,.hl-b .vh-in{min-height:34px;padding:7px 12px;border:1px dashed rgba(255,154,60,.55);border-radius:17px;background:transparent;font-size:.86rem;line-height:1.3}
+.hl-b .ca-in::placeholder,.hl-b .vh-in::placeholder{color:var(--plon-on);opacity:.85}
+.hl-b .ca-in:focus,.hl-b .vh-in:focus{border-style:solid}
+.hl-b .ca-go{min-height:30px;padding:0 12px;font-size:.74rem}
+.hl-desc.ed{cursor:pointer;border-radius:10px;-webkit-tap-highlight-color:rgba(255,154,60,.12)}
+.hl-desc.ed:focus-visible{outline:2px solid var(--plon-on);outline-offset:2px}
+.hl-dl{display:inline-block;margin:2px 0 0;min-height:30px;padding:0;border:0;background:none;color:var(--ink-dim);font:600 .76rem var(--ui);cursor:pointer}
+.hl-dl:hover,.hl-dl:focus-visible{color:var(--plon-on)}
+@media (prefers-reduced-motion:reduce){.pt-in{transition:none}}
 </style>
 </head>
 <body>
@@ -5732,24 +5747,26 @@ function caCancion(c, dueno) {
 }
 function caLista(alb, dueno) {   // las calificadas de mejor a peor; las que no tienen nota se esconden detrás de «Ver las N sin calificar»
   const l = caOrdenCanciones(albCanciones(alb, dueno));
-  if (!l.length) return '<p class="ayuda tb-v">' + (dueno ? 'Todavía no hay canciones. Toca «+ Canción» para agregar una o pegar la lista del álbum.' : 'Todavía no hay canciones de este álbum.') + '</p>';
+  if (!l.length) return '<p class="ayuda tb-v">' + (dueno ? 'Todavía no hay canciones. Escribe una abajo o pega la lista del álbum.' : 'Todavía no hay canciones de este álbum.') + '</p>';
   const con = l.filter(function (c) { return notaDe(c) != null; }), sin = l.filter(function (c) { return notaDe(c) == null; }), lista = function (z) { return '<div class="cn-l">' + z.map(function (c) { return caCancion(c, dueno); }).join('') + '</div>'; };
   if (!con.length) return lista(sin);
   if (!sin.length) return lista(con);
   const ver = !!vhSt().sin[alb.id];
   return lista(con) + '<button type="button" class="hl-ver" data-action="hl-sin" data-id="' + alb.id + '" aria-expanded="' + ver + '">' + (ver ? 'Esconder las ' + sin.length + ' sin calificar' : 'Ver las ' + sin.length + ' sin calificar') + '</button>' + (ver ? lista(sin) : '');
 }
-function caAddHTML(alb) {   // escondido hasta que se toca «+ Canción»
-  return '<div class="ca-addw"' + (vhSt().add[alb.id] ? '' : ' hidden') + '><div class="ca-add"><textarea class="in ca-in" rows="1" enterkeyhint="send" autocapitalize="sentences" maxlength="6000" placeholder="Nombre de la canción… (Enter) o pega la lista" aria-label="Agregar canciones a ' + esc(alb.titulo || 'el álbum') + '"></textarea>' +
+function caAddHTML(alb) {   // una línea delgada siempre a la vista para escribir canciones
+  return '<div class="ca-addw"><div class="ca-add"><textarea class="in ca-in" rows="1" enterkeyhint="send" autocapitalize="sentences" maxlength="6000" placeholder="+ Canción (o pega la lista)" aria-label="Agregar canciones a ' + esc(alb.titulo || 'el álbum') + '"></textarea>' +
     '<button type="button" class="ca-go" data-action="ca-add" data-id="' + alb.id + '">Agregar</button></div><p class="ayuda ca-hint" hidden></p></div>';
 }
 /* el cuerpo de un álbum: descripción arriba, canciones, y los botones */
+function hlDescHTML(desc, dueno, data) {   // la descripción: si eres el dueño la tocas y se edita; sin descripción, un «+ Descripción» chiquito
+  if (!dueno) return desc ? '<div class="hl-desc">' + fcDesc(desc) + '</div>' : '';
+  if (!desc) return '<button type="button" class="hl-dl" data-action="hl-desc"' + data + '>+ Descripción</button>';
+  return '<div class="hl-desc ed" data-action="hl-desc" role="button" tabindex="0" aria-label="Editar la descripción"' + data + '>' + fcDesc(desc) + '</div>';
+}
 function caCuerpoAlb(x, dueno) {
   const desc = fcTxt(x);
-  return (desc ? '<div class="hl-desc">' + fcDesc(desc) + '</div>' : '') + '<div class="ca-lista">' + caLista(x, dueno) + '</div>' +
-    (dueno ? '<div class="hl-bt"><button type="button" class="hl-btn" data-action="hl-add" aria-label="Agregar canción a ' + esc(x.titulo || 'el álbum') + '">+ Canción</button>' +
-      '<button type="button" class="hl-btn" data-action="hl-desc" data-id="' + x.id + '">' + (desc ? 'Editar descripción' : '+ Descripción') + '</button>' +
-      '<button type="button" class="hl-ed" data-action="ca-edit" data-id="' + x.id + '" aria-label="Editar ' + esc(x.titulo || 'el álbum') + '">' + FC_I.lapiz + '</button></div>' + caAddHTML(x) : '');
+  return hlDescHTML(desc, dueno, ' data-id="' + x.id + '"') + '<div class="ca-lista">' + caLista(x, dueno) + '</div>' + (dueno ? caAddHTML(x) : '');
 }
 function caPortadaBtn(x) {
   const tiene = !!caFoto(x);
@@ -5763,7 +5780,7 @@ function fcAlbumesHTML(b, dueno) {
   if (!l.length) return '<p class="ayuda">Todavía no hay álbumes de esta banda.' + (dueno ? ' Toca «+ Álbum» o usa «Traer discografía» en el menú ⋯ de arriba.' : '') + '</p>';
   const key = b.id + '.alb', ab = hlAbierto(key, l);
   return (p ? perProm(p.v, p.n) : '') + '<div class="hl" data-hl="' + esc(key) + '"><span class="hl-l" aria-hidden="true"></span>' +
-    l.map(function (x, i) { return hlItem({ id: x.id, dot: 'A' + (i + 1), nombre: x.titulo || 'Sin título', ano: (x.datos || {}).estreno || '', nt: notaDe(x), portada: fichaImgUrl(x, true), hue: caHue(x.titulo), on: x.id === ab, cuerpo: caPanelAlb(x, i, x.id === ab, dueno) }); }).join('') + '</div>';
+    l.map(function (x, i) { return hlItem({ id: x.id, dot: 'A' + (i + 1), nombre: x.titulo || 'Sin título', ano: (x.datos || {}).estreno || '', nt: notaDe(x), portada: fichaImgUrl(x, true), hue: caHue(x.titulo), on: x.id === ab, ed: dueno ? { a: 'ca-edit', id: x.id } : null, cuerpo: caPanelAlb(x, i, x.id === ab, dueno) }); }).join('') + '</div>';
 }
 /* --- Las canciones de un álbum (su propia página): lo mismo que el cuerpo de la tarjeta --- */
 function fcCancionesAlbumHTML(b, dueno) {
@@ -6586,15 +6603,23 @@ function hlAbierto(key, items) {   // la que escogiste; por defecto la primera (
   if (v === '') return '';
   return items.some(function (x) { return x.id === v; }) ? v : (items.length ? items[0].id : '');
 }
-/* o: id, dot, nombre, ano, nt, sinNota, portada, hue, on, cuerpo */
+/* o: id, dot, nombre, ano, nt, sinNota, portada, hue, on, cuerpo, ed (solo dueño: { a, id, n }) → el punto es un botón que gira a lápiz al abrir */
+function hlPunto(o) {
+  if (!o.ed) return '<span class="hl-pt" aria-hidden="true">' + esc(o.dot) + '</span>';
+  return '<button type="button" class="hl-pt bt" data-action="hl-pt" data-ed="' + esc(o.ed.a) + '" data-id="' + esc(o.ed.id) + '" data-n="' + esc(o.ed.n == null ? '' : o.ed.n) + '" data-nom="' + esc(o.nombre) + '" aria-label="' + (o.on ? 'Editar ' : 'Abrir ') + esc(o.nombre) + '">' +
+    '<span class="pt-in"><span class="pt-f pt-a">' + esc(o.dot) + '</span><span class="pt-f pt-r">' + FC_I.lapiz + '</span></span></button>';
+}
 function hlItem(o) {
   const nv = o.nt != null ? nivel(o.nt) : null;
-  return '<div class="hl-it' + (o.on ? ' on' : '') + '" data-id="' + esc(o.id) + '" style="--h:' + o.hue + (nv ? ';--vc:' + nv.color : '') + '"><span class="hl-pt" aria-hidden="true">' + esc(o.dot) + '</span>' +
+  return '<div class="hl-it' + (o.on ? ' on' : '') + '" data-id="' + esc(o.id) + '" style="--h:' + o.hue + (nv ? ';--vc:' + nv.color : '') + '">' + hlPunto(o) +
     '<button type="button" class="hl-h" data-action="hl-tog" aria-expanded="' + !!o.on + '">' +
     (o.portada ? '<span class="hl-bg" aria-hidden="true"><img src="' + esc(o.portada) + '" alt="" draggable="false" loading="lazy" decoding="async" onerror="this.remove()"></span>' : '') +
     '<span class="hl-nm"><b>' + esc(o.nombre) + '</b><span class="hl-sub">' + (o.ano ? '<small>' + esc(o.ano) + '</small>' : '') +
     (o.sinNota ? '' : nv ? '<span class="hl-pl"><span class="hl-nn">' + TL_NUBE + '<em>' + o.nt.toFixed(1) + '</em></span><u>' + esc(nv.nombre) + '</u></span>' : '<span class="hl-pl vacio"><u>sin calificar</u></span>') + '</span></span>' + HL_CHEV + '</button>' +
     '<div class="hl-b">' + o.cuerpo + '</div></div>';
+}
+function hlPuntos(w) {   // el nombre accesible del punto cambia con la sección (abrir ↔ editar)
+  w.querySelectorAll('.hl-pt.bt').forEach(function (p) { const it = p.closest('.hl-it'); p.setAttribute('aria-label', (it && it.classList.contains('on') ? 'Editar ' : 'Abrir ') + (p.dataset.nom || '')); });
 }
 function hlClic(a, b) {
   switch (a) {
@@ -6603,7 +6628,13 @@ function hlClic(a, b) {
       const abrir = !it.classList.contains('on');
       w.querySelectorAll('.hl-it.on').forEach(function (x) { x.classList.remove('on'); const h = x.querySelector('.hl-h'); if (h) h.setAttribute('aria-expanded', 'false'); });
       if (abrir) { it.classList.add('on'); b.setAttribute('aria-expanded', 'true'); }
-      fcS().sel[w.dataset.hl] = abrir ? it.dataset.id : ''; return true;
+      fcS().sel[w.dataset.hl] = abrir ? it.dataset.id : ''; hlPuntos(w); return true;
+    }
+    case 'hl-pt': {   // cerrada: la abre; abierta: el punto ya es un lápiz y abre la edición
+      const it = b.closest('.hl-it'); if (!it) return true;
+      if (!it.classList.contains('on')) { const h = it.querySelector('.hl-h'); if (h) hlClic('hl-tog', h); return true; }
+      const e = document.createElement('button'); e.dataset.id = b.dataset.id; e.dataset.n = b.dataset.n;
+      fcClic(b.dataset.ed, e); return true;
     }
     case 'hl-add': {   // «+ Episodio» / «+ Canción»: se abre o se cierra la fila para escribir
       const pn = b.closest('.hl-pn'), fila = pn && pn.querySelector('.vh-add, .ca-addw'); if (!fila) return true;
@@ -6640,6 +6671,13 @@ async function e41GuardarDesc() {
   finally { estado.guardando = false; const g2 = $('#e37-g'); if (g2) { g2.disabled = false; g2.textContent = 'Guardar'; } }
 }
 
+/* la descripción se edita tocándola (Enter o espacio también) */
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const d = e.target && e.target.classList && e.target.classList.contains('hl-desc') && e.target.dataset.action === 'hl-desc' ? e.target : null;
+  if (d) { e.preventDefault(); d.click(); }
+});
+
 /* ---------- v41: las temporadas de una serie como un hilo (antes cajas de VHS) — su cuerpo: descripción, episodios destacados y botones ---------- */
 const vhSt = () => { const s = fcS(); s.sin = s.sin || {}; s.add = s.add || {}; return s; };
 
@@ -6671,12 +6709,10 @@ function vhPanel(f, on, dueno, serieId) {
   const desc = f.tm ? fcTxt(f.tm) : '', hay = f.es.length > 0, p = fcPorId(serieId);
   const lista = hay ? '<p class="hl-cap">Episodios destacados</p><div class="ca-lista"><div class="cn-l">' + fcPorPlones(f.es).map(function (c) { return vhEpisodio(c, dueno); }).join('') + '</div></div>' : '';
   const vacio = !desc && !hay && !(dueno && f.n && p) ? '<p class="ayuda tb-v">Todavía no hay descripción ni episodios.</p>' : '';
-  const botones = dueno && f.n && p ?
-    '<div class="hl-bt"><button type="button" class="hl-btn" data-action="hl-add" aria-label="Agregar episodio a ' + esc(f.nombre) + '">+ Episodio</button>' +
-    '<button type="button" class="hl-btn" data-action="hl-desc" data-id="' + (f.tm ? f.tm.id : '') + '" data-serie="' + esc(serieId) + '" data-n="' + f.n + '">' + (desc ? 'Editar descripción' : '+ Descripción') + '</button>' +
-    '<button type="button" class="hl-ed" data-action="' + (f.tm ? 'ca-edit' : 'vh-crear') + '" data-id="' + (f.tm ? f.tm.id : serieId) + '" data-n="' + f.n + '" aria-label="Editar ' + esc(f.nombre) + '">' + FC_I.lapiz + '</button></div>' +
-    '<div class="ca-add vh-add"' + (vhSt().add[serieId + '.' + f.id] ? '' : ' hidden') + '><input class="in vh-in" type="text" enterkeyhint="send" autocapitalize="sentences" maxlength="200" autocomplete="off" placeholder="Nombre del episodio… (Enter)" aria-label="Agregar episodio a ' + esc(f.nombre) + '"><button type="button" class="ca-go" data-action="vh-add" data-id="' + serieId + '" data-n="' + f.n + '">Agregar</button></div>' : '';
-  return '<div class="vh-pn hl-pn" data-id="' + f.id + '" data-serie="' + esc(serieId) + '" data-n="' + f.n + '">' + (desc ? '<div class="hl-desc">' + fcDesc(desc) + '</div>' : '') + lista + vacio + botones + '</div>';
+  const ed = dueno && f.n && p;
+  const botones = ed ? '<div class="ca-add vh-add"><input class="in vh-in" type="text" enterkeyhint="send" autocapitalize="sentences" maxlength="200" autocomplete="off" placeholder="+ Episodio… (Enter)" aria-label="Agregar episodio a ' + esc(f.nombre) + '"><button type="button" class="ca-go" data-action="vh-add" data-id="' + serieId + '" data-n="' + f.n + '">Agregar</button></div>' : '';
+  const dd = ed ? hlDescHTML(desc, true, ' data-id="' + (f.tm ? f.tm.id : '') + '" data-serie="' + esc(serieId) + '" data-n="' + f.n + '"') : (desc ? '<div class="hl-desc">' + fcDesc(desc) + '</div>' : '');
+  return '<div class="vh-pn hl-pn" data-id="' + f.id + '" data-serie="' + esc(serieId) + '" data-n="' + f.n + '">' + dd + lista + vacio + botones + '</div>';
 }
 
 /* --- Las temporadas de una serie: el hilo + personajes --- */
@@ -6685,7 +6721,7 @@ function fcTemporadasHTML(b, dueno) {
   if (!items.length) return (p ? perProm(p.v, p.n) : '') + '<p class="ayuda">Todavía no has calificado temporadas ni episodios de esta serie.</p>' + pj;
   const key = b.id + '.tmp', ab = hlAbierto(key, items);
   return (p ? perProm(p.v, p.n) : '') + '<div class="hl" data-hl="' + esc(key) + '"><span class="hl-l" aria-hidden="true"></span>' +
-    items.map(function (f) { return hlItem({ id: f.id, dot: f.n ? 'T' + f.n : '—', nombre: f.nombre, ano: f.ano, nt: f.nt, sinNota: !f.n, portada: f.portada, hue: caHue((b.titulo || '') + f.id), on: f.id === ab, cuerpo: vhPanel(f, f.id === ab, dueno, b.id) }); }).join('') + '</div>' + pj;
+    items.map(function (f) { return hlItem({ id: f.id, dot: f.n ? 'T' + f.n : '—', nombre: f.nombre, ano: f.ano, nt: f.nt, sinNota: !f.n, portada: f.portada, hue: caHue((b.titulo || '') + f.id), on: f.id === ab, ed: dueno && f.n ? { a: f.tm ? 'ca-edit' : 'vh-crear', id: f.tm ? f.tm.id : b.id, n: f.n } : null, cuerpo: vhPanel(f, f.id === ab, dueno, b.id) }); }).join('') + '</div>' + pj;
 }
 
 /* --- Episodios dentro del cuerpo: agregar, quitar, calificar sin salir de la pantalla --- */
@@ -10296,7 +10332,7 @@ document.addEventListener('click', function (e) {
     case 'per-ambos': { const s = estado.sem; if (s && s.tipo === 'persona') { const prim = s.perPrim || (perRol(s) === 'actor' ? 'actor' : 'director'); s.datos.rol = b.checked ? 'ambos' : prim; s.perPrim = prim; marcarSem(); } break; }
     case 'ser-crear': estado.serNueva = b.dataset.n || ''; location.hash = '#sembrar-serie'; break;
     case 'mus-crear-album': estado.albPre = { n: b.dataset.n || '', b: b.dataset.b || '' }; location.hash = '#sembrar-album'; break;
-    case 'cj': case 'tb': case 'fc-vm': case 'fc-ord': case 'fc-menu': case 'yt': case 'fc-nuevo-alb': case 'fc-nueva-can': case 'fc-nuevo-epi': case 'ca-ir': case 'ca-paso': case 'ca-add': case 'ca-nota': case 'ca-poner': case 'ca-quitar': case 'ca-edit': case 'e37-cerrar': case 'e37-guardar': case 'e37-borrar': case 'e37-nota': case 'pop-mas': case 'pc-menos': case 'pc-mas': case 'pc-quitar': case 'e37-nota-abrir': case 'hl-tog': case 'hl-add': case 'hl-desc': case 'hl-sin': case 'vh-add': case 'vh-quitar': case 'vh-crear': case 'vh-nota': case 'pj-nuevo': case 'pj-edit': case 'e39-tmp': case 'e39-otra': case 'dc-completar': case 'dc-abrir': case 'dc-cerrar': case 'dc-buscar': case 'dc-elegir': case 'dc-tipo': case 'dc-sel': case 'dc-todas': case 'dc-pistas': case 'dc-importar': case 'dc-atras': case 'fb-ant': case 'fb-pp': case 'fb-sig': case 'fb-x': fcClic(a, b); break;
+    case 'cj': case 'tb': case 'fc-vm': case 'fc-ord': case 'fc-menu': case 'yt': case 'fc-nuevo-alb': case 'fc-nueva-can': case 'fc-nuevo-epi': case 'ca-ir': case 'ca-paso': case 'ca-add': case 'ca-nota': case 'ca-poner': case 'ca-quitar': case 'ca-edit': case 'e37-cerrar': case 'e37-guardar': case 'e37-borrar': case 'e37-nota': case 'pop-mas': case 'pc-menos': case 'pc-mas': case 'pc-quitar': case 'e37-nota-abrir': case 'hl-tog': case 'hl-pt': case 'hl-add': case 'hl-desc': case 'hl-sin': case 'vh-add': case 'vh-quitar': case 'vh-crear': case 'vh-nota': case 'pj-nuevo': case 'pj-edit': case 'e39-tmp': case 'e39-otra': case 'dc-completar': case 'dc-abrir': case 'dc-cerrar': case 'dc-buscar': case 'dc-elegir': case 'dc-tipo': case 'dc-sel': case 'dc-todas': case 'dc-pistas': case 'dc-importar': case 'dc-atras': case 'fb-ant': case 'fb-pp': case 'fb-sig': case 'fb-x': fcClic(a, b); break;
     case 'rec-nueva': recAbrir(); break;
     case 'rec-cerrar': estado.recF = null; cerrarHoja('hoja-rec'); break;
     case 'rec-fmt': recFormato(b.dataset.f); break;
