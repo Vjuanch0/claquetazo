@@ -1,3 +1,13 @@
+NOVEDAD v41 - "El hilo": temporadas y albumes en una linea vertical, personajes solo con la bolita:
+ - Las cajas VHS y el carrusel de vinilos ya no estan. Ahora las TEMPORADAS (en una serie) y los ALBUMES (en una banda) cuelgan de una linea vertical con un punto (T1, T2... / A1, A2...). Cada una es una tarjeta bajita: nombre, año, plones y la palabra del nivel (melo, suave...). Ya no dice cuantos episodios tiene.
+ - Siempre van ordenadas por calificacion, de mejor a peor; las que no tienen nota quedan al final.
+ - Tocas una y se abre (una sola abierta a la vez; tocarla otra vez la cierra). Por dentro, de arriba a abajo: la descripcion (si tiene) -> los episodios destacados / las canciones -> los botones "+ Episodio" / "+ Cancion", "+ Descripcion" (o "Editar descripcion") y un lapiz para editar todo.
+ - La portada del album (o la imagen de la temporada) se ve difuminada detras de la tarjeta; el nombre y la puntuacion se quedan nitidos encima.
+ - Canciones de un album: se ven las calificadas de mejor a peor; las que no tienen nota quedan escondidas detras de "Ver las N sin calificar". "+ Cancion" abre la fila para escribir (Enter) o pegar la lista; queda abierta para seguir agregando.
+ - La pagina propia de un album muestra lo mismo que la tarjeta abierta.
+ - Personajes: solo la bolita con la foto, el nombre chiquito y la puntuacion. Nadie resalta (sin aro, sin "El mejor", sin tarjeta de detalle). Tocas una bolita para editarla.
+ (No hay que correr ningun SQL nuevo. Sube TODO el contenido del zip.)
+
 NOVEDAD v40 - La cinta sale al frente y "+ Temporada" sin salirte de la serie:
  - La cinta VHS ahora sale POR DELANTE de las cajas vecinas: al sacarla, la caja se adelanta un poco, se endereza, la cinta viene hacia ti y las cajas de la derecha le abren paso (y se oscurecen). Al guardarla todo vuelve a su sitio.
  - "+ Temporada" ya no te manda a otra pagina: abre un pop-up encima de la serie con TODO junto: numero de temporada (propone el siguiente libre; marca con check las que ya existen; "Otra" para numeros altos), imagen de la caja, nombre opcional, ano, plones y descripcion. Al guardar te quedas en la serie y la caja nueva queda elegida en el centro.
