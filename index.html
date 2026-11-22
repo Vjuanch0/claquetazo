@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#05181c">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="manifest" href="manifest.webmanifest?v=42">
-<link rel="icon" href="favicon.svg?v=42" type="image/svg+xml">
-<link rel="icon" href="favicon.ico?v=42" sizes="48x48">
-<link rel="apple-touch-icon" href="apple-touch-icon.png?v=42">
+<link rel="manifest" href="manifest.webmanifest?v=43">
+<link rel="icon" href="favicon.svg?v=43" type="image/svg+xml">
+<link rel="icon" href="favicon.ico?v=43" sizes="48x48">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=43">
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Aluna</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1782,15 +1782,16 @@ button.pop-x{background:none;padding:0;cursor:pointer}
 .hl-h{position:relative;isolation:isolate;overflow:hidden;width:100%;min-height:56px;display:flex;align-items:center;gap:10px;padding:6px 12px 6px 14px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(110deg,hsl(var(--h),38%,17%),var(--surface) 70%);color:var(--ink);text-align:left;cursor:pointer}
 .hl-h:focus-visible{outline:2px solid var(--plon-on);outline-offset:2px}
 .hl-bg{position:absolute;inset:0;z-index:-1;overflow:hidden}
-.hl-bg img{position:absolute;right:0;top:0;display:block;width:78%;height:100%;object-fit:cover;object-position:50% 40%;filter:blur(2.5px) saturate(1.1);transform:scale(1.12);pointer-events:none}
-.hl-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,hsl(var(--h),38%,16%) 0%,hsl(var(--h),38%,16%) 30%,hsl(var(--h) 38% 16% / .78) 52%,hsl(var(--h) 38% 16% / 0) 100%)}
-.hl-nm{flex:1;min-width:0;display:flex;align-items:baseline;flex-wrap:wrap;gap:0 8px;text-shadow:0 1px 3px rgba(0,0,0,.45)}
+.hl-bg img{position:absolute;right:0;top:0;display:block;width:52%;height:100%;object-fit:cover;object-position:50% 40%;filter:saturate(1.08);pointer-events:none}
+.hl-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,hsl(var(--h),38%,16%) 0%,hsl(var(--h),38%,16%) 48%,hsl(var(--h) 38% 16% / .8) 60%,hsl(var(--h) 38% 16% / .35) 78%,hsl(var(--h) 38% 16% / 0) 100%)}
+.hl-nm{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:1px;text-shadow:0 1px 4px rgba(0,0,0,.6)}
 .hl-nm b{font:700 1rem/1.2 var(--display);overflow-wrap:anywhere}
+.hl-sub{display:flex;align-items:center;flex-wrap:wrap;gap:0 9px;min-height:18px}
 .hl-nm small{color:var(--ink-dim);font:500 .78rem var(--ui)}
-.hl-pl{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:1px;line-height:1.1;text-shadow:0 1px 3px rgba(0,0,0,.65)}
+.hl-pl{flex:none;display:inline-flex;align-items:center;gap:6px;line-height:1.1}
 .hl-nn{display:inline-flex;align-items:center;gap:4px;color:var(--plon-on)}
-.hl-nn svg{width:16px;height:16px;fill:currentColor}
-.hl-nn em{font:700 .98rem var(--display);font-style:normal;color:var(--ink)}
+.hl-nn svg{width:15px;height:15px;fill:currentColor}
+.hl-nn em{font:700 .92rem var(--display);font-style:normal;color:var(--ink)}
 .hl-pl u{text-decoration:none;font:700 .68rem var(--ui);color:var(--vc,var(--ink-dim));letter-spacing:.02em}
 .hl-pl.vacio u{color:var(--ink-dim);font-weight:600}
 .hl-ch{flex:none;width:18px;height:18px;fill:none;stroke:var(--ink-dim);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
@@ -1838,9 +1839,7 @@ button.pj-av:focus-visible{outline:2px solid var(--plon-on);outline-offset:3px;b
 .hl-b .ca-c .pc .pn-ctl .plones{--pl:1.5rem;gap:1px}
 .hl-b .ca-c .pc .pn-v{min-width:44px}
 
-/* B: la nota va en una pastilla oscura cuando hay imagen detrás */
-.hl-bg ~ .hl-pl{background:rgba(6,14,16,.62);padding:3px 9px 4px;border-radius:12px}
-.hl-bg ~ .hl-pl.vacio{padding:6px 10px;border-radius:10px}
+/* la imagen ocupa la mitad derecha; la nota va debajo del nombre, junto al año */
 </style>
 </head>
 <body>
@@ -5764,7 +5763,7 @@ function fcAlbumesHTML(b, dueno) {
   if (!l.length) return '<p class="ayuda">Todavía no hay álbumes de esta banda.' + (dueno ? ' Toca «+ Álbum» o usa «Traer discografía» en el menú ⋯ de arriba.' : '') + '</p>';
   const key = b.id + '.alb', ab = hlAbierto(key, l);
   return (p ? perProm(p.v, p.n) : '') + '<div class="hl" data-hl="' + esc(key) + '"><span class="hl-l" aria-hidden="true"></span>' +
-    l.map(function (x, i) { return hlItem({ id: x.id, dot: 'A' + (i + 1), nombre: x.titulo || 'Sin título', ano: (x.datos || {}).estreno || '', nt: notaDe(x), portada: caFoto(x), hue: caHue(x.titulo), on: x.id === ab, cuerpo: caPanelAlb(x, i, x.id === ab, dueno) }); }).join('') + '</div>';
+    l.map(function (x, i) { return hlItem({ id: x.id, dot: 'A' + (i + 1), nombre: x.titulo || 'Sin título', ano: (x.datos || {}).estreno || '', nt: notaDe(x), portada: fichaImgUrl(x, true), hue: caHue(x.titulo), on: x.id === ab, cuerpo: caPanelAlb(x, i, x.id === ab, dueno) }); }).join('') + '</div>';
 }
 /* --- Las canciones de un álbum (su propia página): lo mismo que el cuerpo de la tarjeta --- */
 function fcCancionesAlbumHTML(b, dueno) {
@@ -6593,8 +6592,8 @@ function hlItem(o) {
   return '<div class="hl-it' + (o.on ? ' on' : '') + '" data-id="' + esc(o.id) + '" style="--h:' + o.hue + (nv ? ';--vc:' + nv.color : '') + '"><span class="hl-pt" aria-hidden="true">' + esc(o.dot) + '</span>' +
     '<button type="button" class="hl-h" data-action="hl-tog" aria-expanded="' + !!o.on + '">' +
     (o.portada ? '<span class="hl-bg" aria-hidden="true"><img src="' + esc(o.portada) + '" alt="" draggable="false" loading="lazy" decoding="async" onerror="this.remove()"></span>' : '') +
-    '<span class="hl-nm"><b>' + esc(o.nombre) + '</b>' + (o.ano ? '<small>' + esc(o.ano) + '</small>' : '') + '</span>' +
-    (o.sinNota ? '' : nv ? '<span class="hl-pl"><span class="hl-nn">' + TL_NUBE + '<em>' + o.nt.toFixed(1) + '</em></span><u>' + esc(nv.nombre) + '</u></span>' : '<span class="hl-pl vacio"><u>sin calificar</u></span>') + HL_CHEV + '</button>' +
+    '<span class="hl-nm"><b>' + esc(o.nombre) + '</b><span class="hl-sub">' + (o.ano ? '<small>' + esc(o.ano) + '</small>' : '') +
+    (o.sinNota ? '' : nv ? '<span class="hl-pl"><span class="hl-nn">' + TL_NUBE + '<em>' + o.nt.toFixed(1) + '</em></span><u>' + esc(nv.nombre) + '</u></span>' : '<span class="hl-pl vacio"><u>sin calificar</u></span>') + '</span></span>' + HL_CHEV + '</button>' +
     '<div class="hl-b">' + o.cuerpo + '</div></div>';
 }
 function hlClic(a, b) {
@@ -6653,9 +6652,9 @@ function vhItems(b, dueno) {
   const sueltos = epis.filter(function (x) { return !serNum(x); });
   const items = filas.map(function (f) {
     const d = (f.tm && f.tm.datos) || {};
-    return { id: 'T' + f.n, n: f.n, tm: f.tm, es: f.es, nt: f.tm ? notaDe(f.tm) : null, nombre: d.nombre ? String(d.nombre) : 'Temporada ' + f.n, ano: d.estreno || '', portada: f.tm ? fichaImgUrl(f.tm, false) : fichaImgUrl(b, false) };
+    return { id: 'T' + f.n, n: f.n, tm: f.tm, es: f.es, nt: f.tm ? notaDe(f.tm) : null, nombre: d.nombre ? String(d.nombre) : 'Temporada ' + f.n, ano: d.estreno || '', portada: f.tm ? fichaImgUrl(f.tm, true) : fichaImgUrl(b, true) };
   });
-  if (sueltos.length) items.push({ id: 'T0', n: 0, tm: null, es: sueltos, nt: null, nombre: 'Otros episodios', ano: '', portada: fichaImgUrl(b, false) });
+  if (sueltos.length) items.push({ id: 'T0', n: 0, tm: null, es: sueltos, nt: null, nombre: 'Otros episodios', ano: '', portada: fichaImgUrl(b, true) });
   return items;
 }
 
